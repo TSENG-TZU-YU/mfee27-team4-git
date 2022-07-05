@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="zh-tw">
 
@@ -24,7 +22,7 @@
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
-            
+            <?php require("nav.php") ?>
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
@@ -59,113 +57,114 @@
                     <div class="row">
                         <!-- 文字按鈕 -->
                         <a class="col-1 btn btn-green me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/create-icon.svg" width="16" height="16"></img>
+                            <img class="mb-1" src="icon/create-icon.svg" width="16" height="16"></img>
                             新增
                         </a>
                         <a class="col-1 btn btn-khak me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
+                            <img class="mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
                             修改
                         </a>
                         <a class="col-1 btn btn-red me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
+                            <img class="mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
                             刪除
                         </a>
                         <a class="col-1 btn btn-grey me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
+                            <img class="mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
                             詳細
                         </a>
                         <!-- 無文字按鈕 -->
                         <a class="col-1 btn btn-green me-2" href="#" src="icon/create-icon.svg">
-                            <img class="bi pe-none mb-1" src="icon/create-icon.svg" width="16" height="16"></img>
+                            <img class="mb-1" src="icon/create-icon.svg" width="16" height="16"></img>
                         </a>
                         <a class="col-1 btn btn-khak me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
+                            <img class="mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
                         </a>
                         <a class="col-1 btn btn-red me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
+                            <img class="mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
                         </a>
                         <a class="col-1 btn btn-grey me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
+                            <img class="mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
                         </a>
                     </div>
-                    <!-- 按鈕 end-->
-
-                    <hr>
-                    <table class="table mt-5">
-                        <thead>
-                            <tr>
-                                <th scope="col">管理者編號</th>
-                                <th scope="col">管理者名字</th>
-                                <th scope="col">管理者帳號</th>
-                                <th scope="col">管理權限</th>
-                                <th scope="col">建立時間</th>
-                                <th scope="col">管理操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th>1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-grey me-3" type="button">
-                                        <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
-                                        詳細
-                                    </button>
-                                    <button class="btn btn-khak" type="button">
-                                        <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
-                                        修改
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>@fat</td>
-                                <td>
-                                    <button class="btn btn-grey me-3" type="button">
-                                        <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
-                                        詳細
-                                    </button>
-                                    <button class="btn btn-khak" type="button">
-                                        <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
-                                        修改
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!-- 頁碼 -->
-                    <div aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- 頁碼 end -->
                 </div>
+                <!-- 按鈕 end-->
 
-
+                <hr>
+                <table class="table mt-5">
+                    <thead>
+                        <tr>
+                            <th scope="col">管理者編號</th>
+                            <th scope="col">管理者名字</th>
+                            <th scope="col">管理者帳號</th>
+                            <th scope="col">管理權限</th>
+                            <th scope="col">建立時間</th>
+                            <th scope="col">管理操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                            <td>@mdo</td>
+                            <td>
+                                <button class="btn btn-grey me-3" type="button">
+                                    <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
+                                    詳細
+                                </button>
+                                <button class="btn btn-khak" type="button">
+                                    <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
+                                    修改
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                            <td>@fat</td>
+                            <td>@fat</td>
+                            <td>
+                                <button class="btn btn-grey me-3" type="button">
+                                    <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
+                                    詳細
+                                </button>
+                                <button class="btn btn-khak" type="button">
+                                    <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
+                                    修改
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- 頁碼 -->
+                <div aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 頁碼 end -->
         </div>
-        <!-- 內容 end -->
 
-        </main>
-        <!-- 主要區塊 main end-->
+
+    </div>
+    <!-- 內容 end -->
+
+    </main>
+    <!-- 主要區塊 main end-->
     </div>
     </div>
 
