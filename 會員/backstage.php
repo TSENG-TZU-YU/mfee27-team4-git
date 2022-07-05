@@ -13,11 +13,9 @@
     <style>
         body {
             background: #265f74;
-            /* fallback for old browsers */
-            background: -webkit-linear-gradient(to top, #6194a7, #265f74);
-            /* Chrome 10-25, Safari 5.1-6 */
-            background: linear-gradient(to top, #6194a7, #265f74);
-            /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            background: -webkit-linear-gradient(to top, #aaa, #265f74);
+            background: linear-gradient(to top, #aaa, #265f74);
+   
 
         }
 
@@ -32,18 +30,21 @@
 <body>
     <div class="vh-100 d-flex justify-content-center align-items-center">
         <div class="sign-up-width">
-            <form>
+            <form action="doLogin.php" method="post">
+                <div class="text-center mb-3">
+                    <h1>Hamaya <br> 後臺登入</h1>
+                </div>
                 <div class="form-floating mb-3 ">
                     <input name="account" type="text" class="form-control input-top" id="floatingInput" placeholder="your account">
                     <label for="floatingInput">Account</label>
                 </div>
-                <div class="for-floating mb-3 ">
-                    <input type="password" class="form-control" id="exampleInputPassword1">
-                    <label for="floatingInputPassword" class="form-label h4">密碼</label>
+                <div class="form-floating mb-3 ">
+                    <input name="password" type="password" class="form-control input-button" id="floatingPassword"  placeholder="password" >
+                    <label for="floatingPassword">Password</label>
                 </div>
 
                 <div class="d-grid gap-2 mb-3">
-                    <button type="submit" class="btn btn-primary d-grid">登入</button>
+                    <button type="submit" class="btn btn-primary d-grid">Sign in</button>
                 </div>
 
             </form>
