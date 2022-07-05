@@ -1,5 +1,8 @@
-
-
+<?php
+require("../db-connect.php");
+session_start();
+$sqlWhere="WHERE member.users.php";
+?>
 <!DOCTYPE html>
 <html lang="zh-tw">
 
@@ -14,7 +17,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <!-- 版面元件樣式 css -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     </link>
 
 </head>
@@ -24,7 +27,7 @@
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
-          
+            <?php require("../nav.php"); ?>
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
@@ -34,7 +37,7 @@
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">xxx</li>
+                        <li class="breadcrumb-item" aria-current="page">會員管理</li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -47,7 +50,7 @@
                         <p class="col-8 m-auto">總共 筆資料</p>
                         <input class="col form-control me-3" type="text">
                         <a class="col-1 btn btn-green" href="#">
-                            <img class="bi pe-none mb-1" src="icon/search-icon.svg" width="16" height="16"></img>
+                            <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                             搜尋
                         </a>
                     </div>
@@ -58,35 +61,24 @@
                     <!-- 按鈕 -->
                     <div class="row">
                         <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/create-icon.svg" width="16" height="16"></img>
-                            新增
+                        <a class="col-1 btn btn-green me-2" href="http://localhost/mfee27-team4-git/member/user-sign-up.php">
+                            <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                            註冊
                         </a>
                         <a class="col-1 btn btn-khak me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
+                            <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                             修改
                         </a>
                         <a class="col-1 btn btn-red me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
+                            <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
                             刪除
                         </a>
                         <a class="col-1 btn btn-grey me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
+                            <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                             詳細
                         </a>
-                        <!-- 無文字按鈕 -->
-                        <a class="col-1 btn btn-green me-2" href="#" src="icon/create-icon.svg">
-                            <img class="bi pe-none mb-1" src="icon/create-icon.svg" width="16" height="16"></img>
-                        </a>
-                        <a class="col-1 btn btn-khak me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
-                        </a>
-                        <a class="col-1 btn btn-red me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
-                        </a>
-                        <a class="col-1 btn btn-grey me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
-                        </a>
+                   
+                     
                     </div>
                     <!-- 按鈕 end-->
 
@@ -111,11 +103,11 @@
                                 <td>@mdo</td>
                                 <td>
                                     <button class="btn btn-grey me-3" type="button">
-                                        <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
+                                        <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                         詳細
                                     </button>
                                     <button class="btn btn-khak" type="button">
-                                        <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
+                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                                         修改
                                     </button>
                                 </td>
@@ -128,11 +120,11 @@
                                 <td>@fat</td>
                                 <td>
                                     <button class="btn btn-grey me-3" type="button">
-                                        <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
+                                        <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                         詳細
                                     </button>
                                     <button class="btn btn-khak" type="button">
-                                        <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
+                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                                         修改
                                     </button>
                                 </td>

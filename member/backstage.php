@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!doctype html>
 <html lang="en">
 
@@ -30,9 +33,9 @@
 <body>
     <div class="vh-100 d-flex justify-content-center align-items-center">
         <div class="sign-up-width">
-            <form action="doLogin.php" method="post">
+            <form action="bgDoLogin.php" method="post">
                 <div class="text-center mb-3">
-                    <h1>Hamaya <br> 後臺登入</h1>
+                    <h1>HAMAY<br> 後臺登入</h1>
                 </div>
                 <div class="form-floating mb-3 ">
                     <input name="account" type="text" class="form-control input-top" id="floatingInput" placeholder="your account">
@@ -42,6 +45,13 @@
                     <input name="password" type="password" class="form-control input-button" id="floatingPassword"  placeholder="password" >
                     <label for="floatingPassword">Password</label>
                 </div>
+                <div class="my-3 d-flex mb-2  ">
+
+                        <?php if (isset($_SESSION["error"])) : ?>
+                            <div class="text-danger"><?= $_SESSION["error"]["message"] ?> </div>
+                        <?php endif; ?>
+
+                    </div>
 
                 <div class="d-grid gap-2 mb-3">
                     <button type="submit" class="btn btn-primary d-grid">Sign in</button>
