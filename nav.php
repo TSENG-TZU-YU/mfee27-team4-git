@@ -23,24 +23,17 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link my-1 <?php if($sqlWhere )echo "nav-active"?> ">
+                <a href="http://localhost/mfee27-team4-git/member/users.php" class="nav-link my-1 <?php if($sqlMember )echo "nav-active"?> ">
                     <img class="mb-1 me-2" src="../icon/member-icon.svg" width="16" height="16"></img>
                     會員管理
                 </a>
             </li>
             <li>
-                <a class="nav-link my-1" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a href="http://localhost/mfee27-team4-git/order/order_list.php" class="nav-link my-1 <?php if($sqlOrder)echo "nav-active"?>" >
                     <img class="mb-1 me-2" src="../icon/order-icon.svg" width="16" height="16"></img>
                     訂單管理
                 </a>
             </li>
-            <div class="collapse" id="multiCollapseExample1">
-                <div>
-                    <a href="#" class="nav-link nav-link-item my-1">樂器商城-訂單紀錄</a>
-                    <a href="#" class="nav-link nav-link-item my-1">音樂教育-報名紀錄</a>
-                    <a href="#" class="nav-link nav-link-item my-1">場地租借-預約紀錄</a>
-                </div>
-            </div>
             <li>
                 <a class="nav-link my-1" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
                     <img class="mb-1 me-2" src="../icon/products-icon.svg" width="16" height="16"></img>
@@ -79,7 +72,7 @@
                 </div>
             </div>
             <li>
-                <a href="#" class="nav-link my-1">
+                <a href="http://localhost/mfee27-team4-git/coupon/coupon.php" class="nav-link my-1">
                     <img class="mb-1 me-2" src="../icon/teacher-icon.svg" width="16" height="16"></img>
                     優惠券
                 </a>

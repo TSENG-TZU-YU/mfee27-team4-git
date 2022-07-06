@@ -1,7 +1,10 @@
 <?php
 require("../db-connect.php");
 session_start();
-$sqlWhere = "WHERE member.users.php";
+$sqlMember = "WHERE member.users.php";
+
+$sql = "SELECT * FROM users WHERE  valid=1 AND enable=0";
+$result = $conn->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -62,70 +65,46 @@ $sqlWhere = "WHERE member.users.php";
                     <!-- 按鈕 -->
                     <div class="row">
                         <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green me-2" href="http://localhost/mfee27-team4-git/member/user-sign-up.php">
+                        <!-- <a class="col-1 btn btn-green me-2" href="http://localhost/mfee27-team4-git/member/user-sign-up.php">
                             <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
-                            會員註冊
-                        </a>
-                        <a class="col-1 btn btn-grey me-2" href="http://localhost/mfee27-team4-git/member/black-list.php">
-                            <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                            黑名單
-                        </a>
-
-
+                            返回
+                        </a> -->
                     </div>
                     <!-- 按鈕 end-->
 
-                    <hr>
                     <table class="table mt-5">
+                        
                         <thead>
                             <tr>
-                                <th scope="col">管理者編號</th>
-                                <th scope="col">管理者名字</th>
-                                <th scope="col">管理者帳號</th>
-                                <th scope="col">管理權限</th>
+                            <th scope="col">會員編號</th>
+                                <th scope="col">會員姓名</th>
+                                <th scope="col">會員帳號</th>
+                                <th scope="col">會員電話</th>
+                                <th scope="col">會員郵件</th>
                                 <th scope="col">建立時間</th>
-                                <th scope="col">管理操作</th>
                             </tr>
                         </thead>
                         <tbody>
+                        <?php while ($row = $result->fetch_assoc()) : ?>
                             <tr>
-                                <th>1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
+                            <th><?php echo $row["id"] ?></th>
+                                    <td><?php echo $row["name"] ?></td>
+                                    <td><?php echo $row["account"] ?></td>
+                                    <td><?php echo $row["phone"] ?></td>
+                                    <td><?php echo $row["email"] ?></td>
+                                    <td><?php echo $row["create_time"] ?></td>
                                 <td>
-                                    <button class="btn btn-grey me-3" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                                        詳細
-                                    </button>
-                                    <button class="btn btn-khak" type="button">
+                                    <a class="btn btn-khak" type="button" href="remove-black-list.php?id=<?= $row["id"] ?>">
                                         <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                        修改
-                                    </button>
+                                        解除黑名單
+                        </a>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>@fat</td>
-                                <td>
-                                    <button class="btn btn-grey me-3" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                                        詳細
-                                    </button>
-                                    <button class="btn btn-khak" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                        修改
-                                    </button>
-                                </td>
-                            </tr>
+                            <?php endwhile;?>
                         </tbody>
                     </table>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example">
+                    <div aria-label="Page navigation example" class="d-flex justify-content-center mt-5">
                         <ul class="pagination">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">

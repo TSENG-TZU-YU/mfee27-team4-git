@@ -83,26 +83,26 @@ $userCount = $result->num_rows;
                         $row = $result->fetch_assoc();
                     ?>
                         <div class="d-flex justify-content-center">
-                            <table class="table table-bordered panel">
+                        <table class="table table-bordered panel">
                                 <tr>
                                     <th>會員編號</th>
                                     <td><?= $row["id"] ?></td>
                                 </tr>
                                 <tr>
                                     <th>會員姓名</th>
-                                    <td><?= $row["account"] ?></td>
+                                    <td> <input type="text" class="form-control" value="<?= $row["name"] ?>"></td>
                                 </tr>
                                 <tr>
                                     <th>會員帳號</th>
-                                    <td><?= $row["name"] ?></td>
+                                    <td><input type="text" class="form-control" value="<?= $row["account"] ?>"></td>
                                 </tr>
                                 <tr>
                                     <th>會員電話</th>
-                                    <td><?= $row["phone"] ?></td>
+                                    <td><input type="text" class="form-control" value="<?= $row["phone"] ?>"></td>
                                 </tr>
                                 <tr>
                                     <th>會員郵件</th>
-                                    <td><?= $row["email"] ?></td>
+                                    <td><input type="text" class="form-control" value="<?= $row["email"] ?>"></td>
                                 </tr>
                                 <tr>
                                     <th>Create Time</th>
@@ -117,14 +117,11 @@ $userCount = $result->num_rows;
                     <?php endif; ?>
                     <div class="py-2  ">
                         <div class="d-flex justify-content-center">
-                            <a class="col-1 btn btn-khak me-3" href="user-edit.php?id=<?=$row["id"]?>">
+                            <a class="col-1 btn btn-khak me-3" href="user-edit.php">
                                 <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                修改
+                                儲存
                             </a>
-                            <a class="col-1 btn btn-red  me-3" href="doDelete.php?id=<?=$row["id"] ?>">
-                                <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                                刪除
-                            </a>
+                   
                         </div>
                     </div>
 

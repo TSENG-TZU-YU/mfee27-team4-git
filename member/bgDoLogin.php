@@ -22,10 +22,13 @@ if($userExist>0){
     ];
 
     $_SESSION["user"]=$user;  //設定user
-    header("location: users.php");
+ 
+
+    header('Location:users.php');
+    // exit;
 
 }else{
-    header("location:backstage.php");
+    // header("location:backstage.php");
 }
 
 ?>

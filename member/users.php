@@ -1,9 +1,8 @@
 <?php
 require("../db-connect.php");
 
-$sqlWhere = "WHERE member.users.php";
-session_start();
-$sql = "SELECT * FROM users ";
+$sqlMember = "WHERE member.users.php";
+$sql = "SELECT * FROM users WHERE  valid=1 AND enable=1";
 $result = $conn->query($sql);
 
 
@@ -39,6 +38,7 @@ $result = $conn->query($sql);
             <!-- 主要區塊 main -->
             <main class="col-10 px-5 py-4">
 
+            
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
@@ -85,7 +85,7 @@ $result = $conn->query($sql);
                         <thead>
                             <tr>
                                 <th scope="col">會員編號</th>
-                                <th scope="col">會員名字</th>
+                                <th scope="col">會員姓名</th>
                                 <th scope="col">會員帳號</th>
                                 <th scope="col">會員電話</th>
                                 <th scope="col">會員郵件</th>
@@ -106,10 +106,10 @@ $result = $conn->query($sql);
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </a>
-                                        <button class="btn btn-khak" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
-                                        加入黑名單
-                                    </button>
+                                        <a class="btn btn-khak" type="button" href="do-black-list.php?id=<?= $row["id"] ?>">
+                                            <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                                            加入黑名單
+                                        </a>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
