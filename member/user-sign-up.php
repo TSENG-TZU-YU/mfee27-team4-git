@@ -20,6 +20,11 @@ $sqlWhere = "WHERE member.users.php";
     <link rel="stylesheet" href="../style.css">
     </link>
 
+    <style>
+        .panel{
+            width: 350px;
+        }
+    </style>
 </head>
 
 <body>
@@ -38,14 +43,14 @@ $sqlWhere = "WHERE member.users.php";
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
                         <li class="breadcrumb-item"><a href="http://localhost/mfee27-team4-git/member/users.php">會員管理</a></li>
-                        <li class="breadcrumb-item" aria-current="page">註冊</li>
+                        <li class="breadcrumb-item" aria-current="page">會員註冊</li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
                 <hr>
 
                 <!-- 註冊會員 -->
-                <h1 class="text-center">會員註冊</h1>
+                <h1 class="text-center mt-5">會員註冊</h1>
                 <div class=" d-flex justify-content-center align-items-center mt-4">
                     <div class="panel">
                         <div class="mb-2 ">
@@ -89,7 +94,7 @@ $sqlWhere = "WHERE member.users.php";
                             <label for="">地址</label>
                             <input type="text" class="form-control" name="address" id="address">
                         </div>
-                        <button class="btn btn-green pe-3" type="button" id="send">送出</button>
+                        <button class="btn btn-green pe-3 mt-4" type="submit" id="send">送出</button>
 
                     </div>
                 </div>

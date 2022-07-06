@@ -1,10 +1,7 @@
 <?php
 require("../db-connect.php");
 session_start();
-$sqlWhere="WHERE member.users.php";
-
-// $sql="SELECT * FROM users ";
-// $result=$conn->query($sql);
+$sqlWhere = "WHERE member.users.php";
 ?>
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -40,7 +37,8 @@ $sqlWhere="WHERE member.users.php";
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">會員管理</li>
+                        <li class="breadcrumb-item"><a href="http://localhost/mfee27-team4-git/member/users.php">會員管理</a></li>
+                        <li class="breadcrumb-item" aria-current="page">黑名單</li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -72,8 +70,8 @@ $sqlWhere="WHERE member.users.php";
                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                             黑名單
                         </a>
-                   
-                     
+
+
                     </div>
                     <!-- 按鈕 end-->
 
@@ -81,18 +79,15 @@ $sqlWhere="WHERE member.users.php";
                     <table class="table mt-5">
                         <thead>
                             <tr>
-                                <th scope="col">會員編號</th>
-                                <th scope="col">會員名字</th>
-                                <th scope="col">會員帳號</th>
-                                <th scope="col">會員狀態</th>
-                                <th scope="col">會員郵件</th>
-                                <th scope="col">會員電話</th>
-                                <th scope="col">會員地址</th>
+                                <th scope="col">管理者編號</th>
+                                <th scope="col">管理者名字</th>
+                                <th scope="col">管理者帳號</th>
+                                <th scope="col">管理權限</th>
                                 <th scope="col">建立時間</th>
+                                <th scope="col">管理操作</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while($row=$result->fetch_assoc()):?>
                             <tr>
                                 <th>1</th>
                                 <td>Mark</td>
@@ -110,7 +105,6 @@ $sqlWhere="WHERE member.users.php";
                                     </button>
                                 </td>
                             </tr>
-                            <?php endwhile;?>
                             <tr>
                                 <th>2</th>
                                 <td>Jacob</td>

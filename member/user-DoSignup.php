@@ -1,9 +1,13 @@
 <?php
 require("../db-connect.php");
 
+$name=$_POST["name"];
 $account=$_POST["account"];
-$name="HAMAY";
-$password=md5("123456");
+$password=$_POST["password"];
+$gender=$_POST["gender"];
+
+
+$password=md5($password);
 
 $sql="SELECT account FROM backstage WHERE account='$account' ";
 

@@ -17,20 +17,16 @@ $userExist=$result->num_rows;  //帳號存在
 if($userExist>0){
     $row=$result->fetch_assoc();
     $user=[
-        // "id"=>$row["id"],
+      
         "name"=>$row["name"],
         "account"=>$row["account"]
       
     ];
-    unset($_SESSION["error"]);
-    // $_SESSION["user"]=$user;
+
+    $_SESSION["user"]=$user;  //設定user
     header("location: users.php");
 
 }else{
-    // echo"帳號密碼錯誤";
-    // $_SESSION["error"]["message"]="帳號密碼錯誤";
- 
-
     header("location:backstage.php");
 }
 
