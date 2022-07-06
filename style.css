@@ -1,10 +1,20 @@
 :root {
   /* 顏色 */
   color: #41464b;
+  --grey-color: #41464b;
   --main-color: #265f74;
   --khak-color: #a79a7e;
   --red-color: #61002d;
+  --blue-color: #4a81b0;
+  --orange-color: #be7844;
+  --purple-color: #533b7e;
+  --light-grey-color: #bfbfbf;
   --light-green-color: #6194a7;
+  --light-khak-color: #e3dccb;
+  --light-red-color: #e2c4d2;
+  --light-blue-color: #cee4f6;
+  --light-orange-color: #f5e7d7;
+  --light-purple-color: #e0d7f3;
   --bg-color: #aaa;
 }
 
@@ -17,7 +27,6 @@ body {
 }
 
 /* ------模組------ */
-
 /* 連結顏色 */
 a {
   color: var(--main-color);
@@ -29,18 +38,69 @@ a:hover {
   color: var(--main-color);
 }
 
+/* ------背景顏色-模組------ */
+/* 背景顏色-綠色 */
+.bg-green-color {
+  background: var(--main-color);
+}
+/* 背景顏色-淺綠色 */
+.bg-light-green-color {
+  background: var(--light-green-color);
+}
+/* 背景顏色-卡其色 */
+.bg-khak-color {
+  background: var(--khak-color);
+}
+/* 背景顏色-淺卡其色 */
+.bg-light-khak-color {
+  background: var(--light-khak-color);
+}
+/* 背景顏色-深紅色 */
+.bg-red-color {
+  background: var(--red-color);
+}
+/* 背景顏色-淺紅色 */
+.bg-light-red-color {
+  background: var(--light-red-color);
+}
+/* 背景顏色-深藍色 */
+.bg-blue-color {
+  background: var(--blue-color);
+}
+/* 背景顏色-淺藍色 */
+.bg-light-blue-color {
+  background: var(--light-blue-color);
+}
+/* 背景顏色-深橘色 */
+.bg-orange-color {
+  background: var(--orange-color);
+}
+/* 背景顏色-淺藍色 */
+.bg-light-orange-color {
+  background: var(--light-orange-color);
+}
+/* 背景顏色-深紫色 */
+.bg-orange-color {
+  background: var(--purple-color);
+}
+/* 背景顏色-淺紫色 */
+.bg-light-orange-color {
+  background: var(--light-purple-color);
+}
+
+/* ------線條顏色-模組------ */
 /* 綠色線 */
 .border-green {
   border-color: #173c49;
   border: 3px;
 }
-
 /* 卡其色線 */
 .border-khak {
   border-color: var(--khak-color);
   border: 3px;
 }
 
+/* ------按鈕-模組------ */
 /* 綠色按鈕 */
 .btn-green {
   background: var(--main-color);
@@ -116,7 +176,11 @@ p {
   --bs-nav-link-color: #fff;
   --bs-nav-link-hover-color: #fff;
 }
-a.signOutLink {
+.signOutLink {
+  color: #fff;
+  text-decoration: none;
+}
+.signOutLink:hover {
   color: #fff;
   text-decoration: none;
 }
