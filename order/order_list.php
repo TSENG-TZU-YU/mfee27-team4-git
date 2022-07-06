@@ -4,6 +4,7 @@ if (isset($_GET["page"])) {
 } else {
     $page = 1;
 }
+session_start();
 require("../db-connect.php");
 $sqlAll = "SELECT * FROM order_product WHERE valid=1";
 $resultAll = $conn->query($sqlAll);

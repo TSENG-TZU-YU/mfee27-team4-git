@@ -6,12 +6,13 @@ $id=$_GET["id"];
 $sql="UPDATE users SET enable=0 WHERE id='$id'";
 
 if ($conn->query($sql) === TRUE) {
-    echo "加入黑名單成功";
+    echo "<script language='JavaScript'>;alert('成功加入黑名單');location.href='users.php';</script>;";
+    
 } else {
     echo "無法加入黑名單: " . $conn->error;
 }
 
-header("location:users.php");
+// header("location:users.php");
 
 
 ?>

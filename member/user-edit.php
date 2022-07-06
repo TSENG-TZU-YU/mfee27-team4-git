@@ -2,14 +2,18 @@
 require("../db-connect.php");
 
 $sqlMember  = "WHERE member.users.php";
-session_start();
+
+if (!isset($_GET["id"])) {
+    echo "沒有參數";
+    exit;
+}
 
 $id = $_GET["id"];
 $sql = "SELECT * FROM users WHERE id=$id AND valid=1";
 $result = $conn->query($sql);
 $userCount = $result->num_rows;
+$row = $result->fetch_assoc();
 
-// $rows=$result->fetch_all(MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -67,7 +71,7 @@ $userCount = $result->num_rows;
                     <!-- 按鈕 -->
                     <div class="row ">
                         <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green mx-3" href="users.php">
+                        <a class="col-1 btn btn-green mx-3" href="user-detail.php?id=<?= $row["id"] ?>">
                             <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
@@ -79,52 +83,83 @@ $userCount = $result->num_rows;
 
                 </div>
                 <div class="container mt-5  ">
-                    <?php if ($userCount > 0) :
-                        $row = $result->fetch_assoc();
-                    ?>
-                        <div class="d-flex justify-content-center">
-                        <table class="table table-bordered panel">
-                                <tr>
-                                    <th>會員編號</th>
-                                    <td><?= $row["id"] ?></td>
-                                </tr>
-                                <tr>
-                                    <th>會員姓名</th>
-                                    <td> <input type="text" class="form-control" value="<?= $row["name"] ?>"></td>
-                                </tr>
-                                <tr>
-                                    <th>會員帳號</th>
-                                    <td><input type="text" class="form-control" value="<?= $row["account"] ?>"></td>
-                                </tr>
-                                <tr>
-                                    <th>會員電話</th>
-                                    <td><input type="text" class="form-control" value="<?= $row["phone"] ?>"></td>
-                                </tr>
-                                <tr>
-                                    <th>會員郵件</th>
-                                    <td><input type="text" class="form-control" value="<?= $row["email"] ?>"></td>
-                                </tr>
-                                <tr>
-                                    <th>Create Time</th>
-                                    <td><?= $row["create_time"] ?></td>
-                                </tr>
-                            </table>
+                    <?php if ($userCount > 0) :  $row;?>
+                        <form action="user-doUpdate.php" method="post">
+                            <div class="d-flex justify-content-center">
+                            <input name="id" type="hidden" value=" <?= $row["id"] ?>">
+                                <table class="table table-bordered panel">
+                                     <input name="id" type="hidden" value=" <?= $row["id"] ?>">
+                                    <tr>
+                                        <th>會員編號</th>
+                                        <td ><?= $row["id"] ?></td>
+                                    </tr>
+                                    <tr>
+                                        <th>會員姓名</th>
+                                        <td> <input type="text" class="form-control text-center " value="<?= $row["name"] ?>" name="name"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>會員帳號</th>
+                                        <td><input type="text" class="form-control text-center" value="<?= $row["account"] ?>" name="account"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>會員密碼</th>
+                                        <td><input type="password" class="form-control text-center" value="<?= $row["password"] ?>" name="password"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>會員性別</th>
+                                        <td>
+                                            <div class="d-flex justify-content-center">
+                                                <div class="form-check  ">
+                                                    <input class="form-check-input" type="radio" name="gender" id="man" checked>
+                                                    <label class="form-check-label" for="flexRadioDefault2">
+                                                        男
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ms-2 ">
+                                                    <input class="form-check-input " type="radio" name="gender" id="female">
+                                                    <label class="form-check-label " for="flexRadioDefault1">
+                                                        女
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>會員生日</th>
+                                        <td><input type="date" class="form-control text-center" name="birthday" id="birthday"></td>
 
-                        </div>
+                                    </tr>
+                                    <tr>
+                                        <th>會員電話</th>
+                                        <td><input type="text" class="form-control text-center" value="<?= $row["phone"] ?>" name="phone"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>會員郵件</th>
+                                        <td><input type="text" class="form-control text-center" value="<?= $row["email"] ?>" name="email"></td>
+                                    </tr>
+                                    <tr>
+                                    <th>會員地址</th>
+                                    <td><input type="text" class="form-control text-center" value="<?= $row["address"] ?>" name="address"></td>
+                                </tr>
+                                    <tr>
+                                        <th>Create Time</th>
+                                        <td><?= $row["create_time"] ?></td>
+                                    </tr>
+                                </table>
 
+                            </div>
+                            <div class="py-2  ">
+                                <div class="d-flex justify-content-center">
+                                    <button class="col-1 btn btn-khak me-3"  type="submit">
+                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16" ></img>
+                                        儲存
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     <?php else : ?>
                         沒有該使用者
                     <?php endif; ?>
-                    <div class="py-2  ">
-                        <div class="d-flex justify-content-center">
-                            <a class="col-1 btn btn-khak me-3" href="user-edit.php">
-                                <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                儲存
-                            </a>
-                   
-                        </div>
-                    </div>
-
 
                 </div>
                 <!-- 內容 end -->

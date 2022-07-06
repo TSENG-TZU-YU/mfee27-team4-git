@@ -21,7 +21,7 @@ $sqlMember  = "WHERE member.users.php";
     </link>
 
     <style>
-        .panel{
+        .panel {
             width: 350px;
         }
     </style>
@@ -53,52 +53,56 @@ $sqlMember  = "WHERE member.users.php";
                 <h1 class="text-center mt-5">會員註冊</h1>
                 <div class=" d-flex justify-content-center align-items-center mt-4">
                     <div class="panel">
-                    <div class="mb-2 ">
-                            <label for="">姓名</label>
-                            <input type="text" class="form-control" name="name" id="name">
-                        </div>
-                        <div class="mb-2 ">
-                            <label for="">帳號</label>
-                            <input type="text" class="form-control" name="account" id="account">
-                        </div>
-                        <div class="mb-2">
-                            <label for="">密碼</label>
-                            <input type="password" class="form-control" name="password" id="password">
-                        </div>
-                        <div class="mb-2">
-                            <label for="">性別</label>
-                            <div class="d-flex">
-                                <div class="form-check ">
-                                    <input class="form-check-input" type="radio" name="gender" id="man" checked>
-                                    <label class="form-check-label" for="flexRadioDefault2">
-                                        男
-                                    </label>
-                                </div>
-                                <div class="form-check ms-2">
-                                    <input class="form-check-input" type="radio" name="gender" id="female">
-                                    <label class="form-check-label " for="flexRadioDefault1">
-                                        女
-                                    </label>
+                        <form action="user-DoSignup.php" method="post">
+                            <div class="mb-2 ">
+                                <label for="">姓名</label>
+                                <input type="text" class="form-control" name="name" id="name">
+                            </div>
+                            <div class="mb-2 ">
+                                <label for="">帳號</label>
+                                <input type="text" class="form-control" name="account" id="account">
+                            </div>
+                            <div class="mb-2">
+                                <label for="">密碼</label>
+                                <input type="password" class="form-control" name="password" id="password">
+                            </div>
+                            <div class="mb-2">
+                                <label for="">性別</label>
+                                <div class="d-flex">
+                                    <div class="form-check ">
+                                        <input class="form-check-input" type="radio" name="gender" id="man" checked>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                            男
+                                        </label>
+                                    </div>
+                                    <div class="form-check ms-2">
+                                        <input class="form-check-input" type="radio" name="gender" id="female">
+                                        <label class="form-check-label " for="flexRadioDefault1">
+                                            女
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mb-2">
-                            <label for="">生日</label>
-                            <input type="date" class="form-control" name="birthday" id="birthday">
-                        </div>
-                        <div class="mb-2">
-                            <label for="">郵件</label>
-                            <input type="email" class="form-control" name="email" id="email">
-                        </div>
-                        <div class="mb-2">
-                            <label for="">電話</label>
-                            <input type="number" class="form-control" name="phone" id="phone">
-                        </div>
-                        <div class="mb-2">
-                            <label for="">地址</label>
-                            <input type="text" class="form-control" name="address" id="address">
-                        </div>
-                        <button class="btn btn-green pe-3 mt-4" type="submit" id="send">送出</button>
+                            <div class="mb-2">
+                                <label for="">生日</label>
+                                <input type="date" class="form-control" name="birthday" id="birthday">
+                            </div>
+                            <div class="mb-2">
+                                <label for="">電話</label>
+                                <input type="text" class="form-control" name="email" id="email">
+                            </div>
+                            <div class="mb-2">
+                                <label for="">郵件</label>
+                                <input type="email" class="form-control" name="phone" id="phone">
+                            </div>
+                            <div class="mb-2">
+                                <label for="">地址</label>
+                                <input type="text" class="form-control" name="address" id="address">
+                            </div>
+
+                            <button class="btn btn-green pe-3 mt-4" type="submit" id="send">送出</button>
+                        </form>
+
 
                     </div>
                 </div>

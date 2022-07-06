@@ -11,7 +11,7 @@ if ($conn->query($sql) === TRUE) {
     echo "解除黑名單失敗: " . $conn->error;
 }
 
-header("location:users.php");
+header("location:black-list.php");
 
 
 ?>

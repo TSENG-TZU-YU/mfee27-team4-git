@@ -1,6 +1,6 @@
 <?php
 require("../db-connect.php");
-
+session_start();
 $sqlMember = "WHERE member.users.php";
 $sql = "SELECT * FROM users WHERE  valid=1 AND enable=1";
 $result = $conn->query($sql);
@@ -67,11 +67,11 @@ $result = $conn->query($sql);
                     <!-- 按鈕 -->
                     <div class="row">
                         <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green me-2" href="http://localhost/mfee27-team4-git/member/user-sign-up.php">
+                        <a class="col-2 btn btn-green me-2" href="http://localhost/mfee27-team4-git/member/user-sign-up.php">
                             <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                             會員註冊
                         </a>
-                        <a class="col-1 btn btn-grey me-2" href="http://localhost/mfee27-team4-git/member/black-list.php">
+                        <a class="col-2 btn btn-grey me-2" href="http://localhost/mfee27-team4-git/member/black-list.php">
                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                             黑名單
                         </a>

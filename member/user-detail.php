@@ -2,14 +2,18 @@
 require("../db-connect.php");
 
 $sqlMember  = "WHERE member.users.php";
+
 session_start();
+if (!isset($_GET["id"])) {
+    echo "沒有參數";
+    exit;
+}
 
 $id = $_GET["id"];
 $sql = "SELECT * FROM users WHERE id=$id AND valid=1";
 $result = $conn->query($sql);
 $userCount = $result->num_rows;
 
-// $rows=$result->fetch_all(MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -90,11 +94,24 @@ $userCount = $result->num_rows;
                                 </tr>
                                 <tr>
                                     <th>會員姓名</th>
-                                    <td><?= $row["account"] ?></td>
+                                    <td><?= $row["name"] ?></td>
                                 </tr>
                                 <tr>
                                     <th>會員帳號</th>
-                                    <td><?= $row["name"] ?></td>
+                                    <td><?= $row["account"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>會員密碼</th>
+                                    <td><?= $row["password"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>會員性別</th>
+                                    <td><?= $row["gender"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>會員生日</th>
+                                    <td><?= $row["birthday"] ?></td>
+
                                 </tr>
                                 <tr>
                                     <th>會員電話</th>
@@ -103,6 +120,10 @@ $userCount = $result->num_rows;
                                 <tr>
                                     <th>會員郵件</th>
                                     <td><?= $row["email"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>會員地址</th>
+                                    <td><?= $row["address"] ?></td>
                                 </tr>
                                 <tr>
                                     <th>Create Time</th>
@@ -117,11 +138,11 @@ $userCount = $result->num_rows;
                     <?php endif; ?>
                     <div class="py-2  ">
                         <div class="d-flex justify-content-center">
-                            <a class="col-1 btn btn-khak me-3" href="user-edit.php?id=<?=$row["id"]?>">
+                            <a class="col-1 btn btn-khak me-3" href="user-edit.php?id=<?= $row["id"] ?>">
                                 <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                                 修改
                             </a>
-                            <a class="col-1 btn btn-red  me-3" href="doDelete.php?id=<?=$row["id"] ?>">
+                            <a class="col-1 btn btn-red  me-3" href="doDelete.php?id=<?= $row["id"] ?>">
                                 <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                 刪除
                             </a>

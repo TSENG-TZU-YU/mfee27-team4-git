@@ -22,8 +22,6 @@ if($userExist>0){
     ];
 
     $_SESSION["user"]=$user;  //設定user
- 
-
     header('Location:users.php');
     // exit;
 
