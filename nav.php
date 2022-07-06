@@ -2,7 +2,7 @@
     <div class="d-flex flex-column flex-shrink-0 p-3 text-white">
         <div class="d-flex align-items-center  my-2 mx-auto text-white text-decoration-none text-center">
             <img class="mb-1 me-2" src="icon/music-icon.svg" width="25" height="25"></img>
-            <span class="fs-4">HAMAYA MUSIC</span>
+            <span class="fs-5">HAMAYA MUSIC</span>
         </div>
         <hr>
         <div class="d-flex text-white text-decoration-none">
