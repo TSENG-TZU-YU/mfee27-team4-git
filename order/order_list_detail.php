@@ -4,25 +4,36 @@ if (isset($_GET["page"])) {
 } else {
     $page = 1;
 }
+$order_id = $_GET["order_id"];
+// echo $order_id;
+// exit;
+$category_id = $_GET["category_id"];
+// echo $category_id;
+// exit;
 
 require("../db-connect.php");
 $sqlAll = "SELECT * FROM order_product_detail WHERE valid=1";
 $resultAll = $conn->query($sqlAll);
-$detail_count = $resultAll->num_rows;
-
+$detail_count = $resultAll->num_rows; //不管分類的全部
 
 $perPage = 4;
 $start = ($page - 1) * $perPage;
-$sql = "SELECT * FROM order_product_detail WHERE valid=1 LIMIT $start,4";
+$sql = "SELECT * FROM order_product_detail WHERE order_id=$order_id AND valid=1 LIMIT $start,4"; //
+// echo $sql;
+
 $result = $conn->query($sql);
 $pageDetailCount = $result->num_rows;
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 
 $startItem = ($page - 1) * $perPage + 1;
 $endItem = $page * $perPage;
-if ($endItem > $detail_count) $endItem = $detail_count;
+if ($endItem > $pageDetailCount) $endItem = $pageDetailCount;
 
-$totalPage = ceil($detail_count / $perPage);
+$totalPage = ceil($pageDetailCount / $perPage);
+
+// var_dump($rows);
+
+// exit;
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +81,7 @@ $totalPage = ceil($detail_count / $perPage);
                 <div class="container">
                     <div class="row">
                         <p class="col m-auto">第<?= $startItem ?>-<?= $endItem ?>筆</p>
-                        <p class="col m-auto">總共<?= $detail_count ?>筆資料</p>
+                        <p class="col m-auto">總共<?= $pageDetailCount ?>筆資料</p>
                         <input class="col form-control me-3" type="text">
                         <a class="col-1 btn btn-green" href="#">
                             <img class="bi pe-none mb-1" src="icon/search-icon.svg" width="16" height="16"></img>
@@ -80,78 +91,60 @@ $totalPage = ceil($detail_count / $perPage);
                 </div>
                 <hr>
                 <div class="container">
-
-                    <!-- 按鈕 -->
                     <div class="row">
-                        <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/create-icon.svg" width="16" height="16"></img>
-                            新增
+                        <h4 class="col">訂單編號：<?= $order_id ?></h4>
+                        <a class="col btn btn-green me-2 " href="order_list_detail.php?order_id=<?= $order_id ?>">
+                            全部記錄
                         </a>
-                        <a class="col-1 btn btn-khak me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
-                            修改
+                        <a class="col btn btn-green me-2" href="order_list_detail.php?order_id=<?= $order_id ?>&category_id=a">
+                            樂器訂單記錄
                         </a>
-                        <a class="col-1 btn btn-red me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
-                            刪除
+                        <a class="col btn btn-green me-2" href="order_list_detail.php?order_id=<?= $order_id ?>&category_id=b">
+                            課程訂單記錄
                         </a>
-                        <a class="col-1 btn btn-grey me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
-                            詳細
-                        </a>
-                        <!-- 無文字按鈕 -->
-                        <a class="col-1 btn btn-green me-2" href="#" src="icon/create-icon.svg">
-                            <img class="bi pe-none mb-1" src="icon/create-icon.svg" width="16" height="16"></img>
-                        </a>
-                        <a class="col-1 btn btn-khak me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
-                        </a>
-                        <a class="col-1 btn btn-red me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
-                        </a>
-                        <a class="col-1 btn btn-grey me-2" href="#">
-                            <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
+                        <a class="col btn btn-green me-2" href="order_list_detail.php?order_id=<?= $order_id ?>&category_id=c">
+                            場地預約紀錄
                         </a>
                     </div>
-                    <!-- 按鈕 end-->
-
                     <hr>
-                    <table class="table mt-5">
+                    <table class="table">
+                        <h2 class="text-center">樂器訂單記錄</h2>
+                        <hr>
                         <thead>
                             <tr>
-                                <th scope="col">訂單編號</th>
                                 <th scope="col">產品編號</th>
                                 <th scope="col">產品類別</th>
                                 <th scope="col">數量</th>
                                 <th scope="col">寄送地址</th>
                                 <th scope="col"></th>
-
-
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($rows as $row) : ?>
-                                <tr>
-                                    <th><?= $row["order_id"] ?></th>
-                                    <th><?= $row["product_id"] ?></th>
-                                    <th><?= $row["category_id"] ?></th>
-                                    <th><?= $row["amount"] ?></th>
-                                    <td><?= $row["address"] ?></td>
-                                    <td>
-                                        <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?=$row["product_id"] ?>">
-                                            <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
-                                            刪除
-                                        </a>
+                            <?php foreach ($rows as $row) :
+                                if ($category_id === $row["category_id"] || $category_id == "") : ?>
+                                    <tr>
+                                        <td><?= $row["product_id"] ?></td>
+                                        <td><?= $row["category_id"] ?></td>
+                                        <td><?= $row["amount"] ?></td>
+                                        <td><?= $row["address"] ?></td>
+                                        <td>
+                                            <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
+                                                <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
+                                                刪除
+                                            </a>
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+
+
+
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example">
-                    <ul class="pagination">
+                        <ul class="pagination">
                             <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
                                 <li class="page-item
                         <?php

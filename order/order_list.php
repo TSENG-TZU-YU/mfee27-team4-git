@@ -8,6 +8,7 @@ require("../db-connect.php");
 $sqlAll = "SELECT * FROM order_product WHERE valid=1";
 $resultAll = $conn->query($sqlAll);
 $list_count = $resultAll->num_rows;
+
 $perPage = 4;
 $start = ($page - 1) * $perPage;
 $sql = "SELECT * FROM order_product WHERE valid=1 LIMIT $start, 4";
@@ -21,8 +22,6 @@ $endItem = $page * $perPage;
 if ($endItem > $list_count) $endItem = $list_count;
 
 $totalPage = ceil($list_count / $perPage);
-
-$sqlOrder = "WHERE order.order_list.php";
 
 // var_dump($rows);
 ?>
@@ -41,7 +40,7 @@ $sqlOrder = "WHERE order.order_list.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <!-- 版面元件樣式 css -->
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
     </link>
 
 </head>
