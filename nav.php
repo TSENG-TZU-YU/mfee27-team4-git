@@ -6,10 +6,12 @@
         </div>
         <hr>
         <div class="d-flex text-white text-decoration-none">
-            <img class="my-2 mx-3" src="icon/avatar-icon.svg" alt="" width="50" height="50" style="color:#fff;"></img>
+            <img class="my-2 mx-3" src="../icon/avatar-icon.svg" alt="" width="50" height="50" style="color:#fff;"></img>
             <div class="row g-0">
                 <p class="pt-2">管理者</p>
-                <h4>May</h4>
+                <?php if (isset($_SESSION["user"])) : ?>
+                    <h4><?= $_SESSION["user"]["name"] ?></h4>
+                <?php endif; ?>
             </div>
         </div>
         <hr>
