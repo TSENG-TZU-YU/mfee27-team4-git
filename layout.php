@@ -72,6 +72,10 @@
                             <img class="mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
                             詳細
                         </a>
+                        <a class="col-1 btn btn-green me-2" href="#">
+                            <img class="mb-1" src="icon/redo-icon.svg" width="16" height="16"></img>
+                            返回
+                        </a>
                         <!-- 無文字按鈕 -->
                         <a class="col-1 btn btn-green me-2" href="#" src="icon/create-icon.svg">
                             <img class="mb-1" src="icon/create-icon.svg" width="16" height="16"></img>
@@ -84,6 +88,9 @@
                         </a>
                         <a class="col-1 btn btn-grey me-2" href="#">
                             <img class="mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
+                        </a>
+                        <a class="col-1 btn btn-green me-2" href="#">
+                            <img class="mb-1" src="icon/redo-icon.svg" width="16" height="16"></img>
                         </a>
                     </div>
                 </div>
