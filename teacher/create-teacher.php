@@ -89,9 +89,9 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 
                                 <!-- 帶入課程商品資料 作為選項check-box -->
                                 <?php foreach ($rows as $row) : ?>
-                                    <div class="form-check">
-                                        <label class="form-check-label" for="flexCheckDefault" value="<?= $row["id"] ?>">
-                                            <input class="form-check-input" type="checkbox" id="flexCheckDefault">
+                                    <div class="form-check mb-2">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            <input class="form-check-input" type="checkbox" id="flexCheckDefault" name="courseId[]" value="<?= $row["id"] ?>">
                                             <?= $row["course_name"] ?>
                                         </label>
                                     </div>

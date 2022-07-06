@@ -1,7 +1,7 @@
 <?php
 require("../db-connect.php");
 session_start();
-$sqlWhere = "WHERE member.users.php";
+$sqlMember  = "WHERE member.users.php";
 ?>
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -53,6 +53,10 @@ $sqlWhere = "WHERE member.users.php";
                 <h1 class="text-center mt-5">會員註冊</h1>
                 <div class=" d-flex justify-content-center align-items-center mt-4">
                     <div class="panel">
+                    <div class="mb-2 ">
+                            <label for="">姓名</label>
+                            <input type="text" class="form-control" name="name" id="name">
+                        </div>
                         <div class="mb-2 ">
                             <label for="">帳號</label>
                             <input type="text" class="form-control" name="account" id="account">
