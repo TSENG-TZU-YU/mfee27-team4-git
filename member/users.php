@@ -116,7 +116,7 @@ $result = $conn->query($sql);
                         </tbody>
                     </table>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example text-end" class="d-flex justify-content-center">
+                    <div aria-label="Page navigation example text-end" class="d-flex justify-content-center mt-5">
                         <ul class="pagination">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">

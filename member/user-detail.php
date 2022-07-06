@@ -28,6 +28,13 @@ $userCount = $result->num_rows;
     <link rel="stylesheet" href="../style.css">
     </link>
 
+    <style>
+        .panel {
+            width: 800px;
+            height: 400px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -64,9 +71,13 @@ $userCount = $result->num_rows;
                             <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
-                        <a class="col-1 btn btn-grey me-3" href="black-list.php">
+                        <a class="col-1 btn btn-khak me-3" href="user-edit.php">
                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                            訂單修改
+                            修改
+                        </a>
+                        <a class="col-1 btn btn-red  me-3" href="doDelete.php">
+                            <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                            刪除
                         </a>
 
 
@@ -74,67 +85,42 @@ $userCount = $result->num_rows;
                     <!-- 按鈕 end-->
 
                 </div>
-                <div class="container mt-5">
+                <div class="container mt-5  ">
                     <?php if ($userCount > 0) :
                         $row = $result->fetch_assoc();
                     ?>
-                        <table class="table table-bordered">
-                            <tr>
-                                <th>id</th>
-                                <td><?= $row["id"] ?></td>
-                            </tr>
-                            <tr>
-                                <th>Account</th>
-                                <td><?= $row["account"] ?></td>
-                            </tr>
-                            <tr>
-                                <th>Name</th>
-                                <td><?= $row["name"] ?></td>
-                            </tr>
-                            <tr>
-                                <th>Phone</th>
-                                <td><?= $row["phone"] ?></td>
-                            </tr>
-                            <tr>
-                                <th>Email</th>
-                                <td><?= $row["email"] ?></td>
-                            </tr>
-                            <tr>
-                                <th>Create Time</th>
-                                <td><?= $row["create_time"] ?></td>
-                            </tr>
-                        </table>
-                        <div class="py-2  ">
-                            <div class="d-flex justify-content-between">
-                                <a class="btn btn-info" href="user-edit.php?id=<?= $row["id"] ?>">修改</a>
-                                <a class="btn btn-danger " href="doDelete.php?id=<?= $row["id"] ?>">刪除</a>
-                            </div>
-
+                        <div class="d-flex justify-content-center">
+                            <table class="table table-bordered panel">
+                                <tr>
+                                    <th>id</th>
+                                    <td><?= $row["id"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Account</th>
+                                    <td><?= $row["account"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Name</th>
+                                    <td><?= $row["name"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Phone</th>
+                                    <td><?= $row["phone"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td><?= $row["email"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>Create Time</th>
+                                    <td><?= $row["create_time"] ?></td>
+                                </tr>
+                            </table>
                         </div>
                     <?php else : ?>
                         沒有該使用者
                     <?php endif; ?>
                 </div>
-
-                <!-- 頁碼 -->
-                <div aria-label="Page navigation example text-end " class="d-flex justify-content-center">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!-- 頁碼 end -->
         </div>
 
 
