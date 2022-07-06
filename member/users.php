@@ -1,10 +1,13 @@
 <?php
 require("../db-connect.php");
-session_start();
-$sqlWhere="WHERE member.users.php";
 
-// $sql="SELECT * FROM users ";
-// $result=$conn->query($sql);
+$sqlWhere = "WHERE member.users.php";
+session_start();
+$sql = "SELECT * FROM users ";
+$result = $conn->query($sql);
+
+
+// $rows=$result->fetch_all(MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -72,8 +75,8 @@ $sqlWhere="WHERE member.users.php";
                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                             黑名單
                         </a>
-                   
-                     
+
+
                     </div>
                     <!-- 按鈕 end-->
 
@@ -84,54 +87,36 @@ $sqlWhere="WHERE member.users.php";
                                 <th scope="col">會員編號</th>
                                 <th scope="col">會員名字</th>
                                 <th scope="col">會員帳號</th>
-                                <th scope="col">會員狀態</th>
-                                <th scope="col">會員郵件</th>
                                 <th scope="col">會員電話</th>
-                                <th scope="col">會員地址</th>
+                                <th scope="col">會員郵件</th>
                                 <th scope="col">建立時間</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while($row=$result->fetch_assoc()):?>
-                            <tr>
-                                <th>1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
-                                <td>
-                                    <button class="btn btn-grey me-3" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                                        詳細
+                            <?php while ($row = $result->fetch_assoc()) : ?>
+                                <tr>
+                                    <th><?php echo $row["id"] ?></th>
+                                    <td><?php echo $row["name"] ?></td>
+                                    <td><?php echo $row["account"] ?></td>
+                                    <td><?php echo $row["phone"] ?></td>
+                                    <td><?php echo $row["email"] ?></td>
+                                    <td><?php echo $row["create_time"] ?></td>
+                                    <td>
+                                        <a class="btn btn-grey me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>">
+                                            <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                                            詳細
+                                        </a>
+                                        <button class="btn btn-khak" type="button">
+                                        <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                                        加入黑名單
                                     </button>
-                                    <button class="btn btn-khak" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                        修改
-                                    </button>
-                                </td>
-                            </tr>
-                            <?php endwhile;?>
-                            <tr>
-                                <th>2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>@fat</td>
-                                <td>
-                                    <button class="btn btn-grey me-3" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                                        詳細
-                                    </button>
-                                    <button class="btn btn-khak" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                        修改
-                                    </button>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
                         </tbody>
                     </table>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example">
+                    <div aria-label="Page navigation example text-end" class="d-flex justify-content-center mt-5">
                         <ul class="pagination">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
