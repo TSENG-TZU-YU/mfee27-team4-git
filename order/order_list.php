@@ -114,7 +114,7 @@ $totalPage = ceil($list_count / $perPage);
                                             <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </button> -->
-                                            <a class="btn btn-grey me-3" type="button" href="order_list_detail.php?order_id=<?= 1 ?>"><img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
+                                            <a class="btn btn-grey me-3" type="button" href="order_list_detail.php?order_id=<?=$row["order_id"]?>"><img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
                                                 詳細</a>
 
                                         </td>
