@@ -1,3 +1,16 @@
+<?php
+
+require("../db-connect.php");
+
+// 抓課程商品資料
+$sql = "SELECT * FROM course_product WHERE id";
+
+$result = $conn->query($sql);
+$courseCount = $result->num_rows;
+$rows = $result->fetch_all(MYSQLI_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="zh-tw">
 
@@ -48,49 +61,53 @@
                 <!-- 內容 -->
 
                 <div class="container">
-                    <form class="mt-4">
+                    <form class="mt-4" action="doCreate-teacher.php" method="post">
                         <div class="row">
                             <div class="col-3">
-                                <img class="img-fluid rounded object-cover" id="preview" src="images/img-icon.png" style="height: 250px;">
-                                <!-- <div class="img-show text-center " style="color:cadetblue;">
-                                </div> -->
+                                <img class="img-fluid rounded object-cover" id="preview" src="images/img-icon.png" style="height: 300px;">
                             </div>
                             <div class="col d-flex flex-column mb-3">
-                                <div class="col mb-3">
+                                <div class="col mb-2">
                                     <label class="form-label" for="">師資姓名</label>
                                     <input type="text" class="form-control" name="name">
                                 </div>
-                                <div class="col mb-3">
+                                <div class="col mb-2">
                                     <label class="form-label" for="">師資照片</label>
-                                    <input type="file" class="form-control" id="upload" name="image" value="新增圖片">
-                                    <!-- <label class="input-group-text" for="inputGroupFile02">Upload</label> -->
+                                    <input type="file" class="form-control" id="upload" name="image">
+                                </div>
+                                <div class="col mb-2">
+                                    <label class="form-label" for="">表演影片網址</label>
+                                    <input type="url" class="form-control" name="video">
                                 </div>
                                 <div class="col">
                                     <label class="form-label" for="">教授領域</label>
-                                    <input type="text" class="form-control" name="name">
+                                    <input type="text" class="form-control" name="field">
                                 </div>
                             </div>
                             <div class="col">
                                 <label class="form-label" for="">教授課程</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Default checkbox
-                                    </label>
-                                </div>
+
+                                <!-- 帶入課程商品資料 作為選項check-box -->
+                                <?php foreach ($rows as $row) : ?>
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="flexCheckDefault" value="<?= $row["id"] ?>">
+                                            <input class="form-check-input" type="checkbox" id="flexCheckDefault">
+                                            <?= $row["course_name"] ?>
+                                        </label>
+                                    </div>
+                                <?php endforeach; ?>
+
                             </div>
 
                         </div>
                         <div class="mb-2">
-                            <label class="form-label mt-2" for="">師資簡介</label>
-                            <!-- <div class="form-floating"> -->
-                            <textarea class="form-control" id="floatingTextarea2" style="height: 300px; resize:none;"></textarea>
-                            <!-- </div> -->
+                            <label class="form-label" for="">師資簡介</label>
+                            <textarea class="form-control" id="floatingTextarea2" type="text" name="profile" style="height: 250px; resize:none;"></textarea>
                         </div>
 
                         <div class="d-flex justify-content-center align-items-center mt-3">
-                            <a class="btn btn-khak me-5" href="article-index.php">取消新增</a>
-                            <button class="btn btn-green" type="submit" name="submit_date">新增完成</button>
+                            <a class="btn btn-khak me-5" href="teacher-index.php">取消新增</a>
+                            <button class="btn btn-green" type="submit" name="submit-date">新增完成</button>
                         </div>
                     </form>
                 </div>
