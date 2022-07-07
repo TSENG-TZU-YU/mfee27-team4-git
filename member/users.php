@@ -2,12 +2,44 @@
 require("../db-connect.php");
 session_start();
 $sqlMember = "WHERE member.users.php";
-$sql = "SELECT * FROM users WHERE  valid=1 AND enable=1";
+
+if(isset($_GET["page"])){
+    $page=$_GET["page"];
+}else{
+    $page=1;
+}
+$order = isset($_GET["order"]) ? $_GET["order"] : 1;
+
+switch ($order) {
+    case 1:
+        $orderType = "id ASC";
+        break;
+    case 2:
+        $orderType = "id DESC";
+        break;
+    default:
+        $orderType = "id ASC";
+}
+
+//page
+$sqlAll = "SELECT * FROM users WHERE  valid=1 AND enable=1";
+$resultAll=$conn->query($sqlAll);
+$userCount=$resultAll->num_rows;
+
+$perPage = 4;
+$startPage=($page-1) * $perPage;
+$sql = "SELECT * FROM users WHERE  valid=1 AND enable=1  ORDER BY $orderType  LIMIT $startPage ,4";
+
 $result = $conn->query($sql);
+$pageUserCount=$resultAll->num_rows;
 
+$startItem= ($page-1) * $perPage;
+$endItem = $page * $perPage;
 
-// $rows=$result->fetch_all(MYSQLI_ASSOC);
+if($endItem > $userCount) $endItem = $userCount;
+$totalPage = ceil($userCount / $perPage);
 ?>
+
 <!DOCTYPE html>
 <html lang="zh-tw">
 
@@ -24,6 +56,12 @@ $result = $conn->query($sql);
     <!-- 版面元件樣式 css -->
     <link rel="stylesheet" href="../style.css">
     </link>
+    <style>
+        .page{
+          left: 52%;
+        }
+
+    </style>
 
 </head>
 
@@ -53,7 +91,7 @@ $result = $conn->query($sql);
                 <!-- 內容 -->
                 <div class="container">
                     <div class="row">
-                        <p class="col-8 m-auto">總共 筆資料</p>
+                        <p class="col-8 m-auto">總共<?=$userCount?>筆資料</p>
                         <input class="col form-control me-3" type="text">
                         <a class="col-1 btn btn-green" href="#">
                             <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -116,16 +154,17 @@ $result = $conn->query($sql);
                         </tbody>
                     </table>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example text-end" class="d-flex justify-content-center mt-5">
+                    <div aria-label="Page navigation example text-end" class="d-flex mt-5  fixed-bottom page">
                         <ul class="pagination">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <?php for ($i=1;$i<=$totalPage;$i++):?>
+                            <li class="page-item"><a class="page-link" href="users.php?page=<?=$i?>& order=<?=$order?>"><?=$i ?></a></li>
+                            <?php endfor;?>
+                           
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
