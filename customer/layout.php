@@ -62,7 +62,7 @@
                             <img class="bi pe-none mb-1" src="icon/create-icon.svg" width="16" height="16"></img>
                             新增
                         </a>
-                        <a class="col-1 btn btn-khak me-2" href="#">
+                       <a  class="col-1 btn btn-khak me-2" href="#">
                             <img class="bi pe-none mb-1" src="icon/update-icon.svg" width="16" height="16"></img>
                             修改
                         </a>
