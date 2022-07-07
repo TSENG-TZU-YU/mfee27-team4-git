@@ -71,21 +71,21 @@ a:hover {
 .bg-light-blue-color {
   background: var(--light-blue-color);
 }
+/* 背景顏色-深紫色 */
+.bg-purple-color {
+  background: var(--purple-color);
+}
+/* 背景顏色-淺紫色 */
+.bg-light-purple-color {
+  background: var(--light-purple-color);
+}
 /* 背景顏色-深橘色 */
 .bg-orange-color {
   background: var(--orange-color);
 }
-/* 背景顏色-淺藍色 */
+/* 背景顏色-淺橘色 */
 .bg-light-orange-color {
   background: var(--light-orange-color);
-}
-/* 背景顏色-深紫色 */
-.bg-orange-color {
-  background: var(--purple-color);
-}
-/* 背景顏色-淺紫色 */
-.bg-light-orange-color {
-  background: var(--light-purple-color);
 }
 
 /* ------線條顏色-模組------ */

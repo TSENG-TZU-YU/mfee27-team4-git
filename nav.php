@@ -83,11 +83,9 @@
                 </a>
             </li>
         </ul>
-        <div>
-            <a href="#" class="signOutLink bottom-0 start-0 ms-4 mb-3 fixed-bottom">
-                <img class="mb-1 me-2" src="icon/signout-icon.svg" width="25" height="25"></img>
-                登出
-            </a>
-        </div>
+        <a href="#" class="signOutLink bottom-0 start-0 position-fixed p-2 m-2">
+            <img class="mb-1 me-2" src="icon/signout-icon.svg" width="25" height="25"></img>
+            登出
+        </a>
     </div>
 </nav>
