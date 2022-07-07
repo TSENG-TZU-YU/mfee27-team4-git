@@ -7,33 +7,28 @@ if (isset($_GET["page"])) {
 $order_id = $_GET["order_id"];
 // echo $order_id;
 // exit;
-$category_id = $_GET["category_id"];
+// $category_id = $_GET["category_id"];
 // echo $category_id;
 // exit;
 
 require("../db-connect.php");
-$sqlAll = "SELECT * FROM order_product_detail WHERE valid=1";
-$resultAll = $conn->query($sqlAll);
-$detail_count = $resultAll->num_rows; //不管分類的全部
 
-$perPage = 4;
-$start = ($page - 1) * $perPage;
-$sql = "SELECT * FROM order_product_detail WHERE order_id=$order_id AND valid=1 LIMIT $start,4"; //
+// $perPage = 4;
+// $start = ($page - 1) * $perPage;
+$sql = "SELECT * FROM order_product_detail WHERE order_id=$order_id AND valid=1 "; //LIMIT $start,4
 // echo $sql;
 
 $result = $conn->query($sql);
 $pageDetailCount = $result->num_rows;
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-$startItem = ($page - 1) * $perPage + 1;
-$endItem = $page * $perPage;
-if ($endItem > $pageDetailCount) $endItem = $pageDetailCount;
-
-$totalPage = ceil($pageDetailCount / $perPage);
-
 // var_dump($rows);
-
 // exit;
+// echo count($rows);
+$inArray = array_column($rows, 'category_id');
+// echo var_dump($inArray);
+// exit;
+
 ?>
 
 <!DOCTYPE html>
@@ -74,13 +69,12 @@ $totalPage = ceil($pageDetailCount / $perPage);
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
-
-                <hr>
-
                 <!-- 內容 -->
                 <div class="container">
                     <div class="row">
-                        <!-- <p class="col m-auto">第<?php // $startItem ?>-<?php // $endItem ?>筆</p> -->
+                        <!-- <p class="col m-auto">第<?php // $startItem 
+                                                    ?>-<?php // $endItem 
+                                                        ?>筆</p> -->
                         <h5 class="col">訂單編號：<?= $order_id ?></h5>
                         <p class="col m-auto">總共<?= $pageDetailCount ?>筆資料</p>
                         <input class="col form-control me-3" type="text">
@@ -90,132 +84,127 @@ $totalPage = ceil($pageDetailCount / $perPage);
                         </a>
                     </div>
                 </div>
-                <hr>
                 <div class="container">
-                    <!-- <div class="row">
-                        <h4 class="col">訂單編號：<?php //$order_id ?></h4>
-                        <a class="col btn btn-green me-2 " href="order_list_detail.php?order_id=<?php // $order_id ?>">
-                            全部記錄
-                        </a>
-                        <a class="col btn btn-green me-2" href="order_list_detail.php?order_id=<?php // $order_id ?>&category_id=a">
-                            樂器訂單記錄
-                        </a>
-                        <a class="col btn btn-green me-2" href="order_list_detail.php?order_id=<?php // $order_id ?>&category_id=b">
-                            課程訂單記錄
-                        </a>
-                        <a class="col btn btn-green me-2" href="order_list_detail.php?order_id=<?php // $order_id ?>&category_id=c">
-                            場地預約紀錄
-                        </a>
-                    </div> -->
-                    
-                    <h2 class="text-center mt-3">樂器訂單記錄</h2>
                     <hr>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">產品編號</th>
-                                <th scope="col">產品類別</th>
-                                <th scope="col">數量</th>
-                                <th scope="col">寄送地址</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($rows as $row) : ?>
-                                <?php if ($row["category_id"] === "A") : ?>
-                                    <tr>
-                                        <td><?= $row["product_id"] ?></td>
-                                        <td><?= $row["category_id"] ?></td>
-                                        <td><?= $row["amount"] ?></td>
-                                        <td><?= $row["address"] ?></td>
-                                        <td>
-                                            <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
-                                                <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
-                                                刪除
-                                            </a>
-                                        </td>
-                                    </tr>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                    <h2 class="text-center">課程訂單記錄</h2>
+                    <h2 class="text-center py-2">樂器訂單記錄</h2>
                     <hr>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">產品編號</th>
-                                <th scope="col">產品類別</th>
-                                <th scope="col">數量</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($rows as $row) : ?>
-                                <?php if ($row["category_id"] === "B") : ?>
-                                    <tr>
-                                        <td><?= $row["product_id"] ?></td>
-                                        <td><?= $row["category_id"] ?></td>
-                                        <td><?= $row["amount"] ?></td>
-                                        <td>
-                                            <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
-                                                <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
-                                                刪除
-                                            </a>
-                                        </td>
-                                    </tr>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                    <h2 class="text-center">場地預約記錄</h2>
+                    <?php if (in_array("A", $inArray)) : ?>
+                        <?php foreach ($rows as $row) : ?>
+                            <?php if (in_array("A", $row)) : ?>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">產品編號</th>
+                                            <th scope="col">產品類別</th>
+                                            <th scope="col">數量</th>
+                                            <th scope="col">寄送地址</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($rows as $row) : ?>
+                                            <?php if ($row["category_id"] === "A") : ?>
+                                                <tr>
+                                                    <td><?= $row["product_id"] ?></td>
+                                                    <td><?= $row["category_id"] ?></td>
+                                                    <td><?= $row["amount"] ?></td>
+                                                    <td><?= $row["address"] ?></td>
+                                                    <td>
+                                                        <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
+                                                            <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
+                                                            刪除
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <?php break; ?>
+                        <?php endif;
+                        endforeach; ?>
+                    <?php else : ?>
+                        <h4 class="text-center">沒有資料ㄛ</h4>
+                    <?php endif; ?>
+
+                    <h2 class="text-center py-2">課程訂單記錄</h2>
                     <hr>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">產品編號</th>
-                                <th scope="col">產品類別</th>
-                                <th scope="col">數量</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($rows as $row) : ?>
-                                <?php if ($row["category_id"] === "C") : ?>
-                                    <tr>
-                                        <td><?= $row["product_id"] ?></td>
-                                        <td><?= $row["category_id"] ?></td>
-                                        <td><?= $row["amount"] ?></td>
-                                        <td>
-                                            <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
-                                                <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
-                                                刪除
-                                            </a>
-                                        </td>
-                                    </tr>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-
-
-
-                    <!-- 頁碼 -->
-                    <div aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
-                                <li class="page-item
-                        <?php
-                                if ($page == $i) echo "active";
-                        ?>
-                        "><a class="page-link" href="order_list_detail.php?page=<?= $i ?>"><?= $i ?></a></li>
-                            <?php endfor; ?>
-                        </ul>
-                    </div>
-                    <!-- 頁碼 end -->
+                    <?php if (in_array("B", $inArray)) : ?>
+                        <?php foreach ($rows as $row) : ?>
+                            <?php if (array_search("B", $row)) : ?>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">產品編號</th>
+                                            <th scope="col">產品類別</th>
+                                            <th scope="col">數量</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($rows as $row) : ?>
+                                            <?php if ($row["category_id"] === "B") : ?>
+                                                <tr>
+                                                    <td><?= $row["product_id"] ?></td>
+                                                    <td><?= $row["category_id"] ?></td>
+                                                    <td><?= $row["amount"] ?></td>
+                                                    <td>
+                                                        <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
+                                                            <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
+                                                            刪除
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <?php break; ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <h4 class="text-center">沒有資料ㄛ</h4>
+                    <?php endif; ?>
+                    <h2 class="text-center py-2">場地預約記錄</h2>
+                    <hr>
+                    <?php if (in_array("C", $inArray)) : ?>
+                        <?php foreach ($rows as $row) : ?>
+                            <?php if (array_search("C", $row)) : ?>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">產品編號</th>
+                                            <th scope="col">產品類別</th>
+                                            <th scope="col">數量</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($rows as $row) : ?>
+                                            <?php if ($row["category_id"] === "C") : ?>
+                                                <tr>
+                                                    <td><?= $row["product_id"] ?></td>
+                                                    <td><?= $row["category_id"] ?></td>
+                                                    <td><?= $row["amount"] ?></td>
+                                                    <td>
+                                                        <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
+                                                            <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
+                                                            刪除
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <?php break; ?>
+                            <?php else : ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <h4 class="text-center">沒有資料ㄛ</h4>
+                    <?php endif; ?>
                 </div>
-
-
         </div>
         <!-- 內容 end -->
 
