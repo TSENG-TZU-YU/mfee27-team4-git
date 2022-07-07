@@ -22,13 +22,13 @@ switch ($order) {
 }
 
 //page
-$sqlAll = "SELECT * FROM users WHERE  valid=1 AND enable=0";
+$sqlAll = "SELECT * FROM users WHERE  valid=1 AND enable=1";
 $resultAll = $conn->query($sqlAll);
 $userCount = $resultAll->num_rows;
 
-$perPage = 4;
+$perPage = 10;
 $startPage = ($page - 1) * $perPage;
-$sql = "SELECT * FROM users WHERE  valid=1 AND enable=0  ORDER BY $orderType  LIMIT $startPage ,4";
+$sql = "SELECT * FROM users WHERE  valid=1 AND enable=1  ORDER BY $orderType  LIMIT $startPage ,10";
 
 $result = $conn->query($sql);
 $pageUserCount = $resultAll->num_rows;
@@ -38,12 +38,27 @@ $endItem = $page * $perPage;
 
 if ($endItem > $userCount) $endItem = $userCount;
 $totalPage = ceil($userCount / $perPage);
+
+//search
+if(!isset($_GET["search"])){
+    $search="";
+    $userCountS=0;
+}else
+{
+    $search = $_GET["search"];
+    $sqlSearch="SELECT id, name, account, phone, email, create_time FROM users WHERE name like  '%$search%'  or account like '%$search%' ";
+    $resultS = $conn->query($sqlSearch);
+    $userCountS = $resultS->num_rows;
+}
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="zh-tw">
 
 <head>
-    <title>會員管理</title>
+    <title>後台系統</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -71,16 +86,15 @@ $totalPage = ceil($userCount / $perPage);
             <?php require("../nav.php"); ?>
             <!-- 導覽列 nav end -->
 
-
             <!-- 主要區塊 main -->
             <main class="col-10 px-5 py-4">
+
 
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item"><a href="http://localhost/mfee27-team4-git/member/users.php">會員管理</a></li>
-                        <li class="breadcrumb-item" aria-current="page">黑名單</li>
+                        <li class="breadcrumb-item" aria-current="page">會員管理</li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -89,14 +103,16 @@ $totalPage = ceil($userCount / $perPage);
 
                 <!-- 內容 -->
                 <div class="container">
-                    <div class="row">
-                        <p class="col-8 m-auto">總共<?= $userCount ?>筆資料</p>
-                        <input class="col form-control me-3" type="text">
-                        <a class="col-1 btn btn-green" href="#">
-                            <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
-                            搜尋
-                        </a>
-                    </div>
+                    <form action="user-search.php" method="get">
+                        <div class="row">
+                            <p class="col-8 m-auto">總共<?= $userCountS?>筆資料</p>
+                            <input class="col form-control me-3" type="text" name="search">
+                            <button class="col-1 btn btn-green" type="submit">
+                                <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
+                                搜尋
+                            </button>
+                        </div>
+                    </form>
                 </div>
                 <hr>
                 <div class="container">
@@ -108,11 +124,13 @@ $totalPage = ceil($userCount / $perPage);
                             <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
+
+
                     </div>
                     <!-- 按鈕 end-->
 
+                    <hr>
                     <table class="table mt-5">
-
                         <thead>
                             <tr>
                                 <th scope="col">會員編號</th>
@@ -124,7 +142,7 @@ $totalPage = ceil($userCount / $perPage);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = $result->fetch_assoc()) : ?>
+                            <?php while ($row = $resultS->fetch_assoc()) : ?>
                                 <tr>
                                     <th><?php echo $row["id"] ?></th>
                                     <td><?php echo $row["name"] ?></td>
@@ -137,9 +155,9 @@ $totalPage = ceil($userCount / $perPage);
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </a>
-                                        <a class="btn btn-khak" type="button" href="remove-black-list.php?id=<?= $row["id"] ?>">
-                                            <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                            解除黑名單
+                                        <a class="btn btn-khak" type="button" href="do-black-list.php?id=<?= $row["id"] ?>">
+                                            <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                                            加入黑名單
                                         </a>
                                     </td>
                                 </tr>
@@ -147,16 +165,17 @@ $totalPage = ceil($userCount / $perPage);
                         </tbody>
                     </table>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example" class="d-flex fixed-bottom mt-5 page">
+                    <div aria-label="Page navigation example text-end" class="d-flex mt-5  fixed-bottom page">
                         <ul class="pagination">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <?php for ($i = 1; $i <= $userCount; $i++) : ?>
-                                <li class="page-item"><a class="page-link" href="black-list.php?page=<?= $i ?>"><?= $i ?></a></li>
+                            <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+                                <li class="page-item"><a class="page-link" href="user-search.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
                             <?php endfor; ?>
+
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

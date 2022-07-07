@@ -3,10 +3,10 @@ require("../db-connect.php");
 session_start();
 $sqlMember = "WHERE member.users.php";
 
-if(isset($_GET["page"])){
-    $page=$_GET["page"];
-}else{
-    $page=1;
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+} else {
+    $page = 1;
 }
 $order = isset($_GET["order"]) ? $_GET["order"] : 1;
 
@@ -23,20 +23,20 @@ switch ($order) {
 
 //page
 $sqlAll = "SELECT * FROM users WHERE  valid=1 AND enable=1";
-$resultAll=$conn->query($sqlAll);
-$userCount=$resultAll->num_rows;
+$resultAll = $conn->query($sqlAll);
+$userCount = $resultAll->num_rows;
 
-$perPage = 4;
-$startPage=($page-1) * $perPage;
-$sql = "SELECT * FROM users WHERE  valid=1 AND enable=1  ORDER BY $orderType  LIMIT $startPage ,4";
+$perPage = 10;
+$startPage = ($page - 1) * $perPage;
+$sql = "SELECT * FROM users WHERE  valid=1 AND enable=1  ORDER BY $orderType  LIMIT $startPage ,10";
 
 $result = $conn->query($sql);
-$pageUserCount=$resultAll->num_rows;
+$pageUserCount = $resultAll->num_rows;
 
-$startItem= ($page-1) * $perPage;
+$startItem = ($page - 1) * $perPage;
 $endItem = $page * $perPage;
 
-if($endItem > $userCount) $endItem = $userCount;
+if ($endItem > $userCount) $endItem = $userCount;
 $totalPage = ceil($userCount / $perPage);
 ?>
 
@@ -57,10 +57,9 @@ $totalPage = ceil($userCount / $perPage);
     <link rel="stylesheet" href="../style.css">
     </link>
     <style>
-        .page{
-          left: 52%;
+        .page {
+            left: 52%;
         }
-
     </style>
 
 </head>
@@ -76,7 +75,7 @@ $totalPage = ceil($userCount / $perPage);
             <!-- 主要區塊 main -->
             <main class="col-10 px-5 py-4">
 
-            
+
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
@@ -90,29 +89,45 @@ $totalPage = ceil($userCount / $perPage);
 
                 <!-- 內容 -->
                 <div class="container">
-                    <div class="row">
-                        <p class="col-8 m-auto">總共<?=$userCount?>筆資料</p>
-                        <input class="col form-control me-3" type="text">
-                        <a class="col-1 btn btn-green" href="#">
-                            <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
-                            搜尋
-                        </a>
-                    </div>
+                    <form action="user-search.php" method="get">
+                        <div class="row">
+                            <p class="col-8 m-auto">總共<?= $userCount ?>筆資料</p>
+                            <input class="col form-control me-3" type="text" name="search">
+                            <button class="col-1 btn btn-green" type="submit">
+                                <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
+                                搜尋
+                            </button>
+                        </div>
+                    </form>
                 </div>
                 <hr>
                 <div class="container">
 
                     <!-- 按鈕 -->
-                    <div class="row">
+                    <div class="">
                         <!-- 文字按鈕 -->
-                        <a class="col-2 btn btn-green me-2" href="http://localhost/mfee27-team4-git/member/user-sign-up.php">
-                            <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
-                            會員註冊
-                        </a>
-                        <a class="col-2 btn btn-grey me-2" href="http://localhost/mfee27-team4-git/member/black-list.php">
-                            <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                            黑名單
-                        </a>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <a class=" btn btn-green me-2" href="http://localhost/mfee27-team4-git/member/user-sign-up.php">
+                                    <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                                    會員註冊
+                                </a>
+                                <a class=" btn btn-grey me-2" href="http://localhost/mfee27-team4-git/member/black-list.php">
+                                    <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                                    黑名單
+                                </a>
+                            </div>
+                            <div>
+                                <a class=" btn  btn-khak  me-2" href="http://localhost/mfee27-team4-git/member/user-sign-up.php">
+                                    <!-- <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img> -->
+                                    會員帳號
+                                </a>
+                                <a class=" btn btn-khak me-2" href="http://localhost/mfee27-team4-git/member/black-list.php">
+                                    <!-- <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img> -->
+                                    註冊時間
+                                </a>
+                            </div>
+                        </div>
 
 
                     </div>
@@ -140,11 +155,11 @@ $totalPage = ceil($userCount / $perPage);
                                     <td><?php echo $row["email"] ?></td>
                                     <td><?php echo $row["create_time"] ?></td>
                                     <td>
-                                        <a class="btn btn-grey me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>">
+                                        <a class="btn btn-grey  me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </a>
-                                        <a class="btn btn-khak" type="button" href="do-black-list.php?id=<?= $row["id"] ?>">
+                                        <a class="btn btn-red" type="button" href="do-black-list.php?id=<?= $row["id"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                                             加入黑名單
                                         </a>
@@ -161,10 +176,10 @@ $totalPage = ceil($userCount / $perPage);
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <?php for ($i=1;$i<=$totalPage;$i++):?>
-                            <li class="page-item"><a class="page-link" href="users.php?page=<?=$i?>& order=<?=$order?>"><?=$i ?></a></li>
-                            <?php endfor;?>
-                           
+                            <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+                                <li class="page-item"><a class="page-link <?php if($page==$i) echo "active";?>" href="users.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
+                            <?php endfor; ?>
+
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

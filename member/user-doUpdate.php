@@ -29,5 +29,6 @@ header("location: user-detail.php?id=".$id);
 
 
 
-
 ?>
+
+<?php

@@ -13,6 +13,9 @@ $id = $_GET["id"];
 $sql = "SELECT * FROM users WHERE id=$id AND valid=1";
 $result = $conn->query($sql);
 $userCount = $result->num_rows;
+$row = $result->fetch_assoc();
+
+
 
 ?>
 <!DOCTYPE html>
@@ -84,7 +87,7 @@ $userCount = $result->num_rows;
                 </div>
                 <div class="container mt-5  ">
                     <?php if ($userCount > 0) :
-                        $row = $result->fetch_assoc();
+                        $row;
                     ?>
                         <div class="d-flex justify-content-center">
                             <table class="table table-bordered panel">
@@ -106,7 +109,11 @@ $userCount = $result->num_rows;
                                 </tr>
                                 <tr>
                                     <th>會員性別</th>
-                                    <td><?= $row["gender"] ?></td>
+                                    <td><?php if ($row["gender"] == 1) {
+                                            echo $sex = "男";
+                                        } else {
+                                            echo $sex = "女";
+                                        } ?></td>
                                 </tr>
                                 <tr>
                                     <th>會員生日</th>
@@ -126,7 +133,7 @@ $userCount = $result->num_rows;
                                     <td><?= $row["address"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>Create Time</th>
+                                    <th>註冊時間</th>
                                     <td><?= $row["create_time"] ?></td>
                                 </tr>
                             </table>
