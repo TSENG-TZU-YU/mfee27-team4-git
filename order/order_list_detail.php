@@ -85,7 +85,7 @@ $totalPage = ceil($pageDetailCount / $perPage);
                         <p class="col m-auto">總共<?= $pageDetailCount ?>筆資料</p>
                         <input class="col form-control me-3" type="text">
                         <a class="col-1 btn btn-green" href="#">
-                            <img class="bi pe-none mb-1" src="icon/search-icon.svg" width="16" height="16"></img>
+                            <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                             搜尋
                         </a>
                     </div>
@@ -130,7 +130,7 @@ $totalPage = ceil($pageDetailCount / $perPage);
                                         <td><?= $row["address"] ?></td>
                                         <td>
                                             <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
-                                                <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
+                                                <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
                                                 刪除
                                             </a>
                                         </td>
@@ -159,7 +159,7 @@ $totalPage = ceil($pageDetailCount / $perPage);
                                         <td><?= $row["amount"] ?></td>
                                         <td>
                                             <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
-                                                <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
+                                                <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
                                                 刪除
                                             </a>
                                         </td>
@@ -188,7 +188,7 @@ $totalPage = ceil($pageDetailCount / $perPage);
                                         <td><?= $row["amount"] ?></td>
                                         <td>
                                             <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
-                                                <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
+                                                <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
                                                 刪除
                                             </a>
                                         </td>
