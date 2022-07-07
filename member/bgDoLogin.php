@@ -1,3 +1,37 @@
+<<<<<<< HEAD
+<?php
+
+require("../db-connect.php");
+
+session_start();
+
+
+$account=$_POST["account"];
+$password=$_POST["password"];
+$password=md5($password);
+
+$sql="SELECT * FROM backstage WHERE account='$account' AND password='$password'";
+
+$result=$conn->query($sql);
+$userExist=$result->num_rows;  //帳號存在
+
+if($userExist>0){
+    $row=$result->fetch_assoc();
+    $user=[
+      
+        "name"=>$row["name"],
+        "account"=>$row["account"]
+      
+    ];
+
+    $_SESSION["user"]=$user;  //設定user
+    header("location: users.php");
+
+}else{
+    header("location:backstage.php");
+}
+
+=======
 <?php
 
 require("../db-connect.php");
@@ -22,10 +56,12 @@ if($userExist>0){
     ];
 
     $_SESSION["user"]=$user;  //設定user
-    header("location: users.php");
+    header('Location:users.php');
+    // exit;
 
 }else{
-    header("location:backstage.php");
+    // header("location:backstage.php");
 }
 
+>>>>>>> 3ceb0e13ce16e15488e13d85d3187f6d39818c28
 ?>

@@ -1,15 +1,22 @@
 <?php
 require("../db-connect.php");
 
-$sqlWhere = "WHERE member.users.php";
+$sqlMember  = "WHERE member.users.php";
+
 session_start();
+if (!isset($_GET["id"])) {
+    echo "沒有參數";
+    exit;
+}
 
 $id = $_GET["id"];
 $sql = "SELECT * FROM users WHERE id=$id AND valid=1";
 $result = $conn->query($sql);
 $userCount = $result->num_rows;
+$row = $result->fetch_assoc();
 
-// $rows=$result->fetch_all(MYSQLI_ASSOC);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -71,14 +78,7 @@ $userCount = $result->num_rows;
                             <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
-                        <a class="col-1 btn btn-khak me-3" href="user-edit.php">
-                            <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                            修改
-                        </a>
-                        <a class="col-1 btn btn-red  me-3" href="doDelete.php">
-                            <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                            刪除
-                        </a>
+
 
 
                     </div>
@@ -87,49 +87,82 @@ $userCount = $result->num_rows;
                 </div>
                 <div class="container mt-5  ">
                     <?php if ($userCount > 0) :
-                        $row = $result->fetch_assoc();
+                        $row;
                     ?>
                         <div class="d-flex justify-content-center">
                             <table class="table table-bordered panel">
                                 <tr>
-                                    <th>id</th>
+                                    <th>會員編號</th>
                                     <td><?= $row["id"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>Account</th>
-                                    <td><?= $row["account"] ?></td>
-                                </tr>
-                                <tr>
-                                    <th>Name</th>
+                                    <th>會員姓名</th>
                                     <td><?= $row["name"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>Phone</th>
+                                    <th>會員帳號</th>
+                                    <td><?= $row["account"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>會員密碼</th>
+                                    <td><?= $row["password"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>會員性別</th>
+                                    <td><?php if ($row["gender"] == 1) {
+                                            echo $sex = "男";
+                                        } else {
+                                            echo $sex = "女";
+                                        } ?></td>
+                                </tr>
+                                <tr>
+                                    <th>會員生日</th>
+                                    <td><?= $row["birthday"] ?></td>
+
+                                </tr>
+                                <tr>
+                                    <th>會員電話</th>
                                     <td><?= $row["phone"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>Email</th>
+                                    <th>會員郵件</th>
                                     <td><?= $row["email"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>Create Time</th>
+                                    <th>會員地址</th>
+                                    <td><?= $row["address"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>註冊時間</th>
                                     <td><?= $row["create_time"] ?></td>
                                 </tr>
                             </table>
+
                         </div>
+
                     <?php else : ?>
                         沒有該使用者
                     <?php endif; ?>
+                    <div class="py-2  ">
+                        <div class="d-flex justify-content-center">
+                            <a class="col-1 btn btn-khak me-3" href="user-edit.php?id=<?= $row["id"] ?>">
+                                <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                                修改
+                            </a>
+                            <a class="col-1 btn btn-red  me-3" href="doDelete.php?id=<?= $row["id"] ?>">
+                                <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                                刪除
+                            </a>
+                        </div>
+                    </div>
+
+
                 </div>
+                <!-- 內容 end -->
+
+            </main>
+            <!-- 主要區塊 main end-->
         </div>
-
-
-    </div>
-    <!-- 內容 end -->
-
-    </main>
-    <!-- 主要區塊 main end-->
-    </div>
     </div>
 
 

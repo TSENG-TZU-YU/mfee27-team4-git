@@ -40,7 +40,7 @@ $totalPage = ceil($list_count / $perPage);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <!-- 版面元件樣式 css -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     </link>
 
 </head>
@@ -50,7 +50,7 @@ $totalPage = ceil($list_count / $perPage);
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
-            <?php require("nav.php"); ?>
+            <?php require("../nav.php"); ?>
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
@@ -74,7 +74,7 @@ $totalPage = ceil($list_count / $perPage);
                         <p class="col m-auto">總共<?= $list_count ?>筆資料</p>
                         <input class="col form-control me-3" type="text">
                         <a class="col-1 btn btn-green" href="#">
-                            <img class="bi pe-none mb-1" src="icon/search-icon.svg" width="16" height="16"></img>
+                            <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                             搜尋
                         </a>
                     </div>
@@ -114,7 +114,7 @@ $totalPage = ceil($list_count / $perPage);
                                             <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </button> -->
-                                            <a class="btn btn-grey me-3" type="button" href="order_list_detail.php?order_id=<?= 1 ?>"><img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
+                                            <a class="btn btn-grey me-3" type="button" href="order_list_detail.php?order_id=<?=$row["order_id"]?>"><img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                                 詳細</a>
 
                                         </td>
