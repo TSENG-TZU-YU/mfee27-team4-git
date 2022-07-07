@@ -1,11 +1,14 @@
 <?php
-require("../db-connect.php");
-session_start();
-$sqlWhere="WHERE member.users.php";
+require("db-connect.php");
 
-// $sql="SELECT * FROM users ";
-// $result=$conn->query($sql);
+$sql="SELECT * FROM coupon";
+
+$result = $conn->query($sql);
+$couponCount=$result->num_rows;
+
 ?>
+
+
 <!DOCTYPE html>
 <html lang="zh-tw">
 
@@ -30,7 +33,7 @@ $sqlWhere="WHERE member.users.php";
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
-            <?php require("../nav.php"); ?>
+           
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
@@ -40,7 +43,7 @@ $sqlWhere="WHERE member.users.php";
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">會員管理</li>
+                        <li class="breadcrumb-item" aria-current="page"><a href="#">優惠卷</a></li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -50,85 +53,54 @@ $sqlWhere="WHERE member.users.php";
                 <!-- 內容 -->
                 <div class="container">
                     <div class="row">
-                        <p class="col-8 m-auto">總共 筆資料</p>
+                        <p class="col-8 m-auto">總共<?=$couponCount?> 筆資料</p>
                         <input class="col form-control me-3" type="text">
                         <a class="col-1 btn btn-green" href="#">
-                            <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
+                            <img class="bi pe-none mb-1" src="/icon/search-icon.svg" width="16" height="16"></img>
                             搜尋
                         </a>
                     </div>
-                </div>
-                <hr>
-                <div class="container">
-
-                    <!-- 按鈕 -->
-                    <div class="row">
-                        <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green me-2" href="http://localhost/mfee27-team4-git/member/user-sign-up.php">
-                            <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
-                            會員註冊
-                        </a>
-                        <a class="col-1 btn btn-grey me-2" href="http://localhost/mfee27-team4-git/member/black-list.php">
-                            <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                            黑名單
-                        </a>
-                   
-                     
-                    </div>
-                    <!-- 按鈕 end-->
-
                     <hr>
                     <table class="table mt-5">
                         <thead>
                             <tr>
-                                <th scope="col">會員編號</th>
-                                <th scope="col">會員名字</th>
-                                <th scope="col">會員帳號</th>
-                                <th scope="col">會員狀態</th>
-                                <th scope="col">會員郵件</th>
-                                <th scope="col">會員電話</th>
-                                <th scope="col">會員地址</th>
+                                <th scope="col">編號</th>
+                                <th scope="col">優惠券名稱</th>
+                                <th scope="col">使用者資格</th>
+                                <th scope="col">序號</th>
+                                <th scope="col">折扣</th>
+                                <th scope="col">日期</th>
+                                <th scope="col">使用次數</th>
+                                <th scope="col">最低金額</th>
                                 <th scope="col">建立時間</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while($row=$result->fetch_assoc()):?>
+                        <?php   //把資料轉換成關聯式陣列
+               while($row = $result->fetch_assoc()): ?> 
                             <tr>
-                                <th>1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>@mdo</td>
+                                
+                                <td><?=$row["id"]?></td>
+                                <td><?=$row["name"]?></td>
+                                <td><?=$row["member"]?></td>
+                                <td><?=$row["number"]?></td>
+                                <td><?=$row["discount"]?></td>
+                                <td><?=$row["dateline"]?></td>
+                                <td><?=$row["several_times"]?></td>
+                                <td><?=$row["min_price"]?></td>
+                                <td><?=$row["create_time"]?></td>
                                 <td>
-                                    <button class="btn btn-grey me-3" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                                <button class="btn btn-grey me-3" type="button">
+                                        <img class="bi pe-none mb-1" src="/icon/read-icon.svg" width="16" height="16"></img>
                                         詳細
                                     </button>
                                     <button class="btn btn-khak" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                                        <img class="bi pe-none mb-1" src="/icon/update-icon.svg" width="16" height="16"></img>
                                         修改
                                     </button>
-                                </td>
-                            </tr>
-                            <?php endwhile;?>
-                            <tr>
-                                <th>2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>@fat</td>
-                                <td>
-                                    <button class="btn btn-grey me-3" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                                        詳細
-                                    </button>
-                                    <button class="btn btn-khak" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                        修改
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
+                              </td>
+                              <?php endwhile; ?>
+               </tbody>
                     </table>
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example">
