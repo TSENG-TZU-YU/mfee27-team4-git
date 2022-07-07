@@ -50,7 +50,7 @@ $totalPage = ceil($pageDetailCount / $perPage);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <!-- 版面元件樣式 css -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     </link>
 
 </head>
@@ -60,7 +60,7 @@ $totalPage = ceil($pageDetailCount / $perPage);
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
-            <?php require("nav.php"); ?>
+            <?php require("../nav.php"); ?>
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
@@ -80,7 +80,8 @@ $totalPage = ceil($pageDetailCount / $perPage);
                 <!-- 內容 -->
                 <div class="container">
                     <div class="row">
-                        <p class="col m-auto">第<?= $startItem ?>-<?= $endItem ?>筆</p>
+                        <!-- <p class="col m-auto">第<?php // $startItem ?>-<?php // $endItem ?>筆</p> -->
+                        <h5 class="col">訂單編號：<?= $order_id ?></h5>
                         <p class="col m-auto">總共<?= $pageDetailCount ?>筆資料</p>
                         <input class="col form-control me-3" type="text">
                         <a class="col-1 btn btn-green" href="#">
@@ -91,25 +92,25 @@ $totalPage = ceil($pageDetailCount / $perPage);
                 </div>
                 <hr>
                 <div class="container">
-                    <div class="row">
-                        <h4 class="col">訂單編號：<?= $order_id ?></h4>
-                        <a class="col btn btn-green me-2 " href="order_list_detail.php?order_id=<?= $order_id ?>">
+                    <!-- <div class="row">
+                        <h4 class="col">訂單編號：<?php //$order_id ?></h4>
+                        <a class="col btn btn-green me-2 " href="order_list_detail.php?order_id=<?php // $order_id ?>">
                             全部記錄
                         </a>
-                        <a class="col btn btn-green me-2" href="order_list_detail.php?order_id=<?= $order_id ?>&category_id=a">
+                        <a class="col btn btn-green me-2" href="order_list_detail.php?order_id=<?php // $order_id ?>&category_id=a">
                             樂器訂單記錄
                         </a>
-                        <a class="col btn btn-green me-2" href="order_list_detail.php?order_id=<?= $order_id ?>&category_id=b">
+                        <a class="col btn btn-green me-2" href="order_list_detail.php?order_id=<?php // $order_id ?>&category_id=b">
                             課程訂單記錄
                         </a>
-                        <a class="col btn btn-green me-2" href="order_list_detail.php?order_id=<?= $order_id ?>&category_id=c">
+                        <a class="col btn btn-green me-2" href="order_list_detail.php?order_id=<?php // $order_id ?>&category_id=c">
                             場地預約紀錄
                         </a>
-                    </div>
+                    </div> -->
+                    
+                    <h2 class="text-center mt-3">樂器訂單記錄</h2>
                     <hr>
                     <table class="table">
-                        <h2 class="text-center">樂器訂單記錄</h2>
-                        <hr>
                         <thead>
                             <tr>
                                 <th scope="col">產品編號</th>
@@ -120,8 +121,8 @@ $totalPage = ceil($pageDetailCount / $perPage);
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($rows as $row) :
-                                if ($category_id === $row["category_id"] || $category_id == "") : ?>
+                            <?php foreach ($rows as $row) : ?>
+                                <?php if ($row["category_id"] === "A") : ?>
                                     <tr>
                                         <td><?= $row["product_id"] ?></td>
                                         <td><?= $row["category_id"] ?></td>
@@ -132,7 +133,64 @@ $totalPage = ceil($pageDetailCount / $perPage);
                                                 <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
                                                 刪除
                                             </a>
-
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <h2 class="text-center">課程訂單記錄</h2>
+                    <hr>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">產品編號</th>
+                                <th scope="col">產品類別</th>
+                                <th scope="col">數量</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($rows as $row) : ?>
+                                <?php if ($row["category_id"] === "B") : ?>
+                                    <tr>
+                                        <td><?= $row["product_id"] ?></td>
+                                        <td><?= $row["category_id"] ?></td>
+                                        <td><?= $row["amount"] ?></td>
+                                        <td>
+                                            <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
+                                                <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
+                                                刪除
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <h2 class="text-center">場地預約記錄</h2>
+                    <hr>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">產品編號</th>
+                                <th scope="col">產品類別</th>
+                                <th scope="col">數量</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($rows as $row) : ?>
+                                <?php if ($row["category_id"] === "C") : ?>
+                                    <tr>
+                                        <td><?= $row["product_id"] ?></td>
+                                        <td><?= $row["category_id"] ?></td>
+                                        <td><?= $row["amount"] ?></td>
+                                        <td>
+                                            <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
+                                                <img class="bi pe-none mb-1" src="icon/delete-icon.svg" width="16" height="16"></img>
+                                                刪除
+                                            </a>
                                         </td>
                                     </tr>
                                 <?php endif; ?>
