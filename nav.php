@@ -73,7 +73,7 @@
             </div>
             <li>
                 <a href="http://localhost/mfee27-team4-git/coupon/coupon.php" class="nav-link my-1">
-                    <img class="mb-1 me-2" src="/mfee27-team4-git/icon/teacher-icon.svg" width="16" height="16"></img>
+                    <img class="mb-1 me-2" src="/mfee27-team4-git/icon/sell-icon.svg" width="16" height="16"></img>
                     優惠券
                 </a>
             </li>
