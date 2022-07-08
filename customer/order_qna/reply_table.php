@@ -14,15 +14,6 @@ $sqlDetail="SELECT * FROM order_qna_detail WHERE order_id = $order_id";
 $resultDetail = $conn->query($sqlDetail);
 $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 
-// $asker=$row["account"];
-
-// if(isset($_POST["reply"])){
-//     $reply=$_POST["reply"];
-//     $now=date('Y-m-d H:i:s');
-//     $sqlin="INSERT INTO order_qna_detail (order_id, asker, q_content, create_time) VALUES ('$order_id', '管理員', '$reply','$now')";
-//     $conn->query($sqlin);
-//     $conn->close();
-// }
 ?>
 
 <!DOCTYPE html>
