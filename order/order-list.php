@@ -23,6 +23,7 @@ if ($endItem > $list_count) $endItem = $list_count;
 
 $totalPage = ceil($list_count / $perPage);
 
+$conn->close();
 // var_dump($rows);
 ?>
 
@@ -86,7 +87,7 @@ $totalPage = ceil($list_count / $perPage);
                             <thead>
                                 <tr>
                                     <th scope="col">訂單編號</th>
-                                    <th scope="col">會員編號</th>
+                                    <th scope="col">會員帳號</th>
                                     <th scope="col">訂單建立時間</th>
                                     <th scope="col">總金額</th>
                                     <th scope="col">結帳方式</th>
@@ -102,7 +103,7 @@ $totalPage = ceil($list_count / $perPage);
                                 <?php foreach ($rows as $row) : ?>
                                     <tr>
                                         <th><?= $row["order_id"] ?></th>
-                                        <th><?= $row["account_id"] ?></th>
+                                        <th><?= $row["account"] ?></th>
                                         <th><?= $row["create_time"] ?></th>
                                         <th><?= $row["total_amount"] ?></th>
                                         <td><?= $row["payment_method"] ?></td>
@@ -110,13 +111,13 @@ $totalPage = ceil($list_count / $perPage);
                                         <td><?= $row["payment_time"] ?></td>
                                         <td><?= $row["order_state"] ?></td>
                                         <td>
-                                            <!-- <button class="btn btn-grey me-3" type="button">
-                                            <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
-                                            詳細
-                                        </button> -->
-                                            <a class="btn btn-grey me-3" type="button" href="order_list_detail.php?order_id=<?=$row["order_id"]?>"><img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                                            <a class="btn btn-grey me-3" type="button" href="order-list-detail.php?order_id=<?= $row["order_id"] ?>"><img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                                 詳細</a>
-
+                                        </td>
+                                        <td>
+                                        <a class="btn btn-khak" type="button" href="list-edit.php?order_id=<?= $row["order_id"] ?>">
+                                                <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                                                修改</a>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -133,7 +134,7 @@ $totalPage = ceil($list_count / $perPage);
                         <?php
                                 if ($page == $i) echo "active";
                         ?>
-                        "><a class="page-link" href="order_list.php?page=<?= $i ?>"><?= $i ?></a></li>
+                        "><a class="page-link" href="order-list.php?page=<?= $i ?>"><?= $i ?></a></li>
                             <?php endfor; ?>
                         </ul>
                     </div>
