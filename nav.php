@@ -24,13 +24,13 @@
             </li>
             <li>
                 <a href="http://localhost/mfee27-team4-git/member/users.php" class="nav-link my-1 <?php if ($sqlMember) echo "nav-active" ?> ">
-                    <img class="mb-1 me-2" src="../icon/member-icon.svg" width="16" height="16"></img>
+                    <img class="mb-1 me-2" src="/mfee27-team4-git/icon/member-icon.svg" width="16" height="16"></img>
                     會員管理
                 </a>
             </li>
             <li>
                 <a href="http://localhost/mfee27-team4-git/order/order_list.php" class="nav-link my-1 <?php if ($sqlOrder) echo "nav-active" ?>">
-                    <img class="mb-1 me-2" src="../icon/order-icon.svg" width="16" height="16"></img>
+                    <img class="mb-1 me-2" src="/mfee27-team4-git/icon/order-icon.svg" width="16" height="16"></img>
                     訂單管理
                 </a>
             </li>
@@ -78,8 +78,8 @@
                 </a>
             </li>
         </ul>
-        <a href="#" class="signOutLink bottom-0 start-0 position-fixed p-2 m-2">
-            <img class="mb-1 me-2" src="icon/signout-icon.svg" width="25" height="25"></img>
+        <a href="user-doLogut.php" class="signOutLink bottom-0 start-0 position-fixed p-2 m-2">
+            <img class="mb-1 me-2" src="../icon/signout-icon.svg" width="25" height="25"></img>
             登出
         </a>
     </div>

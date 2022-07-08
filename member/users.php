@@ -1,6 +1,12 @@
 <?php
 require("../db-connect.php");
 session_start();
+if (!isset($_SESSION["user"])) {
+    header("location:backstage.php");
+    exit;
+}
+
+
 $sqlMember = "WHERE member.users.php";
 
 if (isset($_GET["page"])) {
@@ -12,10 +18,22 @@ $order = isset($_GET["order"]) ? $_GET["order"] : 1;
 
 switch ($order) {
     case 1:
-        $orderType = "id ASC";
+        $orderType = "name ASC";
         break;
     case 2:
-        $orderType = "id DESC";
+        $orderType = "name DESC";
+        break;
+    case 3:
+        $orderType = "account ASC";
+        break;
+    case 4:
+        $orderType = "account DESC";
+        break;
+    case 5:
+        $orderType = "create_time ASC";
+        break;
+    case 6:
+        $orderType = "create_time DESC";
         break;
     default:
         $orderType = "id ASC";
@@ -118,11 +136,16 @@ $totalPage = ceil($userCount / $perPage);
                                 </a>
                             </div>
                             <div>
-                                <a class=" btn  btn-khak  me-2" href="http://localhost/mfee27-team4-git/member/user-sign-up.php">
+                                排序 :
+                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&order=1">
+                                    <!-- <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img> -->
+                                    會員姓名
+                                </a>
+                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&order=3">
                                     <!-- <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img> -->
                                     會員帳號
                                 </a>
-                                <a class=" btn btn-khak me-2" href="http://localhost/mfee27-team4-git/member/black-list.php">
+                                <a class=" btn btn-khak me-2" href="users.php?page=<?= $page ?>&order=5">
                                     <!-- <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img> -->
                                     註冊時間
                                 </a>
@@ -177,7 +200,7 @@ $totalPage = ceil($userCount / $perPage);
                                 </a>
                             </li>
                             <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
-                                <li class="page-item"><a class="page-link <?php if($page==$i) echo "active";?>" href="users.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
+                                <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="users.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
                             <?php endfor; ?>
 
                             <li class="page-item">
