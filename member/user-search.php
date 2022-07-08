@@ -155,7 +155,7 @@ if(!isset($_GET["search"])){
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </a>
-                                        <a class="btn btn-khak" type="button" href="do-black-list.php?id=<?= $row["id"] ?>">
+                                        <a class="btn btn-red" type="button" href="do-black-list.php?id=<?= $row["id"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                                             加入黑名單
                                         </a>

@@ -18,7 +18,7 @@ $order = isset($_GET["order"]) ? $_GET["order"] : 1;
 
 switch ($order) {
     case 1:
-        $orderType = "name ASC";
+        $orderType = "id ASC";
         break;
     case 2:
         $orderType = "name DESC";
@@ -137,7 +137,7 @@ $totalPage = ceil($userCount / $perPage);
                             </div>
                             <div>
                                 排序 :
-                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&order=1">
+                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&order=2">
                                     <!-- <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img> -->
                                     會員姓名
                                 </a>
