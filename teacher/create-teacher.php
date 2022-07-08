@@ -52,6 +52,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="teachers-index.php">師資管理</a></li>
                         <li class="breadcrumb-item" aria-current="page">新增師資</li>
                     </ol>
                 </biv>
@@ -62,7 +63,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                 <!-- 內容 -->
 
                 <div class="container">
-                    <h3>新增師資</h3>
+                    <h3>新增師資資料</h3>
                     <hr>
                     <form class="mt-1" action="doCreate-teacher.php" method="post" enctype="multipart/form-data">
                         <div class="row">
@@ -83,7 +84,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                                     <input type="url" class="form-control" name="video">
                                 </div>
                                 <div class="col">
-                                    <label class="form-label fw-bold" for="">教授領域</label>
+                                    <label class="form-label fw-bold" for="">教學領域</label>
                                     <input type="text" class="form-control" name="field">
                                 </div>
                             </div>
@@ -104,7 +105,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                         </div>
                         <div class="mb-2">
                             <label class="form-label fw-bold" for="">師資簡介</label>
-                            <textarea class="form-control" id="floatingTextarea2" type="text" name="profile" style="height: 180px; resize:none;"></textarea>
+                            <textarea class="form-control" id="floatingTextarea2" type="text" name="profile" style="height: 250px; resize:none;"></textarea>
                         </div>
 
                         <div class="d-flex justify-content-center align-items-center mt-3">

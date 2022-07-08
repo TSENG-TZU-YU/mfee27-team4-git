@@ -8,6 +8,7 @@ if (empty($_POST["name"])) {
 } else {
 
   require_once("../db-connect.php");
+
   $name = $_POST["name"];
   $imageName = $_FILES["image"]["name"];
   $image = $_FILES["image"];
@@ -22,7 +23,7 @@ if (empty($_POST["name"])) {
     $sqlTeacher = "INSERT INTO teacher (name, image, field, profile, video, valid) VALUES ('$name', '$imageName', '$field', '$profile', '$video', 1) ";
 
     if ($conn->query($sqlTeacher) === TRUE) {
-      // 取得醉心此次新增 teacher 資料表 id
+      // 取得此次新增 teacher 的 id
       $last_id = $conn->insert_id;
       // 寫入迴圈  $courseIdArray陣列 key(幾筆) =>
       if (isset($_POST["courseId"])) {
