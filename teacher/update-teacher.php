@@ -86,6 +86,7 @@ $teacherCourseCounts = $resultTeacherCourse->fetch_all(MYSQLI_ASSOC);
             <form class="mt-1" action="doUpdate.php" method="post" enctype="multipart/form-data">
               <div class="row">
                 <div class="col-3">
+
                   <img class="img-fluid rounded object-cover" id="preview" src="
                   <?php if (empty($rowTeacher["image"])) {
                     // 如果沒有照片就顯示頭像icon
@@ -105,6 +106,7 @@ $teacherCourseCounts = $resultTeacherCourse->fetch_all(MYSQLI_ASSOC);
                   </div>
                   <div class="col mb-2">
                     <label class="form-label fw-bold" for="">師資照片</label>
+                    <input type="hidden" name="id" value="<?= $rowTeacher["image"] ?>">
                     <input type="file" class="form-control" id="upload" name="image">
                   </div>
                   <div class="col mb-2">

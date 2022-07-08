@@ -56,6 +56,7 @@ $teacherCount = $result->num_rows;
     <div class="row d-flex">
 
       <!-- 導覽列 nav -->
+
       <!-- 導覽列 nav end -->
 
       <!-- 主要區塊 main -->
@@ -101,6 +102,7 @@ $teacherCount = $result->num_rows;
                 </a>
               </div>
               <div>
+                篩選：
                 <a class=" btn  btn-khak  me-2" href="#">
                   篩選條件
                 </a>
@@ -109,14 +111,7 @@ $teacherCount = $result->num_rows;
                 </a>
               </div>
             </div>
-
-
           </div>
-
-
-
-
-
 
           <table class="table mt-2">
             <thead>
@@ -168,11 +163,6 @@ $teacherCount = $result->num_rows;
                       </a>
                     </td>
                   </tr>
-
-
-
-
-
                 <?php endwhile; ?>
             </tbody>
           <?php else : ?>
