@@ -1,9 +1,9 @@
 <?php
-
+// 連結資料庫
 require_once("../db-connect.php");
 
 // 抓師資資料
-$sql = "SELECT * FROM teacher WHERE id";
+$sql = "SELECT * FROM teacher";
 
 $result = $conn->query($sql);
 $teacherCount = $result->num_rows;
@@ -34,6 +34,17 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
             height: 80px;
             object-fit: cover;
         }
+
+        .ellipsis {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            white-space: normal;
+            text-align: justify;
+        }
     </style>
 
 </head>
@@ -52,7 +63,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">xxx</li>
+                        <li class="breadcrumb-item" aria-current="page">師資管理</li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -62,7 +73,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                 <!-- 內容 -->
                 <div class="container">
                     <div class="row">
-                        <p class="col-8 m-auto">總共 筆資料</p>
+                        <p class="col-8 m-auto">總共 <?= $teacherCount ?> 筆資料</p>
                         <input class="col form-control me-3" type="text">
                         <a class="col-1 btn btn-green" href="#">
                             <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -72,23 +83,28 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                 </div>
                 <hr>
                 <div class="container">
-
-                    <table class="table mt-5">
+                    <a class="col btn btn-green me-2" href="create-teacher.php">
+                        <img class="mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                        新增師資
+                    </a>
+                    <table class="table mt-2">
                         <thead>
                             <tr>
                                 <th scope="col">編號</th>
-                                <th scope="col">師資姓名</th>
                                 <th scope="col">師資照片</th>
+                                <th scope="col">師資姓名</th>
                                 <th scope="col">教學領域</th>
+                                <th scope="col">教授課程</th>
+                                <th scope="col" width="350">師資簡介</th>
                                 <th scope="col">管理操作</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- 撈每一筆資料 -->
                             <?php foreach ($rows as $row) : ?>
                                 <tr>
                                     <td><?= $row["id"] ?></td>
-                                    <th><?= $row["name"] ?></th>
-                                    <td><img class="object-cover" src="
+                                    <td><img class="object-cover  rounded" src="
                                     <?php if (empty($row["image"])) {
                                         // 如果沒有照片就顯示頭像icon
                                         echo "../images/img-icon.png";
@@ -99,9 +115,15 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                                     }
                                     ?>
                                     "></td>
+                                    <td><?= $row["name"] ?></td>
                                     <td><?= $row["field"] ?></td>
+                                    <td></td>
+                                    <td align="left">
+                                        <p class="ellipsis">
+                                            <?= $row["profile"] ?>
+                                        </p>
+                                    </td>
                                     <td>
-
                                         <a class="btn btn-grey me-3" type="button" href="teacher.php?id=<?= $row["id"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細

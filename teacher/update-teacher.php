@@ -8,18 +8,18 @@ if (!isset($_GET["id"])) {
 require_once("../db-connect.php");
 $id = $_GET["id"];
 
-
+// 抓師資資料
 $sql = "SELECT * FROM teacher WHERE id=$id AND valid=1";
 $result = $conn->query($sql);
 $teacherCount = $result->num_rows;
 
-
+// 抓課程資料
 $sqlCourse = "SELECT * FROM course_product WHERE id";
 $resultCourse = $conn->query($sqlCourse);
 $courseCount = $resultCourse->num_rows;
 $rowsCourse = $resultCourse->fetch_all(MYSQLI_ASSOC);
 
-
+// 抓師資與課程關聯資料
 $sqlTeacherCourse = "SELECT * FROM teacher_course WHERE name_id=$id";
 $resultTeacherCourse = $conn->query($sqlTeacherCourse);
 $teacherCourseCounts = $resultTeacherCourse->fetch_all(MYSQLI_ASSOC);
@@ -68,7 +68,7 @@ $teacherCourseCounts = $resultTeacherCourse->fetch_all(MYSQLI_ASSOC);
           <ol class="breadcrumb fw-bold">
             <li class="breadcrumb-item"><a href="#">首頁</a></li>
             <li class="breadcrumb-item"><a href="teachers-index.php">師資管理</a></li>
-            <li class="breadcrumb-item" aria-current="page">修改師資</li>
+            <li class="breadcrumb-item" aria-current="page">修改師資資料</li>
           </ol>
         </biv>
         <!-- 麵包屑 breadcrumb end -->
@@ -78,7 +78,7 @@ $teacherCourseCounts = $resultTeacherCourse->fetch_all(MYSQLI_ASSOC);
         <!-- 內容 -->
 
         <div class="container">
-          <h3>新增師資</h3>
+          <h3>修改師資資料</h3>
           <hr>
           <?php if ($teacherCount > 0) :
             $rowTeacher = $result->fetch_assoc();
@@ -112,7 +112,7 @@ $teacherCourseCounts = $resultTeacherCourse->fetch_all(MYSQLI_ASSOC);
                     <input type="url" class="form-control" name="video" value="<?= $rowTeacher["video"] ?>">
                   </div>
                   <div class="col">
-                    <label class="form-label fw-bold" for="">教授領域</label>
+                    <label class="form-label fw-bold" for="">教學領域</label>
                     <input type="text" class="form-control" name="field" value="<?= $rowTeacher["field"]  ?>">
                   </div>
                 </div>
@@ -146,7 +146,7 @@ $teacherCourseCounts = $resultTeacherCourse->fetch_all(MYSQLI_ASSOC);
               </div>
               <div class="mb-2">
                 <label class="form-label fw-bold" for="">師資簡介</label>
-                <textarea class="form-control" id="floatingTextarea2" type="text" name="profile" style="height: 180px; resize:none;"><?= $rowTeacher["profile"]  ?></textarea>
+                <textarea class="form-control" id="floatingTextarea2" type="text" name="profile" style="height: 250px; resize:none;"><?= $rowTeacher["profile"]  ?></textarea>
               </div>
               <div class="d-flex justify-content-center align-items-center mt-3">
                 <a class="btn btn-green  me-5" href="teachers-index.php">

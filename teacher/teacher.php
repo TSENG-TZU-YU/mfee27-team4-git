@@ -14,12 +14,6 @@ require_once("../db-connect.php");
 // $resultTeacherCourse = $conn->query($sqlTeacherCourse);
 // $teacherCourseCounts = $resultTeacherCourse->fetch_all(MYSQLI_ASSOC);
 
-$sqlTeacherCourse="SELECT teacher_course.course_id AS course_product"
-
-SELECT product.*, category.name AS category_name FROM product
-    	JOIN category ON product.category_id = category.id
-    	ORDER BY product.id ASC
-
 // 抓師資資料
 $sql = "SELECT * FROM teacher WHERE id=$id AND valid=1";
 $result = $conn->query($sql);
@@ -46,16 +40,18 @@ $teacherCount = $result->num_rows;
   </link>
   <style>
     .object-cover {
-      /* width: 100%;
-      height: 100%; */
+      width: 100%;
       object-fit: cover;
     }
 
     .iframe-cover {
-
       height: 350px;
       width: 100%;
       object-fit: cover;
+    }
+
+    .text-align-justify {
+      text-align: justify;
     }
   </style>
 
@@ -82,16 +78,27 @@ $teacherCount = $result->num_rows;
         <!-- 麵包屑 breadcrumb end -->
 
         <hr>
-        <p><?php var_dump($rowCourse);  ?></p>
+        <p><?php ?></p>
         <!-- 內容 -->
         <div class="container">
+          <h3>師資詳細資料</h3>
+          <hr>
           <?php if ($teacherCount > 0) :
             $row = $result->fetch_assoc();
           ?>
             <div class="row p-4">
               <div class="col-3">
 
-                <img class="img-fluid rounded object-cover mb-3" id="preview" src="../images/<?= $row["image"] ?>" style="width:100; height: 250px;">
+                <img class="img-fluid rounded object-cover mb-3 iframe-cover" id="preview" src="
+                 <?php if (empty($row["image"])) {
+                    // 如果沒有照片就顯示頭像icon
+                    echo "../images/img-icon.png";
+                  } else {
+                    // 如果有照片就顯示上傳的照片
+                    $teacherImage = $row["image"];
+                    echo "../images/$teacherImage";
+                  } ?>
+              " style="height: 250px;">
               </div>
               <div class="col-9 m-auto">
 
@@ -117,18 +124,47 @@ $teacherCount = $result->num_rows;
                     <tr>
                       <th>教授課程</th>
                       <td align="left">
+                        <?php
+                        $sqlTeacherCourse = "SELECT course_id FROM teacher_course WHERE name_id=$id";
+                        $resultTeacherCourse = $conn->query($sqlTeacherCourse);
+                        $teacherCourseCounts = $resultTeacherCourse->fetch_all(MYSQLI_ASSOC);
+
+                        $course = "SELECT * FROM course_product";
+                        $resultCourse = $conn->query($course);
+                        $courseRows = $resultCourse->fetch_all(MYSQLI_ASSOC);
+                        $courseRow = array_column($courseRows, column_key: "course_name", index_key: "id");
+
+                        //                   SELECT teacher_course.*, course_product.name FROM teacher_course JOIN course_product ON 
+
+                        //                   SELECT product.*, category.name AS category_name FROM product
+                        // JOIN category ON product.category_id = category.id
+                        // ORDER BY product.id ASC
+
+
+                        ?>
+
+                        <?php foreach ($teacherCourseCounts as $value) : ?>
+
+                          <?=
+                          $value["course_id"];
+                          var_dump($courseRow);
+                          ?>
+
+                        <?php endforeach ?>
+
+
                       </td>
                     </tr>
                     <tr>
                       <th>師資簡介</th>
-                      <td colspan="2" align="left">
+                      <td colspan="2" align="left" class="text-align-justify">
                         <div><?= $row["profile"] ?></div>
                       </td>
                     </tr>
                     <tr>
                       <th>表演作品</th>
                       <td colspan="2">
-                        <div class="img-fluid rounded">
+                        <div class="img-fluid rounded p-3">
                           <iframe class="img-fluid rounded iframe-cover" src="<?= $row["video"] ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                       </td>
@@ -149,7 +185,7 @@ $teacherCount = $result->num_rows;
               </a>
             </div>
           <?php else : ?>
-            沒有師資資料
+            <?= "<script>alert('沒有師資資料'); location.href = 'teachers-index.php'; </script>"; ?>
           <?php endif; ?>
         </div>
     </div>
