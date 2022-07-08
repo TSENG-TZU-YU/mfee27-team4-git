@@ -1,10 +1,11 @@
 <?php
 require("../db-connect.php");
 session_start();
-if (!isset($_SESSION["user"])) {
+if(!isset($_SESSION["user"])){   //重整後會需要重新登入
+    echo "請循正常管道進入本頁";
     header("location:backstage.php");
     exit;
-}
+  }
 
 
 $sqlMember = "WHERE member.users.php";
