@@ -1,8 +1,6 @@
 <?php
 
-
-
-require("../db-connect-music.php");
+require("../db-connect.php");
 
 // 篩選
 
@@ -93,7 +91,7 @@ $resultSelect = $conn->query($sqlSelect);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <!-- 版面元件樣式 css -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style.css">
     </link>
 
 </head>
@@ -103,7 +101,7 @@ $resultSelect = $conn->query($sqlSelect);
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
-
+            <?php require("../nav.php");  ?>
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
@@ -126,7 +124,7 @@ $resultSelect = $conn->query($sqlSelect);
                         <p class="col-8 m-auto">總共 筆資料</p>
                         <input class="col form-control me-2" type="text">
                         <a class="col-1 btn btn-green" href="#">
-                            <img class="bi pe-none mb-1" src="/icon/search-icon.svg" width="16" height="16"></img>
+                            <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                             搜尋
                         </a>
                     </div>
