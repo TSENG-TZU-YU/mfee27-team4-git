@@ -68,62 +68,77 @@ $couponCount=$result->num_rows;
 
                              <tr>
                              <th scope="col">優惠券名稱</th>
-                             <td>
-                             <?=$row["name"]?></td>
+                             <td><input type="text" name="name" required  class="form-control"
+                             value="<?=$row["name"]?>"></td>
                              </tr>
 
                              <tr>
                              <th scope="col">使用者資格</th>
-                             <td>
-                            <?=$row["members"]?></td>
+                             <td><input type="text" name="members" required  class="form-control"
+                             value="<?=$row["members"]?>"></td>
                              </tr>
 
                              <tr>
                              <th scope="col">序號</th>
-                             <td>
-                            <?=$row["number"]?></td>
+                             <td><input type="text" name="number" required  class="form-control"
+                             value="<?=$row["number"]?>"></td>
                              </tr>
 
                              <tr>
                              <th scope="col">折扣</th>
-                             <td>
-                             <?=$row["discount"]?></td>
+                             <td><input type="text" name="discount" required  class="form-control"
+                             value="<?=$row["discount"]?>"></td>
                              </tr>
 
                              <tr>
                              <th scope="col">日期</th>
-                             <td>
-                            <?=$row["dateline"]?></td>
+                             <td><input type="date" name="dateline"  required  class="form-control"
+                             value="<?=$row["dateline"]?>"></td>
                              </tr>
 
                              <tr>
                              <th scope="col">使用次數</th>
                              <td>
-                             <?=$row["several_times"]?></td>
+                             <select class="form-select" aria-label="Default select example" type="time" 
+                               name="times" required  value="<?=$row["several_times"]?>">
+                               <option selected><?=$row["several_times"]?></option>
+                             <option value="1">1</option>
+                             <option value="2">2</option>
+                             <option value="3">3</option>
+                               </select></td>
                              </tr>
 
                              <tr>
                              <th scope="col">最低金額</th>
-                             <td>
-                            <?=$row["min_price"]?></td>
+                             <td><input type="text" name="price" required  class="form-control"
+                             value="<?=$row["min_price"]?>"></td>
                              </tr>
                       </thead>
+              
+                      
                     </table>
-                    <div class="d-flex justify-content-center align-items-center mt-4">
-                    <a class="btn btn-khak me-3" type="" href="coupon-edit.php?id=<?=$row["id"]?>">
-                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                        修改
-                        </a>
-                        <a class=" btn btn-grey me-3" href="coupons.php">
-                       <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                        返回上一頁
-                        </a>
-                        </div>
+                   
                     <?php else: ?>
                         沒有該使用者
                         <?php endif; ?>
+                        </div>
+                        <div class="col-8">
+                        <div class=" d-flex justify-content-end align-items-center mt-4">
+                        <a class=" btn btn-red me-3" href="doDelete.php?id=<?=$row["id"]?>">
+                        <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
+                        刪除
+                    </a>
+                        <button class="btn btn-khak " type="submit">
+                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                        儲存
+                    </button>
+                    <a class=" btn btn-grey  ms-3" href="coupons.php">
+                    <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                      返回上一頁
+                      </a>
                     </div> 
                     </form>
+                    </div>
          </div>      
       
   </body>
