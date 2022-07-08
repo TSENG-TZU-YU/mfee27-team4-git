@@ -78,7 +78,7 @@ $sqlMember  = "WHERE member.users.php";
                                         </label>
                                     </div>
                                     <div class="form-check ms-2">
-                                        <input class="form-check-input" type="radio" name="gender"  value="2">
+                                        <input class="form-check-input" type="radio" name="gender" value="2">
                                         <label class="form-check-label " for="flexRadioDefault1">
                                             女
                                         </label>
@@ -102,7 +102,17 @@ $sqlMember  = "WHERE member.users.php";
                                 <input type="text" class="form-control" name="address" id="address">
                             </div>
 
-                            <button class="btn btn-green pe-3 mt-4" type="submit" id="send">送出</button>
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" value="1" name="coupon">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    訂閱(獲得50元商品折價券)
+                                </label>
+                            </div>
+
+                            <div class="d-flex justify-content-center 2">
+                                <button class="btn btn-green pe-3 mt-4" type="submit" id="send">送出</button>
+                            </div>
+
                         </form>
 
 
@@ -130,5 +140,3 @@ $sqlMember  = "WHERE member.users.php";
 </body>
 
 </html>
-
-

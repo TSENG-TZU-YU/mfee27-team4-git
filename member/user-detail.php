@@ -78,6 +78,10 @@ $row = $result->fetch_assoc();
                             <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
+                        <a class="col-1 btn btn-green mx-3" href="users.php">
+                            <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
+                            訂單
+                        </a>
 
 
 

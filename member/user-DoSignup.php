@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\elementType;
+
 require("../db-connect.php");
 
 if(!isset($_POST["account"])){  //後端檢查是否帶資料
@@ -14,6 +17,7 @@ $birthday=$_POST["birthday"];
 $phone=$_POST["phone"];
 $email=$_POST["email"];
 $address=$_POST["address"];
+$coupon=$_POST["coupon"];
 $create_time=date('Y-m-d H-i-s');
 
 if(empty($name)){    //後端檢查 
@@ -49,6 +53,9 @@ if(empty($address)){
     exit;
 }
 
+
+
+
 //當gender選擇時 value 輸出1 or 2  
 
 
@@ -66,12 +73,15 @@ if($userCount>0){
     exit;
 }
 // 寫入資料庫
-$sqlCreate="INSERT INTO users (name,account, password,gender,birthday,phone,email,address,create_time,enable,valid) VALUES ('$name','$account', '$password','$gender','$birthday','$phone','$email','$address','$create_time',1,1)";
+$sqlCreate="INSERT INTO users (name,account, password,gender,birthday,phone,email,address,coupon,create_time,enable,valid) VALUES ('$name','$account', '$password','$gender','$birthday','$phone','$email','$address','$coupon','$create_time',1,1)";
 
-if ($conn->query($sqlCreate) === TRUE) {
-    echo "<script language='JavaScript'>;alert('註冊成功');location.href='users.php';</script>;";
+if ($conn->query($sqlCreate) === TRUE && $coupon==1) {
+    echo "<script language='JavaScript'>;alert('註冊成功 獲得商品50元折價券');location.href='users.php';</script>;";
     // header("location:users.php");
-} else {
+}if ($conn->query($sqlCreate) === TRUE  && $coupon==0){
+    echo "<script language='JavaScript'>;alert('註冊成功');</script>;";
+}
+else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
