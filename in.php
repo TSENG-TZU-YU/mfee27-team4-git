@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
   
   <img class="bi pe-none mb-1" src="icon/read-icon.svg" width="16" height="16"></img>
