@@ -18,8 +18,8 @@ $now=date('Y-m-d H:i:s');
 
 
 //echo "$name, $number, $discount, $dateline, $times, $price";
-$sql="INSERT INTO coupon (name, number, members, discount, dateline, several_times, min_price, create_time, valid ) VALUES
- ('$name', '$number', '$members', '$discount', '$dateline', '$times', '$price', '$now', 1 )"; 
+$sql="INSERT INTO coupon (name, number, discount, dateline, several_times, min_price, create_time, valid ) VALUES
+ ('$name', '$number', '$discount', '$dateline', '$times', '$price','$now', 1 )"; 
 
 if ($conn->query($sql) === TRUE) {
     echo "新資料輸入成功";

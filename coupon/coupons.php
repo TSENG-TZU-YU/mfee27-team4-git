@@ -6,9 +6,13 @@ if(isset($_GET["page"])){
     $page=1;
   }
 
+ 
+
+
+
 require("../db-connect.php");
 
-$sqlAll="SELECT * FROM coupon WHERE valid=1";
+$sqlAll="SELECT * FROM coupon WHERE valid=1 ";
 $resultAll = $conn->query($sqlAll);
 $couponCount=$resultAll->num_rows;
 
@@ -20,14 +24,29 @@ $startItem=($page-1)*$perPage+1;
 $endItem=$page*$perPage;
 if($endItem>$couponCount)$endItem=$couponCount;
 
-$sql="SELECT * FROM coupon WHERE valid=1 LIMIT 
+$order=isset($_GET["order"]) ? $_GET["order"] : 1;
+
+switch($order){
+    case 1:
+        $orderType="ASC";
+        break;
+    case 2:
+        $orderType="DESC";
+        break;
+    default:
+        $orderType="ASC";        
+}
+
+
+
+$sql="SELECT * FROM coupon WHERE valid=1 ORDER BY id $orderType LIMIT 
 $start,4";
+
 
 $result = $conn->query($sql);
 $pageCouponCount=$result->num_rows;
 
-
-
+$totalPage=ceil($couponCount / $perPage); 
 
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -97,10 +116,21 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                     <a class="col-1 btn btn-green me-2" href="create-coupon.php">
                             <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                             新增
-                        </a>
+                        </a>  
+                       
+                        
+                
+                <a href="coupons.php?page=<?=$page?>&order=1" class="btn btn-khak  <?php if($order==1)echo"hover" ?>">By id asc</a>
+                <a href="coupons.php?page=<?=$page?>&order=2" class="btn btn-khak  <?php if($order==2)echo"hover" ?>">By id desc</a>
+               
+                          
+                      
                     <table class="table mt-5">
+                   
                         <thead>
+                       
                             <tr>
+                          
                                 <th scope="col">編號</th>
                                 <th scope="col">優惠券名稱</th>
                                 <th scope="col">使用者資格</th>
@@ -141,19 +171,14 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example">
                         <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="coupons.php?page=1">1</a></li>
-                            <li class="page-item"><a class="page-link" href="coupons.php?page=2">2</a></li>
-                            <li class="page-item"><a class="page-link" href="coupons.php?page=3">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
+                            <?php for($i=1; $i<=$totalPage; $i++):?>
+                               <li class="page-item <?php if($page==$i)echo "active";
+                               ?>"><a class="page-link" href="coupons.php?page=<?=$i?>"><?=$i?>
+                            </a></li> 
+                            <?php endfor; ?>
+
+
+                           
                         </ul>
                     </div>
                     <!-- 頁碼 end -->

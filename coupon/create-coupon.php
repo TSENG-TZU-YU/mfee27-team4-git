@@ -55,7 +55,7 @@
      </div>
      <div class="mb-2">
       <label for="">使用者資格</label>
-      <input type="text" class="form-control" name="members" required >
+      <input type="text " class="form-control" name="number" required >
   </div>
   <div class="mb-2">
       <label for="">序號</label>
@@ -80,7 +80,7 @@
 </div>
   <div class="mb-2">
       <label for="">最低金額</label>
-      <input type="number"  class="form-control"  name="price" required >
+      <input type="number "  class="form-control"  name="price" required >
   </div>
   <button class="btn btn-green me-3" type="submit">
   <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
