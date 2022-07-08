@@ -1,16 +1,15 @@
 <?php
-
-
-
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
 } else {
     $page = 1;
 }
 require("../db-connect.php");
-$sqlAll = "SELECT * FROM order_product WHERE valid=1";
+$sqlAll = "SELECT*FROM order_product WHERE valid=1";
 $resultAll = $conn->query($sqlAll);
 $list_count = $resultAll->num_rows;
+
+
 
 $perPage = 4;
 $start = ($page - 1) * $perPage;
@@ -87,16 +86,16 @@ $conn->close();
                 <div class="container">
                     <?php if ($pageListCount > 0) :
                         $paymentState = [
-                            "0" => "未付款",
-                            "1" => "已付款",
-                            "2" => "退款"
+                            "1" => "未付款",
+                            "2" => "已付款",
+                            "3" => "退款"
                         ];
                         $orderState = [
-                            "0" => "訂單確認中",
-                            "1" => "訂單成立",
-                            "2" => "商家出貨",
-                            "3" => "訂單完成",
-                            "4" => "退貨處理中"
+                            "1" => "訂單確認中",
+                            "2" => "訂單成立",
+                            "3" => "商家出貨",
+                            "4" => "訂單完成",
+                            "5" => "退貨處理中"
                         ];
                     ?>
                         <table class="table mt-5">

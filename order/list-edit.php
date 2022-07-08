@@ -62,16 +62,16 @@ $conn->close();
                         $row = $result->fetch_assoc(); //這個要把接收到的資料拆成一筆一筆
                         // echo var_dump($row);
                         $paymentState = [
-                            "0" => "未付款",
-                            "1" => "已付款",
-                            "2" => "退款"
+                            "1" => "未付款",
+                            "2" => "已付款",
+                            "3" => "退款"
                         ];
                         $orderState = [
-                            "0" => "訂單確認中",
-                            "1" => "訂單成立",
-                            "2" => "商家出貨",
-                            "3" => "訂單完成",
-                            "4" => "退貨處理中"
+                            "1" => "訂單確認中",
+                            "2" => "訂單成立",
+                            "3" => "商家出貨",
+                            "4" => "訂單完成",
+                            "5" => "退貨處理中"
                         ];
                     ?>
                         <div class="pt-2 pb-5 row align-items-baseline">
@@ -104,10 +104,10 @@ $conn->close();
                                 <tr>
                                     <th>付款狀態</th>
                                     <th>
-                                        <?php if ($row["payment_state"] == "0") : ?>
+                                        <?php if ($row["payment_state"] == "1") : ?>
                                             <select class="form-select" name="paymentState">
-                                                <option value="0" selected>未付款</option>
-                                                <option value="1">已付款</option>
+                                                <option value="1" selected>未付款</option>
+                                                <option value="2">已付款</option>
                                             </select>
                                         <?php else : ?>
                                             <input name="paymentState" type="hidden" value="<?= $row["payment_state"] ?>">
@@ -117,7 +117,7 @@ $conn->close();
                                 </tr>
                                 <tr>
                                     <?php //已儲存時的時間為已付款時間
-                                    if ($row["payment_state"] == "1") : ?>
+                                    if ($row["payment_state"] == "2") : ?>
                                         <th>付款時間</th>
                                         <th>
                                             <input name="paymentTime" type="hidden" value="<?= $row["payment_time"] ?>">
@@ -128,19 +128,19 @@ $conn->close();
                                 <tr>
                                     <th>訂單狀態</th>
                                     <th>
-                                        <?php if ($row["order_state"] === "2" ||$row["order_state"] === "3" || $row["order_state"] === "4") : ?>
+                                        <?php if ($row["order_state"] === "3" ||$row["order_state"] === "4" || $row["order_state"] === "5") : ?>
                                             <input name="orderState" type="hidden" value="<?= $row["order_state"] ?>">
                                             <?= $orderState[$row["order_state"]] ?>
                                         <?php else : ?>
                                             <select class="form-select" name="orderState">
-                                                <?php if ($row["order_state"] === "0") : ?>
-                                                    <option value="0" selected>訂單確認中</option>
-                                                    <option value="1">訂單成立</option>
-                                                    <option value="2">商家出貨</option>
-                                                <?php endif; ?>
                                                 <?php if ($row["order_state"] === "1") : ?>
-                                                    <option value="1" selected>訂單成立</option>
-                                                    <option value="2">商家出貨</option>
+                                                    <option value="1" selected>訂單確認中</option>
+                                                    <option value="2">訂單成立</option>
+                                                    <option value="3">商家出貨</option>
+                                                <?php endif; ?>
+                                                <?php if ($row["order_state"] === "2") : ?>
+                                                    <option value="2" selected>訂單成立</option>
+                                                    <option value="3">商家出貨</option>
                                                 <?php endif; ?>
                                             </select>
                                         <?php endif; ?>
