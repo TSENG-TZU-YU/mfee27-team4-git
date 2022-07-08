@@ -71,21 +71,21 @@ a:hover {
 .bg-light-blue-color {
   background: var(--light-blue-color);
 }
+/* 背景顏色-深紫色 */
+.bg-purple-color {
+  background: var(--purple-color);
+}
+/* 背景顏色-淺紫色 */
+.bg-light-purple-color {
+  background: var(--light-purple-color);
+}
 /* 背景顏色-深橘色 */
 .bg-orange-color {
   background: var(--orange-color);
 }
-/* 背景顏色-淺藍色 */
+/* 背景顏色-淺橘色 */
 .bg-light-orange-color {
   background: var(--light-orange-color);
-}
-/* 背景顏色-深紫色 */
-.bg-orange-color {
-  background: var(--purple-color);
-}
-/* 背景顏色-淺紫色 */
-.bg-light-orange-color {
-  background: var(--light-purple-color);
 }
 
 /* ------線條顏色-模組------ */
@@ -102,52 +102,59 @@ a:hover {
 
 /* ------按鈕-模組------ */
 /* 綠色按鈕 */
-.btn-green {
+.btn-green,
+.btn-green:focus {
   background: var(--main-color);
+  border-color: var(--main-color);
   color: #fff;
 }
-.btn-green:hover {
+.btn-green:hover,
+.btn-green:active:hover {
+  color: #fff;
   background: #205467;
   border-color: #205467;
-  color: #fff;
-}
-.btn-green:visited {
-  background: #205467;
-  border-color: #205467;
-  color: #fff;
 }
 
 /* 卡其色按鈕 */
-.btn-khak {
+.btn-khak,
+.btn-khak:focus {
   background: var(--khak-color);
+  border-color: var(--khak-color);
   color: #fff;
 }
-.btn-khak:hover {
+.btn-khak:hover,
+.btn-khak:active:hover {
+  color: #fff;
   background: #93876d;
   border-color: #93876d;
-  color: #fff;
 }
 
 /* 紅色按鈕 */
-.btn-red {
+.btn-red,
+.btn-red:focus {
   background: var(--red-color);
+  border-color: var(--red-color);
   color: #fff;
 }
-.btn-red:hover {
+.btn-red:hover,
+.btn-red:active:hover {
+  color: #fff;
   background: #5a002a;
   border-color: #5a002a;
-  color: #fff;
 }
 
 /* 淺藍綠色按鈕 */
-.btn-grey {
+.btn-grey,
+.btn-grey:focus {
   background: var(--light-green-color);
+  border-color: var(--light-green-color);
   color: #fff;
 }
-.btn-grey:hover {
+.btn-grey:hover,
+.btn-grey:active:hover {
+  color: #fff;
   background: #538698;
   border-color: #538698;
-  color: #fff;
 }
 
 /*  導覽列樣式 nav */
@@ -205,8 +212,8 @@ table tbody tr:hover {
   --bs-pagination-hover-color: #b0a58e;
   --bs-pagination-focus-color: #b0a58e;
   --bs-pagination-focus-box-shadow: 0 0 0 0.25rem #afced790;
-  --bs-pagination-active-bg: #227f98;
-  --bs-pagination-active-border-color: #227f98;
+  --bs-pagination-active-bg: var(--khak-color);
+  --bs-pagination-active-border-color: var(--khak-color);
 }
 .pagination a:hover {
   color: #fff;

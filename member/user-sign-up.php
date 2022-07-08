@@ -2,6 +2,8 @@
 require("../db-connect.php");
 session_start();
 $sqlMember  = "WHERE member.users.php";
+
+
 ?>
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -70,13 +72,13 @@ $sqlMember  = "WHERE member.users.php";
                                 <label for="">性別</label>
                                 <div class="d-flex">
                                     <div class="form-check ">
-                                        <input class="form-check-input" type="radio" name="gender" id="man" checked>
+                                        <input class="form-check-input" type="radio" name="gender" value="1" checked>
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             男
                                         </label>
                                     </div>
                                     <div class="form-check ms-2">
-                                        <input class="form-check-input" type="radio" name="gender" id="female">
+                                        <input class="form-check-input" type="radio" name="gender"  value="2">
                                         <label class="form-check-label " for="flexRadioDefault1">
                                             女
                                         </label>
@@ -89,11 +91,11 @@ $sqlMember  = "WHERE member.users.php";
                             </div>
                             <div class="mb-2">
                                 <label for="">電話</label>
-                                <input type="text" class="form-control" name="email" id="email">
+                                <input type="text" class="form-control" name="phone" id="phone">
                             </div>
                             <div class="mb-2">
                                 <label for="">郵件</label>
-                                <input type="email" class="form-control" name="phone" id="phone">
+                                <input type="email" class="form-control" name="email" id="email">
                             </div>
                             <div class="mb-2">
                                 <label for="">地址</label>
@@ -128,3 +130,5 @@ $sqlMember  = "WHERE member.users.php";
 </body>
 
 </html>
+
+

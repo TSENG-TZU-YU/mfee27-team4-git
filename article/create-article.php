@@ -27,6 +27,7 @@
     <div class="row d-flex">
 
       <!-- 導覽列 nav -->
+      <?php require("../nav.php");  ?>
       <!-- 導覽列 nav end -->
 
 

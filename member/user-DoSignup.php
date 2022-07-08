@@ -49,6 +49,11 @@ if(empty($address)){
     exit;
 }
 
+//當gender選擇時 value 輸出1 or 2  
+
+
+
+
 
 $password=md5($password);
 

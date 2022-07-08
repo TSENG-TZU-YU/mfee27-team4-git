@@ -9,7 +9,7 @@ if (!isset($_GET["id"])) {
 }
 
 $id = $_GET["id"];
-$sql = "SELECT * FROM users WHERE id=$id AND valid=1";
+$sql = "SELECT * FROM users WHERE id=$id";
 $result = $conn->query($sql);
 $userCount = $result->num_rows;
 $row = $result->fetch_assoc();
@@ -72,7 +72,7 @@ $row = $result->fetch_assoc();
                     <div class="row ">
                         <!-- 文字按鈕 -->
                         <a class="col-1 btn btn-green mx-3" href="user-detail.php?id=<?= $row["id"] ?>">
-                            <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                            <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
 
@@ -110,13 +110,13 @@ $row = $result->fetch_assoc();
                                         <td>
                                             <div class="d-flex justify-content-center">
                                                 <div class="form-check  ">
-                                                    <input class="form-check-input" type="radio" name="gender" id="man" checked>
+                                                    <input class="form-check-input" type="radio" name="gender" value="1" checked>
                                                     <label class="form-check-label" for="flexRadioDefault2">
                                                         男
                                                     </label>
                                                 </div>
                                                 <div class="form-check ms-2 ">
-                                                    <input class="form-check-input " type="radio" name="gender" id="female">
+                                                    <input class="form-check-input " type="radio" name="gender" value="2">
                                                     <label class="form-check-label " for="flexRadioDefault1">
                                                         女
                                                     </label>
@@ -142,7 +142,7 @@ $row = $result->fetch_assoc();
                                     <td><input type="text" class="form-control text-center" value="<?= $row["address"] ?>" name="address"></td>
                                 </tr>
                                     <tr>
-                                        <th>Create Time</th>
+                                        <th>註冊時間</th>
                                         <td><?= $row["create_time"] ?></td>
                                     </tr>
                                 </table>

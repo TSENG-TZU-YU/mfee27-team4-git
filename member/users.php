@@ -1,13 +1,64 @@
 <?php
 require("../db-connect.php");
 session_start();
+if(!isset($_SESSION["user"])){   //重整後會需要重新登入
+    echo "請循正常管道進入本頁";
+    header("location:backstage.php");
+    exit;
+  }
+
+
 $sqlMember = "WHERE member.users.php";
-$sql = "SELECT * FROM users WHERE  valid=1 AND enable=1";
+
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+} else {
+    $page = 1;
+}
+$order = isset($_GET["order"]) ? $_GET["order"] : 1;
+
+switch ($order) {
+    case 1:
+        $orderType = "id ASC";
+        break;
+    case 2:
+        $orderType = "name DESC";
+        break;
+    case 3:
+        $orderType = "account ASC";
+        break;
+    case 4:
+        $orderType = "account DESC";
+        break;
+    case 5:
+        $orderType = "create_time ASC";
+        break;
+    case 6:
+        $orderType = "create_time DESC";
+        break;
+    default:
+        $orderType = "id ASC";
+}
+
+//page
+$sqlAll = "SELECT * FROM users WHERE  valid=1 AND enable=1";
+$resultAll = $conn->query($sqlAll);
+$userCount = $resultAll->num_rows;
+
+$perPage = 10;
+$startPage = ($page - 1) * $perPage;
+$sql = "SELECT * FROM users WHERE  valid=1 AND enable=1  ORDER BY $orderType  LIMIT $startPage ,10";
+
 $result = $conn->query($sql);
+$pageUserCount = $resultAll->num_rows;
 
+$startItem = ($page - 1) * $perPage;
+$endItem = $page * $perPage;
 
-// $rows=$result->fetch_all(MYSQLI_ASSOC);
+if ($endItem > $userCount) $endItem = $userCount;
+$totalPage = ceil($userCount / $perPage);
 ?>
+
 <!DOCTYPE html>
 <html lang="zh-tw">
 
@@ -24,6 +75,11 @@ $result = $conn->query($sql);
     <!-- 版面元件樣式 css -->
     <link rel="stylesheet" href="../style.css">
     </link>
+    <style>
+        .page {
+            left: 52%;
+        }
+    </style>
 
 </head>
 
@@ -38,7 +94,7 @@ $result = $conn->query($sql);
             <!-- 主要區塊 main -->
             <main class="col-10 px-5 py-4">
 
-            
+
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
@@ -52,29 +108,50 @@ $result = $conn->query($sql);
 
                 <!-- 內容 -->
                 <div class="container">
-                    <div class="row">
-                        <p class="col-8 m-auto">總共 筆資料</p>
-                        <input class="col form-control me-3" type="text">
-                        <a class="col-1 btn btn-green" href="#">
-                            <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
-                            搜尋
-                        </a>
-                    </div>
+                    <form action="user-search.php" method="get">
+                        <div class="row">
+                            <p class="col-8 m-auto">總共<?= $userCount ?>筆資料</p>
+                            <input class="col form-control me-3" type="text" name="search">
+                            <button class="col-1 btn btn-green" type="submit">
+                                <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
+                                搜尋
+                            </button>
+                        </div>
+                    </form>
                 </div>
                 <hr>
                 <div class="container">
 
                     <!-- 按鈕 -->
-                    <div class="row">
+                    <div class="">
                         <!-- 文字按鈕 -->
-                        <a class="col-2 btn btn-green me-2" href="http://localhost/mfee27-team4-git/member/user-sign-up.php">
-                            <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
-                            會員註冊
-                        </a>
-                        <a class="col-2 btn btn-grey me-2" href="http://localhost/mfee27-team4-git/member/black-list.php">
-                            <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                            黑名單
-                        </a>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <a class=" btn btn-green me-2" href="http://localhost/mfee27-team4-git/member/user-sign-up.php">
+                                    <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                                    會員註冊
+                                </a>
+                                <a class=" btn btn-grey me-2" href="http://localhost/mfee27-team4-git/member/black-list.php">
+                                    <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                                    黑名單
+                                </a>
+                            </div>
+                            <div>
+                                排序 :
+                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&order=2">
+                                    <!-- <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img> -->
+                                    會員姓名
+                                </a>
+                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&order=3">
+                                    <!-- <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img> -->
+                                    會員帳號
+                                </a>
+                                <a class=" btn btn-khak me-2" href="users.php?page=<?= $page ?>&order=5">
+                                    <!-- <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img> -->
+                                    註冊時間
+                                </a>
+                            </div>
+                        </div>
 
 
                     </div>
@@ -102,11 +179,11 @@ $result = $conn->query($sql);
                                     <td><?php echo $row["email"] ?></td>
                                     <td><?php echo $row["create_time"] ?></td>
                                     <td>
-                                        <a class="btn btn-grey me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>">
+                                        <a class="btn btn-grey  me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </a>
-                                        <a class="btn btn-khak" type="button" href="do-black-list.php?id=<?= $row["id"] ?>">
+                                        <a class="btn btn-red" type="button" href="do-black-list.php?id=<?= $row["id"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                                             加入黑名單
                                         </a>
@@ -116,16 +193,17 @@ $result = $conn->query($sql);
                         </tbody>
                     </table>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example text-end" class="d-flex justify-content-center mt-5">
+                    <div aria-label="Page navigation example text-end" class="d-flex mt-5  fixed-bottom page">
                         <ul class="pagination">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+                                <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="users.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
+                            <?php endfor; ?>
+
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

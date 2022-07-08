@@ -1,6 +1,6 @@
 <?php
 
-require("../db-connect.php");
+require_once("../db-connect.php");
 
 // 抓課程商品資料
 $sql = "SELECT * FROM course_product WHERE id";
@@ -8,6 +8,7 @@ $sql = "SELECT * FROM course_product WHERE id";
 $result = $conn->query($sql);
 $courseCount = $result->num_rows;
 $rows = $result->fetch_all(MYSQLI_ASSOC);
+
 
 ?>
 
@@ -51,7 +52,8 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">xxx</li>
+                        <li class="breadcrumb-item"><a href="teachers-index.php">師資管理</a></li>
+                        <li class="breadcrumb-item" aria-current="page">新增師資</li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -61,31 +63,33 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                 <!-- 內容 -->
 
                 <div class="container">
-                    <form class="mt-4" action="doCreate-teacher.php" method="post">
+                    <h3>新增師資資料</h3>
+                    <hr>
+                    <form class="mt-1" action="doCreate-teacher.php" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-3">
-                                <img class="img-fluid rounded object-cover" id="preview" src="images/img-icon.png" style="height: 300px;">
+                                <img class="img-fluid rounded object-cover" id="preview" src="../images/img-icon.png" style="height: 300px;">
                             </div>
                             <div class="col d-flex flex-column mb-3">
                                 <div class="col mb-2">
-                                    <label class="form-label" for="">師資姓名</label>
+                                    <label class="form-label fw-bold" for="">師資姓名</label>
                                     <input type="text" class="form-control" name="name">
                                 </div>
                                 <div class="col mb-2">
-                                    <label class="form-label" for="">師資照片</label>
+                                    <label class="form-label fw-bold" for="">師資照片</label>
                                     <input type="file" class="form-control" id="upload" name="image">
                                 </div>
                                 <div class="col mb-2">
-                                    <label class="form-label" for="">表演影片網址</label>
+                                    <label class="form-label fw-bold" for="">表演影片網址</label>
                                     <input type="url" class="form-control" name="video">
                                 </div>
                                 <div class="col">
-                                    <label class="form-label" for="">教授領域</label>
+                                    <label class="form-label fw-bold" for="">教學領域</label>
                                     <input type="text" class="form-control" name="field">
                                 </div>
                             </div>
                             <div class="col">
-                                <label class="form-label" for="">教授課程</label>
+                                <label class="form-label fw-bold" for="">教授課程</label>
 
                                 <!-- 帶入課程商品資料 作為選項check-box -->
                                 <?php foreach ($rows as $row) : ?>
@@ -96,18 +100,23 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                                         </label>
                                     </div>
                                 <?php endforeach; ?>
-
                             </div>
 
                         </div>
                         <div class="mb-2">
-                            <label class="form-label" for="">師資簡介</label>
+                            <label class="form-label fw-bold" for="">師資簡介</label>
                             <textarea class="form-control" id="floatingTextarea2" type="text" name="profile" style="height: 250px; resize:none;"></textarea>
                         </div>
 
                         <div class="d-flex justify-content-center align-items-center mt-3">
-                            <a class="btn btn-khak me-5" href="teacher-index.php">取消新增</a>
-                            <button class="btn btn-green" type="submit" name="submit-date">新增完成</button>
+                            <a class="btn btn-khak me-5" href="teachers-index.php">
+                                <img class="mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
+                                取消
+                            </a>
+                            <button class="btn btn-green" type="submit" name="submit-date">
+                                <img class="mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                                送出
+                            </button>
                         </div>
                     </form>
                 </div>
