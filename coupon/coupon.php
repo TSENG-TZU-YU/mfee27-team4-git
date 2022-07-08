@@ -1,13 +1,11 @@
-<<<<<<< HEAD
 <?php
 if(!isset($_GET["id"])){
     echo "沒有參數";
     exit;
 }
 $id=$_GET["id"];
-=======
-<<<<<<< HEAD
-<?php
+
+
 if(!isset($_GET["id"])){
     echo "沒有參數";
     exit;
@@ -138,11 +136,7 @@ $couponCount=$result->num_rows;
   </body>
 </html>
 
-
-=======
-<!DOCTYPE html>
-<html lang="zh-tw">
->>>>>>> 4609369059da681773dd28f2efdfb780bd1aaebf
+<?php
 
 require("../db-connect.php");
 $sql="SELECT * FROM coupon WHERE id=$id AND valid=1 ";
@@ -176,15 +170,7 @@ $couponCount=$result->num_rows;
   <div class="container-fluid">
         <div class="row d-flex">
 
-<<<<<<< HEAD
         
-=======
-            <!-- 導覽列 nav -->
-            <?php require("../nav.php"); ?>
-            <!-- 導覽列 nav end -->
-
-            <!-- 主要區塊 main -->
->>>>>>> 4609369059da681773dd28f2efdfb780bd1aaebf
             <main class="col-10 px-5 py-4">
 
                 <!-- 麵包屑 breadcrumb -->
@@ -276,25 +262,3 @@ $couponCount=$result->num_rows;
   </body>
 </html>
 
-
-<<<<<<< HEAD
-=======
-        </div>
-        <!-- 內容 end -->
-
-        </main>
-        <!-- 主要區塊 main end-->
-    </div>
-    </div>
-
-
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
-    <!-- Bootstrap JavaScript Libraries end -->
-
-</body>
-
-</html>
->>>>>>> 3ceb0e13ce16e15488e13d85d3187f6d39818c28
->>>>>>> 4609369059da681773dd28f2efdfb780bd1aaebf
