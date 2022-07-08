@@ -72,13 +72,8 @@
                 </div>
             </div>
             <li>
-<<<<<<< HEAD
                 <a href="http://localhost/mfee27-team4-git/coupon/coupon.php" class="nav-link my-1">
                     <img class="mb-1 me-2" src="/mfee27-team4-git/icon/sell-icon.svg" width="16" height="16"></img>
-=======
-                <a href="http://localhost/mfee27-team4-git/coupon/coupons.php?page=1&order=1" class="nav-link my-1">
-                    <img class="mb-1 me-2" src="/mfee27-team4-git/icon/teacher-icon.svg" width="16" height="16"></img>
->>>>>>> 4a7771357d1281fba6dfff9ca58be5e068fdce5f
                     優惠券
                 </a>
             </li>
