@@ -26,9 +26,9 @@ $sqlAll = "SELECT * FROM users WHERE  valid=1 AND enable=0";
 $resultAll = $conn->query($sqlAll);
 $userCount = $resultAll->num_rows;
 
-$perPage = 4;
+$perPage = 10;
 $startPage = ($page - 1) * $perPage;
-$sql = "SELECT * FROM users WHERE  valid=1 AND enable=0  ORDER BY $orderType  LIMIT $startPage ,4";
+$sql = "SELECT * FROM users WHERE  valid=1 AND enable=0  ORDER BY $orderType  LIMIT $startPage ,10";
 
 $result = $conn->query($sql);
 $pageUserCount = $resultAll->num_rows;
@@ -105,11 +105,11 @@ $totalPage = ceil($userCount / $perPage);
                     <div class="row">
                         <!-- 文字按鈕 -->
                         <a class="col-1 btn btn-green mx-3" href="users.php">
-                            <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                            <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
                     </div>
-                    <!-- 按鈕 end-->
+                    <!-- 按鈕 end-->`
 
                     <table class="table mt-5">
 
@@ -154,8 +154,8 @@ $totalPage = ceil($userCount / $perPage);
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <?php for ($i = 1; $i <= $userCount; $i++) : ?>
-                                <li class="page-item"><a class="page-link" href="black-list.php?page=<?= $i ?>"><?= $i ?></a></li>
+                            <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+                                <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="black-list.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
                             <?php endfor; ?>
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">

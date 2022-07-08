@@ -1,3 +1,10 @@
+<?php
+require("../db-connect.php");
+
+session_start();
+
+
+?>
 <!DOCTYPE html>
 <html lang="zh-tw">
 
@@ -10,6 +17,8 @@
 
   <!-- Bootstrap CSS v5.2.0-beta1 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+    </link>
   <style>
     a {
       text-decoration: none;
@@ -32,6 +41,7 @@
     <div class="row d-flex">
 
       <!-- 導覽列 nav -->
+      <?php require("nav.php"); ?>
       <!-- 導覽列 nav end -->
 
       <!-- 主要區塊 main -->
@@ -40,7 +50,7 @@
         <!-- 麵包屑 breadcrumb -->
         <biv aria-label="breadcrumb">
           <ol class="breadcrumb fw-bold">
-            <li class="breadcrumb-item" aria-current="page">首頁</li>
+            <li class="breadcrumb-item" aria-current="page"><a href="http://localhost/mfee27-team4-git/home-page.php">首頁</a></li>
           </ol>
         </biv>
         <!-- 麵包屑 breadcrumb end -->
@@ -54,7 +64,7 @@
             <!-- 會員管理 -->
             <div class="col bg-grey-color p-3 position-relative">
               <div class="bg-grey-color rounded p-4" style=" height: 17rem; background: #bfbfbf;">
-                <a type="" href="#">
+                <a type="" href="member/users.php">
                   <h2 class="fw-bold" style="color:#41464b;">會員管理</h2>
                 </a>
                 <!-- 子項目 -->
@@ -70,7 +80,7 @@
             <!-- 訂單管理 -->
             <div class="col bg-grey-color p-3 position-relative">
               <div class="bg-grey-color rounded p-4" style=" height: 17rem; background: #C4D5DB;">
-                <a type="" href="#">
+                <a type="" href="order/order-list.php">
                   <h2 class="fw-bold" style="color:#265F74;">訂單管理</h2>
                 </a>
                 <!-- 子項目 -->
@@ -91,9 +101,10 @@
                 </a>
                 <!-- 子項目 -->
                 <div class="border-top border-3 border-white ">
-                  <div class="mt-3"><a class="link-dark fw-bold fs-5" href="#">樂器商城</a></div>
+                  <div class="mt-3"><a class="link-dark fw-bold fs-5" href="ins-shop/ins-shop.php">樂器商城</a></div>
                   <div class="mt-1"><a class="link-dark fw-bold fs-5" href="#">音樂教育</a></div>
                   <div class="mt-1"><a class="link-dark fw-bold fs-5" href="#">場地租借</a></div>
+                  
                 </div>
                 <!-- 子項目 end -->
                 <div class="position-absolute bottom-0 end-0 m-5">
@@ -104,7 +115,7 @@
             <!-- 文章管理 -->
             <div class="col bg-grey-color p-3 position-relative">
               <div class="bg-grey-color rounded p-4" style=" height: 17rem; background: #F5E7D7;">
-                <a type="" href="#">
+                <a type="" href="article/create-article.php">
                   <h2 class="fw-bold" style="color:#BC5D19;">文章管理</h2>
                 </a>
                 <!-- 子項目 -->
@@ -142,7 +153,7 @@
                 </a>
                 <!-- 子項目 -->
                 <div class="border-top border-3 border-white ">
-                  <div class="mt-3"><a class="link-dark fw-bold fs-5" href="#">訂單問題</a></div>
+                  <div class="mt-3"><a class="link-dark fw-bold fs-5" href="customer/order_qna/order_qna.php">訂單問題</a></div>
                   <div class="mt-1"><a class="link-dark fw-bold fs-5" href="#">客服問答</a></div>
                 </div>
                 <!-- 子項目 end -->
@@ -154,7 +165,7 @@
             <!-- 優惠券 -->
             <div class="col bg-grey-color p-3 position-relative">
               <div class="bg-grey-color rounded p-4" style=" height: 17rem; background: #E0D7F3;">
-                <a type="" href="#">
+                <a type="" href="coupon/coupons.php?page=1&order=1">
                   <h2 class="fw-bold" style="color:#533B7E;">優惠券</h2>
                 </a>
                 <!-- 子項目 -->
@@ -171,6 +182,7 @@
 
             </div>
           </div>
+          
 
         </div>
 
