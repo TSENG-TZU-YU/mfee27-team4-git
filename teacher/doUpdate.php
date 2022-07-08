@@ -5,6 +5,8 @@ if (!isset($_POST["name"])) {
   exit;
 }
 
+
+
 require_once("../db-connect.php");
 $id = $_POST["id"];
 $name = $_POST["name"];
@@ -14,8 +16,9 @@ $field = $_POST["field"];
 $profile = $_POST["profile"];
 $video = $_POST["video"];
 
+
 // // 將資料寫入 teacher 資料表
-$sqlTeacher = "UPDATE teacher SET name='$name', image='$imageName', field='$field', profile='$profile', video='$video' WHERE id=$id";
+$sqlTeacher = "UPDATE teacher SET name='$name', field='$field', profile='$profile', video='$video' WHERE id=$id";
 $conn->query($sqlTeacher);
 
 
@@ -33,6 +36,13 @@ if (isset($_POST["courseId"])) {
     $sqlCourse = "INSERT INTO teacher_course (name_id, course_id) VALUES ('$id', '$courseId_value')";
     $conn->query($sqlCourse);
   }
+}
+
+if (isset($_FILES["image"])) {
+  // 將 image 資料寫入 teacher 資料表
+  $sqlTeacherImgName = "UPDATE teacher SET image='$imageName' WHERE id=$id";
+  $conn->query($sqlTeacherImgName);
+
   if (move_uploaded_file($_FILES["image"]["tmp_name"], "../images/" . $_FILES["image"]["name"])) {
 
     $fileName = $_FILES["image"]["name"];
@@ -44,8 +54,11 @@ if (isset($_POST["courseId"])) {
       $conn->query($sqlImages);
     }
   }
-  echo "<script>alert('師資建立成功'); location.href = 'teachers-index.php'; </script>";
+} else {
+  exit;
 }
+
+echo "<script>alert('師資修改成功'); location.href = 'teachers-index.php'; </script>";
 
 
 
