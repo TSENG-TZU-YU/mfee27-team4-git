@@ -46,7 +46,7 @@ if(!isset($_GET["search"])){
 }else
 {
     $search = $_GET["search"];
-    $sqlSearch="SELECT id, name, account, phone, email, create_time FROM users WHERE name like  '%$search%'  or account like '%$search%' ";
+    $sqlSearch="SELECT id, name, account, phone, email, create_time FROM users WHERE  enable=1 AND  valid=1 AND name like  '%$search%'  or account like '%$search%' ORDER BY $orderType  LIMIT $startPage ,10";
     $resultS = $conn->query($sqlSearch);
     $userCountS = $resultS->num_rows;
 }
