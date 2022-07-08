@@ -2,7 +2,7 @@
 
 
 
-require("../db-connect-music.php");
+require("../db-connect.php");
 
 // 篩選
 
