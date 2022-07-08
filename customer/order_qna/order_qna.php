@@ -56,14 +56,14 @@ switch($order){
 
 $start=($page-1)*$perPage;
 
-$sql="SELECT order_qna.*, users.account AS account, users.name FROM order_qna
+$sql="SELECT order_qna.*, users.account , users.name FROM order_qna
     JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ORDER BY $orderType
     LIMIT $start, $perPage" ; 
 echo $sql;       
 $result=$conn->query($sql);
 $rows=$result->fetch_all(MYSQLI_ASSOC);
 
-$sqlAll="SELECT order_qna.*, users.account, users.name AS account FROM order_qna
+$sqlAll="SELECT order_qna.*, users.account, users.name FROM order_qna
     JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ";
 $resultAll=$conn->query($sqlAll);
 $userCount=$resultAll->num_rows;

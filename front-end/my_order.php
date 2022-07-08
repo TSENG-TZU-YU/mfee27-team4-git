@@ -64,20 +64,18 @@ $rowuser = $resultuser->fetch_assoc();
                         <td class="text-nowrap"><?=$row["payment_time"]?></td>
                         <form action="qna_table.php" method="post">
                             <td class="text-nowrap">
-                                <a class=" btn bg-orange-color me-2" href="#">
+                                <button class="btn bg-orange-color me-2" type="submit">
                                     <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                     訂單詳細
-                                </a>    
-                            </td>
-                            <td class="text-nowrap">   
-                                <input type="hidden" name="order_id" value="<?=$row["order_id"]?>">
-                                <input type="hidden" name="user_id" value="<?=$rowuser["id"]?>">
-                                <input type="hidden" name="name" value="<?=$rowuser["name"]?>">
+                                </button>       
                                 <button class="btn btn-red me-2" type="submit">
                                     <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                                     我要問問題
                                 </button>        
                             </td>
+                            <input type="hidden" name="order_id" value="<?=$row["order_id"]?>">
+                            <input type="hidden" name="user_id" value="<?=$rowuser["id"]?>">
+                            <input type="hidden" name="name" value="<?=$rowuser["name"]?>">
                         </form>
                     </tr>
                     <?php endforeach;?>
