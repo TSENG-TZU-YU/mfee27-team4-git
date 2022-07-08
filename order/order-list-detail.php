@@ -5,30 +5,16 @@ if (isset($_GET["order_id"])) {
     echo "沒有帶資料喔";
     exit;
 }
-
-// echo $order_id;
-// exit;
-// $category_id = $_GET["category_id"];
-// echo $category_id;
-// exit;
-
 require("../db-connect.php");
 
-// $perPage = 4;
-// $start = ($page - 1) * $perPage;
-$sql = "SELECT * FROM order_product_detail WHERE order_id=$order_id AND valid=1 "; //LIMIT $start,4
-// echo $sql;
+$sql = "SELECT * FROM order_product_detail WHERE order_id=$order_id AND valid=1 ";
 
 $result = $conn->query($sql);
 $pageDetailCount = $result->num_rows;
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-// var_dump($rows);
-// exit;
-// echo count($rows);
 $inArray = array_column($rows, 'category_id');
-// echo var_dump($inArray);
-// exit;
+
 $conn->close();
 ?>
 
@@ -66,16 +52,14 @@ $conn->close();
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">xxx</li>
+                        <li class="breadcrumb-item" aria-current="page"><a href="order-list.php">訂單管理</a></li>
+                        <li class="breadcrumb-item" aria-current="page"><a href="order-list-detail.php">訂單詳細內容</a></li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
                 <!-- 內容 -->
                 <div class="container">
                     <div class="row">
-                        <!-- <p class="col m-auto">第<?php // $startItem 
-                                                    ?>-<?php // $endItem 
-                                                        ?>筆</p> -->
                         <h5 class="col">訂單編號：<?= $order_id ?></h5>
                         <p class="col m-auto">總共<?= $pageDetailCount ?>筆資料</p>
                         <input class="col form-control me-3" type="text">
