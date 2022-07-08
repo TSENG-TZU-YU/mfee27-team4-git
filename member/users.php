@@ -1,10 +1,11 @@
 <?php
 require("../db-connect.php");
 session_start();
-if (!isset($_SESSION["user"])) {
+if(!isset($_SESSION["user"])){   //重整後會需要重新登入
+    echo "請循正常管道進入本頁";
     header("location:backstage.php");
     exit;
-}
+  }
 
 
 $sqlMember = "WHERE member.users.php";
@@ -44,12 +45,13 @@ $sqlAll = "SELECT * FROM users WHERE  valid=1 AND enable=1";
 $resultAll = $conn->query($sqlAll);
 $userCount = $resultAll->num_rows;
 
-$perPage = 10;
+$perPage = 9;
 $startPage = ($page - 1) * $perPage;
-$sql = "SELECT * FROM users WHERE  valid=1 AND enable=1  ORDER BY $orderType  LIMIT $startPage ,10";
+$sql = "SELECT * FROM users WHERE  valid=1 AND enable=1  ORDER BY $orderType  LIMIT $startPage ,9";
 
 $result = $conn->query($sql);
 $pageUserCount = $resultAll->num_rows;
+$rows=$result->fetch_all(MYSQLI_ASSOC);
 
 $startItem = ($page - 1) * $perPage;
 $endItem = $page * $perPage;
@@ -157,7 +159,7 @@ $totalPage = ceil($userCount / $perPage);
                     <!-- 按鈕 end-->
 
                     <hr>
-                    <table class="table mt-5">
+                    <table class="table mt-4">
                         <thead>
                             <tr>
                                 <th scope="col">會員編號</th>
@@ -165,18 +167,18 @@ $totalPage = ceil($userCount / $perPage);
                                 <th scope="col">會員帳號</th>
                                 <th scope="col">會員電話</th>
                                 <th scope="col">會員郵件</th>
-                                <th scope="col">建立時間</th>
+                                <th scope="col">註冊時間</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = $result->fetch_assoc()) : ?>
+                            <?php foreach ($rows as $row) : ?>
                                 <tr>
-                                    <th><?php echo $row["id"] ?></th>
-                                    <td><?php echo $row["name"] ?></td>
-                                    <td><?php echo $row["account"] ?></td>
-                                    <td><?php echo $row["phone"] ?></td>
-                                    <td><?php echo $row["email"] ?></td>
-                                    <td><?php echo $row["create_time"] ?></td>
+                                    <th><?=$row["id"] ?></th>
+                                    <td><?=$row["name"] ?></td>
+                                    <td><?=$row["account"] ?></td>
+                                    <td><?=$row["phone"] ?></td>
+                                    <td><?=$row["email"] ?></td>
+                                    <td><?=$row["create_time"] ?></td>
                                     <td>
                                         <a class="btn btn-grey  me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
@@ -188,11 +190,11 @@ $totalPage = ceil($userCount / $perPage);
                                         </a>
                                     </td>
                                 </tr>
-                            <?php endwhile; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example text-end" class="d-flex mt-5  fixed-bottom page">
+                    <div aria-label="Page navigation example text-end" class="d-flex mt-5  justify-content-center">
                         <ul class="pagination">
                             <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">

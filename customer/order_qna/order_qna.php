@@ -1,5 +1,6 @@
 <?php
-require("../db-connect.php");
+require("../../db-connect.php");
+
 
 $perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
 $page=isset($_GET["page"])? $_GET["page"] : 1;
@@ -56,14 +57,14 @@ switch($order){
 
 $start=($page-1)*$perPage;
 
-$sql="SELECT order_qna.*, users.account AS account FROM order_qna
+$sql="SELECT order_qna.*, users.account , users.name FROM order_qna
     JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ORDER BY $orderType
     LIMIT $start, $perPage" ; 
 echo $sql;       
 $result=$conn->query($sql);
 $rows=$result->fetch_all(MYSQLI_ASSOC);
 
-$sqlAll="SELECT order_qna.*, users.account AS account FROM order_qna
+$sqlAll="SELECT order_qna.*, users.account, users.name FROM order_qna
     JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ";
 $resultAll=$conn->query($sqlAll);
 $userCount=$resultAll->num_rows;
@@ -89,7 +90,7 @@ $totalPage=ceil($userCount/$perPage);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <!-- 版面元件樣式 css -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/mfee27-team4-git/style.css">
     </link>
     
 </head>
@@ -99,7 +100,7 @@ $totalPage=ceil($userCount/$perPage);
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
-            <?php require("../nav.php");?>
+            <?php require("../../nav.php");?>
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
@@ -130,7 +131,7 @@ $totalPage=ceil($userCount/$perPage);
                                     <?php endif;?>
                                     <input  class="form-control me-3" type="text" name="search">
                                     <button class=" btn btn-green " type="submit" href="#">
-                                        <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
+                                        <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/search-icon.svg" width="16" height="16"></img>
                                         <p class="text-nowrap">會員搜尋</p> 
                                     </button>
                                 </div>
@@ -168,9 +169,9 @@ $totalPage=ceil($userCount/$perPage);
                                 <?php //echo $order ?>
                                 <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==1){echo "2";}else{echo "1";}?>">訂單編號</a> </th>
                                 <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==3){echo "4";}else{echo "3";}?>">會員帳號</a></th>
+                                <th scope="col" class="text-nowrap">姓名</th>
                                 <th scope="col" class="text-nowrap">問題類型</th>
                                 <th scope="col" class="text-nowrap">問題標題</th>
-                                
                                 <th scope="col" class="text-nowrap">回覆狀態</th>
                                 <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==5){echo "6";}else{echo "5";}?>">詢問時間</a></th>
                                 <th scope="col" class="text-nowrap">最後更新時間</th>
@@ -181,6 +182,7 @@ $totalPage=ceil($userCount/$perPage);
                             <tr>
                                 <th><?=$row["order_id"]?></th>
                                 <td ><?=$row["account"]?></td>
+                                <td class="text-nowrap"><?=$row["name"]?></td>
                                 <td class="text-nowrap"><?=$row["q_category"]?></td>
                                 <td><?=$row["title"]?></td>        
                               
@@ -199,7 +201,7 @@ $totalPage=ceil($userCount/$perPage);
                                         </button>
                                     </form> -->
                                     <a class=" btn btn-khak me-2" href="reply_table.php?order_qna_id=<?=$row["id"]?>">
-                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                                        <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/update-icon.svg" width="16" height="16"></img>
                                         詳細
                                     </a>
                                     

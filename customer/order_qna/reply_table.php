@@ -1,5 +1,5 @@
 <?php
-require("../db-connect.php");
+require("../../db-connect.php");
 
 $order_qna_id=$_GET["order_qna_id"];
 
@@ -14,15 +14,6 @@ $sqlDetail="SELECT * FROM order_qna_detail WHERE order_id = $order_id";
 $resultDetail = $conn->query($sqlDetail);
 $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 
-// $asker=$row["account"];
-
-// if(isset($_POST["reply"])){
-//     $reply=$_POST["reply"];
-//     $now=date('Y-m-d H:i:s');
-//     $sqlin="INSERT INTO order_qna_detail (order_id, asker, q_content, create_time) VALUES ('$order_id', '管理員', '$reply','$now')";
-//     $conn->query($sqlin);
-//     $conn->close();
-// }
 ?>
 
 <!DOCTYPE html>
@@ -39,11 +30,11 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
     <!-- 版面元件樣式 css -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/mfee27-team4-git/style.css">
     </link>
     <style>
         .inputcontent{
-            height: 200px;    
+            height: 100px;    
         }
     </style>
 </head>
@@ -53,7 +44,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
-            <?php require("../nav.php");?>
+            <?php require("../../nav.php");?>
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
@@ -73,42 +64,59 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                     <form action="doReply.php" method="post">
                         <table class="table">
                             <tr>
-                                <th>訂單編號</th>
+                                <th>訂單編號:</th>
                                 <td colspan="2"><?=$row["order_id"]?></td>
                             </tr>
                             <tr>
-                                <th>會員帳號</th>
-                                <td colspan="2"><?=$row["account"]?></td>
-                            </tr>
-                            <tr>
-                                <th>問題類型</th>
+                                <th>問題類型:</th>
                                 <td colspan="2"><?=$row["q_category"]?></td>
                             </tr>
                             <tr>
-                                <th>問題標題</th>
+                                <th>問題標題:</th>
                                 <td colspan="2"><?=$row["title"]?></td>
                             </tr>
                             <tr>
-                                <th>回覆狀態</th>
+                                <th>回覆狀態:</th>
                                 <td colspan="2" class="<?php if($row["reply_state"]=="未回覆"){echo"text-danger";}else{echo"text-success";}?>"><?=$row["reply_state"]?></td>
                             </tr>
                             <tr>
-                                <th>詢問時間</th>
+                                <th>詢問時間:</th>
                                 <td colspan="2"><?=$row["create_time"]?></td>
                             </tr>
                             <tr>
-                                <th colspan="3" >問題內容</th>              
+                                <th>最後更新時間:</th>
+                                <td colspan="2"><?=$row["update_time"]?></td>
                             </tr>
-                            <?php foreach($rowsDetail as $rowDetail): ?>
                             <tr>
-                                <td class="text-end"><?=$rowDetail["asker"]." :"?></td>
-                                <td ><p class="text-start"><?=$rowDetail["q_content"]?></p></td>
-                                <td><?=$rowDetail["create_time"]?></td>
+                                <th >問題內容</th>              
                             </tr>
-                            <?php endforeach;?>
+                            <tr> 
+                                <td>
+                                    <?php foreach($rowsDetail as $rowDetail): ?>
+                                    <p class="text-end my-2"><?=$rowDetail["name"]." : "?></p>
+                                    <?php endforeach;?> 
+                                </td>
+                                <td >
+                                    <?php foreach($rowsDetail as $rowDetail): ?>
+                                    <p class="text-start my-2"><?=$rowDetail["q_content"]?></p>
+                                    <?php endforeach;?>    
+                                </td>
+                                <td>
+                                    <?php foreach($rowsDetail as $rowDetail): ?>
+                                    <p class="text-start my-2"><?=$rowDetail["create_time"]?></p>
+                                    <?php endforeach;?>
+                                </td>
+                            </tr>
+                            
                             <tr>
-                                <th>進行回覆</th>
-                                <td colspan="2"><textarea type="" class="form-control inputcontent" value="" name="reply"></textarea>
+                                <th>進行回覆:</th>
+                                <td colspan="1">
+                                    <!-- <textarea type="" pattern=".*[^ ].*" class="form-control inputcontent" placeholder='輸入對話' name="reply" ></textarea> -->
+                                    <input type="text" name="reply" class="form-control inputcontent" pattern=".*[^ ].*" placeholder='輸入對話' autocomplete="off" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required >
+                                </td>  
+                                <td>
+
+                                </td>  
                             </tr>
                         </table>
                         <div class="d-flex justify-content-between">
@@ -124,7 +132,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                             </div>
                             <div class="py-2">                                
                                 <button class="btn btn-red" type="submit">
-                                    <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>刪除
+                                    <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>刪除
                                 </button>
                             </div>
                         </div>

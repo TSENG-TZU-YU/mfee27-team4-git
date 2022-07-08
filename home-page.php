@@ -1,10 +1,16 @@
+<?php
+require("../db-connect.php");
 
+session_start();
+
+
+?>
 
 <!DOCTYPE html>
 <html lang="zh-tw">
 
 <head>
-    <title>後台系統</title>
+    <title>訂單管理</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -17,6 +23,12 @@
     <link rel="stylesheet" href="style.css">
     </link>
 
+    <style>
+        .a{
+            height:270px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -24,29 +36,50 @@
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
-            <?php require("../nav.php");?>
+            <?php require("nav.php"); ?>
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
             <main class="col-10 px-5 py-4">
+
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">xxx</li>
+                        <li class="breadcrumb-item"><a href="http://localhost/mfee27-team4-git/home-page.php">首頁</a></li>
+
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
+
                 <hr>
+
                 <!-- 內容 -->
-                
+                <div class="d-flex mt-5">
+                    <div class="">
+                        <a href="member/users.php"> <img class=" mb-5 mx-3" src="../mfee27-team4-git/icon/Group 16.svg" ></img></a>
+                        <a href="order/order-list.php"> <img class=" mb-5 mx-3" src="../mfee27-team4-git/icon/Group 15.png"></img></a>
+                        <a href="order/order-list.php"> <img class=" mb-5 mx-3" src="../mfee27-team4-git/icon/Group 14.png"></img></a>
+                        <a href="article/create-article.php"> <img class=" mb-5 mx-3" src="../mfee27-team4-git/icon/Group 13.png"></img></a>
+                        <a href="member/users.php"> <img class=" mb-5 mx-3" src="../mfee27-team4-git/icon/Group 17.png"></img></a>
+                        <a href="http://localhost/mfee27-team4-git/customer/order_qna/order_qna.php"> <img class=" mb-5 mx-3" src="../mfee27-team4-git/icon/Group 18.png"></img></a>
+                        <a href="http://localhost/mfee27-team4-git/coupon/coupons.php?page=1&order=1"> <img class=" mb-5 mx-3" src="../mfee27-team4-git/icon/Group 19.png"></img></a>
+                     
+                    </div>
 
 
-        
-                <!-- 內容 end -->
-            </main>
-        <!-- 主要區塊 main end-->
+                </div>
+
+
+
+
+
+
         </div>
+        <!-- 內容 end -->
+
+        </main>
+        <!-- 主要區塊 main end-->
+    </div>
     </div>
 
 

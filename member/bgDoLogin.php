@@ -3,6 +3,10 @@
 require("../db-connect.php");
 
 session_start();
+if(!isset($_POST["account"])){
+    echo "請循正常管道進入本頁";
+    exit;
+}
 
 
 $account=$_POST["account"];
@@ -24,8 +28,8 @@ if($userExist>0){
     ];
 
     $_SESSION["user"]=$user;  //設定user
-    header("location: users.php");
-    exit;
+    header("location: http://localhost/mfee27-team4-git/home-page.php");
+    
 
 }else{
     header("location:backstage.php");

@@ -1,5 +1,5 @@
 <?php
-require("../db-connect-music.php");
+require("../db-connect.php");
 
 $id=$_GET["id"];
 

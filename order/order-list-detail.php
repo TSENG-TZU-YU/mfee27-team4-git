@@ -1,34 +1,21 @@
 <?php
-if (isset($_GET["page"])) {
-    $page = $_GET["page"];
+if (isset($_GET["order_id"])) {
+    $order_id = $_GET["order_id"];
 } else {
-    $page = 1;
+    echo "沒有帶資料喔";
+    exit;
 }
-$order_id = $_GET["order_id"];
-// echo $order_id;
-// exit;
-// $category_id = $_GET["category_id"];
-// echo $category_id;
-// exit;
-
 require("../db-connect.php");
 
-// $perPage = 4;
-// $start = ($page - 1) * $perPage;
-$sql = "SELECT * FROM order_product_detail WHERE order_id=$order_id AND valid=1 "; //LIMIT $start,4
-// echo $sql;
+$sql = "SELECT * FROM order_product_detail WHERE order_id=$order_id AND valid=1 ";
 
 $result = $conn->query($sql);
 $pageDetailCount = $result->num_rows;
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 
-// var_dump($rows);
-// exit;
-// echo count($rows);
 $inArray = array_column($rows, 'category_id');
-// echo var_dump($inArray);
-// exit;
 
+$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -65,16 +52,14 @@ $inArray = array_column($rows, 'category_id');
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">xxx</li>
+                        <li class="breadcrumb-item" aria-current="page"><a href="order-list.php">訂單管理</a></li>
+                        <li class="breadcrumb-item" aria-current="page"><a href="order-list-detail.php">訂單詳細內容</a></li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
                 <!-- 內容 -->
                 <div class="container">
                     <div class="row">
-                        <!-- <p class="col m-auto">第<?php // $startItem 
-                                                    ?>-<?php // $endItem 
-                                                        ?>筆</p> -->
                         <h5 class="col">訂單編號：<?= $order_id ?></h5>
                         <p class="col m-auto">總共<?= $pageDetailCount ?>筆資料</p>
                         <input class="col form-control me-3" type="text">
@@ -110,7 +95,7 @@ $inArray = array_column($rows, 'category_id');
                                                     <td><?= $row["amount"] ?></td>
                                                     <td><?= $row["address"] ?></td>
                                                     <td>
-                                                        <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
+                                                        <a class="col btn btn-red me-2" href="doListDetailDelete.php?order_id=<?= $order_id ?> &product_id=<?= $row["product_id"] ?>">
                                                             <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
                                                             刪除
                                                         </a>
@@ -124,7 +109,7 @@ $inArray = array_column($rows, 'category_id');
                         <?php endif;
                         endforeach; ?>
                     <?php else : ?>
-                        <h4 class="text-center">沒有資料ㄛ</h4>
+                        <h5 class="text-center py-2">目前沒有紀錄</h5>
                     <?php endif; ?>
 
                     <h2 class="text-center py-2">課程訂單記錄</h2>
@@ -149,7 +134,7 @@ $inArray = array_column($rows, 'category_id');
                                                     <td><?= $row["category_id"] ?></td>
                                                     <td><?= $row["amount"] ?></td>
                                                     <td>
-                                                        <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
+                                                        <a class="col btn btn-red me-2" href="doListDetailDelete.php?order_id=<?= $order_id ?> &product_id=<?= $row["product_id"] ?>">
                                                             <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
                                                             刪除
                                                         </a>
@@ -163,7 +148,7 @@ $inArray = array_column($rows, 'category_id');
                             <?php endif; ?>
                         <?php endforeach; ?>
                     <?php else : ?>
-                        <h4 class="text-center">沒有資料ㄛ</h4>
+                        <h5 class="text-center py-2">目前沒有紀錄</h5>
                     <?php endif; ?>
                     <h2 class="text-center py-2">場地預約記錄</h2>
                     <hr>
@@ -187,7 +172,7 @@ $inArray = array_column($rows, 'category_id');
                                                     <td><?= $row["category_id"] ?></td>
                                                     <td><?= $row["amount"] ?></td>
                                                     <td>
-                                                        <a class="col btn btn-red me-2" href="doListDetailDelete.php?product_id=<?= $row["product_id"] ?>">
+                                                        <a class="col btn btn-red me-2" href="doListDetailDelete.php?order_id=<?= $order_id ?> &product_id=<?= $row["product_id"] ?>">
                                                             <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
                                                             刪除
                                                         </a>
@@ -202,7 +187,7 @@ $inArray = array_column($rows, 'category_id');
                             <?php endif; ?>
                         <?php endforeach; ?>
                     <?php else : ?>
-                        <h4 class="text-center">沒有資料ㄛ</h4>
+                        <h5 class="text-center py-2">目前沒有資料</h5>
                     <?php endif; ?>
                 </div>
         </div>
@@ -211,7 +196,7 @@ $inArray = array_column($rows, 'category_id');
         </main>
         <!-- 主要區塊 main end-->
     </div>
-    </div>
+
 
 
     <!-- Bootstrap JavaScript Libraries -->
