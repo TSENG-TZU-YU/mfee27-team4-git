@@ -36,7 +36,7 @@
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        
+
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -44,9 +44,25 @@
                 <hr>
 
                 <!-- 內容 -->
+                <div class="d-flex mt-5">
+                    <div class="">
+                        <a href="member/users.php"> <img class="bi pe-none mb-5 mx-3" src="../mfee27-team4-git/icon/Group 16.svg"></img></a>
+                        <a href="member/users.php"> <img class="bi pe-none mb-5 mx-3" src="../mfee27-team4-git/icon/Group 15.png"></img></a>
+                        <a href="member/users.php"> <img class="bi pe-none mb-5 mx-3" src="../mfee27-team4-git/icon/Group 14.png"></img></a>
+                        <a href="member/users.php"> <img class="bi pe-none mb-5 mx-3" src="../mfee27-team4-git/icon/Group 13.png"></img></a>
+                        <a href="member/users.php"> <img class="bi pe-none mb-5 mx-3" src="../mfee27-team4-git/icon/Group 17.png"></img></a>
+                        <a href="member/users.php"> <img class="bi pe-none mb-5 mx-3" src="../mfee27-team4-git/icon/Group 18.png"></img></a>
+                        <a href="member/users.php"> <img class="bi pe-none mb-5 mx-3" src="../mfee27-team4-git/icon/Group 19.png"></img></a>
+                     
+                    </div>
 
-                
-               
+
+                </div>
+
+
+
+
+
 
         </div>
         <!-- 內容 end -->
