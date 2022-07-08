@@ -219,29 +219,3 @@ table tbody tr:hover {
   color: #fff;
   background-color: var(--khak-color);
 }
-
-/* .page-link.active:active {
-  z-index: 3;
-  color: var(--khak-color);
-  background-color: var(--khak-color);
-  border-color: var(--khak-color);
-} */
-
-/* .myButton {
-  background-color: #265f74;
-  border-radius: 5px;
-  display: inline-block;
-  cursor: pointer;
-  color: #fff;
-  font-family: Arial;
-  padding: auto;
-  margin: 0 auto;
-  text-decoration: none;
-}
-.myButton:hover {
-  background-color: #265f74;
-}
-.myButton:active {
-  position: relative;
-  top: 1px;
-} */
