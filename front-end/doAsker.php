@@ -19,7 +19,7 @@ if(isset($_POST["reply"])){
     $conn->close();
     // echo "新增成功";
     $account=$_POST["account"];
-    header("location: my_order.php?user_id=".$user_id);
+    header("location: my_order.php");
 }
 
  

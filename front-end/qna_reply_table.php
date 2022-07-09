@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(!isset($_SESSION["front_user"])){
+    header("location: front_login.php");
+  }
 require("../db-connect.php");
 
 $order_id=$_GET["order_id"];
@@ -20,7 +24,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 <html lang="zh-tw">
 
 <head>
-    <title>我要問問題</title>
+    <title>查看問題</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -46,31 +50,30 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
             font-size: 14px;
             border-radius: 15px;
         }
+        .content{
+            width: 960px;
+        }
     </style>
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row d-flex">
-
-            <!-- 導覽列 nav -->
-            
-            <!-- 導覽列 nav end -->
-
             <!-- 主要區塊 main -->
             <main class="col px-5 py-4">
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">xxx</li>
+                        <li class="breadcrumb-item"><a href="my_order.php">我的訂單</a></li>
+                        <li class="breadcrumb-item" aria-current="page">查看問題</li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
                 <hr>
                 <!-- 內容 -->
-                <div class="container">
-                    
+                <div class="content mx-auto">
+                    <h1>查看問題</h1>
                     <form action="qna_doReply.php" method="post">
                         <table class="table">
                             <tr>
@@ -87,7 +90,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                 <div class="d-flex justify-content-center">    
                                         <span class="reply-state
                                         <?php 
-                                        switch($row["reply_state"]){
+                                        switch($row["user_reply_state"]){
                                             case '未回覆':
                                                 echo "bg-danger";
                                                 break;
@@ -98,7 +101,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                                 echo "bg-dark";
                                                 break;     
                                             }?>
-                                        "><?=$row["reply_state"]?>
+                                        "><?=$row["user_reply_state"]?>
                                         </span>
                                     </div>
                                 </td>
@@ -140,7 +143,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                 <th>進行回覆:</th>
                                 <td colspan="1">
                                     <!-- <textarea type="" pattern=".*[^ ].*" class="form-control inputcontent" placeholder='輸入對話' name="reply" ></textarea> -->
-                                    <input type="text" name="reply" class="form-control inputcontent" pattern=".*[^ ].*" placeholder='輸入對話' autocomplete="off" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required >
+                                    <input type="text" name="reply" class="form-control inputcontent" pattern=".*[^ ].*" placeholder='輸入內容' autocomplete="off" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required >
                                 </td>  
                                 <td>
 
@@ -156,7 +159,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                     <input type="hidden" name="name" value="<?=$row["name"]?>">
                                 </div>
                                 <div class="py-2 mx-2">
-                                    <a class="btn btn-grey" href="my_order.php?user_id=<?=$row["user_id"]?>">離開</a>
+                                    <a class="btn btn-grey" href="my_order.php">離開</a>
                                 </div>
                             </div>
                             

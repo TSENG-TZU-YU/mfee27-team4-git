@@ -5,9 +5,9 @@ if(!isset($_SESSION["front_user"])){
   }
 require("../db-connect.php");
 
-$account=$_SESSION["front_user"]["account"];
+// $account=$_SESSION["front_user"]["account"];
 
-// $account=isset($_GET["account"])? $_GET["account"] : 'zxcasd';
+$account=isset($_GET["account"])? $_GET["account"] : 'abcde';
 $sqlUser="SELECT * FROM users WHERE account = '$account'" ;
 $resultUser=$conn->query($sqlUser); 
 $rowuser = $resultUser->fetch_assoc();
@@ -46,7 +46,7 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);
             position: absolute;
             font-size: 13px;
             right: -35px;
-            top: -10px;
+            top: -9px;
             border-radius: 15px;
         }
     </style>
