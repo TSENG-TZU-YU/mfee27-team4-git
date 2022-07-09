@@ -74,6 +74,7 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);
                 </thead>
                 <tbody>
                     <?php foreach($rows as $row): ?>
+                        
                     <tr>
                         <th class="text-nowrap"><?=$row["order_id"]?> </th>
                         <td class="text-nowrap"><?=$row["order_state"]?></td>
