@@ -17,8 +17,9 @@ $sql = "SELECT * FROM order_product WHERE valid=1 LIMIT $start, 4";
 $result = $conn->query($sql);
 $pageListCount = $result->num_rows;
 $rows = $result->fetch_all(MYSQLI_ASSOC);
-
-
+// print_r($rows);
+// echo "<br>";
+// exit;
 //關聯pay_state state pay_by 3個table
 for ($i = 0; $i < count($rows); $i++) {
     $paymethod_id=$rows[$i]["payment_method"];
@@ -29,10 +30,11 @@ for ($i = 0; $i < count($rows); $i++) {
     $resultPayState = $conn->query($sqlPayState);
     $payStaterow = $resultPayState->fetch_assoc();
     $rows[$i]["payName"]=$payStaterow["name"];
+    // print_r($payStaterow);
     $sqlOrderState="SELECT * FROM state WHERE id=$orderState_id";
     $resultOrderState = $conn->query($sqlOrderState);
     $orderStaterow = $resultOrderState->fetch_assoc();
-    $rows[$i]["orderStateName"]=$orderStaterow["name"];
+   $rows[$i]["orderStateName"]=$orderStaterow["name"];
     $sqlPayMethod="SELECT * FROM pay_by WHERE id=$paymethod_id";
     $resultPayMethod= $conn->query($sqlPayMethod);
     $payMethodrow = $resultPayMethod->fetch_assoc();

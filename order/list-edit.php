@@ -121,7 +121,7 @@ $conn->close();
                                 </tr>
                                 <tr>
                                     <th>結帳方式</th>
-                                    <td> <select class="form-select" name="payMethod" id="">
+                                    <td> <select class="form-select text-center" name="payMethod" id="">
                                             <?php for ($i = 0; $i < $payMethodCount; $i++) : ?>
                                                 <option value="<?= $payMethodrows[$i]["id"] ?>" <?php
                                                                                                 if ($payMethodrows[$i]["id"] === $row["payment_method"]) echo "selected"; ?>><?= $payMethodrows[$i]["name"] ?></option>
@@ -135,7 +135,7 @@ $conn->close();
                                     <td>
                                         <?php
                                         if ($row["payment_state"] == "1") : ?>
-                                            <select class="form-select" name="paymentState">
+                                            <select class="form-select text-center" name="paymentState">
                                                 <?php for ($i = 0; $i < $payStateCount - 1; $i++) : //-1 先不讓退款顯示
                                                 ?>
                                                     <option value="<?= $payStaterows[$i]["id"] ?>" <?php
@@ -166,7 +166,7 @@ $conn->close();
                                             <input name="orderState" type="hidden" value="<?= $row["order_state"] ?>">
                                             <?= $orderStaterows[$row["order_state"] - 1]["name"] ?>
                                         <?php else : ?>
-                                            <select class="form-select" name="orderState">
+                                            <select class="form-select text-center" name="orderState">
                                                 <?php
                                                 if ($row["order_state"] === "1") :
                                                     for ($i = 0; $i < $orderStateCount - 2; $i++) :
