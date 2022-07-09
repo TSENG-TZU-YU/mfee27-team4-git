@@ -8,7 +8,7 @@ if(isset($_POST["reply"])){
     $conn->query($sqlins);
 
     $order_qna_id=$_POST["order_qna_id"];
-    $sql="UPDATE order_qna SET reply_state='已回覆', update_time='$now' WHERE id=$order_qna_id";
+    $sql="UPDATE order_qna SET user_reply_state='已回覆',reply_state='已回覆', update_time='$now' WHERE id=$order_qna_id";
     $conn->query($sql);
 
     $conn->close();

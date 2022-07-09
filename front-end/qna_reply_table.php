@@ -1,15 +1,14 @@
 <?php
-require("../../db-connect.php");
+require("../db-connect.php");
 
-$order_qna_id=$_GET["order_qna_id"];
+$order_id=$_GET["order_id"];
 
-$sql="SELECT order_qna.*, users.account FROM order_qna
-    JOIN users ON order_qna.user_id = users.id 
-    WHERE order_qna.id = $order_qna_id";
+$sql="SELECT order_qna.*, users.account,users.name FROM order_qna
+    JOIN users ON order_qna.user_id = users.id WHERE order_id = $order_id";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
-$order_id=$row["order_id"];
+$order_qna_id=$row["id"];
 
 $sqlDetail="SELECT * FROM order_qna_detail WHERE order_id = $order_id";
 $resultDetail = $conn->query($sqlDetail);
@@ -21,7 +20,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 <html lang="zh-tw">
 
 <head>
-    <title>後台系統</title>
+    <title>我要問問題</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -55,11 +54,11 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
-            <?php require("../../nav.php");?>
+            
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
-            <main class="col-10 px-5 py-4">
+            <main class="col px-5 py-4">
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
@@ -72,7 +71,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                 <!-- 內容 -->
                 <div class="container">
                     
-                    <form action="doReply.php" method="post">
+                    <form action="qna_doReply.php" method="post">
                         <table class="table">
                             <tr>
                                 <th>訂單編號:</th>
@@ -84,8 +83,8 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                             </tr>
                             <tr>
                                 <th>回覆狀態:</th>
-                                <td colspan="2" >
-                                    <div class="d-flex justify-content-center">    
+                                <td colspan="2">
+                                <div class="d-flex justify-content-center">    
                                         <span class="reply-state
                                         <?php 
                                         switch($row["reply_state"]){
@@ -94,9 +93,6 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                                 break;
                                             case '已回覆':
                                                 echo "bg-success";
-                                                break;
-                                            case '新訊息':
-                                                echo "bg-warning";
                                                 break;    
                                             default:
                                                 echo "bg-dark";
@@ -104,7 +100,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                             }?>
                                         "><?=$row["reply_state"]?>
                                         </span>
-                                    </div> 
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -157,16 +153,13 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                     <button class="btn btn-green" type="submit">確定</button>
                                     <input type="hidden" name="order_id" value="<?=$order_id?>">
                                     <input type="hidden" name="order_qna_id" value="<?=$order_qna_id?>">
+                                    <input type="hidden" name="name" value="<?=$row["name"]?>">
                                 </div>
                                 <div class="py-2 mx-2">
-                                    <a class="btn btn-grey" href="order_qna.php">離開</a>
+                                    <a class="btn btn-grey" href="my_order.php?user_id=<?=$row["user_id"]?>">離開</a>
                                 </div>
                             </div>
-                            <div class="py-2">                                
-                                <button class="btn btn-red" type="submit">
-                                    <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>刪除
-                                </button>
-                            </div>
+                            
                         </div>
                     </form>     
                 </div>        

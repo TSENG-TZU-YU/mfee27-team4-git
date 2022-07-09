@@ -1,12 +1,19 @@
 <?php
 require("../db-connect.php");
+
+$sqlCount=$_POST["sqlCount"];
+if($sqlCount>0){
+    $order_id=$_POST["order_id"];
+    header("location: qna_reply_table.php?order_id=".$order_id);
+}
+
 $name=$_POST["name"];
 $user_id=$_POST["user_id"];
 $order_id=$_POST["order_id"];
 $sql="SELECT * FROM order_product WHERE order_id = $order_id" ;
 $result=$conn->query($sql); 
 $row = $result->fetch_assoc();
-print_r($row);
+// print_r($row);
 ?>
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -32,7 +39,7 @@ print_r($row);
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container">
         <div class="">
 
             <!-- 主要區塊 main -->
@@ -92,10 +99,11 @@ print_r($row);
                                     <button class="btn btn-green" type="submit">確定</button>
                                     <input type="hidden" name="order_id" value="<?=$order_id?>">
                                     <input type="hidden" name="user_id" value="<?=$user_id?>">
-                                    <input type="hidden" name="name" value="<?=$name?>">                                                                        
+                                    <input type="hidden" name="name" value="<?=$name?>">
+                                    <input type="hidden" name="account" value="<?=$row["account"]?>">                                                                        
                                 </div>
                                 <div class="py-2 mx-2">
-                                    <a class="btn btn-grey" href="my_order.php?account=<?=$row["account"]?>">取消</a>
+                                    <a class="btn btn-grey" href="my_order.php?user_id=<?=$user_id?>">取消</a>
                                 </div>
                             </div>
                             
