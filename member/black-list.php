@@ -33,7 +33,7 @@ $sql = "SELECT * FROM users WHERE  valid=1 AND enable=0  ORDER BY $orderType  LI
 $result = $conn->query($sql);
 $pageUserCount = $resultAll->num_rows;
 
-$startItem = ($page - 1) * $perPage;
+$startItem = ($page - 1) * $perPage + 1;
 $endItem = $page * $perPage;
 
 if ($endItem > $userCount) $endItem = $userCount;
@@ -90,7 +90,9 @@ $totalPage = ceil($userCount / $perPage);
                 <!-- 內容 -->
                 <div class="container">
                     <div class="row">
-                        <p class="col-8 m-auto">總共<?= $userCount ?>筆資料</p>
+                        <p class="col-8 m-auto">
+                            第 <?= $startItem ?>-<?= $endItem ?> 筆 , 總共 <?= $userCount ?> 筆資料
+                        </p>
                         <input class="col form-control me-3" type="text">
                         <a class="col-1 btn btn-green" href="#">
                             <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -109,9 +111,9 @@ $totalPage = ceil($userCount / $perPage);
                             返回
                         </a>
                     </div>
-                    <!-- 按鈕 end-->`
+                    <!-- 按鈕 end-->
 
-                    <table class="table mt-5">
+                    <table class="table mt-3">
 
                         <thead>
                             <tr>

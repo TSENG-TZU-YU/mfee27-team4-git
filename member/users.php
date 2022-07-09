@@ -124,7 +124,7 @@ $totalPage = ceil($userCount / $perPage);
                         <div class="row">
 
                             <p class="col-8 m-auto">
-                                第<?= $startItem ?>-<?= $endItem ?>筆,總共<?=$userCount ?>筆資料
+                                第 <?= $startItem ?>-<?= $endItem ?> 筆 , 總共 <?=$userCount ?> 筆資料
                             </p>
                             <input class="col form-control me-3" type="text" name="search">
                             <button class="col-1 btn btn-green" type="submit">
