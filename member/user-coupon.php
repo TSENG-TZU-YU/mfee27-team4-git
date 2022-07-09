@@ -10,10 +10,11 @@ if (!isset($_GET["id"])) {
 }
 
 $id = $_GET["id"];
-$sql = "SELECT users.id, coupon.*  FROM users JOIN coupon ON users.coupon=coupon.coupon_c ";
-$result = $conn->query($sql);
+$sql = "SELECT users.id, coupon.*  FROM users  JOIN coupon ON users.coupon=coupon.coupon_c WHERE users.id=$id ";
+$result = $conn->query($sql) or die($conn->error);
 $userCount = $result->num_rows;
-$row = $result->fetch_assoc();
+$rows = $result->fetch_all(MYSQLI_ASSOC);
+
 
 
 
@@ -60,7 +61,8 @@ $row = $result->fetch_assoc();
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
                         <li class="breadcrumb-item"><a href="http://localhost/mfee27-team4-git/member/users.php">會員管理</a></li>
-                        <li class="breadcrumb-item" aria-current="page">詳細</li>
+                        <li class="breadcrumb-item"><a href="user-detail.php?id=<?= $id ?>">詳細</a></li>
+                        <li class="breadcrumb-item" aria-current="page">優惠券</li></li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -74,11 +76,11 @@ $row = $result->fetch_assoc();
                     <!-- 按鈕 -->
                     <div class="row mt-5">
                         <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green mx-3" href="user-detail.php?id=<?= $row["id"] ?>">
+                        <a class="col-1 btn btn-green mx-3" href="user-detail.php?id=<?= $id ?>">
                             <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
-                       
+
 
 
 
@@ -87,40 +89,35 @@ $row = $result->fetch_assoc();
 
                 </div>
                 <div class="container mt-5  ">
-                <table class="table mt-4">
-                        <thead>
-                            <tr>
-                                <th scope="col">優惠券名稱</th>
-                                <th scope="col">優惠券折扣</th>
-                                <th scope="col">優惠券期限</th>
-                            
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($rows as $row) : ?>
+                    <?php if ($userCount > 0) : ?>
+                        <table class="table mt-4">
+                            <thead>
                                 <tr>
-                                    <th><?= $row["id"] ?></th>
-                                    <td><?= $row["name"] ?></td>
-                                    <td><?= $row["account"] ?></td>
-                                    <td><?= $row["phone"] ?></td>
-                                    <td><?= $row["email"] ?></td>
-                                    <td><?= $row["create_time"] ?></td>
-                                    <td>
-                                        <a class="btn btn-grey  me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>">
-                                            <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                                            詳細
-                                        </a>
-                                        <a class="btn btn-red" type="button" href="do-black-list.php?id=<?= $row["id"] ?>">
-                                            <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
-                                            加入黑名單
-                                        </a>
-                                    </td>
+                                    <th scope="col">優惠券名稱</th>
+                                    <th scope="col">優惠券序號</th>
+                                    <th scope="col">優惠券折扣</th>
+                                    <th scope="col">優惠券日期</th>
+                                    <th scope="col">優惠券使用次數</th>
+                                    <th scope="col">優惠券最低金額</th>
+
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-
-
+                            </thead>
+                            <tbody>
+                                <?php foreach ($rows as $row) : ?>
+                                    <tr>
+                                        <td><?= $row["name"] ?></td>
+                                        <td><?= $row["number"] ?></td>
+                                        <td><?= $row["discount"] ?></td>
+                                        <td><?= $row["dateline"] ?></td>
+                                        <td><?= $row["several_times"] ?></td>
+                                        <td><?= $row["min_price"] ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php else : ?>
+                        目前沒有優惠券~
+                    <?php endif; ?>
                 </div>
                 <!-- 內容 end -->
 
