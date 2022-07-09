@@ -61,10 +61,10 @@ if(empty($address)){
   $coupon=false;    
   if(isset($_POST['coupon'])){
     $coupon=true;
-    echo"1";
+    // echo"有優惠券";
   } 
   else{
-    echo"0";
+    // echo"無優惠券";
   }
 
 
@@ -86,7 +86,7 @@ if ($conn->query($sqlCreate) === TRUE && $coupon==1) {
     echo "<script language='JavaScript'>;alert('註冊成功 獲得商品50元折價券');location.href='users.php';</script>;";
     // header("location:users.php");
 }if ($conn->query($sqlCreate) === TRUE  && $coupon==0){
-    echo "<script language='JavaScript'>;alert('註冊成功');location.href='users.php';</script>;";
+    echo "<script language='JavaScript'>;alert('註冊成功');</script>;";
 }
 else {
     echo "Error: " . $sql . "<br>" . $conn->error;
