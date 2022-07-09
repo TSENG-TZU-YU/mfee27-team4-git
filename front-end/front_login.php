@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(isset($_SESSION["user"])){
-    header("location: dashboard.php");
+if(isset($_SESSION["front_user"])){
+    header("location: my_order.php");
   }
   
 ?>

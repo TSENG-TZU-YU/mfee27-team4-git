@@ -1,7 +1,13 @@
 <?php
+session_start();
+if(!isset($_SESSION["front_user"])){
+    header("location: front_login.php");
+  }
 require("../db-connect.php");
 
-$account=isset($_GET["account"])? $_GET["account"] : 'zxcasd';
+$account=$_SESSION["front_user"]["account"];
+
+// $account=isset($_GET["account"])? $_GET["account"] : 'zxcasd';
 $sqlUser="SELECT * FROM users WHERE account = '$account'" ;
 $resultUser=$conn->query($sqlUser); 
 $rowuser = $resultUser->fetch_assoc();
@@ -74,7 +80,7 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);
                 </thead>
                 <tbody>
                     <?php foreach($rows as $row): ?>
-                        
+
                     <tr>
                         <th class="text-nowrap"><?=$row["order_id"]?> </th>
                         <td class="text-nowrap"><?=$row["order_state"]?></td>

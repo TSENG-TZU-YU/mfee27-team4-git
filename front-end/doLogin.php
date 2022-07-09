@@ -26,8 +26,8 @@ if($userExist>0){ //登入成功
         "name"=>$row["name"]
     ];
     unset($_SESSION["error"]);
-    $_SESSION["user"]=$user;
-    header("location: dashboard.php");
+    $_SESSION["front_user"]=$user;
+    header("location: my_order.php");
 }else{
     echo "帳號或密碼錯誤";
     $_SESSION["error"]["message"]="帳號或密碼錯誤";
@@ -39,7 +39,7 @@ if($userExist>0){ //登入成功
     }
     
 
-    header("location: login.php");
+    header("location: front_login.php");
 }
 
 
