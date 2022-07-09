@@ -17,7 +17,7 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="http://localhost/mfee27-team4-git/home-page.php" class="nav-link my-1 " aria-current="page">
+                <a href="http://localhost/mfee27-team4-git/home.php" class="nav-link my-1 " aria-current="page">
                     <img class="mb-1 me-2" src="/mfee27-team4-git/icon/home-icon.svg" width="16" height="16" style="color:#fff;"></img>
                     首頁
                 </a>
@@ -73,7 +73,7 @@
             </div>
             <li>
                 <a href="http://localhost/mfee27-team4-git/coupon/coupon.php" class="nav-link my-1">
-                    <img class="mb-1 me-2" src="/mfee27-team4-git/icon/teacher-icon.svg" width="16" height="16"></img>
+                    <img class="mb-1 me-2" src="/mfee27-team4-git/icon/sell-icon.svg" width="16" height="16"></img>
                     優惠券
                 </a>
             </li>

@@ -135,7 +135,7 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>會員郵件</th>
-                                        <td><input type="text" class="form-control text-center" value="<?= $row["email"] ?>" name="email"></td>
+                                        <td><input type="email" class="form-control text-center" value="<?= $row["email"] ?>" name="email"></td>
                                     </tr>
                                     <tr>
                                     <th>會員地址</th>
