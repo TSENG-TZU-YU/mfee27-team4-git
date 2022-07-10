@@ -95,7 +95,7 @@ require("../../db-connect.php");
                 <h1>聯絡表單</h1>
                 <hr>                   
                 <form action="doAsker.php" method="post">
-                    <div class=" formitem ">
+                    <div class="formitem">
                         <label for="name" class="fs-5 fw-bolder">姓名</label>
                         <input type="text" id="name" name="name" class="form-control mt-2 mb-3" placeholder='請輸入您的姓名' required >
                         <label for="email" class="fs-5 fw-bolder">電子郵件</label>
@@ -104,15 +104,15 @@ require("../../db-connect.php");
                         <input type="phone" id="phone" name="phone" class="form-control mt-2 mb-3" placeholder='請填寫連絡電話' required >
                         <label for="q_category" class="fs-5 fw-bolder">問題類型</label>
                         <select id="q_category" class="form-control mt-2 mb-3" name="q_category">
-                                <option value="其他問題">選擇問題</option>
-                                <option value="商品問題">商品問題</option>
-                                <option value="訂單問題">訂單問題</option>
-                                <option value="課程問題">課程問題</option>
-                                <option value="場地租借問題">場地租借問題</option>
-                                <option value="退貨、退款問題">退貨、退款問題</option>
-                                <option value="運費、寄送問題">運費、寄送問題</option>
-                                <option value="其他問題">其他問題</option>
-                            </select>
+                            <option value="其他問題">選擇問題</option>
+                            <option value="商品問題">商品問題</option>
+                            <option value="訂單問題">訂單問題</option>
+                            <option value="課程問題">課程問題</option>
+                            <option value="場地租借問題">場地租借問題</option>
+                            <option value="退貨、退款問題">退貨、退款問題</option>
+                            <option value="運費、寄送問題">運費、寄送問題</option>
+                            <option value="其他問題">其他問題</option>
+                        </select>
                         <label for="title" class="fs-5 fw-bolder">問題標題</label>
                         <input type="text" id="title" name="title" class="form-control mt-2 mb-3" placeholder='請輸入標題' required >
                         <label for="reply" class="fs-5 fw-bolder">題問內容</label>

@@ -13,33 +13,8 @@ session_start();
     <!-- Bootstrap CSS v5.0.2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">    
     <style>
-        :root {
-        /* 顏色 */
-        color: #41464b;
-        --grey-color: #41464b;
-        --main-color: #265f74;
-        --khak-color: #a79a7e;
-        --red-color: #61002d;
-        --blue-color: #4a81b0;
-        --orange-color: #be7844;
-        --purple-color: #533b7e;
-        --light-grey-color: #bfbfbf;
-        --light-green-color: #6194a7;
-        --light-khak-color: #e3dccb;
-        --light-red-color: #e2c4d2;
-        --light-blue-color: #cee4f6;
-        --light-orange-color: #f5e7d7;
-        --light-purple-color: #e0d7f3;
-        --bg-color: #aaa;
-        }
-        .bg-green-color {
-            background: var(--main-color);
-        }
-        .border-blue {
-            border-color:var(--blue-color);
-            border: 3px;
-        }
         article img{
             max-width: 100%;
         }
