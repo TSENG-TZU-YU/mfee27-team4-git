@@ -134,10 +134,19 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                     <?php endforeach;?>    
                                 </td>
                                 <td>
+                                    <form action="doDelete.php" method="post">
                                     <?php foreach($rowsDetail as $rowDetail): ?>
-                                    <p class="text-start my-2"><?=$rowDetail["create_time"]?></p>
+                                    <p class="text-start my-2">
+                                        <?=$rowDetail["create_time"]?>
+                                        <input type="checkbox" name="delete[]" value=<?php $rowDetail["id"]?>>
+                                    </p>
                                     <?php endforeach;?>
+                                    <button class="btn btn-red" type="submit">
+                                        <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>刪除
+                                    </button>
+                                    </form>
                                 </td>
+                                
                             </tr>
                             
                             <tr>
