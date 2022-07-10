@@ -6,6 +6,6 @@ if(isset($_SESSION["front_user"])){
     session_destroy();
 }
 
-header("location: login.php");
+header("location: front_index.php");
 
 ?>

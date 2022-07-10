@@ -1,19 +1,6 @@
 <?php
 session_start();
-require("../db-connect.php");
-
-$sqlCount=$_POST["sqlCount"];
-if($sqlCount>0){
-    $order_id=$_POST["order_id"];
-    header("location: qna_reply_table.php?order_id=".$order_id);
-}
-
-$name=$_POST["name"];
-$user_id=$_POST["user_id"];
-$order_id=$_POST["order_id"];
-$sql="SELECT * FROM order_product WHERE order_id = $order_id" ;
-$result=$conn->query($sql); 
-$row = $result->fetch_assoc();
+require("../../db-connect.php");
 ?>
 <!doctype html>
 <html lang="zh-tw">
@@ -27,7 +14,7 @@ $row = $result->fetch_assoc();
     <!-- Bootstrap CSS v5.0.2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">    
+    <link rel="stylesheet" href="style.css">
     <style>
         article img{
             max-width: 100%;
@@ -49,7 +36,7 @@ $row = $result->fetch_assoc();
             min-height:700px;
         }
         .inputcontent{
-            height: 100px;    
+            height: 150px;    
         }
         .formitem{
             width: 700px;
@@ -104,12 +91,18 @@ $row = $result->fetch_assoc();
         <div class="container">
         <div class="row mt-3">
             <main class="<?php if(isset($_SESSION["front_user"])){echo"col-md-10";}else{echo"col-md";}?>">
-                <article class="content">
-                <h1>訂單號" <?=$order_id?> "的問題</h1>
+            <article class="content">
+                <h1>聯絡表單</h1>
                 <hr>                   
-                <form action="doAsker.php" method="post" class="formitem">
+                <form action="doAsker.php" method="post">
                     <div class="formitem">
-                        <label for="q_category" class="fs-5 fw-bolder">問題類型</label>    
+                        <label for="name" class="fs-5 fw-bolder">姓名</label>
+                        <input type="text" id="name" name="name" class="form-control mt-2 mb-3" placeholder='請輸入您的姓名' required >
+                        <label for="email" class="fs-5 fw-bolder">電子郵件</label>
+                        <input type="email" id="email" name="email" class="form-control mt-2 mb-3" placeholder='請輸入您的E-MAIL' required >
+                        <label for="phone" class="fs-5 fw-bolder">聯絡電話</label>
+                        <input type="phone" id="phone" name="phone" class="form-control mt-2 mb-3" placeholder='請填寫連絡電話' required >
+                        <label for="q_category" class="fs-5 fw-bolder">問題類型</label>
                         <select id="q_category" class="form-control mt-2 mb-3" name="q_category">
                             <option value="其他問題">選擇問題</option>
                             <option value="商品問題">商品問題</option>
@@ -133,12 +126,13 @@ $row = $result->fetch_assoc();
                                 <input type="hidden" name="account" value="<?=$row["account"]?>">
                             </div>
                             <div class="py-2 mx-2">
-                                <a class="btn btn-grey" href="my_order.php">取消</a>
+                                <a class="btn btn-grey" href="front_index.php">取消</a>
                             </div>
                         </div>
                     </div>
-                </form>   
-                </article>
+                </form>
+                <hr>
+            </article>
             </main>
             <?php if(isset($_SESSION["front_user"])):?>
             <aside class="col-md-2">
