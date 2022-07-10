@@ -55,7 +55,7 @@
      </div>
      <div class="mb-2">
       <label for="">使用者資格</label>
-      <input type="text " class="form-control" name="number" required >
+      <input type="text " class="form-control" name="member" required >
   </div>
   <div class="mb-2">
       <label for="">序號</label>
