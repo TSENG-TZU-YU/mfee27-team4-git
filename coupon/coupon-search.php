@@ -1,25 +1,31 @@
 <?php
 
 require("../db-connect.php");
+
+
+
+
+  
+  
+
+
+
+
+
 if(!isset($_GET["search"])){
     $search="";
-    $couponCount=0;
+    $couponCountS=0;
 
 }else{
 
-    $search=$_GET["search"];
-
-$sql="SELECT id, name , number, discount, dateline, several_times, min_price FROM coupon 
-WHERE name  LIKE '%$search%'";
-
-
-$result = $conn->query($sql);
-$couponCount=$result->num_rows;
+ $search=$_GET["search"];
+$sqlSearch="SELECT id, name , number, discount, dateline, several_times, min_price FROM coupon 
+WHERE  name  LIKE '%$search%'";
+$resultS = $conn->query($sqlSearch);
+$couponCountS=$resultS->num_rows;
 
 
 }
-
-
 
 
 ?>
@@ -45,8 +51,8 @@ $couponCount=$result->num_rows;
         </div>
         <form action="coupon-search.php" method="get">   
                     <div class="row">    
-                  
-                    <h3 class="col-8 m-auto">總共<?=$couponCount?> 筆資料</h3>
+              
+                    <h3 class="col-8 m-auto">總共<?=$couponCountS?> 筆資料</h3>
                     <input class="col form-control me-3" type="text" name="search">
                       <button type="submit" class="col-1 btn btn-green">
                       <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -54,8 +60,8 @@ $couponCount=$result->num_rows;
                         </div>
                        </form>
 
-                  <?php if($couponCount>0): ?>
-      
+                  <?php if($couponCountS>0): ?>
+                
         <table class="table mt-5">
                         <thead>
                             <tr>
@@ -71,7 +77,7 @@ $couponCount=$result->num_rows;
                             </tr>
                         </thead>
                         <tbody>
-                        <?php while($row = $result->fetch_assoc()): ?>
+                        <?php while($row = $resultS->fetch_assoc()): ?>
                     <tr>
                         <td><?=$row["id"]?></td>
                         <td><?=$row["name"]?></td>
@@ -89,10 +95,17 @@ $couponCount=$result->num_rows;
          沒有符合條件結果
          <?php endif; ?>  
          
-         <a class=" btn btn-grey me-3" href="coupons.php">
+         <div>
+         <div aria-label="Page navigation example">
+                        <ul class="pagination">
+                       
+                            <a class=" btn btn-grey me-3" href="coupons.php">
  <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
     返回上一頁
 </a>
+         </div>
+         
+      
          
  
      </div>
