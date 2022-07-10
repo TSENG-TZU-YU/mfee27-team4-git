@@ -5,69 +5,79 @@ require("../../db-connect.php");
 $perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
 $page=isset($_GET["page"])? $_GET["page"] : 1;
 
-$category=isset($_GET["category"])? $_GET["category"] : "";
-switch($category){
-    case 1:
-        $sqlWhere="WHERE order_qna.reply_state ='未回覆'";
-        break;
-    case 2:
-        $sqlWhere="WHERE order_qna.reply_state ='已回覆'";
-        break;
-    default:
-        $sqlWhere="";
-        break;     
-}
+// $category=isset($_GET["category"])? $_GET["category"] : "";
+// switch($category){
+//     case 1:
+//         $sqlWhere="WHERE order_qna.reply_state ='未回覆'";
+//         break;
+//     case 2:
+//         $sqlWhere="WHERE order_qna.reply_state ='已回覆'";
+//         break;
+//     default:
+//         $sqlWhere="";
+//         break;     
+// }
 
-if (isset($_GET["search"])){
-    $search=$_GET["search"];
-    if(isset($_GET["category"])){
-        $sqlseach="AND users.account LIKE '%$search%' ";
-    }else{
-        $sqlseach="WHERE users.account LIKE '%$search%' ";
-    }  
-}else{
-    $search="";
-    $sqlseach="";
-}
+// if (isset($_GET["search"])){
+//     $search=$_GET["search"];
+//     if(isset($_GET["category"])){
+//         $sqlseach="AND users.account LIKE '%$search%' ";
+//     }else{
+//         $sqlseach="WHERE users.account LIKE '%$search%' ";
+//     }  
+// }else{
+//     $search="";
+//     $sqlseach="";
+// }
   
-$order=isset($_GET["order"])? $_GET["order"] : 1;
-switch($order){
-    case 1:
-        $orderType="order_qna.order_id ASC";
-        break;
-    case 2:
-        $orderType="order_qna.order_id DESC";
-        break;
-    case 3:
-        $orderType="users.account ASC";
-        break;
-    case 4:
-        $orderType="users.account DESC";
-        break; 
-    case 5:
-        $orderType="order_qna.create_time ASC";
-        break;
-    case 6:
-        $orderType="order_qna.create_time DESC";
-        break;   
-    default:
-        $orderType="order_qna.order_id DESC";
-        break;
-}
+// $order=isset($_GET["order"])? $_GET["order"] : 1;
+// switch($order){
+//     case 1:
+//         $orderType="order_qna.order_id ASC";
+//         break;
+//     case 2:
+//         $orderType="order_qna.order_id DESC";
+//         break;
+//     case 3:
+//         $orderType="users.account ASC";
+//         break;
+//     case 4:
+//         $orderType="users.account DESC";
+//         break; 
+//     case 5:
+//         $orderType="order_qna.create_time ASC";
+//         break;
+//     case 6:
+//         $orderType="order_qna.create_time DESC";
+//         break;   
+//     default:
+//         $orderType="order_qna.order_id DESC";
+//         break;
+// }
 
 $start=($page-1)*$perPage;
 
-$sql="SELECT order_qna.*, users.account , users.name FROM order_qna
-    JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ORDER BY $orderType
-    LIMIT $start, $perPage" ; 
-   
+$sql="SELECT user_qna.*,users.account FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id
+    LIMIT $start, $perPage";
 $result=$conn->query($sql);
 $rows=$result->fetch_all(MYSQLI_ASSOC);
 
-$sqlAll="SELECT order_qna.*, users.account, users.name FROM order_qna
-    JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ";
+// $sql="SELECT order_qna.*, users.account , users.name FROM order_qna
+//     JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ORDER BY $orderType
+//     LIMIT $start, $perPage" ; 
+  
+// $result=$conn->query($sql);
+// $rows=$result->fetch_all(MYSQLI_ASSOC);
+
+$sqlAll="SELECT user_qna.*,users.account FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id";
 $resultAll=$conn->query($sqlAll);
 $userCount=$resultAll->num_rows;
+
+
+// $sqlAll="SELECT order_qna.*, users.account, users.name FROM order_qna
+//     JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ";
+// $resultAll=$conn->query($sqlAll);
+// $userCount=$resultAll->num_rows;
 
 $startItem=($page-1)*$perPage+1;
 $endItem=$page*$perPage;
@@ -105,7 +115,6 @@ $totalPage=ceil($userCount/$perPage);
         }
     </style>
 </head>
-
 <body>
     <div class="container-fluid">
         <div class="row d-flex">
@@ -132,7 +141,7 @@ $totalPage=ceil($userCount/$perPage);
                 <div class="container">
                     <div class="d-flex justify-content-between">
                         <div class="">
-                            <h1>訂單問題</h1>
+                            <h1>客服問答</h1>
                         </div>
                         <div>
                             <form action="order_qna.php" method="get">
@@ -178,9 +187,11 @@ $totalPage=ceil($userCount/$perPage);
                         <thead>
                             <tr >
                                 <?php //echo $order ?>
-                                <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==1){echo "2";}else{echo "1";}?>">訂單編號</a> </th>
+                                <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==1){echo "2";}else{echo "1";}?>">編號</a> </th>
                                 <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==3){echo "4";}else{echo "3";}?>">會員帳號</a></th>
                                 <th scope="col" class="text-nowrap">姓名</th>
+                                <th scope="col" class="text-nowrap">E-MAIL</th>
+                                <th scope="col" class="text-nowrap">電話</th>
                                 <th scope="col" class="text-nowrap">問題類型</th>
                                 <th scope="col" class="text-nowrap">問題標題</th>
                                 <th scope="col" class="text-nowrap">回覆狀態</th>
@@ -191,9 +202,11 @@ $totalPage=ceil($userCount/$perPage);
                         <tbody>
                             <?php foreach($rows as $row): ?>
                             <tr>
-                                <th><?=$row["order_id"]?></th>
-                                <td ><?=$row["account"]?></td>
+                                <th><?=$row["id"]?></th>
+                                <td ><?php if(!isset($row["account"])==null){echo $row["account"];}else{echo "訪客";}?></td>
                                 <td class="text-nowrap"><?=$row["name"]?></td>
+                                <td class="text-nowrap"><?=$row["email"]?></td>
+                                <td class="text-nowrap"><?=$row["phone"]?></td>
                                 <td class="text-nowrap"><?=$row["q_category"]?></td>
                                 <td><?=$row["title"]?></td>        
                               
@@ -222,18 +235,13 @@ $totalPage=ceil($userCount/$perPage);
                                 <td><?=$row["create_time"]?></td>
                                 <td><?=$row["update_time"]?></td>
                                 <td class="text-nowrap">
-                                    <!-- <form action="reply_table.php" method="post">
-                                        <input type="hidden" name="order_qna_id" value="<?=$row["id"]?>">
-                                        <button class="btn btn-khak me-3" type="submit">
-                                            <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                                            詳細
-                                        </button>
-                                    </form> -->
-                                    <a class=" btn btn-khak me-2" href="order_qna_detail.php?order_qna_id=<?=$row["id"]?>">
+                                <form action="user_qna_detail.php" method="get">  
+                                <button class="btn btn-khak me-2 position-relative" type="submit">
                                         <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/update-icon.svg" width="16" height="16"></img>
                                         詳細
-                                    </a>
-                                    
+                                </button>
+                                <input type="hidden" name="user_qna_id" value="<?=$row["id"]?>">
+                                </form>
                                 </td>
                             </tr>
                             <?php endforeach;?>

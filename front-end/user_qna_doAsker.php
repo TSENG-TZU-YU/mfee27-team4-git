@@ -18,7 +18,7 @@ if(isset($_POST["reply"])){
     $title=$_POST["title"]; 
     $now=date('Y-m-d H:i:s');
 
-    $sqlins="INSERT INTO user_qna (user_id, name, email,phone, q_category,title,reply_state,user_reply_state,create_time,update_time) VALUES ('$user_id', '$name', '$email','phone','$q_category','$title','未回覆','未回覆','$now','$now')";
+    $sqlins="INSERT INTO user_qna (user_id, name, email,phone, q_category,title,reply_state,user_reply_state,create_time,update_time) VALUES ('$user_id', '$name', '$email','$phone','$q_category','$title','未回覆','未回覆','$now','$now')";
     $conn->query($sqlins);
 
     $sql="SELECT * FROM user_qna WHERE name='$name' AND user_id=$user_id ORDER BY id DESC LIMIT 1";

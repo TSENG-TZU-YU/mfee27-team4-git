@@ -15,5 +15,5 @@ if(isset($_POST["reply"])){
     
 }
 
-header("location: reply_table.php?order_qna_id=".$order_qna_id);
+header("location: order_qna_detail.php?order_qna_id=".$order_qna_id);
 ?>

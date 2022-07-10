@@ -141,7 +141,7 @@ require("../../db-connect.php");
                     <a href="my_order.php" class="list-group-item list-group-item-action" aria-current="true">
                         我的訂單
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                    <a href="my_qna.php" class="list-group-item list-group-item-action" aria-current="true">
                         我的提問
                     </a>
                   </div>

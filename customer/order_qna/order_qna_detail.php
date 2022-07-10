@@ -141,9 +141,9 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                         <input type="checkbox" name="delete[]" value=<?php $rowDetail["id"]?>>
                                     </p>
                                     <?php endforeach;?>
-                                    <button class="btn btn-red" type="submit">
+                                    <!-- <button class="btn btn-red" type="submit">
                                         <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>刪除
-                                    </button>
+                                    </button> -->
                                     </form>
                                 </td>
                                 

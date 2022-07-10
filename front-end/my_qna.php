@@ -108,7 +108,7 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);
         <div class="row mt-3">
             <main class="<?php if(isset($_SESSION["front_user"])){echo"col-md-10";}else{echo"col-md";}?>">
                 <article class="content">
-                <h1><?=$_SESSION["front_user"]["name"]?>的提問</h1>
+                <h1><?=$_SESSION["front_user"]["name"]?>的提問<a class="btn btn-khak fs-5 p-1" href="user_qna_table.php">我要提問＋</a></h1>
                 <table class="table mt-2">
                     <thead>
                         <tr >
@@ -136,7 +136,7 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);
                                     查看問題
                                     <span class="reply-state <?php if($row["user_reply_state"]=="未回覆"){echo"bg-danger";}else{echo"bg-success";}?>" ><?=$row["user_reply_state"]?></span>
                                 </button>
-                                <input type="hidden" name="user_qna_id" value="<?=$row["id"]?>">     
+                                <input type="hidden" name="user_qna_id" value="<?=$row["id"]?>">
                                 </form>  
                             </td>
                         </tr>
