@@ -40,13 +40,12 @@ if ($endItem > $userCount) $endItem = $userCount;
 $totalPage = ceil($userCount / $perPage);
 
 //search
-if(!isset($_GET["search"])){
-    $search="";
-    $userCountS=0;
-}else
-{
+if (!isset($_GET["search"])) {
+    $search = "";
+    $userCountS = 0;
+} else {
     $search = $_GET["search"];
-    $sqlSearch="SELECT id, name, account, phone, email, create_time FROM users WHERE  enable=1 AND  valid=1 AND name like  '%$search%'  or account like '%$search%' ORDER BY $orderType  LIMIT $startPage ,10";
+    $sqlSearch = "SELECT id, name, account, phone, email, create_time FROM users WHERE  enable=1 AND  valid=1 AND name like  '%$search%'  or account like '%$search%' ORDER BY $orderType  LIMIT $startPage ,10";
     $resultS = $conn->query($sqlSearch);
     $userCountS = $resultS->num_rows;
 }
@@ -105,7 +104,7 @@ if(!isset($_GET["search"])){
                 <div class="container">
                     <form action="user-search.php" method="get">
                         <div class="row">
-                            <p class="col-8 m-auto">總共<?= $userCountS?>筆資料</p>
+                            <p class="col-8 m-auto">總共<?= $userCountS ?>筆資料</p>
                             <input class="col form-control me-3" type="text" name="search">
                             <button class="col-1 btn btn-green" type="submit">
                                 <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -130,7 +129,8 @@ if(!isset($_GET["search"])){
                     <!-- 按鈕 end-->
 
                     <hr>
-                    <table class="table mt-5">
+                    <table class="table mt-3">
+
                         <thead>
                             <tr>
                                 <th scope="col">會員編號</th>
@@ -142,6 +142,7 @@ if(!isset($_GET["search"])){
                             </tr>
                         </thead>
                         <tbody>
+
                             <?php while ($row = $resultS->fetch_assoc()) : ?>
                                 <tr>
                                     <th><?php echo $row["id"] ?></th>
@@ -161,8 +162,18 @@ if(!isset($_GET["search"])){
                                         </a>
                                     </td>
                                 </tr>
-                            <?php endwhile; ?>
+
+                                </tr>
                         </tbody>
+                    <?php endwhile; ?>
+                    <?php if ($userCountS > 0) : ?>
+                        <tr>
+                        <?php else : ?>
+                            <td colspan="7">
+                                <?= "沒有符合條件的結果" ?>
+                            </td>
+                        <?php endif; ?>
+                        </tr>
                     </table>
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example text-end" class="d-flex mt-5  fixed-bottom page">
