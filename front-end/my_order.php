@@ -4,14 +4,7 @@ if(!isset($_SESSION["front_user"])){
     header("location: front_login.php");
   }
 require("../db-connect.php");
-
-// $account=$_SESSION["front_user"]["account"];
-
-$account=isset($_GET["account"])? $_GET["account"] : 'abcde';
-$sqlUser="SELECT * FROM users WHERE account = '$account'" ;
-$resultUser=$conn->query($sqlUser); 
-$rowuser = $resultUser->fetch_assoc();
-$user_id=$rowuser["id"];
+$user_id=$_SESSION["front_user"]["id"];
 
 $sql="SELECT order_product.*, users.id, users.name FROM order_product 
     JOIN users ON order_product.account = users.account 
@@ -116,7 +109,7 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);
         <div class="row mt-3">
             <main class="<?php if(isset($_SESSION["front_user"])){echo"col-md-10";}else{echo"col-md";}?>">
                 <article class="content">
-                <h1><?=$rowuser["name"]?>的訂單</h1>
+                <h1><?=$_SESSION["front_user"]["name"]?>的訂單</h1>
                 <table class="table mt-2">
                     <thead>
                         <tr >
@@ -183,7 +176,7 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);
                     <a href="my_order.php" class="list-group-item list-group-item-action" aria-current="true">
                         我的訂單
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                    <a href="my_qna.php" class="list-group-item list-group-item-action" aria-current="true">
                         我的提問
                     </a>
                   </div>

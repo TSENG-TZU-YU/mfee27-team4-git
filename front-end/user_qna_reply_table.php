@@ -4,16 +4,15 @@ if(!isset($_SESSION["front_user"])){
     header("location: front_login.php");
   }
 require("../db-connect.php");
-$order_id=$_GET["order_id"];
 
-$sql="SELECT order_qna.*, users.account,users.name FROM order_qna
-    JOIN users ON order_qna.user_id = users.id WHERE order_id = $order_id";
+$user_qna_id=$_GET["user_qna_id"];
+
+$sql="SELECT * FROM user_qna WHERE id = $user_qna_id";
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
-$order_qna_id=$row["id"];
 
-$sqlDetail="SELECT * FROM order_qna_detail WHERE order_id = $order_id";
+$sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id";
 $resultDetail = $conn->query($sqlDetail);
 $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 
@@ -72,12 +71,12 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                 <hr>
                 <!-- 內容 -->
                 <div class="content mx-auto">
-                    <h1>查看問題</h1>
-                    <form action="qna_doReply.php" method="post">
+                    <h1><?=$_SESSION["front_user"]["name"]?>的提問</h1>
+                    <form action="user_qna_doReply.php" method="post">
                         <table class="table">
                             <tr>
-                                <th>訂單編號</th>
-                                <td colspan="2"><?=$row["order_id"]?></td>
+                                <th>提問編號</th>
+                                <td colspan="2"><?=$row["id"]?></td>
                             </tr>
                             <tr>
                                 <th>問題類型</th>
@@ -118,7 +117,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                 <th colspan="2"><?=$row["title"]?></th>
                             </tr>
                             <tr>
-                                <th >問題內容</th>              
+                                <th>問題內容</th>              
                             </tr>
                             <tr> 
                                 <td>
@@ -152,12 +151,11 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                             <div class="d-flex">
                                 <div class="py-2 mx-2  ">
                                     <button class="btn btn-green" type="submit">確定</button>
-                                    <input type="hidden" name="order_id" value="<?=$order_id?>">
-                                    <input type="hidden" name="order_qna_id" value="<?=$order_qna_id?>">
+                                    <input type="hidden" name="user_qna_id" value="<?=$user_qna_id?>">
                                     <input type="hidden" name="name" value="<?=$row["name"]?>">
                                 </div>
                                 <div class="py-2 mx-2">
-                                    <a class="btn btn-grey" href="my_order.php">離開</a>
+                                    <a class="btn btn-grey" href="my_qna.php">離開</a>
                                 </div>
                             </div>
                             

@@ -1,6 +1,6 @@
 <?php
 require("../db-connect.php");
-
+session_start();
 if(isset($_POST["reply"])){
     $order_id=$_POST["order_id"];
     $user_id=$_POST["user_id"];
@@ -18,8 +18,11 @@ if(isset($_POST["reply"])){
     
     $conn->close();
     // echo "新增成功";
-    $account=$_POST["account"];
-    header("location: my_order.php");
+    if(!isset($_SESSION["front_user"])){
+        header("location: my_order.php");
+      }else{
+        header("location: user_qna_table.php");
+    }
 }
 
  

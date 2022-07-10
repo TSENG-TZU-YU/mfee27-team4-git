@@ -1,9 +1,16 @@
 <?php
 session_start();
-require("../../db-connect.php");
-// var_dump($_SESSION);
+if(!isset($_SESSION["front_user"])){
+    header("location: front_login.php");
+  }
+require("../db-connect.php");
 
+$user_id=$_SESSION["front_user"]["id"];
 
+$sql="SELECT * FROM user_qna WHERE user_id =$user_id";
+// print_r($sql);
+$result=$conn->query($sql); 
+$rows=$result->fetch_all(MYSQLI_ASSOC); 
 ?>
 <!doctype html>
 <html lang="zh-tw">
@@ -17,7 +24,7 @@ require("../../db-connect.php");
     <!-- Bootstrap CSS v5.0.2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">    
     <style>
         article img{
             max-width: 100%;
@@ -35,19 +42,25 @@ require("../../db-connect.php");
             height: 100%;
             object-fit: cover;
         }
+        .reply-state{
+            width: 45px;
+            height: 30px;
+            /* background: red; */
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            font-size: 13px;
+            right: -35px;
+            top: -9px;
+            border-radius: 15px;
+        }
         .content{
             min-height:700px;
         }
-        .inputcontent{
-            height: 150px;    
-        }
-        .formitem{
-            width: 700px;
-            margin: 0 auto;
-        }
     </style>
 </head>
-
 <body>
     <div class="container-fluid">
         <header class="py-3">
@@ -94,44 +107,43 @@ require("../../db-connect.php");
         <div class="container">
         <div class="row mt-3">
             <main class="<?php if(isset($_SESSION["front_user"])){echo"col-md-10";}else{echo"col-md";}?>">
-            <article class="content">
-                <h1>聯絡表單</h1>
-                <hr>                   
-                <form action="user_qna_doAsker.php" method="post">
-                    <div class="formitem">
-                        <label for="name" class="fs-5 fw-bolder">姓名</label>
-                        <input type="text" id="name" name="name" class="form-control mt-2 mb-3" placeholder='請輸入您的姓名' value="<?php if(isset($_SESSION["front_user"])) echo $_SESSION["front_user"]["name"]?>" required >
-                        <label for="email" class="fs-5 fw-bolder">電子郵件</label>
-                        <input type="email" id="email" name="email" class="form-control mt-2 mb-3" placeholder='請輸入您的E-MAIL' value="<?php if(isset($_SESSION["front_user"])) echo $_SESSION["front_user"]["email"]?>" required >
-                        <label for="phone" class="fs-5 fw-bolder">聯絡電話</label>
-                        <input type="phone" id="phone" name="phone" class="form-control mt-2 mb-3" placeholder='請填寫連絡電話' value="<?php if(isset($_SESSION["front_user"])) echo $_SESSION["front_user"]["phone"]?>" required >
-                        <label for="q_category" class="fs-5 fw-bolder">問題類型</label>
-                        <select id="q_category" class="form-control mt-2 mb-3" name="q_category">
-                            <option value="其他問題">選擇問題</option>
-                            <option value="商品問題">商品問題</option>
-                            <option value="訂單問題">訂單問題</option>
-                            <option value="課程問題">課程問題</option>
-                            <option value="場地租借問題">場地租借問題</option>
-                            <option value="退貨、退款問題">退貨、退款問題</option>
-                            <option value="運費、寄送問題">運費、寄送問題</option>
-                            <option value="其他問題">其他問題</option>
-                        </select>
-                        <label for="title" class="fs-5 fw-bolder">問題標題</label>
-                        <input type="text" id="title" name="title" class="form-control mt-2 mb-3" placeholder='請輸入標題' required >
-                        <label for="reply" class="fs-5 fw-bolder">題問內容</label>
-                        <textarea id="reply" class="form-control inputcontent mt-2 mb-3" placeholder='輸入內容' name="reply" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required></textarea>
-                        <div class="d-flex">
-                            <div class="py-2 mx-2  ">
-                                <button class="btn btn-green" type="submit">送出</button>
-                            </div>
-                            <div class="py-2 mx-2">
-                                <a class="btn btn-grey" href="front_index.php">取消</a>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <hr>
-            </article>
+                <article class="content">
+                <h1><?=$_SESSION["front_user"]["name"]?>的提問</h1>
+                <table class="table mt-2">
+                    <thead>
+                        <tr >
+                            <th scope="col" class="text-nowrap">提問編號</th>
+                            <th scope="col" class="text-nowrap">問題類型</th>
+                            <th scope="col" class="text-nowrap">問題標題</th>
+                            <th scope="col" class="text-nowrap">回覆狀態</th>
+                            <th scope="col" class="text-nowrap">詢問時間</th>
+                            <th scope="col" class="text-nowrap">最後更新時間</th>        
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($rows as $row): ?>
+                        <tr>
+                            <th class="text-nowrap"><?=$row["id"]?> </th>
+                            <td class="text-nowrap"><?=$row["q_category"]?></td>
+                            <td class="text-nowrap"><?=$row["title"]?></td>
+                            <td class="text-nowrap"><?=$row["user_reply_state"]?></td>
+                            <td class="text-nowrap"><?=$row["create_time"]?></td>
+                            <td class="text-nowrap"><?=$row["update_time"]?></td>
+                            <td class="text-nowrap">
+                                <form action="user_qna_reply_table.php" method="get">  
+                                <button class="btn btn-green me-2 position-relative" type="submit">
+                                    <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                                    查看問題
+                                    <span class="reply-state <?php if($row["user_reply_state"]=="未回覆"){echo"bg-danger";}else{echo"bg-success";}?>" ><?=$row["user_reply_state"]?></span>
+                                </button>
+                                <input type="hidden" name="user_qna_id" value="<?=$row["id"]?>">     
+                                </form>  
+                            </td>
+                        </tr>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
+                </article>
             </main>
             <?php if(isset($_SESSION["front_user"])):?>
             <aside class="col-md-2">
