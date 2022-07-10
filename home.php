@@ -115,7 +115,7 @@ session_start();
             <!-- 文章管理 -->
             <div class="col bg-grey-color p-3 position-relative">
               <div class="bg-grey-color rounded p-4" style=" height: 17rem; background: #F5E7D7;">
-                <a type="" href="article/create-article.php">
+                <a type="" href="article/articles.php">
                   <h2 class="fw-bold" style="color:#BC5D19;">文章管理</h2>
                 </a>
                 <!-- 子項目 -->
@@ -133,7 +133,7 @@ session_start();
             <!-- 師資管理 -->
             <div class="col bg-grey-color p-3 position-relative">
               <div class="bg-grey-color rounded p-4" style=" height: 17rem; background: #E3DCCB;">
-                <a type="" href="#">
+                <a type="" href="teacher/teachers.php">
                   <h2 class="fw-bold" style="color:#664D03;">師資管理</h2>
                 </a>
                 <!-- 子項目 -->

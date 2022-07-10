@@ -132,7 +132,7 @@ $couponCount=$result->num_rows;
                         <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                         儲存
                     </button>
-                    <a class=" btn btn-grey  ms-3" href="coupons.php">
+                    <a class=" btn btn-grey  ms-3" href="coupons-hide.php">
                     <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                       返回上一頁
                       </a>
