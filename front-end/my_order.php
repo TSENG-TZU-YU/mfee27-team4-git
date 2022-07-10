@@ -1,17 +1,26 @@
 <?php
+session_start();
+if(!isset($_SESSION["front_user"])){
+    header("location: front_login.php");
+  }
 require("../db-connect.php");
 
-// $user_id=isset($_GET["user_id"])? $_GET["user_id"] : "zxcasd";
+// $account=$_SESSION["front_user"]["account"];
 
-$account=isset($_GET["account"])? $_GET["account"] : "zxcasd";
-$sql="SELECT * FROM order_product WHERE account = '$account'" ;
-print_r($sql);
+$account=isset($_GET["account"])? $_GET["account"] : 'abcde';
+$sqlUser="SELECT * FROM users WHERE account = '$account'" ;
+$resultUser=$conn->query($sqlUser); 
+$rowuser = $resultUser->fetch_assoc();
+$user_id=$rowuser["id"];
+
+$sql="SELECT order_product.*, users.id, users.name FROM order_product 
+    JOIN users ON order_product.account = users.account 
+    WHERE users.id = $user_id";
+// print_r($sql);
 $result=$conn->query($sql); 
-$rows=$result->fetch_all(MYSQLI_ASSOC);  
+$rows=$result->fetch_all(MYSQLI_ASSOC); 
 
-$sqluser="SELECT * FROM users WHERE account = '$account'" ;
-$resultuser=$conn->query($sqluser); 
-$rowuser = $resultuser->fetch_assoc();
+
 
 ?>
 <!DOCTYPE html>
@@ -25,6 +34,22 @@ $rowuser = $resultuser->fetch_assoc();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <!-- 版面元件樣式 css -->
     <link rel="stylesheet" href="../style.css"></link>
+    <style>
+        .reply-state{
+            width: 45px;
+            height: 30px;
+            /* background: red; */
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            font-size: 13px;
+            right: -35px;
+            top: -9px;
+            border-radius: 15px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -55,6 +80,7 @@ $rowuser = $resultuser->fetch_assoc();
                 </thead>
                 <tbody>
                     <?php foreach($rows as $row): ?>
+
                     <tr>
                         <th class="text-nowrap"><?=$row["order_id"]?> </th>
                         <td class="text-nowrap"><?=$row["order_state"]?></td>
@@ -67,15 +93,32 @@ $rowuser = $resultuser->fetch_assoc();
                                 <button class="btn bg-orange-color me-2" type="submit">
                                     <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                     訂單詳細
-                                </button>       
+                                </button>
+                                <?php
+                                $order_id=$row["order_id"];
+                                $sqlQna="SELECT * FROM order_qna WHERE order_id = '$order_id'" ;
+                                $resultQna=$conn->query($sqlQna);
+                                $sqlCount=$resultQna->num_rows; 
+                                $rowQna = $resultQna->fetch_assoc();
+                                ?>
+                                <?php if($sqlCount>0):?>
+                                <button class="btn btn-green me-2 position-relative" type="submit">
+                                    <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                                    查看問題
+                                    <span class="reply-state <?php if($rowQna["user_reply_state"]=="未回覆"){echo"bg-danger";}else{echo"bg-success";}?>" ><?=$rowQna["user_reply_state"]?></span>
+                                </button>
+                                
+                                <?php else:?>    
                                 <button class="btn btn-red me-2" type="submit">
                                     <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                    我要問問題
-                                </button>        
+                                    我有問題
+                                </button>
+                                <?php endif;?>       
                             </td>
+                            <input type="hidden" name="sqlCount" value="<?=$sqlCount?>"> 
                             <input type="hidden" name="order_id" value="<?=$row["order_id"]?>">
-                            <input type="hidden" name="user_id" value="<?=$rowuser["id"]?>">
-                            <input type="hidden" name="name" value="<?=$rowuser["name"]?>">
+                            <input type="hidden" name="user_id" value="<?=$row["id"]?>">
+                            <input type="hidden" name="name" value="<?=$row["name"]?>">
                         </form>
                     </tr>
                     <?php endforeach;?>

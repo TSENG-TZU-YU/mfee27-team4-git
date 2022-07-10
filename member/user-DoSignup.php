@@ -17,7 +17,7 @@ $birthday=$_POST["birthday"];
 $phone=$_POST["phone"];
 $email=$_POST["email"];
 $address=$_POST["address"];
-$coupon=$_POST["coupon"];
+// $coupon=$_POST["coupon"];
 $create_time=date('Y-m-d H-i-s');
 
 if(empty($name)){    //後端檢查 
@@ -55,10 +55,17 @@ if(empty($address)){
 
 
 
+//當gender選擇時 value 輸出1 or 2  前端checkbox 有男女兩個選擇時
 
-//當gender選擇時 value 輸出1 or 2  
-
-
+// 判斷checkbox 未勾選時 
+  $coupon=false;    
+  if(isset($_POST['coupon'])){
+    $coupon=true;
+    // echo"有優惠券";
+  } 
+  else{
+    // echo"無優惠券";
+  }
 
 
 

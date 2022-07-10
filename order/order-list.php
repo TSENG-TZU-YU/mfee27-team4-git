@@ -1,15 +1,13 @@
 <?php
-
-
-
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
 } else {
     $page = 1;
 }
 require("../db-connect.php");
-$sqlAll = "SELECT * FROM order_product WHERE valid=1";
+$sqlAll = "SELECT*FROM order_product WHERE valid=1";
 $resultAll = $conn->query($sqlAll);
+$rowsAll = $resultAll->fetch_all(MYSQLI_ASSOC);
 $list_count = $resultAll->num_rows;
 
 $perPage = 4;
@@ -19,15 +17,45 @@ $sql = "SELECT * FROM order_product WHERE valid=1 LIMIT $start, 4";
 $result = $conn->query($sql);
 $pageListCount = $result->num_rows;
 $rows = $result->fetch_all(MYSQLI_ASSOC);
+// print_r($rows);
+// echo "<br>";
+// exit;
+//關聯pay_state state pay_by 3個table
+for ($i = 0; $i < count($rows); $i++) {
+    $paymethod_id=$rows[$i]["payment_method"];
+    $paymentState_id = $rows[$i]["payment_state"];
+    $orderState_id = $rows[$i]["order_state"];
+    // echo "$paymentState_id" . "<br>";
+    $sqlPayState="SELECT * FROM pay_state WHERE id=$paymentState_id";
+    $resultPayState = $conn->query($sqlPayState);
+    $payStaterow = $resultPayState->fetch_assoc();
+    $rows[$i]["payName"]=$payStaterow["name"];
+    // print_r($payStaterow);
+    $sqlOrderState="SELECT * FROM state WHERE id=$orderState_id";
+    $resultOrderState = $conn->query($sqlOrderState);
+    $orderStaterow = $resultOrderState->fetch_assoc();
+   $rows[$i]["orderStateName"]=$orderStaterow["name"];
+    $sqlPayMethod="SELECT * FROM pay_by WHERE id=$paymethod_id";
+    $resultPayMethod= $conn->query($sqlPayMethod);
+    $payMethodrow = $resultPayMethod->fetch_assoc();
+    $rows[$i]["payMethodName"]=$payMethodrow["name"];
+}
+
 
 $startItem = ($page - 1) * $perPage + 1;
 $endItem = $page * $perPage;
 if ($endItem > $list_count) $endItem = $list_count;
-
 $totalPage = ceil($list_count / $perPage);
 
+
+
+
+
+
+// var_dump($rowsAll);
+
 $conn->close();
-// var_dump($rows);
+
 ?>
 
 <!DOCTYPE html>
@@ -86,18 +114,6 @@ $conn->close();
                 <hr>
                 <div class="container">
                     <?php if ($pageListCount > 0) :
-                        $paymentState = [
-                            "0" => "未付款",
-                            "1" => "已付款",
-                            "2" => "退款"
-                        ];
-                        $orderState = [
-                            "0" => "訂單確認中",
-                            "1" => "訂單成立",
-                            "2" => "商家出貨",
-                            "3" => "訂單完成",
-                            "4" => "退貨處理中"
-                        ];
                     ?>
                         <table class="table mt-5">
                             <thead>
@@ -122,10 +138,10 @@ $conn->close();
                                         <th><?= $row["account"] ?></th>
                                         <th><?= $row["create_time"] ?></th>
                                         <th><?= $row["total_amount"] ?></th>
-                                        <td><?= $row["payment_method"] ?></td>
-                                        <td><?= $paymentState[$row["payment_state"]] ?></td>
+                                        <td><?= $row["payMethodName"] ?></td>
+                                        <td><?= $row["payName"] ?></td>
                                         <td><?= $row["payment_time"] ?></td>
-                                        <td><?= $orderState[$row["order_state"]] ?></td>
+                                        <td><?= $row["orderStateName"] ?></td>
                                         <td>
                                             <a class="btn btn-grey me-3" type="button" href="order-list-detail.php?order_id=<?= $row["order_id"] ?>"><img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                                 詳細</a>

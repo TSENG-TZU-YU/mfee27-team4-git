@@ -9,7 +9,6 @@ $name=$_POST["name"];
 $account=$_POST["account"];
 $password=$_POST["password"];
 $gender=$_POST["gender"];
-$birthday=$_POST["birthday"];
 $phone=$_POST["phone"];
 $email=$_POST["email"];
 $address=$_POST["address"];
@@ -30,10 +29,6 @@ if(empty($gender)){
     echo"沒有填性別";
     exit;
 }
-if(empty($birthday)){
-    echo"沒有填生日";
-    exit;
-}
 if(empty($phone)){
     echo"沒有填電話";
     exit;
@@ -48,11 +43,12 @@ if(empty($address)){
 }
 
 
-$sql="UPDATE users SET name='$name',account='$account',password='$password',gender='$gender',birthday='$birthday', phone='$phone',email='$email',address='$address' WHERE id=$id AND valid=1";
+$sql="UPDATE users SET name='$name',account='$account',password='$password',gender='$gender', phone='$phone',email='$email',address='$address' WHERE id=$id AND valid=1";
 
 
 if ($conn->query($sql) === TRUE) {
     echo "資料表 users 修改完成";
+    echo "<script language='JavaScript'>;alert('成功加入黑名單');location.href='users.php';</script>;";
 } else {
     echo "修改資料表錯誤: " . $conn->error;
 }

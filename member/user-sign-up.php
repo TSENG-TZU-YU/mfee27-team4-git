@@ -4,6 +4,7 @@ session_start();
 $sqlMember  = "WHERE member.users.php";
 
 
+
 ?>
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -72,7 +73,7 @@ $sqlMember  = "WHERE member.users.php";
                                 <label for="">性別</label>
                                 <div class="d-flex">
                                     <div class="form-check ">
-                                        <input class="form-check-input" type="radio" name="gender" value="1" checked>
+                                        <input class="form-check-input" type="radio" name="gender" value="1" >
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             男
                                         </label>
@@ -103,7 +104,7 @@ $sqlMember  = "WHERE member.users.php";
                             </div>
 
                             <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" value="1" name="coupon">
+                                <input class="form-check-input" type="checkbox" name="coupon" value="1" >
                                 <label class="form-check-label" for="flexCheckDefault">
                                     訂閱(獲得50元商品折價券)
                                 </label>
@@ -140,3 +141,4 @@ $sqlMember  = "WHERE member.users.php";
 </body>
 
 </html>
+

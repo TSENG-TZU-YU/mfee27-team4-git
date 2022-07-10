@@ -126,7 +126,7 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>會員生日</th>
-                                        <td><input type="date" class="form-control text-center" name="birthday" id="birthday"></td>
+                                        <td><?= $row["birthday"] ?></td>
 
                                     </tr>
                                     <tr>

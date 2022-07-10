@@ -60,7 +60,7 @@ $start=($page-1)*$perPage;
 $sql="SELECT order_qna.*, users.account , users.name FROM order_qna
     JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ORDER BY $orderType
     LIMIT $start, $perPage" ; 
-echo $sql;       
+   
 $result=$conn->query($sql);
 $rows=$result->fetch_all(MYSQLI_ASSOC);
 
@@ -92,7 +92,18 @@ $totalPage=ceil($userCount/$perPage);
     <!-- 版面元件樣式 css -->
     <link rel="stylesheet" href="/mfee27-team4-git/style.css">
     </link>
-    
+    <style>
+        .reply-state{
+            width: 60px;
+            height: 30px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;   
+            font-size: 14px;
+            border-radius: 15px;
+        }
+    </style>
 </head>
 
 <body>
@@ -186,9 +197,27 @@ $totalPage=ceil($userCount/$perPage);
                                 <td class="text-nowrap"><?=$row["q_category"]?></td>
                                 <td><?=$row["title"]?></td>        
                               
-                                <td class="text-nowrap
-                                    <?php if($row["reply_state"]=="未回覆"){echo"text-danger";}else{echo"text-success";}?>">
-                                    <?=$row["reply_state"]?>
+                                <td class="text-nowrap">
+                                    <div class="d-flex justify-content-center">    
+                                        <span class="reply-state
+                                        <?php 
+                                        switch($row["reply_state"]){
+                                            case '未回覆':
+                                                echo "bg-danger";
+                                                break;
+                                            case '已回覆':
+                                                echo "bg-success";
+                                                break;
+                                            case '新訊息':
+                                                echo "bg-warning";
+                                                break;    
+                                            default:
+                                                echo "bg-dark";
+                                                break;     
+                                            }?>
+                                        "><?=$row["reply_state"]?>
+                                        </span>
+                                    </div>
                                 </td>
                                 <td><?=$row["create_time"]?></td>
                                 <td><?=$row["update_time"]?></td>

@@ -12,7 +12,29 @@ $sql = "SELECT * FROM order_product WHERE order_id=$order_id AND valid=1 ";
 
 $result = $conn->query($sql);
 $orderCount = $result->num_rows;
+$row = $result->fetch_assoc();
+// print_r($row);
+// echo "<br>";
+$sqlPayState = "SELECT * FROM pay_state";
+$sqlOrderState = "SELECT * FROM state";
+$sqlPayMethod = "SELECT * FROM pay_by";
 
+$resultPayState = $conn->query($sqlPayState);
+$payStaterows = $resultPayState->fetch_all(MYSQLI_ASSOC);
+$payStateCount = $resultPayState->num_rows;
+// print_r($payStaterows);
+// echo "<br>";
+
+$resultOrderState = $conn->query($sqlOrderState);
+$orderStaterows = $resultOrderState->fetch_all(MYSQLI_ASSOC);
+$orderStateCount = $resultOrderState->num_rows;
+// print_r($orderStaterows);
+// echo "<br>";
+$resultPayMethod = $conn->query($sqlPayMethod);
+$payMethodrows = $resultPayMethod->fetch_all(MYSQLI_ASSOC);
+$payMethodCount = $resultPayMethod->num_rows;
+// print_r($payMethodrows);
+// echo "<br>";
 // echo $sql;
 // exit;
 $conn->close();
@@ -59,24 +81,24 @@ $conn->close();
                 <!-- 內容 -->
                 <div class="container">
                     <?php if ($orderCount > 0) :
-                        $row = $result->fetch_assoc(); //這個要把接收到的資料拆成一筆一筆
+
                         // echo var_dump($row);
-                        $paymentState = [
-                            "0" => "未付款",
-                            "1" => "已付款",
-                            "2" => "退款"
-                        ];
-                        $orderState = [
-                            "0" => "訂單確認中",
-                            "1" => "訂單成立",
-                            "2" => "商家出貨",
-                            "3" => "訂單完成",
-                            "4" => "退貨處理中"
-                        ];
+                        // $paymentState = [
+                        //     "1" => "未付款",
+                        //     "2" => "已付款",
+                        //     "3" => "退款"
+                        // ];
+                        // $orderState = [
+                        //     "1" => "訂單確認中",
+                        //     "2" => "訂單成立",
+                        //     "3" => "商家出貨",
+                        //     "4" => "訂單完成",
+                        //     "5" => "退貨處理中"
+                        // ];
                     ?>
                         <div class="pt-2 pb-5 row align-items-baseline">
-                            <a class="col-2 btn btn-green me-2" href="order-list.php">
-                                取消修改
+                            <a class="col-1 btn btn-green me-2" href="order-list.php">
+                                <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>返回
                             </a>
                             <h5 class="col-2">訂單編號：<?= $order_id ?></h5>
                         </div>
@@ -84,67 +106,86 @@ $conn->close();
                             <input name="order_id" type="hidden" value="<?= $row["order_id"] ?>">
                             <table class="table">
                                 <tr>
-                                    <th>order_id</th>
-                                    <th>
+                                    <th>訂單編號</th>
+                                    <td>
                                         <?= $row["order_id"] ?>
-                                    </th>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <th>Account</th>
-                                    <th><?= $row["account"] ?></th>
+                                    <th>會員帳號</th>
+                                    <td><?= $row["account"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>Total_amount</th>
-                                    <th><?= $row["total_amount"] ?></th>
+                                    <th>訂單總金額</th>
+                                    <td><?= $row["total_amount"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>payment_method</th>
-                                    <th><?= $row["payment_method"] ?></th>
+                                    <th>結帳方式</th>
+                                    <td> <select class="form-select text-center" name="payMethod" id="">
+                                            <?php for ($i = 0; $i < $payMethodCount; $i++) : ?>
+                                                <option value="<?= $payMethodrows[$i]["id"] ?>" <?php
+                                                                                                if ($payMethodrows[$i]["id"] === $row["payment_method"]) echo "selected"; ?>><?= $payMethodrows[$i]["name"] ?></option>
+                                            <?php endfor; ?>
+                                        </select>
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>付款狀態</th>
-                                    <th>
-                                        <?php if ($row["payment_state"] == "0") : ?>
-                                            <select class="form-select" name="paymentState">
-                                                <option value="0" selected>未付款</option>
-                                                <option value="1">已付款</option>
+                                    <td>
+                                        <?php
+                                        if ($row["payment_state"] == "1") : ?>
+                                            <select class="form-select text-center" name="paymentState">
+                                                <?php for ($i = 0; $i < $payStateCount - 1; $i++) : //-1 先不讓退款顯示
+                                                ?>
+                                                    <option value="<?= $payStaterows[$i]["id"] ?>" <?php
+                                                                                                    if ($payStaterows[$i]["id"] === $row["payment_state"]) echo "selected"; ?>><?= $payStaterows[$i]["name"] ?></option>
+                                                <?php endfor; ?>
                                             </select>
                                         <?php else : ?>
                                             <input name="paymentState" type="hidden" value="<?= $row["payment_state"] ?>">
-                                            <?= $paymentState[$row["payment_state"]] ?>
+                                            <?= $payStaterows[$row["payment_state"] - 1]["name"] //-1因為索引
+                                            ?>
                                         <?php endif; ?>
-                                    </th>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <?php //已儲存時的時間為已付款時間
-                                    if ($row["payment_state"] == "1") : ?>
+                                    if ($row["payment_state"] == "2") : ?>
                                         <th>付款時間</th>
-                                        <th>
+                                        <td>
                                             <input name="paymentTime" type="hidden" value="<?= $row["payment_time"] ?>">
                                             <?= $row["payment_time"] ?>
-                                        </th>
+                                        </td>
                                     <?php endif; ?>
                                 </tr>
                                 <tr>
                                     <th>訂單狀態</th>
-                                    <th>
-                                        <?php if ($row["order_state"] === "2" ||$row["order_state"] === "3" || $row["order_state"] === "4") : ?>
+                                    <td>
+                                        <?php if ($row["order_state"] === "3" || $row["order_state"] === "4" || $row["order_state"] === "5") : ?>
                                             <input name="orderState" type="hidden" value="<?= $row["order_state"] ?>">
-                                            <?= $orderState[$row["order_state"]] ?>
+                                            <?= $orderStaterows[$row["order_state"] - 1]["name"] ?>
                                         <?php else : ?>
-                                            <select class="form-select" name="orderState">
-                                                <?php if ($row["order_state"] === "0") : ?>
-                                                    <option value="0" selected>訂單確認中</option>
-                                                    <option value="1">訂單成立</option>
-                                                    <option value="2">商家出貨</option>
-                                                <?php endif; ?>
-                                                <?php if ($row["order_state"] === "1") : ?>
-                                                    <option value="1" selected>訂單成立</option>
-                                                    <option value="2">商家出貨</option>
-                                                <?php endif; ?>
+                                            <select class="form-select text-center" name="orderState">
+                                                <?php
+                                                if ($row["order_state"] === "1") :
+                                                    for ($i = 0; $i < $orderStateCount - 2; $i++) :
+                                                ?>
+                                                        <option value="<?= $orderStaterows[$i]["id"] ?>" <?php
+                                                                                                            if ($orderStaterows[$i]["id"] === $row["order_state"]) echo "selected"; ?>><?= $orderStaterows[$i]["name"] ?></option>
+                                                <?php endfor;
+                                                endif; ?>
+                                                <?php if ($row["order_state"] === "2") :
+                                                    for ($i = 1; $i < $orderStateCount - 2; $i++) :
+                                                ?>
+                                                        <option value="<?= $orderStaterows[$i]["id"] ?>" <?php
+                                                                                                            if ($orderStaterows[$i]["id"] === $row["order_state"]) echo "selected"; ?>><?= $orderStaterows[$i]["name"] ?></option>
+                                                <?php endfor;
+                                                endif; ?>
                                             </select>
-                                        <?php endif; ?>
-                                    </th>
+                                        <?php
+                                        endif; ?>
+                                    </td>
                                 </tr>
 
                             </table>
