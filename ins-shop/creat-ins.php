@@ -6,7 +6,7 @@
 <html lang="zh-tw">
 
 <head>
-    <title>新增課程</title>
+    <title>新增樂器</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -45,42 +45,30 @@
 
                 <!-- 內容 -->
                 <div class="container">
-            <form action="docreate-course.php" method="post">
+            <form action="docreate-ins.php" method="post">
                 <div class="mb-2">
-                    <label for="">課程類別</label>
-                    <input type="text" class="form-control" name="course_cate">
+                    <label for="">樂器類別</label>
+                    <input type="text" class="form-control" name="ins_cate">
                 </div>
                 <div class="mb-2">
-                    <label for="">地點</label>
-                    <input type="text" class="form-control" name="location">
+                    <label for="">品牌型號</label>
+                    <input type="text" class="form-control" name="brnd_model">
                 </div>                
                 <div class="mb-2">
-                    <label for="">課程名稱</label>
-                    <input type="text" class="form-control" name="course_name">
+                    <label for="">價格</label>
+                    <input type="number" class="form-control" name="price">
                 </div>
                 <div class="mb-2">
                     <label for="">庫存</label>
                     <input type="number" class="form-control" name="stock">
                 </div>
                 <div class="mb-2">
-                    <label for="">定價</label>
-                    <input type="number" class="form-control" name="price">
-                </div>
-                <div class="mb-2">
-                    <label for="">開始時間</label>
-                    <input type="date" class="form-control" name="begin_date">
-                </div>
-                <div class="mb-2">
-                    <label for="">結束時間</label>
-                    <input type="date" class="form-control" name="overdate">
-                </div>
-                <div class="mb-2">
-                    <label for="">課程介紹</label>
-                    <textarea type="number" class="form-control" name="course_intro"></textarea>
+                    <label for="">商品簡介</label>
+                    <textarea type="text" class="form-control" name="intro"></textarea>
                 </div>
                 <button class="btn btn-info" type="submit">送出</button>
                 <button class="btn btn-info" type="reset">清除</button>
-                <a class="btn btn-info" href="course-shop.php">返回上一頁</a>
+                <a class="btn btn-info" href="ins-shop.php">返回上一頁</a>
             </form>
         </div>
 
