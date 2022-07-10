@@ -73,7 +73,7 @@ $sqlMember  = "WHERE member.users.php";
                                 <label for="">性別</label>
                                 <div class="d-flex">
                                     <div class="form-check ">
-                                        <input class="form-check-input" type="radio" name="gender" value="1" checked>
+                                        <input class="form-check-input" type="radio" name="gender" value="1" >
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             男
                                         </label>

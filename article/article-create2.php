@@ -27,7 +27,6 @@
     <div class="row d-flex">
 
       <!-- 導覽列 nav -->
-      <?php require("../nav.php");  ?>
       <!-- 導覽列 nav end -->
 
 
@@ -47,51 +46,47 @@
 
         <!-- 內容 -->
         <div class="container">
+          <h3>新增文章</h3>
+          <hr>
           <div class="row">
-            <p class="col-8 m-auto">總共 筆資料</p>
-            <input class="col form-control me-3" type="text">
-            <a class="col-1 btn btn-green" href="#">
-              <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
-              搜尋
-            </a>
-          </div>
-        </div>
-        <hr>
-        <div class="container">
-          <!-- <div class="dcs"> -->
-          <form>
-            <div class="container">
+            <form>
               <div class="dcs">
                 <div class="container">
-                  <form>
+                  <form action="article-doCreate.php" method="post" enctype="multipart/form-data">
                     <div class="form-row row">
-                      <div class="form-group col-6  mt-3">
-                        <label for="name">文章標題</label>
-                        <input type="text" class="form-control mt-2" id="name">
+                      <div class="form-group col-6  mt-1">
+                        <label for="name" class="fw-bold">文章標題</label>
+                        <input type="text" class="form-control mt-1" id="name">
                       </div>
-                      <div class="form-group col-6  mt-3">
-                        <label for="category">文章類別</label>
-                        <select class="form-select mt-2" aria-label="Default select example" name="category">
-                          <option value="產品資訊">產品資訊</option>
-                          <option value="活動快訊">活動快訊</option>
-                          <option value="重要通知">重要通知</option>
-                          <option value="音樂教育">音樂教育</option>
+                      <div class="form-group col-6  mt-1">
+                        <label for="category" class="fw-bold">文章類別</label>
+                        <select class="form-select mt-1" aria-label="Default select example" name="category">
+                          <option value="1">產品資訊</option>
+                          <option value="2">活動快訊</option>
+                          <option value="3">音樂教育</option>
+                          <option value="4">重要通知</option>
                         </select>
                       </div>
                     </div>
-
-                    <div class="form-row">
-                      <div class="form-group col-sm mt-4">
-                        <textarea id="premiumskinsandicons-bootstrap"></textarea>
+                    <div>
+                      <label for="category" class="fw-bold">文章內容</label>
+                      <div class="form-row">
+                        <div class="form-group col-sm  mt-1">
+                          <textarea id="premiumskinsandicons-bootstrap"></textarea>
+                        </div>
                       </div>
                     </div>
 
 
-                    <div class="form-row">
-                      <div class="d-flex justify-content-center align-items-center mt-3">
-                        <a class="btn btn-khak me-5" href="article-index.php">取消編輯</a>
-                        <button class="btn btn-green" type="submit" name="submit_date">編輯完成</button>
-                      </div>
+                    <div class="d-flex justify-content-center align-items-center mt-3">
+                      <a class="btn btn-khak me-5" href="articles.php">
+                        <img class="mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
+                        取消新增
+                      </a>
+                      <button class="btn btn-green" type="submit" name="submit">
+                        <img class="mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                        送出新增
+                      </button>
                     </div>
                   </form>
                 </div>
@@ -101,10 +96,10 @@
                 <div class="form-group col-sm">
                 </div>
               </div>
-          </form>
-          <!-- </div> -->
-        </div>
-        <!-- 內容 end -->
+            </form>
+            <!-- </div> -->
+          </div>
+          <!-- 內容 end -->
 
 
       </main>
@@ -116,7 +111,8 @@
   <script>
     tinymce.init({
       selector: 'textarea#premiumskinsandicons-bootstrap',
-      height: 500,
+      height: 430,
+      resize: false,
       skin: 'bootstrap',
       icons: 'bootstrap',
       plugins: 'image lists link anchor charmap',
