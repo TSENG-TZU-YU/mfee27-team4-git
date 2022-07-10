@@ -2,6 +2,7 @@
 require("../db-connect.php");
 
 $product_id=$_GET["product_id"];
+$order_id=$_GET["order_id"];
 //delete
 // $sql="DELETE FROM users WHERE id=$id";
 
@@ -16,6 +17,6 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $conn->close();
-header("location:order_list_detail.php");
+header("location:order-list-detail.php?order_id=".$order_id);
 
 ?>

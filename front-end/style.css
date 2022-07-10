@@ -158,12 +158,12 @@ a:hover {
 }
 
 /*  導覽列樣式 nav */
-nav {
+/* nav {
   background: url("icon/musical-note-decoration-bg.svg") scroll no-repeat bottom,
     linear-gradient(135deg, #122d3c 10%, var(--main-color) 100%);
   width: 100%;
   min-height: 100vh;
-}
+} */
 p {
   margin-block-start: 0em;
   margin-block-end: 0em;

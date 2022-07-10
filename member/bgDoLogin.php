@@ -28,7 +28,7 @@ if($userExist>0){
     ];
 
     $_SESSION["user"]=$user;  //設定user
-    header("location: http://localhost/mfee27-team4-git/home-page.php");
+    header("location: http://localhost/mfee27-team4-git/home.php");
     
 
 }else{

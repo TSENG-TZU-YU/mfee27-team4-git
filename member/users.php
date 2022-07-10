@@ -1,20 +1,24 @@
 <?php
 require("../db-connect.php");
 session_start();
-if(!isset($_SESSION["user"])){   //重整後會需要重新登入
+if (!isset($_SESSION["user"])) {   //重整後會需要重新登入
     echo "請循正常管道進入本頁";
     header("location:backstage.php");
     exit;
-  }
+}
 
 
 $sqlMember = "WHERE member.users.php";
 
-if (isset($_GET["page"])) {
-    $page = $_GET["page"];
-} else {
-    $page = 1;
-}
+// if (isset($_GET["page"])) {
+//     $page = $_GET["page"];
+// } else {
+//     $page = 1;
+// }
+// 可以寫成
+$page = isset($_GET["page"]) ? $_GET["page"] : 1;
+$perPage = isset($_GET["perPage"]) ? $_GET["perPage"] : 10;
+
 $order = isset($_GET["order"]) ? $_GET["order"] : 1;
 
 switch ($order) {
@@ -22,18 +26,21 @@ switch ($order) {
         $orderType = "id ASC";
         break;
     case 2:
-        $orderType = "name DESC";
+        $orderType = "name ASC";
         break;
     case 3:
-        $orderType = "account ASC";
+        $orderType = "name DESC";
         break;
     case 4:
-        $orderType = "account DESC";
+        $orderType = "account ASC";
         break;
     case 5:
-        $orderType = "create_time ASC";
+        $orderType = "account DESC";
         break;
     case 6:
+        $orderType = "create_time ASC";
+        break;
+    case 7:
         $orderType = "create_time DESC";
         break;
     default:
@@ -43,21 +50,26 @@ switch ($order) {
 //page
 $sqlAll = "SELECT * FROM users WHERE  valid=1 AND enable=1";
 $resultAll = $conn->query($sqlAll);
+$pageUserCount = $resultAll->num_rows;
 $userCount = $resultAll->num_rows;
 
-$perPage = 10;
+
 $startPage = ($page - 1) * $perPage;
-$sql = "SELECT * FROM users WHERE  valid=1 AND enable=1  ORDER BY $orderType  LIMIT $startPage ,10";
+$sql = "SELECT id, name, account, phone, email, create_time  FROM users WHERE valid=1 AND enable=1  ORDER BY $orderType  LIMIT $startPage ,$perPage";
 
 $result = $conn->query($sql);
-$pageUserCount = $resultAll->num_rows;
+$rows = $result->fetch_all(MYSQLI_ASSOC);
 
-$startItem = ($page - 1) * $perPage;
+$startItem = ($page - 1) * $perPage + 1;
 $endItem = $page * $perPage;
 
 if ($endItem > $userCount) $endItem = $userCount;
 $totalPage = ceil($userCount / $perPage);
+
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="zh-tw">
@@ -110,7 +122,10 @@ $totalPage = ceil($userCount / $perPage);
                 <div class="container">
                     <form action="user-search.php" method="get">
                         <div class="row">
-                            <p class="col-8 m-auto">總共<?= $userCount ?>筆資料</p>
+
+                            <p class="col-8 m-auto">
+                                第 <?= $startItem ?>-<?= $endItem ?> 筆 , 總共 <?=$userCount ?> 筆資料
+                            </p>
                             <input class="col form-control me-3" type="text" name="search">
                             <button class="col-1 btn btn-green" type="submit">
                                 <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -138,16 +153,14 @@ $totalPage = ceil($userCount / $perPage);
                             </div>
                             <div>
                                 排序 :
-                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&order=2">
-                                    <!-- <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img> -->
+                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&perPage=<?=$perPage?>&order=<?php if($order==2) {echo"3";} else {echo "2";}?>">
                                     會員姓名
                                 </a>
-                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&order=3">
-                                    <!-- <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img> -->
+                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&perPage=<?=$perPage?>&order=<?php if($order==4) {echo"5";} else {echo "4";}?>">
+
                                     會員帳號
                                 </a>
-                                <a class=" btn btn-khak me-2" href="users.php?page=<?= $page ?>&order=5">
-                                    <!-- <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img> -->
+                                <a class=" btn btn-khak me-2" href="users.php?page=<?= $page ?>&perPage=<?=$perPage?>&order=<?php if($order==6) {echo"7";} else {echo "6";}?>">
                                     註冊時間
                                 </a>
                             </div>
@@ -158,7 +171,7 @@ $totalPage = ceil($userCount / $perPage);
                     <!-- 按鈕 end-->
 
                     <hr>
-                    <table class="table mt-5">
+                    <table class="table mt-4">
                         <thead>
                             <tr>
                                 <th scope="col">會員編號</th>
@@ -166,18 +179,18 @@ $totalPage = ceil($userCount / $perPage);
                                 <th scope="col">會員帳號</th>
                                 <th scope="col">會員電話</th>
                                 <th scope="col">會員郵件</th>
-                                <th scope="col">建立時間</th>
+                                <th scope="col">註冊時間</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = $result->fetch_assoc()) : ?>
+                            <?php foreach ($rows as $row) : ?>
                                 <tr>
-                                    <th><?php echo $row["id"] ?></th>
-                                    <td><?php echo $row["name"] ?></td>
-                                    <td><?php echo $row["account"] ?></td>
-                                    <td><?php echo $row["phone"] ?></td>
-                                    <td><?php echo $row["email"] ?></td>
-                                    <td><?php echo $row["create_time"] ?></td>
+                                    <th><?= $row["id"] ?></th>
+                                    <td><?= $row["name"] ?></td>
+                                    <td><?= $row["account"] ?></td>
+                                    <td><?= $row["phone"] ?></td>
+                                    <td><?= $row["email"] ?></td>
+                                    <td><?= $row["create_time"] ?></td>
                                     <td>
                                         <a class="btn btn-grey  me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
@@ -189,26 +202,26 @@ $totalPage = ceil($userCount / $perPage);
                                         </a>
                                     </td>
                                 </tr>
-                            <?php endwhile; ?>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example text-end" class="d-flex mt-5  fixed-bottom page">
+                    <div aria-label="Page navigation example text-end" class="d-flex mt-5  justify-content-center">
                         <ul class="pagination">
-                            <li class="page-item">
+                            <!-- <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
-                            </li>
+                            </li> -->
                             <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
                                 <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="users.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
                             <?php endfor; ?>
 
-                            <li class="page-item">
+                            <!-- <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     <!-- 頁碼 end -->
