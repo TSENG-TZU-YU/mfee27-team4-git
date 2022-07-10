@@ -1,5 +1,6 @@
 <?php
 session_start();
+require("../../db-connect.php");
 ?>
 <!doctype html>
 <html lang="zh-tw">
@@ -13,33 +14,8 @@ session_start();
     <!-- Bootstrap CSS v5.0.2 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <style>
-        :root {
-        /* 顏色 */
-        color: #41464b;
-        --grey-color: #41464b;
-        --main-color: #265f74;
-        --khak-color: #a79a7e;
-        --red-color: #61002d;
-        --blue-color: #4a81b0;
-        --orange-color: #be7844;
-        --purple-color: #533b7e;
-        --light-grey-color: #bfbfbf;
-        --light-green-color: #6194a7;
-        --light-khak-color: #e3dccb;
-        --light-red-color: #e2c4d2;
-        --light-blue-color: #cee4f6;
-        --light-orange-color: #f5e7d7;
-        --light-purple-color: #e0d7f3;
-        --bg-color: #aaa;
-        }
-        .bg-green-color {
-            background: var(--main-color);
-        }
-        .border-blue {
-            border-color:var(--blue-color);
-            border: 3px;
-        }
         article img{
             max-width: 100%;
         }
@@ -58,6 +34,13 @@ session_start();
         }
         .content{
             min-height:700px;
+        }
+        .inputcontent{
+            height: 150px;    
+        }
+        .formitem{
+            width: 700px;
+            margin: 0 auto;
         }
     </style>
 </head>
@@ -108,15 +91,48 @@ session_start();
         <div class="container">
         <div class="row mt-3">
             <main class="<?php if(isset($_SESSION["front_user"])){echo"col-md-10";}else{echo"col-md";}?>">
-                <article class="content">
-                    <h1>私たちに関しては</h1>
-                    <div class="mb-3">
-                        <img width=700 class="rounded mx-auto d-block" src="../icon/musical-note-decoration-bg.svg" alt="">
+            <article class="content">
+                <h1>聯絡表單</h1>
+                <hr>                   
+                <form action="doAsker.php" method="post">
+                    <div class=" formitem ">
+                        <label for="name" class="fs-5 fw-bolder">姓名</label>
+                        <input type="text" id="name" name="name" class="form-control mt-2 mb-3" placeholder='請輸入您的姓名' required >
+                        <label for="email" class="fs-5 fw-bolder">電子郵件</label>
+                        <input type="email" id="email" name="email" class="form-control mt-2 mb-3" placeholder='請輸入您的E-MAIL' required >
+                        <label for="phone" class="fs-5 fw-bolder">聯絡電話</label>
+                        <input type="phone" id="phone" name="phone" class="form-control mt-2 mb-3" placeholder='請填寫連絡電話' required >
+                        <label for="q_category" class="fs-5 fw-bolder">問題類型</label>
+                        <select id="q_category" class="form-control mt-2 mb-3" name="q_category">
+                                <option value="其他問題">選擇問題</option>
+                                <option value="商品問題">商品問題</option>
+                                <option value="訂單問題">訂單問題</option>
+                                <option value="課程問題">課程問題</option>
+                                <option value="場地租借問題">場地租借問題</option>
+                                <option value="退貨、退款問題">退貨、退款問題</option>
+                                <option value="運費、寄送問題">運費、寄送問題</option>
+                                <option value="其他問題">其他問題</option>
+                            </select>
+                        <label for="title" class="fs-5 fw-bolder">問題標題</label>
+                        <input type="text" id="title" name="title" class="form-control mt-2 mb-3" placeholder='請輸入標題' required >
+                        <label for="reply" class="fs-5 fw-bolder">題問內容</label>
+                        <textarea id="reply" class="form-control inputcontent mt-2 mb-3" placeholder='輸入內容' name="reply" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required></textarea>
+                        <div class="d-flex">
+                            <div class="py-2 mx-2  ">
+                                <button class="btn btn-green" type="submit">送出</button>
+                                <input type="hidden" name="order_id" value="<?=$order_id?>">
+                                <input type="hidden" name="user_id" value="<?=$user_id?>">
+                                <input type="hidden" name="name" value="<?=$name?>">
+                                <input type="hidden" name="account" value="<?=$row["account"]?>">
+                            </div>
+                            <div class="py-2 mx-2">
+                                <a class="btn btn-grey" href="front_index.php">取消</a>
+                            </div>
+                        </div>
                     </div>
-                    <p>
-                    は、静岡県浜松市に本社を置く、楽器や半導体、音響機器（オーディオ・ビジュアル）、スポーツ用品、自動車部品、ネットワーク機器の製造発売を手がける日本のメーカー。日経平均株価の構成銘柄のひとつ。1969年にピアノ生産台数で世界一となり、販売額ベースで現在でも世界首位である。このほかの楽器でも、ハーモニカやリコーダー、ピアニカといった学校教材用からエレクトリックギターやドラム、ヴァイオリン、チェロ、トランペット、サクソフォーンなど100種類以上もの楽器を生産する世界最大の総合楽器・音響メーカーである。
-                    </p>
-                </article>
+                </form>
+                <hr>
+            </article>
             </main>
             <?php if(isset($_SESSION["front_user"])):?>
             <aside class="col-md-2">
