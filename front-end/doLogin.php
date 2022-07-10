@@ -27,7 +27,7 @@ if($userExist>0){ //登入成功
     ];
     unset($_SESSION["error"]);
     $_SESSION["front_user"]=$user;
-    header("location: my_order.php");
+    header("location: front_index.php");
 }else{
     echo "帳號或密碼錯誤";
     $_SESSION["error"]["message"]="帳號或密碼錯誤";
