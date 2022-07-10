@@ -1,28 +1,26 @@
 <?php
 
-if(isset($_GET["page"])){
-    $page=$_GET["page"];
-  }else{
-    $page=1;
-  }
-
  
 
-
-
 require("../db-connect.php");
+
+
 
 $sqlAll="SELECT * FROM coupon WHERE valid=1 ";
 $resultAll = $conn->query($sqlAll);
 $couponCount=$resultAll->num_rows;
 
 
-$perPage=4;
-$start=($page-1)*$perPage;
 
-$startItem=($page-1)*$perPage+1;
-$endItem=$page*$perPage;
-if($endItem>$couponCount)$endItem=$couponCount;
+if(isset($_GET["page"])){
+    $page=$_GET["page"];
+  }else{
+    $page=1;
+  }
+
+
+$perPage=10;
+$start=($page-1)*$perPage;
 
 $order=isset($_GET["order"]) ? $_GET["order"] : 1;
 
@@ -40,16 +38,24 @@ switch($order){
 
 
 $sql="SELECT * FROM coupon WHERE valid=1 ORDER BY id $orderType LIMIT 
-$start,4";
-
+$start, 10";
 
 $result = $conn->query($sql);
 $pageCouponCount=$result->num_rows;
 
+
+$startItem=($page-1)*$perPage+1;
+$endItem=$page*$perPage;
+if($endItem>$couponCount)$endItem=$couponCount;
+
 $totalPage=ceil($couponCount / $perPage); 
 
-$rows = $result->fetch_all(MYSQLI_ASSOC);
 
+$sql= "SELECT coupon.*, users.name AS users_name FROM coupon
+  JOIN users ON coupon.coupon_c = users.coupon  ";
+
+$result = $conn->query($sql);
+$couponCount=$result->num_rows;
 
 ?>
 
@@ -117,11 +123,15 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                             <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                             新增
                         </a>  
+                        <a class="col-1 btn btn-green me-2" href="coupons-hide.php">
+                            <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                            待上架
+                        </a>  
                        
                         
                 
-                <a href="coupons.php?page=<?=$page?>&order=1" class="btn btn-khak  <?php if($order==1)echo"hover" ?>">By id asc</a>
-                <a href="coupons.php?page=<?=$page?>&order=2" class="btn btn-khak  <?php if($order==2)echo"hover" ?>">By id desc</a>
+                <a href="coupons.php?page=<?=$page?>&order=1" class="btn btn-khak  <?php if($order==1)echo" active" ?>">By id asc</a>
+                <a href="coupons.php?page=<?=$page?>&order=2" class="btn btn-khak  <?php if($order==2)echo" active" ?>">By id desc</a>
                
                           
                       
@@ -143,11 +153,11 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                             </tr>
                         </thead>
                         <tbody>
-                         <?php foreach($rows as $row): ?> 
+                      <?php   while($row = $result->fetch_assoc()): ?> 
                     <tr>
                         <td><?=$row["id"]?></td>
                         <td><?=$row["name"]?></td>
-                        <td><?=$row["members"]?></td>
+                        <td><?=$row["users_name"]?></td>
                         <td><?=$row["number"]?></td>
                         <td><?=$row["discount"]?></td>
                         <td><?=$row["dateline"]?></td>
@@ -163,17 +173,20 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                         <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                         修改
                         </a>
+                        <a class="btn btn-khak"  type="" href="doHide.php?id=<?=$row["id"]?>">
+                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                        加入待上架
+                        </a>
                     </td>
                     </tr>
-                    <?php endforeach; ?>       
+                    <?php endwhile; ?>       
                </tbody>
                     </table>
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example">
                         <ul class="pagination">
-                            <?php for($i=1; $i<=$totalPage; $i++):?>
-                               <li class="page-item <?php if($page==$i)echo "active";
-                               ?>"><a class="page-link" href="coupons.php?page=<?=$i?>"><?=$i?>
+                            <?php for($i=1; $i<=$totalPage; $i++): ?>
+                               <li class="page-item <?php if($page==$i)echo "active";?>"><a class="page-link" href="coupons.php?page=<?=$i?>&order=<?=$order?>"><?=$i?>
                             </a></li> 
                             <?php endfor; ?>
 
