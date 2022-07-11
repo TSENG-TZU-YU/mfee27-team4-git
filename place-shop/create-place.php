@@ -6,7 +6,7 @@
 <html lang="zh-tw">
 
 <head>
-    <title>新增課程</title>
+    <title>新增場地</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -45,19 +45,15 @@
 
                 <!-- 內容 -->
                 <div class="container">
-            <form action="docreate-course.php" method="post">
+            <form action="docreate-place.php" method="post">
                 <div class="mb-2">
-                    <label for="">課程類別</label>
-                    <input type="text" class="form-control" name="course_cate">
-                </div>
-                <div class="mb-2">
-                    <label for="">地點</label>
+                    <label for="">店面</label>
                     <input type="text" class="form-control" name="location">
-                </div>                
-                <div class="mb-2">
-                    <label for="">課程名稱</label>
-                    <input type="text" class="form-control" name="course_name">
                 </div>
+                <div class="mb-2">
+                    <label for="">場地類型</label>
+                    <input type="text" class="form-control" name="placetype">
+                </div>                
                 <div class="mb-2">
                     <label for="">庫存</label>
                     <input type="number" class="form-control" name="stock">
@@ -67,20 +63,20 @@
                     <input type="number" class="form-control" name="price">
                 </div>
                 <div class="mb-2">
-                    <label for="">開始時間</label>
-                    <input type="date" class="form-control" name="begin_date">
+                    <label for="">開放時間</label>
+                    <input type="date" class="form-control" name="begin_time">
                 </div>
                 <div class="mb-2">
                     <label for="">結束時間</label>
-                    <input type="date" class="form-control" name="overdate">
+                    <input type="date" class="form-control" name="over_time">
                 </div>
                 <div class="mb-2">
-                    <label for="">課程介紹</label>
-                    <textarea type="text" class="form-control" name="course_intro"></textarea>
+                    <label for="">場地介紹</label>
+                    <textarea type="text" class="form-control" name="place_intro"></textarea>
                 </div>
                 <button class="btn btn-info" type="submit">送出</button>
                 <button class="btn btn-info" type="reset">清除</button>
-                <a class="btn btn-info" href="course-shop.php">返回上一頁</a>
+                <a class="btn btn-info" href="place-shop.php">返回上一頁</a>
             </form>
         </div>
 
