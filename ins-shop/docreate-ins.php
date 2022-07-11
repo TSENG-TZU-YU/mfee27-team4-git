@@ -1,29 +1,24 @@
 <?php
 require("../db-connect.php");
-<<<<<<< HEAD
-if(!isset($_POST["brnd_model"])){
-    echo "沒有帶資料到本頁";
-=======
 
 if(!isset($_POST["brnd_model"])){  //後端檢查是否帶資料
     echo"沒帶資料";
->>>>>>> 3b7b986020e92122427af0d4af9ee099e4430e64
     exit;
 }
 
-$ins_cate=$_POST["ins_cate"];
-$brnd_model=$_POST["brnd_model"];
+$cate=$_POST["cate"];
+$name=$_POST["name"];
 $price=$_POST["price"];
 $stock=$_POST["stock"];
 $intro=$_POST["intro"];
 $create_time=date('Y-m-d H-i-s');
 
 if(empty($ins_cate)){    //後端檢查 
-    echo"沒有填 ins_cate";
+    echo"沒有填 cate";
     exit;
 }
 if(empty($brnd_model)){    
-    echo"沒有填 brnd_model";
+    echo"沒有填 name";
     exit;
 }
 if(empty($price)){
@@ -61,8 +56,8 @@ if($insCount>0){
     exit;
 }
 // 寫入資料庫
-$sqlCreate="INSERT INTO instrument_product (ins_cate, brnd_model, price, stock, intro, create_time, valid) 
-                            VALUES ('$ins_cate','$brnd_model', '$price','$stock','$intro','$create_time',1)";
+$sqlCreate="INSERT INTO instrument_product (cate, name, price, stock, intro, create_time, valid) 
+                            VALUES ('$cate','$name', '$price','$stock','$intro','$create_time',1)";
 
 if ($conn->query($sqlCreate) === TRUE) {
     echo "<script language='JavaScript'>;alert('新增成功');location.href='ins-shop.php';</script>;";
@@ -73,6 +68,6 @@ if ($conn->query($sqlCreate) === TRUE) {
 
 
 $conn->close();
-header("location: ins-shop.php");
+// header("location: ins-shop.php");
 
 ?>

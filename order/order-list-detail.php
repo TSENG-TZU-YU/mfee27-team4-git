@@ -16,6 +16,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 $inArray = array_column($rows, 'category_id');
 
 $conn->close();
+$sqlOrder="WHERE order-list.php";
 ?>
 
 <!DOCTYPE html>

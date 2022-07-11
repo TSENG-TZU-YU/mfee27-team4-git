@@ -8,9 +8,16 @@ if (!isset($_GET["id"])) {
     echo "沒有參數";
     exit;
 }
+if (!isset($_GET["name"])) {
+    echo "沒有參數";
+    exit;
+}
+
+
 
 $id = $_GET["id"];
-$sql = "SELECT users.id, coupon.*  FROM users  JOIN coupon ON users.coupon=coupon.coupon_c WHERE users.id=$id ";
+$name = $_GET["name"];
+$sql = "SELECT users.id,users.name, coupon.*  FROM users  JOIN coupon ON users.coupon=coupon.coupon_c WHERE users.id=$id  ";
 $result = $conn->query($sql) or die($conn->error);
 $userCount = $result->num_rows;
 $rows = $result->fetch_all(MYSQLI_ASSOC);
@@ -62,7 +69,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
                         <li class="breadcrumb-item"><a href="http://localhost/mfee27-team4-git/member/users.php">會員管理</a></li>
                         <li class="breadcrumb-item"><a href="user-detail.php?id=<?= $id ?>">詳細</a></li>
-                        <li class="breadcrumb-item" aria-current="page">優惠券</li></li>
+                        <li class="breadcrumb-item" aria-current="page"><?=$name?> 的優惠券</li></li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -76,13 +83,11 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                     <!-- 按鈕 -->
                     <div class="row mt-5">
                         <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green mx-3" href="user-detail.php?id=<?= $id ?>">
+                        <a class="col-2 btn btn-green mx-3" href="user-detail.php?id=<?= $id ?>&name=<?=$name?>">
                             <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
-
-
-
+    
 
                     </div>
                     <!-- 按鈕 end-->

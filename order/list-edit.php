@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_GET["order_id"])) {
     $order_id = $_GET["order_id"];
 } else {
@@ -38,6 +39,7 @@ $payMethodCount = $resultPayMethod->num_rows;
 // echo $sql;
 // exit;
 $conn->close();
+$sqlOrder="WHERE order-list.php";
 ?>
 
 <!doctype html>
@@ -81,7 +83,6 @@ $conn->close();
                 <!-- 內容 -->
                 <div class="container">
                     <?php if ($orderCount > 0) :
-
                         // echo var_dump($row);
                         // $paymentState = [
                         //     "1" => "未付款",
@@ -95,9 +96,11 @@ $conn->close();
                         //     "4" => "訂單完成",
                         //     "5" => "退貨處理中"
                         // ];
+                        $listPage=$_SESSION["page"];//
+                        // echo $listPage;
                     ?>
                         <div class="pt-2 pb-5 row align-items-baseline">
-                            <a class="col-1 btn btn-green me-2" href="order-list.php">
+                            <a class="col-1 btn btn-green me-2" href="order-list.php?page=<?=$listPage?>">
                                 <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>返回
                             </a>
                             <h5 class="col-2">訂單編號：<?= $order_id ?></h5>

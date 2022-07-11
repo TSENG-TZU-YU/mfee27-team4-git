@@ -1,9 +1,12 @@
 <?php
+session_start();
+
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
 } else {
     $page = 1;
 }
+$_SESSION["page"]=$page;
 require("../db-connect.php");
 $sqlAll = "SELECT*FROM order_product WHERE valid=1";
 $resultAll = $conn->query($sqlAll);
@@ -49,6 +52,8 @@ $totalPage = ceil($list_count / $perPage);
 // var_dump($rowsAll);
 
 $conn->close();
+
+$sqlOrder="WHERE order-list.php";
 
 ?>
 

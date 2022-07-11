@@ -149,21 +149,21 @@ $totalPage = ceil($userCount / $perPage);
                         </tbody>
                     </table>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example" class="d-flex fixed-bottom mt-5 page">
+                    <div aria-label="Page navigation example" class="d-flex mt-5  justify-content-center">
                         <ul class="pagination">
-                            <li class="page-item">
+                            <!-- <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
-                            </li>
+                            </li> -->
                             <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
                                 <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="black-list.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
                             <?php endfor; ?>
-                            <li class="page-item">
+                            <!-- <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     <!-- 頁碼 end -->

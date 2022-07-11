@@ -1,26 +1,25 @@
 <?php
 require("../db-connect.php");
-if(!isset($_POST["course_name"])){
+if(!isset($_POST["location"])){
     echo "沒有帶資料到本頁";
     exit;
 }
 
 $cate=$_POST["cate"];
 $name=$_POST["name"];
-$location=$_POST["location"];
 $stock=$_POST["stock"];
 $price=$_POST["price"];
-$begin_date=date('Y-m-d H-i-s');
-$over_date=date('Y-m-d H-i-s');
+$use_time=date('Y-m-d H-i-s');
+$over_time=date('Y-m-d H-i-s');
 $intro=$_POST["intro"];
 $create_time=date('Y-m-d H-i-s');
 
-if(empty($course_cate)){    //後端檢查 
+if(empty($location)){    //後端檢查 
     echo"沒有填 cate";
     exit;
 }
-if(empty($course_name)){    
-    echo"沒有填 name";
+if(empty($placetype)){    
+    echo"沒有填 name ";
     exit;
 }
 if(empty($price)){
@@ -34,12 +33,12 @@ if(empty($stock)){
 
 
 if ($conn->query($sql) === TRUE) {
-    $sqlselect="SELECT * FROM course_product ORDER BY id DESC LIMIT 1";
+    $sqlselect="SELECT * FROM place_produce ORDER BY id DESC LIMIT 1";
     $result=$conn->query($sqlselect);
     $row=$result->fetch_assoc();
     $rowid="B".$row["id"];
     $product_id=$row["id"];
-    $sqlInsert="UPDATE course_product SET product_id = '$rowid' WHERE id = $product_id";
+    $sqlInsert="UPDATE place_produce SET product_id = '$rowid' WHERE id = $product_id";
     $conn->query($sqlInsert);
     echo "新資料輸入成功";
 
@@ -49,20 +48,20 @@ if ($conn->query($sql) === TRUE) {
 
 
 
-$sql="SELECT product_id FROM course_product WHERE product_id='$product_id'";
+$sql="SELECT product_id FROM place_produce WHERE product_id='$product_id'";
 
 $result = $conn->query($sql); //存取物件
-$courseCount = $result->num_rows;  //幾筆資料
-if($courseCount>0){
+$placeCount = $result->num_rows;  //幾筆資料
+if($placeCount>0){
     echo"該課程已存在";
     exit;
 }
 // 寫入資料庫
-$sqlCreate="INSERT INTO course_product (cate, name, location, price, stock, begin_date, over_date, create_time, valid) 
-                            VALUES ('$cate','name', '$location', '$price','$stock','$begin_date','$over_date', '$create_time',1)";
+$sqlCreate="INSERT INTO place_produce (cate, name, price, stock, use_time, over_time, create_time, intro, valid) 
+                            VALUES ('$cate','$name', '$price','$stock','$use_time','$over_time', '$create_time','$intro' ,1)";
 
 if ($conn->query($sqlCreate) === TRUE) {
-    echo "<script language='JavaScript'>;alert('新增成功');location.href='course-shop.php';</script>;";
+    echo "<script language='JavaScript'>;alert('新增成功');location.href='place-shop.php';</script>;";
     // header("location:users.php");
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;

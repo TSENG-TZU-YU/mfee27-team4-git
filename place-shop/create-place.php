@@ -6,7 +6,7 @@
 <html lang="zh-tw">
 
 <head>
-    <title>新增樂器</title>
+    <title>新增場地</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -45,30 +45,38 @@
 
                 <!-- 內容 -->
                 <div class="container">
-            <form action="docreate-ins.php" method="post">
+            <form action="docreate-place.php" method="post">
                 <div class="mb-2">
-                    <label for="">樂器類別</label>
+                    <label for="">店面</label>
                     <input type="text" class="form-control" name="cate">
                 </div>
                 <div class="mb-2">
-                    <label for="">品牌型號</label>
+                    <label for="">場地類型</label>
                     <input type="text" class="form-control" name="name">
                 </div>                
-                <div class="mb-2">
-                    <label for="">價格</label>
-                    <input type="number" class="form-control" name="price">
-                </div>
                 <div class="mb-2">
                     <label for="">庫存</label>
                     <input type="number" class="form-control" name="stock">
                 </div>
                 <div class="mb-2">
-                    <label for="">商品簡介</label>
+                    <label for="">定價</label>
+                    <input type="number" class="form-control" name="price">
+                </div>
+                <div class="mb-2">
+                    <label for="">開放時間</label>
+                    <input type="date" class="form-control" name="begin_time">
+                </div>
+                <div class="mb-2">
+                    <label for="">結束時間</label>
+                    <input type="date" class="form-control" name="over_time">
+                </div>
+                <div class="mb-2">
+                    <label for="">場地介紹</label>
                     <textarea type="text" class="form-control" name="intro"></textarea>
                 </div>
                 <button class="btn btn-info" type="submit">送出</button>
                 <button class="btn btn-info" type="reset">清除</button>
-                <a class="btn btn-info" href="ins-shop.php">返回上一頁</a>
+                <a class="btn btn-info" href="place-shop.php">返回上一頁</a>
             </form>
         </div>
 

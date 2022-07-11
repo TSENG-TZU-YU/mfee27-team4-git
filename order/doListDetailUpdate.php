@@ -17,10 +17,11 @@ $now = date('Y-m-d H:i:s');
 $payMethod = $_POST["payMethod"];
 $paymentState = $_POST["paymentState"];
 $orderState = $_POST["orderState"];
-$paymentTime = $_POST["paymentTime"];
+// $paymentTime = $_POST["paymentTime"];
 // echo $payMethod . ":::::<br>";
 // echo $paymentState." : ".$orderState ;
-
+// var_dump($paymentTime);
+// echo"<br>";
 // exit;
 if ($payMethod == $row["payment_method"] && $paymentState == $row["payment_state"] && $orderState == $row["order_state"]) {
     echo "付款狀態跟訂單狀態沒有變";
@@ -130,4 +131,4 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $conn->close();
-// header("location:order-list.php");
+header("location:list-edit.php?order_id=".$order_id);

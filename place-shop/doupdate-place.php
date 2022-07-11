@@ -1,5 +1,5 @@
 <?php
-if(!isset($_POST["brnd_model"])){
+if(!isset($_POST["location"])){
     echo "沒有參數";
 }
 require("../db-connect.php");
@@ -7,13 +7,15 @@ require("../db-connect.php");
 $id=$_POST["id"];
 $cate=$_POST["cate"];
 $name=$_POST["name"];
-$price=$_POST["price"];
 $stock=$_POST["stock"];
+$price=$_POST["price"];
+$use_time=date('Y-m-d H-i-s');
+$over_time=date('Y-m-d H-i-s');
 $intro=$_POST["intro"];
 $create_time=date('Y-m-d H-i-s');
 
-$sql="UPDATE instrument_product SET 
-cate='$cate',name='$name',price='$price',stock='$stock',intro='$intro'
+$sql="UPDATE place_produce SET 
+cate='$cate',name='$name',price='$price',stock='$stock',date('Y-m-d H-i-s')='$use_time', date('Y-m-d H-i-s')='$over_time',intro='$intro'
 WHERE id=$id AND valid=1";
 
 
@@ -25,9 +27,8 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close(); 
 
-header("location: ins-detail.php?id=".$id);
+header("location: place-detail.php?id=".$id);
 
 
 
 ?>
-

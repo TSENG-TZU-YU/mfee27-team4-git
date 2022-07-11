@@ -1,6 +1,6 @@
 <?php
 require("../../db-connect.php");
-
+$sqlOrder_qna="WHERE order_qna.php";
 
 $perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
 $page=isset($_GET["page"])? $_GET["page"] : 1;

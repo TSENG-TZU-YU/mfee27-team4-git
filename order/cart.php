@@ -65,7 +65,7 @@ $payMethodCount = $resultPayMethod->num_rows;
             ?>
                 <tr>
                     <td><?= $row["brnd_model"]
-                        ?>::::<input type="hidden" name="category_id" value="<?= $row["category"] ?>"><?= $row["category"] ?></td>
+                        ?><input type="hidden" name="category_id" value="<?= $row["category"] ?>"></td>
                     <td class="text-end"><?= $row["price"] ?></td>
                     <td class="text-end"><?= $value ?></td>
                     <td class="text-end"><?= $row["price"] * $value

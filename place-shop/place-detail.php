@@ -1,24 +1,15 @@
 <?php
 require("../db-connect.php");
 
-$sqlMember  = "WHERE member.users.php";
-
-session_start();
 if (!isset($_GET["id"])) {
     echo "沒有參數";
     exit;
 }
-if (!isset($_GET["name"])) {
-    echo "沒有參數";
-    exit;
-}
-
 
 $id = $_GET["id"];
-$name = $_GET["name"];
-$sql = "SELECT * FROM users WHERE id=$id AND valid=1";
+$sql = "SELECT * FROM place_produce WHERE id=$id AND valid=1";
 $result = $conn->query($sql);
-$userCount = $result->num_rows;
+$placeCount = $result->num_rows;
 $row = $result->fetch_assoc();
 
 
@@ -28,7 +19,7 @@ $row = $result->fetch_assoc();
 <html lang="zh-tw">
 
 <head>
-    <title>後台系統</title>
+    <title>place-detail</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -65,7 +56,7 @@ $row = $result->fetch_assoc();
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item"><a href="http://localhost/mfee27-team4-git/member/users.php">會員管理</a></li>
+                        <li class="breadcrumb-item"><a href="">課程商城</a></li>
                         <li class="breadcrumb-item" aria-current="page">詳細</li>
                     </ol>
                 </biv>
@@ -78,15 +69,11 @@ $row = $result->fetch_assoc();
                 <div class="container">
 
                     <!-- 按鈕 -->
-                    <div class="row mt-5">
+                    <div class="row ">
                         <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green mx-3" href="users.php">
+                        <a class="col-1 btn btn-green mx-3" href="place-shop.php">
                             <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                             返回
-                        </a>
-                        <a class="col-1 btn btn-grey mx-3" href="user-coupon.php?id=<?= $row["id"] ?>&name=<?= $row["name"] ?>">
-                            <!-- <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img> -->
-                            優惠券
                         </a>
 
 
@@ -96,71 +83,62 @@ $row = $result->fetch_assoc();
 
                 </div>
                 <div class="container mt-5  ">
-                    <?php if ($userCount > 0) :
+                    <?php if ($placeCount > 0) :
                         $row;
                     ?>
                         <div class="d-flex justify-content-center">
                             <table class="table table-bordered panel">
                                 <tr>
-                                    <th>會員編號</th>
+                                    <th>商品編號</th>
                                     <td><?= $row["id"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>會員姓名</th>
+                                    <th>店面</th>
+                                    <td><?= $row["cate"] ?></td>
+                                </tr>
+                                <tr>
+                                    <th>場地類型</th>
                                     <td><?= $row["name"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>會員帳號</th>
-                                    <td><?= $row["account"] ?></td>
+                                    <th>定價</th>
+                                    <td><?= $row["price"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>會員密碼</th>
-                                    <td><?= $row["password"] ?></td>
+                                    <th>庫存</th>
+                                    <td><?= $row["stock"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>會員性別</th>
-                                    <td><?php if ($row["gender"] == 1) {
-                                            echo $sex = "男";
-                                        } else {
-                                            echo $sex = "女";
-                                        } ?></td>
+                                    <th>開放時間</th>
+                                    <td><?= $row["use_time"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>會員生日</th>
-                                    <td><?= $row["birthday"] ?></td>
-
+                                    <th>結束時間</th>
+                                    <td><?= $row["over_time"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>會員電話</th>
-                                    <td><?= $row["phone"] ?></td>
+                                    <th>場地簡介</th>
+                                    <td><?= $row["intro"] ?></td>
                                 </tr>
                                 <tr>
-                                    <th>會員郵件</th>
-                                    <td><?= $row["email"] ?></td>
-                                </tr>
-                                <tr>
-                                    <th>會員地址</th>
-                                    <td><?= $row["address"] ?></td>
-                                </tr>
-                                <tr>
-                                    <th>註冊時間</th>
-                                    <td><?= $row["create_time"] ?></td>
+                                    <th>建立時間</th>
+                                    <td><?= $row["creat_time"] ?></td>
                                 </tr>
                             </table>
 
                         </div>
 
                     <?php else : ?>
-                        沒有該使用者
+                        沒有該商品
                     <?php endif; ?>
                     <div class="py-2  ">
                         <div class="d-flex justify-content-center">
-                            <a class="col-1 btn btn-khak me-3" href="user-edit.php?id=<?= $row["id"] ?>">
+                            <a class="col-1 btn btn-khak me-3" href="edit-place.php?id=<?= $row["id"] ?>">
                                 <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                                 修改
                             </a>
-                            <a class="col-1 btn btn-red  me-3" href="doDelete.php?id=<?= $row["id"] ?>">
-                                <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                            <a class="col-1 btn btn-red  me-3" href="dodelete-place.php?id=<?= $row["id"] ?>">
+                            <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
                                 刪除
                             </a>
                         </div>
