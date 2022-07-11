@@ -90,11 +90,7 @@ if($endItem>$userCount)$endItem=$userCount;
 
 $totalPage=ceil($userCount/$perPage);
 
-<<<<<<< HEAD
-$sqlUser_qna="WHERE "
-=======
-// $sqlUser_qna="WHERE user_qna.php";
->>>>>>> f9a840dffab3d7815fee78bfe8d1a429836a801e
+$sqlUser_qna="WHERE user_qna.php";
 
 ?>
 <!DOCTYPE html>
