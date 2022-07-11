@@ -172,7 +172,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                 <td>
                                     <form action="doDelete.php" method="post">
                                     <?php foreach($rowsDetail as $rowDetail): ?>
-                                    <p class="text-start my-2">
+                                    <p class="text-end my-2">
                                         <?=$rowDetail["create_time"]?>
                                         <input type="checkbox" name="delete[]" value=<?php $rowDetail["id"]?>>
                                     </p>
