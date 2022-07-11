@@ -13,7 +13,7 @@ if(!isset($_GET["id"])){
 $id=$_GET["id"];
 
 require("../db-connect.php");
-$sql="SELECT * FROM coupon WHERE id=$id AND valid=1  ";
+$sql="SELECT * FROM coupon WHERE id=$id AND shelf=0  ";
 
 $result = $conn->query($sql);
 $couponCount=$result->num_rows;
@@ -122,7 +122,7 @@ $couponCount=$result->num_rows;
                         <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                         修改
                         </a>
-                        <a class=" btn btn-grey me-3" href="coupons.php">
+                        <a class=" btn btn-grey me-3" href="coupons-hide.php">
                        <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                         返回上一頁
                         </a>
@@ -136,6 +136,4 @@ $couponCount=$result->num_rows;
       
   </body>
 </html>
-
-
 
