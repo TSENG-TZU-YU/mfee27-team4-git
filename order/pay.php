@@ -10,10 +10,13 @@ require("../db-connect.php");
 $user_id = "zxcasd"; //因為沒有登入狀態所以先預設
 // $cate=$_POST["category_id"];
 $payMethod = $_POST["payMethod"];
-$address = $_POST["address"];
-echo $payMethod . "<br>";
-echo $address . "<br>";
-$amount = count($_SESSION["cart"]);
+$_SESSION["address"] = $_POST["address"];
+
+// echo $payMethod . "<br>";
+// echo $address . "<br>";
+
+// $amount = count($_SESSION["cart"]);
+
 date_default_timezone_set("Asia/Taipei");
 $now = date('Y-m-d H:i:s');
 $total_amount = $_SESSION["total_amount"];
@@ -27,32 +30,46 @@ $pro = $_SESSION["products"];
 
 
 if ($conn->query($sql) === TRUE) {
+  $address=$_SESSION["address"];
   $order_id = $conn->insert_id; //取得insert進去這筆訂單的id
-  echo $order_id;
+  // echo $order_id;
   foreach ($pro as $key => $value) {
     $arrKey = str_split($key);
-
+    // echo $arrKey[0];
+    // echo "<br>";
     if ($arrKey[0] == "A") {
-      $sqlDetail = "INSERT INTO order_product_detail (order_id, product_id, category_id,amount,address,valid) VALUES ('$order_id', '$key', 'A',$value,$address,1)";
+      $sqlDetail = "INSERT INTO order_product_detail (order_id, product_id, category_id,amount,address,valid) VALUES ('$order_id','$key','A',$value,'$address',1)";
+      // echo $sqlDetail;
+      // echo "<br>";
       // $sqlAddress = $address;
     }
     if ($arrKey[0] == "B") {
+      // $address="";
       $sqlDetail = "INSERT INTO order_product_detail (order_id, product_id, category_id,amount,valid) VALUES ('$order_id', '$key', 'B',$value,1)";
+      // echo $sqlDetail;
+      // echo "<br>";
       // $sqlAddress = "";
     }
     if ($arrKey[0] == "C") {
+      // $address="";
       $sqlDetail = "INSERT INTO order_product_detail (order_id, product_id, category_id,amount,valid) VALUES ('$order_id', '$key', 'C',$value,1)";
+      // echo $sqlDetail;
+      // echo "<br>";
       // $sqlAddress = "";
     }
-    // $sql = "SELECT * FROM instrument_product WHERE product_id='$key'";
-    // $result = $conn->query($sql);
-    // $row = $result->fetch_assoc();
-    // $category_id = $row["category"];
+
+    // $sqlDetail = "INSERT INTO order_product_detail (order_id, product_id, category_id,amount,valid) VALUES ('$order_id', '$key', '$category_id',$value,1)";
+    // echo $sqlDetail;
+    // echo "<br>";
+    // var_dump($row);
+    // echo "<br>";
 
 
-    echo $sqlDetail;
-    if (!$conn->query($sqlDetail)) {
-      echo "Error: " . $sqlDetail . "<br>" . $conn->error;
+
+    ////////}
+
+    if(!$conn->query($sqlDetail)){
+      echo "Error: ".$sqlDetail."<br>".$conn->error;
     }
   }
   unset($_SESSION["cart"]);
