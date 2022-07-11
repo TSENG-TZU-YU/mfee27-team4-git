@@ -1,7 +1,13 @@
 <?php
 require("../../db-connect.php");
 
-$order_qna_id=$_GET["order_qna_id"];
+$order_qna_id=$_POST["order_qna_id"];
+$page=$_POST["page"];
+$perPage=$_POST["perPage"];
+$category=$_POST["category"];
+$order=$_POST["order"];
+$search=$_POST["search"];
+
 
 $sql="SELECT order_qna.*, users.account FROM order_qna
     JOIN users ON order_qna.user_id = users.id 
@@ -168,7 +174,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                     <input type="hidden" name="order_qna_id" value="<?=$order_qna_id?>">
                                 </div>
                                 <div class="py-2 mx-2">
-                                    <a class="btn btn-grey" href="order_qna.php">離開</a>
+                                    <a class="btn btn-grey" href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&order=<?=$order?>&search=<?=$search?>">離開</a>
                                 </div>
                             </div>
                             <div class="py-2">                                

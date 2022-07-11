@@ -8,11 +8,17 @@ $page=isset($_GET["page"])? $_GET["page"] : 1;
 $category=isset($_GET["category"])? $_GET["category"] : "";
 switch($category){
     case 1:
-        $sqlWhere="WHERE order_qna.reply_state ='未回覆'";
+        $sqlWhere="";
         break;
     case 2:
+        $sqlWhere="WHERE order_qna.reply_state ='未回覆'";
+        break;
+    case 3:
         $sqlWhere="WHERE order_qna.reply_state ='已回覆'";
         break;
+    case 4:
+        $sqlWhere="WHERE order_qna.reply_state ='新訊息'";
+        break;    
     default:
         $sqlWhere="";
         break;     
@@ -21,9 +27,9 @@ switch($category){
 if (isset($_GET["search"])){
     $search=$_GET["search"];
     if(isset($_GET["category"])){
-        $sqlseach="AND users.account LIKE '%$search%' ";
+        $sqlseach="AND ( users.account LIKE '%$search%' OR users.name LIKE '%$search%') ";
     }else{
-        $sqlseach="WHERE users.account LIKE '%$search%' ";
+        $sqlseach="WHERE ( users.account LIKE '%$search%' OR users.name LIKE '%$search%') ";
     }  
 }else{
     $search="";
@@ -152,27 +158,37 @@ $totalPage=ceil($userCount/$perPage);
                     </div>
                 </div>
                 <hr>
-                <div class="container">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <form class="" action="order_qna.php" method="get">
-                            每頁顯示
-                            <select onchange="this.form.submit()" name="perPage">
-                                <option <?php if($perPage==4)echo "selected";?> value="4">4</option>
-                                <option <?php if($perPage==6)echo "selected";?> value="6">6</option>
-                                <option <?php if($perPage==8)echo "selected";?> value="8">8</option>
-                                <option <?php if($perPage==10)echo "selected";?> value="10">10</option>
-                            </select>
-                            筆, 第 <?=$startItem?>-<?=$endItem?> 筆, 共 <?=$userCount?> 筆資料
-                            <!-- <button type="submit" class="btn btn-green">確定</button> -->
-                            <input type="hidden" name="category" value="<?=$category?>">
-                        </form> 
-                        <div class="" >
-                            篩選 
-                            <a class=" btn btn-khak me-2" href="order_qna.php?&perPage=<?=$perPage?>&search=<?=$search?>&order=<?=$order?>">全部問答</a>
-                            <a class=" btn btn-red me-2" href="order_qna.php?category=1&perPage=<?=$perPage?>&search=<?=$search?>&order=<?=$order?>">未回覆</a>
-                            <a class=" btn btn-grey me-2" href="order_qna.php?category=2&perPage=<?=$perPage?>&search=<?=$search?>&order=<?=$order?>">已回覆</a>
+                <div class="container">    
+                    <form class="" action="order_qna.php" method="get">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>   
+                                每頁顯示
+                                <select onchange="this.form.submit()" name="perPage">
+                                    <option <?php if($perPage==4)echo "selected";?> value="4">4</option>
+                                    <option <?php if($perPage==6)echo "selected";?> value="6">6</option>
+                                    <option <?php if($perPage==8)echo "selected";?> value="8">8</option>
+                                    <option <?php if($perPage==10)echo "selected";?> value="10">10</option>
+                                </select>
+                                筆, 第 <?=$startItem?>-<?=$endItem?> 筆, 共 <?=$userCount?> 筆資料
+                                </div> 
+                            <div>
+                                回覆狀態:
+                                <input type="radio" name="category" id="category1" class="" value="1" <?php if($category==1 || $category=="")echo "checked";?> onclick="this.form.submit()">
+                                <label for="category1">全部</label>
+                                <input type="radio" name="category" id="category2" class="" value="2" <?php if($category==2)echo "checked";?> onclick="this.form.submit()">
+                                <label for="category2">未回覆</label>
+                                <input type="radio" name="category" id="category3" class="" value="3" <?php if($category==3)echo "checked";?> onclick="this.form.submit()">
+                                <label for="category3">已回覆</label>
+                                <input type="radio" name="category" id="category4" class="" value="4" <?php if($category==4)echo "checked";?> onclick="this.form.submit()">
+                                <label for="category4">新訊息</label>
+                            </div>
                         </div>
-                    </div>
+                        <input type="hidden" name="page" value="<?=$page?>">
+                        <input type="hidden" name="perPage" value="<?=$perPage?>">
+                        <input type="hidden" name="category" value="<?=$category?>">
+                        <input type="hidden" name="order" value="<?=$order?>">
+                        <input type="hidden" name="search" value="<?=$search?>">
+                    </form> 
                     <!-- <hr>                    -->
                     <table class="table mt-2">
                         <thead>
@@ -222,18 +238,18 @@ $totalPage=ceil($userCount/$perPage);
                                 <td><?=$row["create_time"]?></td>
                                 <td><?=$row["update_time"]?></td>
                                 <td class="text-nowrap">
-                                    <!-- <form action="reply_table.php" method="post">
-                                        <input type="hidden" name="order_qna_id" value="<?=$row["id"]?>">
+                                    <form action="order_qna_detail.php" method="post">
                                         <button class="btn btn-khak me-3" type="submit">
-                                            <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                                            <img class="bi pe-none mb-1" src="../../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </button>
-                                    </form> -->
-                                    <a class=" btn btn-khak me-2" href="order_qna_detail.php?order_qna_id=<?=$row["id"]?>">
-                                        <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/update-icon.svg" width="16" height="16"></img>
-                                        詳細
-                                    </a>
-                                    
+                                        <input type="hidden" name="order_qna_id" value="<?=$row["id"]?>">
+                                        <input type="hidden" name="page" value="<?=$page?>">
+                                        <input type="hidden" name="perPage" value="<?=$perPage?>">
+                                        <input type="hidden" name="category" value="<?=$category?>">
+                                        <input type="hidden" name="order" value="<?=$order?>">
+                                        <input type="hidden" name="search" value="<?=$search?>">
+                                    </form>                                
                                 </td>
                             </tr>
                             <?php endforeach;?>
@@ -242,22 +258,11 @@ $totalPage=ceil($userCount/$perPage);
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example">
                         <ul class="pagination">
-                        <?php for($i=1; $i<=$totalPage; $i++): ?>
-                        <li class="page-item <?php if($page==$i)echo "active";?>"><a class="page-link" href="order_qna.php?page=<?=$i?>&perPage=<?=$perPage?>&order=<?=$order?>&category=<?=$category?>&search=<?=$search?>"><?=$i?></a></li>
-                        <?php endfor; ?>
-                            <!-- <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
+                            <?php for($i=1; $i<=$totalPage; $i++): ?>
+                            <li class="page-item <?php if($page==$i)echo "active";?>">
+                                <a class="page-link" href="order_qna.php?page=<?=$i?>&perPage=<?=$perPage?>&category=<?=$category?>&order=<?=$order?>&search=<?=$search?>"><?=$i?></a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li> -->
+                            <?php endfor; ?>
                         </ul>
                     </div>
                     <!-- 頁碼 end -->
