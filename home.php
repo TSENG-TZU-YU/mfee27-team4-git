@@ -102,8 +102,8 @@ session_start();
                 <!-- 子項目 -->
                 <div class="border-top border-3 border-white ">
                   <div class="mt-3"><a class="link-dark fw-bold fs-5" href="ins-shop/ins-shop.php">樂器商城</a></div>
-                  <div class="mt-1"><a class="link-dark fw-bold fs-5" href="#">音樂教育</a></div>
-                  <div class="mt-1"><a class="link-dark fw-bold fs-5" href="#">場地租借</a></div>
+                  <div class="mt-1"><a class="link-dark fw-bold fs-5" href="course-shop/course-shop.php">音樂教育</a></div>
+                  <div class="mt-1"><a class="link-dark fw-bold fs-5" href="place-shop/place-shop.php">場地租借</a></div>
                   
                 </div>
                 <!-- 子項目 end -->
@@ -115,7 +115,7 @@ session_start();
             <!-- 文章管理 -->
             <div class="col bg-grey-color p-3 position-relative">
               <div class="bg-grey-color rounded p-4" style=" height: 17rem; background: #F5E7D7;">
-                <a type="" href="article/create-article.php">
+                <a type="" href="article/articles.php">
                   <h2 class="fw-bold" style="color:#BC5D19;">文章管理</h2>
                 </a>
                 <!-- 子項目 -->
@@ -133,7 +133,7 @@ session_start();
             <!-- 師資管理 -->
             <div class="col bg-grey-color p-3 position-relative">
               <div class="bg-grey-color rounded p-4" style=" height: 17rem; background: #E3DCCB;">
-                <a type="" href="#">
+                <a type="" href="teacher/teachers.php">
                   <h2 class="fw-bold" style="color:#664D03;">師資管理</h2>
                 </a>
                 <!-- 子項目 -->
@@ -154,7 +154,7 @@ session_start();
                 <!-- 子項目 -->
                 <div class="border-top border-3 border-white ">
                   <div class="mt-3"><a class="link-dark fw-bold fs-5" href="customer/order_qna/order_qna.php">訂單問題</a></div>
-                  <div class="mt-1"><a class="link-dark fw-bold fs-5" href="#">客服問答</a></div>
+                  <div class="mt-1"><a class="link-dark fw-bold fs-5" href="customer/user_qna/user_qna.php">客服問答</a></div>
                 </div>
                 <!-- 子項目 end -->
                 <div class="position-absolute bottom-0 end-0 m-5">

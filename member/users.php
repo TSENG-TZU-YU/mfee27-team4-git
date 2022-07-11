@@ -124,7 +124,7 @@ $totalPage = ceil($userCount / $perPage);
                         <div class="row">
 
                             <p class="col-8 m-auto">
-                                第 <?= $startItem ?>-<?= $endItem ?> 筆 , 總共 <?=$userCount ?> 筆資料
+                                第 <?= $startItem ?>-<?= $endItem ?> 筆 , 總共 <?= $userCount ?> 筆資料
                             </p>
                             <input class="col form-control me-3" type="text" name="search">
                             <button class="col-1 btn btn-green" type="submit">
@@ -153,14 +153,26 @@ $totalPage = ceil($userCount / $perPage);
                             </div>
                             <div>
                                 排序 :
-                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&perPage=<?=$perPage?>&order=<?php if($order==2) {echo"3";} else {echo "2";}?>">
+                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&perPage=<?= $perPage ?>&order=<?php if ($order == 2) {
+                                                                                                                                    echo "3";
+                                                                                                                                } else {
+                                                                                                                                    echo "2";
+                                                                                                                                } ?>">
                                     會員姓名
                                 </a>
-                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&perPage=<?=$perPage?>&order=<?php if($order==4) {echo"5";} else {echo "4";}?>">
+                                <a class=" btn  btn-khak  me-2" href="users.php?page=<?= $page ?>&perPage=<?= $perPage ?>&order=<?php if ($order == 4) {
+                                                                                                                                    echo "5";
+                                                                                                                                } else {
+                                                                                                                                    echo "4";
+                                                                                                                                } ?>">
 
                                     會員帳號
                                 </a>
-                                <a class=" btn btn-khak me-2" href="users.php?page=<?= $page ?>&perPage=<?=$perPage?>&order=<?php if($order==6) {echo"7";} else {echo "6";}?>">
+                                <a class=" btn btn-khak me-2" href="users.php?page=<?= $page ?>&perPage=<?= $perPage ?>&order=<?php if ($order == 6) {
+                                                                                                                                echo "7";
+                                                                                                                            } else {
+                                                                                                                                echo "6";
+                                                                                                                            } ?>">
                                     註冊時間
                                 </a>
                             </div>
@@ -192,7 +204,7 @@ $totalPage = ceil($userCount / $perPage);
                                     <td><?= $row["email"] ?></td>
                                     <td><?= $row["create_time"] ?></td>
                                     <td>
-                                        <a class="btn btn-grey  me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>">
+                                        <a class="btn btn-grey  me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>&name=<?= $row["name"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </a>
@@ -205,6 +217,7 @@ $totalPage = ceil($userCount / $perPage);
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example text-end" class="d-flex mt-5  justify-content-center">
                         <ul class="pagination">

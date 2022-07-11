@@ -23,7 +23,9 @@ if($userExist>0){ //登入成功
     $user=[
         "id"=>$row["id"],
         "account"=>$row["account"],
-        "name"=>$row["name"]
+        "name"=>$row["name"],
+        "phone"=>$row["phone"],
+        "email"=>$row["email"]
     ];
     unset($_SESSION["error"]);
     $_SESSION["front_user"]=$user;

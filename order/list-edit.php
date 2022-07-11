@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_GET["order_id"])) {
     $order_id = $_GET["order_id"];
 } else {
@@ -38,6 +39,7 @@ $payMethodCount = $resultPayMethod->num_rows;
 // echo $sql;
 // exit;
 $conn->close();
+$sqlOrder = "WHERE order-list.php";
 ?>
 
 <!doctype html>
@@ -81,23 +83,11 @@ $conn->close();
                 <!-- 內容 -->
                 <div class="container">
                     <?php if ($orderCount > 0) :
-
-                        // echo var_dump($row);
-                        // $paymentState = [
-                        //     "1" => "未付款",
-                        //     "2" => "已付款",
-                        //     "3" => "退款"
-                        // ];
-                        // $orderState = [
-                        //     "1" => "訂單確認中",
-                        //     "2" => "訂單成立",
-                        //     "3" => "商家出貨",
-                        //     "4" => "訂單完成",
-                        //     "5" => "退貨處理中"
-                        // ];
+                        $listPage = $_SESSION["page"]; //
+                        echo $listPage;
                     ?>
                         <div class="pt-2 pb-5 row align-items-baseline">
-                            <a class="col-1 btn btn-green me-2" href="order-list.php">
+                            <a class="col-1 btn btn-green me-2" href="order-list.php?page=<?= $listPage ?>">
                                 <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>返回
                             </a>
                             <h5 class="col-2">訂單編號：<?= $order_id ?></h5>
@@ -121,7 +111,7 @@ $conn->close();
                                 </tr>
                                 <tr>
                                     <th>結帳方式</th>
-                                    <td> <select class="form-select text-center" name="payMethod" id="">
+                                    <td> <select class="form-select" name="payMethod" id="">
                                             <?php for ($i = 0; $i < $payMethodCount; $i++) : ?>
                                                 <option value="<?= $payMethodrows[$i]["id"] ?>" <?php
                                                                                                 if ($payMethodrows[$i]["id"] === $row["payment_method"]) echo "selected"; ?>><?= $payMethodrows[$i]["name"] ?></option>
@@ -135,7 +125,7 @@ $conn->close();
                                     <td>
                                         <?php
                                         if ($row["payment_state"] == "1") : ?>
-                                            <select class="form-select text-center" name="paymentState">
+                                            <select class="form-select" name="paymentState">
                                                 <?php for ($i = 0; $i < $payStateCount - 1; $i++) : //-1 先不讓退款顯示
                                                 ?>
                                                     <option value="<?= $payStaterows[$i]["id"] ?>" <?php
@@ -166,7 +156,7 @@ $conn->close();
                                             <input name="orderState" type="hidden" value="<?= $row["order_state"] ?>">
                                             <?= $orderStaterows[$row["order_state"] - 1]["name"] ?>
                                         <?php else : ?>
-                                            <select class="form-select text-center" name="orderState">
+                                            <select class="form-select" name="orderState">
                                                 <?php
                                                 if ($row["order_state"] === "1") :
                                                     for ($i = 0; $i < $orderStateCount - 2; $i++) :
@@ -190,7 +180,11 @@ $conn->close();
 
                             </table>
                             <div class="py-2">
-                                <button class="btn btn-green me-2" type="submit">儲存</button>
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-green me-2" type="submit">儲存</button>
+                                    <a class=" btn btn-red me-2" href="doListDelete.php?order_id=<?=$row["order_id"]?>">
+                                        <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>刪除</a>
+                                </div>
                             </div>
                         </form>
                     <?php else : ?>

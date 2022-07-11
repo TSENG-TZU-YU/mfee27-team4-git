@@ -107,7 +107,7 @@ $row = $result->fetch_assoc();
                 <article class="content">
                 <h1>訂單號" <?=$order_id?> "的問題</h1>
                 <hr>                   
-                <form action="doAsker.php" method="post" class="formitem">
+                <form action="qna_doAsker.php" method="post" class="formitem">
                     <div class="formitem">
                         <label for="q_category" class="fs-5 fw-bolder">問題類型</label>    
                         <select id="q_category" class="form-control mt-2 mb-3" name="q_category">
@@ -130,7 +130,7 @@ $row = $result->fetch_assoc();
                                 <input type="hidden" name="order_id" value="<?=$order_id?>">
                                 <input type="hidden" name="user_id" value="<?=$user_id?>">
                                 <input type="hidden" name="name" value="<?=$name?>">
-                                <input type="hidden" name="account" value="<?=$row["account"]?>">
+
                             </div>
                             <div class="py-2 mx-2">
                                 <a class="btn btn-grey" href="my_order.php">取消</a>

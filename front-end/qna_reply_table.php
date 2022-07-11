@@ -4,7 +4,6 @@ if(!isset($_SESSION["front_user"])){
     header("location: front_login.php");
   }
 require("../db-connect.php");
-
 $order_id=$_GET["order_id"];
 
 $sql="SELECT order_qna.*, users.account,users.name FROM order_qna
@@ -24,7 +23,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 <html lang="zh-tw">
 
 <head>
-    <title>查看問題</title>
+    <title>HAMAYA MUSIC</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -124,12 +123,12 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                             <tr> 
                                 <td>
                                     <?php foreach($rowsDetail as $rowDetail): ?>
-                                    <p class="text-end my-2"><?=$rowDetail["name"]." : "?></p>
+                                    <p class="text-end my-2 fw-bolder"><?=$rowDetail["name"]." : "?></p>
                                     <?php endforeach;?> 
                                 </td>
                                 <td >
                                     <?php foreach($rowsDetail as $rowDetail): ?>
-                                    <p class="text-start my-2"><?=$rowDetail["q_content"]?></p>
+                                    <p class="text-start my-2 fw-bolder"><?=$rowDetail["q_content"]?></p>
                                     <?php endforeach;?>    
                                 </td>
                                 <td>
@@ -141,12 +140,11 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                             
                             <tr>
                                 <th>進行回覆</th>
-                                <td colspan="1">
+                                <td colspan="2">
                                     <!-- <textarea type="" pattern=".*[^ ].*" class="form-control inputcontent" placeholder='輸入對話' name="reply" ></textarea> -->
                                     <input type="text" name="reply" class="form-control inputcontent" pattern=".*[^ ].*" placeholder='輸入內容' autocomplete="off" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required >
                                 </td>  
                                 <td>
-
                                 </td>  
                             </tr>
                         </table>

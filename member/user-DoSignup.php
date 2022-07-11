@@ -86,7 +86,7 @@ if ($conn->query($sqlCreate) === TRUE && $coupon==1) {
     echo "<script language='JavaScript'>;alert('註冊成功 獲得商品50元折價券');location.href='users.php';</script>;";
     // header("location:users.php");
 }if ($conn->query($sqlCreate) === TRUE  && $coupon==0){
-    echo "<script language='JavaScript'>;alert('註冊成功');</script>;";
+    echo "<script language='JavaScript'>;alert('註冊成功');location.href='users.php';</script>;";
 }
 else {
     echo "Error: " . $sql . "<br>" . $conn->error;

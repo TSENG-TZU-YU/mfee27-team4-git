@@ -1,21 +1,18 @@
 <?php
 require("../db-connect.php");
-
 $id=$_GET["id"];
 
-//delete
-// $sql="DELETE FROM users WHERE id='$id'";
-
-//update to valid 0
-//soft delete
+//update to valid 0  軟刪除
 $sql="UPDATE instrument_product SET valid=0 WHERE id='$id'";
 
-// echo $sql;
 if ($conn->query($sql) === TRUE) {
-    echo "刪除成功";
+    echo "<script language='JavaScript'>;alert('成功下架');location.href='users.php';</script>;";
+    
 } else {
-    echo "刪除資料錯誤: " . $conn->error;
+    echo "無法下架: " . $conn->error;
 }
-header("location: ins-shop.php");
+
+header("location:ins-shop.php");
+
 
 ?>

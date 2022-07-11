@@ -8,8 +8,14 @@ if (!isset($_GET["id"])) {
     echo "沒有參數";
     exit;
 }
+if (!isset($_GET["name"])) {
+    echo "沒有參數";
+    exit;
+}
+
 
 $id = $_GET["id"];
+$name = $_GET["name"];
 $sql = "SELECT * FROM users WHERE id=$id AND valid=1";
 $result = $conn->query($sql);
 $userCount = $result->num_rows;
@@ -78,7 +84,7 @@ $row = $result->fetch_assoc();
                             <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
-                        <a class="col-1 btn btn-grey mx-3" href="user-coupon.php?id=<?= $row["id"] ?>">
+                        <a class="col-1 btn btn-grey mx-3" href="user-coupon.php?id=<?= $row["id"] ?>&name=<?= $row["name"] ?>">
                             <!-- <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img> -->
                             優惠券
                         </a>

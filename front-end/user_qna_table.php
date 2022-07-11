@@ -1,6 +1,9 @@
 <?php
 session_start();
 require("../../db-connect.php");
+// var_dump($_SESSION);
+
+
 ?>
 <!doctype html>
 <html lang="zh-tw">
@@ -94,14 +97,14 @@ require("../../db-connect.php");
             <article class="content">
                 <h1>聯絡表單</h1>
                 <hr>                   
-                <form action="doAsker.php" method="post">
+                <form action="user_qna_doAsker.php" method="post">
                     <div class="formitem">
                         <label for="name" class="fs-5 fw-bolder">姓名</label>
-                        <input type="text" id="name" name="name" class="form-control mt-2 mb-3" placeholder='請輸入您的姓名' required >
+                        <input type="text" id="name" name="name" class="form-control mt-2 mb-3" placeholder='請輸入您的姓名' value="<?php if(isset($_SESSION["front_user"])) echo $_SESSION["front_user"]["name"]?>" required >
                         <label for="email" class="fs-5 fw-bolder">電子郵件</label>
-                        <input type="email" id="email" name="email" class="form-control mt-2 mb-3" placeholder='請輸入您的E-MAIL' required >
+                        <input type="email" id="email" name="email" class="form-control mt-2 mb-3" placeholder='請輸入您的E-MAIL' value="<?php if(isset($_SESSION["front_user"])) echo $_SESSION["front_user"]["email"]?>" required >
                         <label for="phone" class="fs-5 fw-bolder">聯絡電話</label>
-                        <input type="phone" id="phone" name="phone" class="form-control mt-2 mb-3" placeholder='請填寫連絡電話' required >
+                        <input type="phone" id="phone" name="phone" class="form-control mt-2 mb-3" placeholder='請填寫連絡電話' value="<?php if(isset($_SESSION["front_user"])) echo $_SESSION["front_user"]["phone"]?>" required >
                         <label for="q_category" class="fs-5 fw-bolder">問題類型</label>
                         <select id="q_category" class="form-control mt-2 mb-3" name="q_category">
                             <option value="其他問題">選擇問題</option>
@@ -120,10 +123,6 @@ require("../../db-connect.php");
                         <div class="d-flex">
                             <div class="py-2 mx-2  ">
                                 <button class="btn btn-green" type="submit">送出</button>
-                                <input type="hidden" name="order_id" value="<?=$order_id?>">
-                                <input type="hidden" name="user_id" value="<?=$user_id?>">
-                                <input type="hidden" name="name" value="<?=$name?>">
-                                <input type="hidden" name="account" value="<?=$row["account"]?>">
                             </div>
                             <div class="py-2 mx-2">
                                 <a class="btn btn-grey" href="front_index.php">取消</a>
@@ -142,7 +141,7 @@ require("../../db-connect.php");
                     <a href="my_order.php" class="list-group-item list-group-item-action" aria-current="true">
                         我的訂單
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                    <a href="my_qna.php" class="list-group-item list-group-item-action" aria-current="true">
                         我的提問
                     </a>
                   </div>
