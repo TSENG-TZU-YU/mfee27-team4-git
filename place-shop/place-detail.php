@@ -94,11 +94,11 @@ $row = $result->fetch_assoc();
                                 </tr>
                                 <tr>
                                     <th>店面</th>
-                                    <td><?= $row["location"] ?></td>
+                                    <td><?= $row["cate"] ?></td>
                                 </tr>
                                 <tr>
                                     <th>場地類型</th>
-                                    <td><?= $row["placetype"] ?></td>
+                                    <td><?= $row["name"] ?></td>
                                 </tr>
                                 <tr>
                                     <th>定價</th>
@@ -118,7 +118,7 @@ $row = $result->fetch_assoc();
                                 </tr>
                                 <tr>
                                     <th>場地簡介</th>
-                                    <td><?= $row["place_intro"] ?></td>
+                                    <td><?= $row["intro"] ?></td>
                                 </tr>
                                 <tr>
                                     <th>建立時間</th>

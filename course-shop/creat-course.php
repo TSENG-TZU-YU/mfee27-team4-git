@@ -48,7 +48,7 @@
             <form action="docreate-course.php" method="post">
                 <div class="mb-2">
                     <label for="">課程類別</label>
-                    <input type="text" class="form-control" name="course_cate">
+                    <input type="text" class="form-control" name="cate">
                 </div>
                 <div class="mb-2">
                     <label for="">地點</label>
@@ -56,7 +56,7 @@
                 </div>                
                 <div class="mb-2">
                     <label for="">課程名稱</label>
-                    <input type="text" class="form-control" name="course_name">
+                    <input type="text" class="form-control" name="name">
                 </div>
                 <div class="mb-2">
                     <label for="">庫存</label>
@@ -76,7 +76,7 @@
                 </div>
                 <div class="mb-2">
                     <label for="">課程介紹</label>
-                    <textarea type="text" class="form-control" name="course_intro"></textarea>
+                    <textarea type="text" class="form-control" name="intro"></textarea>
                 </div>
                 <button class="btn btn-info" type="submit">送出</button>
                 <button class="btn btn-info" type="reset">清除</button>

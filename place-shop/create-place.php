@@ -48,11 +48,11 @@
             <form action="docreate-place.php" method="post">
                 <div class="mb-2">
                     <label for="">店面</label>
-                    <input type="text" class="form-control" name="location">
+                    <input type="text" class="form-control" name="cate">
                 </div>
                 <div class="mb-2">
                     <label for="">場地類型</label>
-                    <input type="text" class="form-control" name="placetype">
+                    <input type="text" class="form-control" name="name">
                 </div>                
                 <div class="mb-2">
                     <label for="">庫存</label>
@@ -72,7 +72,7 @@
                 </div>
                 <div class="mb-2">
                     <label for="">場地介紹</label>
-                    <textarea type="text" class="form-control" name="place_intro"></textarea>
+                    <textarea type="text" class="form-control" name="intro"></textarea>
                 </div>
                 <button class="btn btn-info" type="submit">送出</button>
                 <button class="btn btn-info" type="reset">清除</button>

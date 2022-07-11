@@ -5,22 +5,22 @@ if(!isset($_POST["course_name"])){
     exit;
 }
 
-$course_cate=$_POST["course_cate"];
-$course_name=$_POST["course_name"];
+$cate=$_POST["cate"];
+$name=$_POST["name"];
 $location=$_POST["location"];
 $stock=$_POST["stock"];
 $price=$_POST["price"];
 $begin_date=date('Y-m-d H-i-s');
 $over_date=date('Y-m-d H-i-s');
-$course_intro=$_POST["course_intro"];
+$intro=$_POST["intro"];
 $create_time=date('Y-m-d H-i-s');
 
 if(empty($course_cate)){    //後端檢查 
-    echo"沒有填 course_cate";
+    echo"沒有填 cate";
     exit;
 }
 if(empty($course_name)){    
-    echo"沒有填 course_name";
+    echo"沒有填 name";
     exit;
 }
 if(empty($price)){
@@ -58,8 +58,8 @@ if($courseCount>0){
     exit;
 }
 // 寫入資料庫
-$sqlCreate="INSERT INTO course_product (course_cate, course_name, location, price, stock, begin_date, over_date, create_time, valid) 
-                            VALUES ('$course_cate','$course_name', '$location', '$price','$stock','$begin_date','$over_date', '$create_time',1)";
+$sqlCreate="INSERT INTO course_product (cate, name, location, price, stock, begin_date, over_date, create_time, valid) 
+                            VALUES ('$cate','name', '$location', '$price','$stock','$begin_date','$over_date', '$create_time',1)";
 
 if ($conn->query($sqlCreate) === TRUE) {
     echo "<script language='JavaScript'>;alert('新增成功');location.href='course-shop.php';</script>;";

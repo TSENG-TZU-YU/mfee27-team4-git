@@ -5,18 +5,18 @@ if(!isset($_POST["course_name"])){
 require("../db-connect.php");
 
 $id=$_POST["id"];
-$course_cate=$_POST["course_cate"];
-$course_name=$_POST["course_name"];
+$cate=$_POST["cate"];
+$name=$_POST["name"];
 $location=$_POST["location"];
 $stock=$_POST["stock"];
 $price=$_POST["price"];
 $begin_date=date('Y-m-d H-i-s');
 $over_date=date('Y-m-d H-i-s');
-$course_intro=$_POST["course_intro"];
+$intro=$_POST["intro"];
 $create_time=date('Y-m-d H-i-s');
 
 $sql="UPDATE course_product SET 
-course_cate='$course_cate',course_name='$course_name',price='$price',stock='$stock',date('Y-m-d H-i-s')='$begin_date', date('Y-m-d H-i-s')='$over_date',course_intro='$course_intro'
+cate='$cate',name='$name',price='$price',stock='$stock',date('Y-m-d H-i-s')='$begin_date', date('Y-m-d H-i-s')='$over_date',intro='$intro'
 WHERE id=$id AND valid=1";
 
 

@@ -150,9 +150,9 @@ $totalPage = ceil($courseCount / $perPage);
                                 <th><input type="checkbox" class="ckb" id=" con.id " value=" con.id "></th>
                                 <td><?=$row["product_id"]?></td>
                                 <td><?=$row["creat_time"]?></td>
-                                <td><?=$row["course_cate"]?></td>
+                                <td><?=$row["cate"]?></td>
                                 <td><?=$row["location"]?></td>
-                                <td><?=$row["course_name"]?></td>
+                                <td><?=$row["name"]?></td>
                                 <td>指導老師</td>
                                 <td><?=$row["stock"]?></td>
                                 <td><?=$row["price"]?></td>

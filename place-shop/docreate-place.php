@@ -5,21 +5,21 @@ if(!isset($_POST["location"])){
     exit;
 }
 
-$location=$_POST["location"];
-$placetype=$_POST["placetype"];
+$cate=$_POST["cate"];
+$name=$_POST["name"];
 $stock=$_POST["stock"];
 $price=$_POST["price"];
 $use_time=date('Y-m-d H-i-s');
 $over_time=date('Y-m-d H-i-s');
-$place_intro=$_POST["place_intro"];
+$intro=$_POST["intro"];
 $create_time=date('Y-m-d H-i-s');
 
 if(empty($location)){    //後端檢查 
-    echo"沒有填 location";
+    echo"沒有填 cate";
     exit;
 }
 if(empty($placetype)){    
-    echo"沒有填 placetype ";
+    echo"沒有填 name ";
     exit;
 }
 if(empty($price)){
@@ -57,8 +57,8 @@ if($placeCount>0){
     exit;
 }
 // 寫入資料庫
-$sqlCreate="INSERT INTO place_produce (location, placetype, price, stock, use_time, over_time, create_time, place_intro, valid) 
-                            VALUES ('$location','$placetype', '$price','$stock','$use_time','$over_time', '$create_time','$place_intro' ,1)";
+$sqlCreate="INSERT INTO place_produce (cate, name, price, stock, use_time, over_time, create_time, intro, valid) 
+                            VALUES ('$cate','$name', '$price','$stock','$use_time','$over_time', '$create_time','$intro' ,1)";
 
 if ($conn->query($sqlCreate) === TRUE) {
     echo "<script language='JavaScript'>;alert('新增成功');location.href='place-shop.php';</script>;";
