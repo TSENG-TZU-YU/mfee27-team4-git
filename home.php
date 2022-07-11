@@ -154,7 +154,7 @@ session_start();
                 <!-- 子項目 -->
                 <div class="border-top border-3 border-white ">
                   <div class="mt-3"><a class="link-dark fw-bold fs-5" href="customer/order_qna/order_qna.php">訂單問題</a></div>
-                  <div class="mt-1"><a class="link-dark fw-bold fs-5" href="#">客服問答</a></div>
+                  <div class="mt-1"><a class="link-dark fw-bold fs-5" href="customer/user_qna/user_qna.php">客服問答</a></div>
                 </div>
                 <!-- 子項目 end -->
                 <div class="position-absolute bottom-0 end-0 m-5">
