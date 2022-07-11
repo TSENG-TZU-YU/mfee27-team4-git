@@ -7,7 +7,7 @@ $sql="SELECT user_qna.*,users.account FROM user_qna LEFT JOIN users ON user_qna.
 $result=$conn->query($sql);
 $row = $result->fetch_assoc();
 
-$sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id";
+$sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id AND valid=1" ;
 $resultDetail = $conn->query($sqlDetail);
 $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 
@@ -81,8 +81,17 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                 <hr>
                 <!-- 內容 -->
                 <div class="container">
-                    
-                    <form action="user_doReply.php" method="post">
+                    <script>
+                        function rep(){
+                            document.form1.action="user_doReply.php";
+                            document.form1.submit();
+                        }
+                        function del(){
+                            document.form1.action="user_doDelete.php";
+                            document.form1.submit();
+                        }
+                    </script>
+                    <form name="form1" action="" method="post">
                         <table class="table">
                             <tr>
                                 <th>編號</th>
@@ -160,17 +169,18 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                     <?php endforeach;?>    
                                 </td>
                                 <td>
-                                    <form action="doDelete.php" method="post">
+                                    <!-- <form action="user_doDelete.php" method="post"> -->
                                     <?php foreach($rowsDetail as $rowDetail): ?>
                                     <p class="text-start my-2">
                                         <?=$rowDetail["create_time"]?>
-                                        <input type="checkbox" name="delete[]" value=<?php $rowDetail["id"]?>>
+                                        <input type="checkbox" name="arrayId[]" value="<?=$rowDetail["id"]?>">
                                     </p>
                                     <?php endforeach;?>
                                     <!-- <button class="btn btn-red" type="submit">
                                         <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>刪除
                                     </button> -->
-                                    </form>
+                                    <input type="hidden" name="user_qna_id" value="<?=$rowDetail["user_qna_id"]?>">
+                                    <!-- </form> -->
                                 </td>
                                 
                             </tr>
@@ -179,7 +189,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                 <th>進行回覆</th>
                                 <td colspan="1">
                                     <!-- <textarea type="" pattern=".*[^ ].*" class="form-control inputcontent" placeholder='輸入對話' name="reply" ></textarea> -->
-                                    <input type="text" name="reply" class="form-control inputcontent" pattern=".*[^ ].*" placeholder='輸入對話' autocomplete="off" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required >
+                                    <input type="text" name="reply" class="form-control inputcontent"  placeholder="輸入內容" autocomplete="off" >
                                 </td>  
                                 <td>
 
@@ -189,7 +199,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                         <div class="d-flex justify-content-between">
                             <div class="d-flex">
                                 <div class="py-2 mx-2  ">
-                                    <button class="btn btn-green" type="submit">確定</button>
+                                    <button onclick="rep()" class="btn btn-green" type="">確定</button>
                                     <input type="hidden" name="user_qna_id" value="<?=$user_qna_id?>">
                                 </div>
                                 <div class="py-2 mx-2">
@@ -197,8 +207,9 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                 </div>
                             </div>
                             <div class="py-2">                                
-                                <button class="btn btn-red" type="submit">
-                                    <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>刪除
+                                <button onclick="del()" class="btn btn-red" type="">
+                                    <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>
+                                    刪除
                                 </button>
                             </div>
                         </div>

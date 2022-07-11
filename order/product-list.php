@@ -7,7 +7,7 @@
                 </figure>
                 <div class="text-primary"><?= $row["cate"] ?></div>
                 <h4 class="mb-2"><?= $row["name"] ?></h4>
-                <p class="mb-2"><?=$row["intro"]?></p>
+                <p class="mb-2 ellipsis"><?=$row["intro"]?></p>
                 <div class="text-end text-danger">$<?= $row["price"] ?></div>
                 <div class="py-2">
                     <div class="d-grid">
