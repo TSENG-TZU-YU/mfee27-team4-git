@@ -2,23 +2,53 @@
 // 連結資料庫
 require("../db-connect.php");
 
-//search
-if (!isset($_GET["search"])) {
-    $search = " ";
-    $teacherCount = 0;
-    $teacherRows = [];
-} else {
-    $search = $_GET["search"];
-    $sqlAll = "SELECT * FROM teacher  WHERE id LIKE '%$search%' || name LIKE '%$search%' || profile LIKE '%$search%' AND valid=1";
-    $resultAll = $conn->query($sqlAll);
-    $teacherCount = $resultAll->num_rows;
-    $teacherRows = $resultAll->fetch_all(MYSQLI_ASSOC);
-}
-
 // 抓課程商品資料
 $sqlCourseProduct = "SELECT * FROM course_product WHERE id AND valid=1";
 $resultCourseProduct = $conn->query($sqlCourseProduct);
 $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
+
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+} else {
+    $page = 1;
+}
+
+if (isset($_GET["search"])) {
+    $search = $_GET["search"];
+} else {
+    $search = "";
+}
+
+// 頁碼
+$sqlAll = "SELECT * FROM teacher  WHERE valid=1";
+$resultAll = $conn->query($sqlAll);
+$teacherCount = $resultAll->num_rows;
+
+$perPage = 4;
+$startPage = ($page - 1) * $perPage;
+$sql = "SELECT * FROM teacher WHERE valid=1 LIMIT $startPage, $perPage";
+
+$result = $conn->query($sql);
+$pageTeacherCount = $result->num_rows;
+$teacherRows = $result->fetch_all(MYSQLI_ASSOC);
+
+$startItem = ($page - 1) * $perPage + 1;
+$endItem = $page * $perPage;
+
+if ($endItem > $teacherCount) $endItem = $teacherCount;
+$totalPage = ceil($teacherCount / $perPage);
+
+//search
+if (!isset($_GET["search"])) {
+    $search = "";
+    $teacherCount = 0;
+} else {
+    $search = $_GET["search"];
+    $sqlAll = "SELECT * FROM teacher  WHERE name LIKE '%$search%' AND valid=1";
+    $resultAll = $conn->query($sqlAll);
+    $teacherCount = $resultAll->num_rows;
+    $teacherRows = $resultAll->fetch_all(MYSQLI_ASSOC);
+}
 
 
 
@@ -75,7 +105,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="../home.php">首頁</a></li>
                         <li class="breadcrumb-item" aria-current="page">師資管理</li>
                     </ol>
                 </biv>
@@ -88,8 +118,8 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                     <div class="row">
                         <form action="teacher-search.php" method="get">
                             <div class="row">
-                                <p class="col-8 m-auto">總共 <?= $teacherCount ?> 筆資料</p>
-                                <input class="col form-control me-3" type="text" name="search" value="搜尋 <?= $search ?>">
+                                <p class="col-8 m-auto">第 <?= $startItem ?> - <?= $endItem ?> 筆，總共 <?= $teacherCount ?> 筆資料</p>
+                                <input class="col form-control me-3" type="text" name="search" value="搜尋 <?= $search ?> 結果">
                                 <button class="col-1 btn btn-green" type="submit">
                                     <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                                     搜尋
@@ -127,7 +157,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                                 <th scope="col">師資照片</th>
                                 <th scope="col">師資姓名</th>
                                 <th scope="col">教學領域</th>
-                                <th scope="col">教授課程</th>
+                                <th scope="col" width="130">教授課程</th>
                                 <th scope="col" width="350">師資簡介</th>
                                 <th scope="col">管理操作</th>
                             </tr>
@@ -149,40 +179,8 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                         ?>
                         "></td>
                                     <td><?= $row["name"] ?></td>
-                                    <td>
-                                        <?php
-                                        switch ($row["field"]) {
-                                            case '1':
-                                                echo "琴鍵類音樂";
-                                                break;
-                                            case '2':
-                                                echo "弦樂類音樂";
-                                                break;
-                                            case '3':
-                                                echo "管樂類音樂";
-                                                break;
-                                            case '4':
-                                                echo "熱音類音樂";
-                                                break;
-                                            case '5':
-                                                echo "其他類音樂";
-                                                break;
-                                        }
-                                        ?>
-                                    </td>
-                                    <td>
-                                        <?php
-                                        $coursesArray = explode(",", $row["courses"]);
-                                        foreach ($coursesArray as $key => $value) :
-                                            $sqlCourseName = "SELECT course_name FROM course_product WHERE id=$value";
-                                            $resultCourseName = $conn->query($sqlCourseName);
-                                            $rowsCourseName = $resultCourseName->fetch_array(MYSQLI_ASSOC);
-                                        ?>
-                                            <div>
-                                                <?= $rowsCourseName["course_name"]; ?>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </td>
+                                    <td><?= $row["field"] ?></td>
+                                    <td align="left"><?= $row["courses"]; ?></td>
                                     <td align="left">
                                         <p class="ellipsis">
                                             <?= $row["profile"] ?>
@@ -193,7 +191,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </a>
-                                        <a class="btn btn-khak" type="button" href="teacher-update.php?id=<?= $row["id"] ?>">
+                                        <a class="btn btn-khak" type="button" href="teacher-edit.php?id=<?= $row["id"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                                             修改
                                         </a>
@@ -220,7 +218,12 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                                     <span aria-hidden="true">&laquo;</span>
                                 </a> -->
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+                                <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="teachers.php?page=<?= $i ?>&search=<?= $search ?>">
+                                        <?= $i ?>
+                                    </a>
+                                </li>
+                            <?php endfor; ?>
                             <li class="page-item">
                                 <!-- <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>

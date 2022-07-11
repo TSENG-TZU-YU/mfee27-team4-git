@@ -57,7 +57,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="../home.php">首頁</a></li>
                         <li class="breadcrumb-item"><a href="teachers.php">師資管理</a></li>
                         <li class="breadcrumb-item" aria-current="page">新增師資資料</li>
                     </ol>
@@ -95,12 +95,12 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                                             <th>教學領域</th>
                                             <td>
                                                 <select class="form-select" aria-label="Default select example" name="field">
-                                                    <option selected value="0">請選擇教學領域</option>
-                                                    <option value="1">琴鍵類音樂</option>
-                                                    <option value="2">弦樂類音樂</option>
-                                                    <option value="3">管樂類音樂</option>
-                                                    <option value="4">熱音類音樂</option>
-                                                    <option value="5">其他類音樂</option>
+                                                    <option selected value="請選擇教學領域">請選擇教學領域</option>
+                                                    <option value="琴鍵類音樂">琴鍵類音樂</option>
+                                                    <option value="弦樂類音樂">弦樂類音樂</option>
+                                                    <option value="管樂類音樂">管樂類音樂</option>
+                                                    <option value="熱音類音樂">熱音類音樂</option>
+                                                    <option value="其他類音樂">其他類音樂</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -110,7 +110,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                                                 <!-- 帶入課程商品資料 作為選項check-box -->
                                                 <?php foreach ($CourseProductRows as $row) : ?>
                                                     <label class="form-check-label" for="flexCheckDefault<?= $row["id"] ?>">
-                                                        <input class="form-check-input" type="checkbox" id="flexCheckDefault<?= $row["id"] ?>" name="courseId[]" value="<?= $row["id"] ?>">
+                                                        <input class="form-check-input" type="checkbox" id="flexCheckDefault<?= $row["id"] ?>" name="courseName[]" value="<?= $row["course_name"] ?>">
                                                         <?= $row["course_name"] ?>
                                                     </label>
                                                 <?php endforeach; ?>
