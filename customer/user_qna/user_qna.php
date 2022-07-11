@@ -1,7 +1,7 @@
 <?php
 require("../../db-connect.php");
 
-
+session_start();
 $perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
 $page=isset($_GET["page"])? $_GET["page"] : 1;
 
@@ -85,7 +85,7 @@ if($endItem>$userCount)$endItem=$userCount;
 
 $totalPage=ceil($userCount/$perPage);
 
-$sqlUser_qna="WHERE user_qna.php"
+$sqlUser_qna="WHERE "
 
 ?>
 <!DOCTYPE html>

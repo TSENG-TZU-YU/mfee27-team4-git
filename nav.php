@@ -40,11 +40,11 @@
                     商品管理
                 </a>
             </li>
-            <div class="collapse" id="multiCollapseExample2">
+            <div class="<?php if ($sqlIns || $sqlCourse || $sqlPlace){echo "collapse-in";}else {echo "collapse";}  ?>" id="multiCollapseExample2">
                 <div>
-                    <a href="http://localhost/mfee27-team4-git/ins-shop/ins-shop.php" class="nav-link nav-link-item my-1">樂器商城</a>
-                    <a href="http://localhost/mfee27-team4-git/course-shop/course-shop.php" class="nav-link nav-link-item my-1">音樂教育</a>
-                    <a href="http://localhost/mfee27-team4-git/place-shop/place-shop.php" class="nav-link nav-link-item my-1">場地租借</a>
+                    <a href="http://localhost/mfee27-team4-git/ins-shop/ins-shop.php" class="nav-link nav-link-item my-1 <?php if ($sqlIns) echo "nav-active " ?>">樂器商城</a>
+                    <a href="http://localhost/mfee27-team4-git/course-shop/course-shop.php" class="nav-link nav-link-item my-1 <?php if ($sqlCourse) echo "nav-active " ?>">音樂教育</a>
+                    <a href="http://localhost/mfee27-team4-git/place-shop/place-shop.php" class="nav-link nav-link-item my-1 <?php if ($sqlPlace) echo "nav-active " ?>">場地租借</a>
                 </div>
             </div>
             <li>
