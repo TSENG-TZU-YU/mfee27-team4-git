@@ -30,29 +30,27 @@ if ($conn->query($sql) === TRUE) {
   $order_id = $conn->insert_id; //取得insert進去這筆訂單的id
   echo $order_id;
   foreach ($pro as $key => $value) {
-    $sql = "SELECT * FROM instrument_product WHERE product_id='$key'";
-    $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
-    $category_id = $row["category"];
+    $arrKey = str_split($key);
 
-    $sqlDetail = "INSERT INTO order_product_detail (order_id, product_id, category_id,amount,valid) VALUES ('$order_id', '$key', '$category_id',$value,1)";
+    if ($arrKey[0] == "A") {
+      $sqlDetail = "INSERT INTO order_product_detail (order_id, product_id, category_id,amount,address,valid) VALUES ('$order_id', '$key', 'A',$value,$address,1)";
+      // $sqlAddress = $address;
+    }
+    if ($arrKey[0] == "B") {
+      $sqlDetail = "INSERT INTO order_product_detail (order_id, product_id, category_id,amount,valid) VALUES ('$order_id', '$key', 'B',$value,1)";
+      // $sqlAddress = "";
+    }
+    if ($arrKey[0] == "C") {
+      $sqlDetail = "INSERT INTO order_product_detail (order_id, product_id, category_id,amount,valid) VALUES ('$order_id', '$key', 'C',$value,1)";
+      // $sqlAddress = "";
+    }
+    // $sql = "SELECT * FROM instrument_product WHERE product_id='$key'";
+    // $result = $conn->query($sql);
+    // $row = $result->fetch_assoc();
+    // $category_id = $row["category"];
+
+
     echo $sqlDetail;
-    echo "<br>";
-    var_dump($row);
-    echo "<br>";
-  
-
-
-
-  // foreach ($_SESSION["cart"] as $item) {
-  //   $product_id = key($item);
-  //   $category_id = current($item);
-  //   var_dump($item);
-  //   echo "<br>";
-
-  //   // 要把總數傳過來
-  //   $sqlDetail = "INSERT INTO order_product_detail (order_id, product_id, category_id,valid) VALUES ('$order_id', '$product_id', '$category_id',1)";
-
     if (!$conn->query($sqlDetail)) {
       echo "Error: " . $sqlDetail . "<br>" . $conn->error;
     }
@@ -81,7 +79,7 @@ if ($conn->query($sql) === TRUE) {
 <body>
   <h1 class="text-center">訂單成立</h1>
   <div class="py-2 text-center">
-    <a href="music-products.php">回產品列表</a>
+    <a href="ins-products.php">回產品列表</a>
   </div>
 </body>
 

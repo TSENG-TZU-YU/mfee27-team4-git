@@ -7,28 +7,6 @@ $resultIns = $conn->query($sqlIns);
 $product_countIns = $resultIns->num_rows;
 $rows = $resultIns->fetch_all(MYSQLI_ASSOC);
 
-
-
-// $sqlCategory=" SELECT * FROM category";
-// $resultCategory = $conn->query($sqlCategory);
-// $rowsCategory = $resultCategory->fetch_all(MYSQLI_ASSOC);
-
-
-// if (isset($_GET["category"])) {
-//     $category = $_GET["category"];
-//     $sqlWhere="WHERE product.category_id = $category";
-
-// } else {
-//     $category="";
-//     $sqlWhere="";
-// }
-// $sql = " SELECT product.*, category.name AS category_name FROM product JOIN category ON product.category_id = category.id $sqlWhere";
-
-
-// $result = $conn->query($sql);
-// $product_count = $result->num_rows;
-// $rows = $result->fetch_all(MYSQLI_ASSOC);
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -43,6 +21,16 @@ $rows = $resultIns->fetch_all(MYSQLI_ASSOC);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <style>
+    .ellipsis {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      /* display: -webkit-box; */
+      /* -webkit-line-clamp: 3; */
+      /* -webkit-box-orient: vertical; */
+      /* white-space: normal; */
+      text-align: justify;
+    }
     .object-cover {
         width: 100%;
         height: 100%;
