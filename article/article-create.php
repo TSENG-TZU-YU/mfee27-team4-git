@@ -72,11 +72,11 @@
                                     <div class="form-group col-6 mt-1">
                                         <label for="category" class="fw-bold">文章類別</label>
                                         <select class="form-select mt-1" aria-label="Default select example" name="category">
-                                            <option selected value="0">請選擇文章類別</option>
-                                            <option value="1">產品資訊</option>
-                                            <option value="2">活動快訊</option>
-                                            <option value="3">音樂教育</option>
-                                            <option value="4">重要通知</option>
+                                            <option selected value="請選擇文章類別">請選擇文章類別</option>
+                                            <option value="產品資訊">產品資訊</option>
+                                            <option value="活動快訊">活動快訊</option>
+                                            <option value="音樂教育">音樂教育</option>
+                                            <option value="重要通知">重要通知</option>
                                         </select>
                                     </div>
                                     <div class="col-6">

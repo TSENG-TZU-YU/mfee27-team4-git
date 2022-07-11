@@ -4,7 +4,7 @@ if (empty($_POST["title"])) {
   echo "<script>alert('未輸入文章標題'); location.href = 'article-create.php'; </script>";
   exit;
 }
-if (($_POST["category"] == 0)) {
+if (($_POST["category"] == "請選擇文章類別")) {
   echo "<script>alert('未選擇文章類別'); location.href = 'article-create.php'; </script>";
   exit;
 }
@@ -24,7 +24,8 @@ $image = $_FILES["image"];
 
 // 設定成系統時間
 date_default_timezone_set('Asia/Taipei');
-$now = date('Y-m-d H:i:s');
+$now = date('Y-m-d H:i');
+
 
 
 // 將資料寫入 article 資料表
