@@ -7,7 +7,7 @@ session_start();
 // }
 
 require("../db-connect.php");
-$user_id = "test123"; //因為沒有登入狀態所以先預設
+$user_id = "zxcasd"; //因為沒有登入狀態所以先預設
 // $cate=$_POST["category_id"];
 $payMethod = $_POST["payMethod"];
 $address = $_POST["address"];

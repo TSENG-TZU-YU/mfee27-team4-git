@@ -32,7 +32,13 @@ if(isset($_POST["reply"])){
     
     $conn->close();
     // echo "新增成功";
-    header("location: my_qna.php");
+    if(isset($_SESSION["front_user"])){
+        echo "<script>alert('表單送出成功'); location.href = 'my_qna.php'; </script>";
+        // header("location: my_qna.php");
+    }else{
+        echo "<script>alert('表單送出成功'); location.href = 'user_qna_table.php'; </script>";
+        // header("location: user_qna_table.php");
+    }
 }
 
  

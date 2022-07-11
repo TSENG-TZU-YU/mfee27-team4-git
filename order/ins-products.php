@@ -2,11 +2,13 @@
 require("../db-connect.php");
 session_start();
 
-$sql = "SELECT * FROM instrument_product";
-$result = $conn->query($sql);
-$product_count = $result->num_rows;
-$rows = $result->fetch_all(MYSQLI_ASSOC);
-// var_dump($rows);
+$sqlIns = "SELECT * FROM instrument_product";
+$resultIns = $conn->query($sqlIns);
+$product_countIns = $resultIns->num_rows;
+$rows = $resultIns->fetch_all(MYSQLI_ASSOC);
+
+
+
 // $sqlCategory=" SELECT * FROM category";
 // $resultCategory = $conn->query($sqlCategory);
 // $rowsCategory = $resultCategory->fetch_all(MYSQLI_ASSOC);
@@ -32,7 +34,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 <html lang="en">
 
 <head>
-    <title>ins-Products</title>
+    <title>music-Products</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -73,15 +75,14 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
         </div>
         <ul class="nav nav-pills py-3">
             <li class="nav-item ">
-                <a class="nav-link 
-                <?php //if($category==="") echo "active" 
-                ?>
-                " aria-current="page" href="#">全部</a>
+                <a class="btn btn-info" href="ins-products.php">樂器商城</a>
+                <a class="btn btn-info" href="place-products.php">場地租借</a>
+                <a class="btn btn-info" href="course-products.php">音樂教育</a>
             </li>
         </ul>
         <?php require("price-filter.php") ?>
         <div class="py-2">
-            共<?= $product_count ?>筆資料
+            共<?= $product_countIns ?>筆資料
         </div>
 
         <?php require("product-list.php") ?>

@@ -5,8 +5,8 @@
                 <figure class="ratio ratio-4x3 mb-2">
                     <img class="object-cover" src="../images/ins/<?= $row["image"] ?>" alt="">
                 </figure>
-                <div class="text-primary"><?= $row["ins_cate"] ?></div>
-                <h4 class="mb-2"><?= $row["brnd_model"] ?></h4>
+                <div class="text-primary"><?= $row["cate"] ?></div>
+                <h4 class="mb-2"><?= $row["name"] ?></h4>
                 <p class="mb-2"><?=$row["intro"]?></p>
                 <div class="text-end text-danger">$<?= $row["price"] ?></div>
                 <div class="py-2">
