@@ -53,7 +53,7 @@ $conn->close();
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
                         <li class="breadcrumb-item" aria-current="page"><a href="order-list.php">訂單管理</a></li>
-                        <li class="breadcrumb-item" aria-current="page"><a href="order-list-detail.php?order_id=<?= $order_id?>">訂單詳細內容</a></li>
+                        <li class="breadcrumb-item" aria-current="page"><a href="order-list-detail.php?order_id=<?=$order_id?>">訂單詳細內容</a></li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->

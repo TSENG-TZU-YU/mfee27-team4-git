@@ -12,14 +12,13 @@ $list_count = $resultAll->num_rows;
 
 $perPage = 4;
 $start = ($page - 1) * $perPage;
-$sql = "SELECT * FROM order_product WHERE valid=1 LIMIT $start, 4";
+$sql = "SELECT * FROM order_product WHERE valid=1 ORDER BY order_id DESC LIMIT $start, 4";//
 // echo $sql;
 $result = $conn->query($sql);
 $pageListCount = $result->num_rows;
 $rows = $result->fetch_all(MYSQLI_ASSOC);
-// print_r($rows);
-// echo "<br>";
-// exit;
+
+
 //關聯pay_state state pay_by 3個table
 for ($i = 0; $i < count($rows); $i++) {
     $paymethod_id=$rows[$i]["payment_method"];
@@ -30,11 +29,10 @@ for ($i = 0; $i < count($rows); $i++) {
     $resultPayState = $conn->query($sqlPayState);
     $payStaterow = $resultPayState->fetch_assoc();
     $rows[$i]["payName"]=$payStaterow["name"];
-    // print_r($payStaterow);
     $sqlOrderState="SELECT * FROM state WHERE id=$orderState_id";
     $resultOrderState = $conn->query($sqlOrderState);
     $orderStaterow = $resultOrderState->fetch_assoc();
-   $rows[$i]["orderStateName"]=$orderStaterow["name"];
+    $rows[$i]["orderStateName"]=$orderStaterow["name"];
     $sqlPayMethod="SELECT * FROM pay_by WHERE id=$paymethod_id";
     $resultPayMethod= $conn->query($sqlPayMethod);
     $payMethodrow = $resultPayMethod->fetch_assoc();
@@ -46,10 +44,6 @@ $startItem = ($page - 1) * $perPage + 1;
 $endItem = $page * $perPage;
 if ($endItem > $list_count) $endItem = $list_count;
 $totalPage = ceil($list_count / $perPage);
-
-
-
-
 
 
 // var_dump($rowsAll);
@@ -102,7 +96,7 @@ $conn->close();
                 <!-- 內容 -->
                 <div class="container">
                     <div class="row">
-                        <p class="col m-auto">第<?= $startItem ?>-<?= $endItem ?>筆</p>
+                        <p class="col m-auto">第<?=$startItem ?>-<?= $endItem ?>筆</p>
                         <p class="col m-auto">總共<?= $list_count ?>筆資料</p>
                         <input class="col form-control me-3" type="text">
                         <a class="col-1 btn btn-green" href="#">
@@ -164,9 +158,9 @@ $conn->close();
                             <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
                                 <li class="page-item
                         <?php
-                                if ($page == $i) echo "active";
+                                 if ($page == $i) echo "active";
                         ?>
-                        "><a class="page-link" href="order-list.php?page=<?= $i ?>"><?= $i ?></a></li>
+                        "><a class="page-link" href="order-list.php?page=<?=$i ?>"><?= $i ?></a></li>
                             <?php endfor; ?>
                         </ul>
                     </div>
