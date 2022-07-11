@@ -5,10 +5,28 @@
 require("../db-connect.php");
 
 
-
-$sqlAll="SELECT * FROM coupon WHERE valid=1 ";
+$sqlAll= "SELECT coupon.*, users.name AS users_name FROM coupon
+JOIN users ON coupon.coupon_c = users.coupon WHERE shelf=0 ";
 $resultAll = $conn->query($sqlAll);
-$couponCount=$resultAll->num_rows;
+$couponCountAll=$resultAll->num_rows;
+
+
+
+if(!isset($_GET["search"])){
+    $search="";
+    $couponCount=0;
+
+}else{
+
+$search=$_GET["search"];
+$sqlSearch="SELECT id, name , number, discount, dateline, several_times, min_price FROM coupon 
+WHERE  name  LIKE '%$search%'";
+$result = $conn->query($sqlSearch);
+$couponCount=$result->num_rows;
+
+
+}
+
 
 
 
@@ -19,44 +37,45 @@ if(isset($_GET["page"])){
   }
 
 
-$perPage=10;
-$start=($page-1)*$perPage;
+
 
 $order=isset($_GET["order"]) ? $_GET["order"] : 1;
 
 switch($order){
     case 1:
-        $orderType="ASC";
+        $orderType="id ASC";
         break;
     case 2:
-        $orderType="DESC";
+        $orderType="id DESC";
         break;
     default:
-        $orderType="ASC";        
+        $orderType="name ASC";        
 }
 
 
 
-$sql="SELECT * FROM coupon WHERE valid=1 ORDER BY id $orderType LIMIT 
-$start, 10";
+// $sql="SELECT * FROM coupon WHERE valid=1 AND shelf=0 ORDER BY $orderType LIMIT 
+// $start, 4";
 
+// $result = $conn->query($sql);
+// $pageCouponCount=$result->num_rows;
+
+
+
+$perPage=4;
+$start=($page-1)*$perPage;
+
+$sql= "SELECT coupon.*, users.name AS users_name FROM coupon
+  JOIN users ON coupon.coupon_c = users.coupon WHERE shelf=0  ORDER BY $orderType  LIMIT $start, 4 ";//
 $result = $conn->query($sql);
-$pageCouponCount=$result->num_rows;
+$couponCount=$result->num_rows;
 
 
 $startItem=($page-1)*$perPage+1;
 $endItem=$page*$perPage;
-if($endItem>$couponCount)$endItem=$couponCount;
+if($endItem>$couponCountAll)$endItem=$couponCountAll;
 
-$totalPage=ceil($couponCount / $perPage); 
-
-
-$sql= "SELECT coupon.*, users.name AS users_name FROM coupon
-  JOIN users ON coupon.coupon_c = users.coupon  ";
-
-$result = $conn->query($sql);
-$couponCount=$result->num_rows;
-
+$totalPage=ceil($couponCountAll / $perPage); 
 ?>
 
 
@@ -108,17 +127,19 @@ $couponCount=$result->num_rows;
 
                 <!-- 內容 -->
                 <div class="container">
-                <form action="coupon-search.php" method="get">   
+                <form action="coupons.php" method="get">   
                     <div class="row">    
+                    <h3 class="mt-5"><?=$search?>的搜尋結果</h3>
                     <span class="col-5"> 第<?=$startItem?>- <?=$endItem?>筆</span>
-                         <p class="col-8 m-auto">總共<?=$couponCount?> 筆資料</p>
-                        <input class="col form-control me-3" type="text" name="search">
+                         <p class="col-8 m-auto">總共<?=$couponCountAll?>筆資料</p>
+                        <input class="col form-control me-3 " type="text" name="search"   >
                       <button type="submit" class="col-1 btn btn-green">
                       <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                     搜尋</button>
                         </div>
                        </form>
                     <hr>
+                    
                     <a class="col-1 btn btn-green me-2" href="create-coupon.php">
                             <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                             新增
@@ -133,7 +154,8 @@ $couponCount=$result->num_rows;
                 <a href="coupons.php?page=<?=$page?>&order=1" class="btn btn-khak  <?php if($order==1)echo" active" ?>">By id asc</a>
                 <a href="coupons.php?page=<?=$page?>&order=2" class="btn btn-khak  <?php if($order==2)echo" active" ?>">By id desc</a>
                
-                          
+               
+                <?php if($couponCountAll>0): ?>
                       
                     <table class="table mt-5">
                    
@@ -182,6 +204,9 @@ $couponCount=$result->num_rows;
                     <?php endwhile; ?>       
                </tbody>
                     </table>
+                    <?php else:  ?>
+         沒有符合條件結果
+         <?php endif; ?>  
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example">
                         <ul class="pagination">
