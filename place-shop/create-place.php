@@ -71,8 +71,12 @@
                     <input type="date" class="form-control" name="over_time">
                 </div>
                 <div class="mb-2">
-                    <label for="">場地介紹</label>
+                    <label for="">場地簡介</label>
                     <textarea type="text" class="form-control" name="intro"></textarea>
+                </div>
+                <div class="mb-2">
+                    <label for="">圖片上傳</label>
+                    <input type="file" class="form-control" name="image">
                 </div>
                 <button class="btn btn-info" type="submit">送出</button>
                 <button class="btn btn-info" type="reset">清除</button>

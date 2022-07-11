@@ -39,7 +39,7 @@ $payMethodCount = $resultPayMethod->num_rows;
 // echo $sql;
 // exit;
 $conn->close();
-$sqlOrder="WHERE order-list.php";
+$sqlOrder = "WHERE order-list.php";
 ?>
 
 <!doctype html>
@@ -83,24 +83,11 @@ $sqlOrder="WHERE order-list.php";
                 <!-- 內容 -->
                 <div class="container">
                     <?php if ($orderCount > 0) :
-                        // echo var_dump($row);
-                        // $paymentState = [
-                        //     "1" => "未付款",
-                        //     "2" => "已付款",
-                        //     "3" => "退款"
-                        // ];
-                        // $orderState = [
-                        //     "1" => "訂單確認中",
-                        //     "2" => "訂單成立",
-                        //     "3" => "商家出貨",
-                        //     "4" => "訂單完成",
-                        //     "5" => "退貨處理中"
-                        // ];
-                        $listPage=$_SESSION["page"];//
-                        // echo $listPage;
+                        $listPage = $_SESSION["page"]; //
+                        echo $listPage;
                     ?>
                         <div class="pt-2 pb-5 row align-items-baseline">
-                            <a class="col-1 btn btn-green me-2" href="order-list.php?page=<?=$listPage?>">
+                            <a class="col-1 btn btn-green me-2" href="order-list.php?page=<?= $listPage ?>">
                                 <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>返回
                             </a>
                             <h5 class="col-2">訂單編號：<?= $order_id ?></h5>
@@ -193,7 +180,11 @@ $sqlOrder="WHERE order-list.php";
 
                             </table>
                             <div class="py-2">
-                                <button class="btn btn-green me-2" type="submit">儲存</button>
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-green me-2" type="submit">儲存</button>
+                                    <a class=" btn btn-red me-2" href="doListDelete.php?order_id=<?=$row["order_id"]?>">
+                                        <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>刪除</a>
+                                </div>
                             </div>
                         </form>
                     <?php else : ?>
