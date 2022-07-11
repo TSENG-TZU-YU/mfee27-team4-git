@@ -187,7 +187,7 @@ $teacherCount = $resultAll->num_rows;
                         </div>
                 </div>
             <?php else : ?>
-                <?= "<script>alert('沒有師資資料'); location.href = 'teachers-index.php'; </script>"; ?>
+                <?= "沒有師資資料"; ?>
             <?php endif; ?>
         </div>
     </div>

@@ -165,11 +165,12 @@ $totalPage = ceil($teacherCount / $perPage);
                         </a>
                     </div>
                     <!-- 排序、篩選按鈕 -->
-                    <div class="d-flex">
+                    <div class="col d-flex justify-content-end">
                         <div class="me-2">
                             <form action="teachers.php" method="get">
                                 <input type="hidden" value="<?= $page ?>" name="page">
                                 <input type="hidden" value="<?= $search ?>" name="search">
+                                <input type="hidden" value="<?= $fieldOrder ?>" name="fieldOrder">
                                 <input type="hidden" value="<?php if ($order == "") {
                                                                 echo "1";
                                                             } ?>" name="order">
@@ -186,7 +187,7 @@ $totalPage = ceil($teacherCount / $perPage);
                                     <option value="<?= $rowOrderArray ?>"><?= $rowOrderArray ?></option>
                                 <?php endforeach; ?>
                             </select>
-                            <button class="col btn btn-grey" type="submit">
+                            <button class="btn btn-grey" type="submit">
                                 篩選
                             </button>
                         </form>
