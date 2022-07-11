@@ -19,6 +19,7 @@ $rows = $resultIns->fetch_all(MYSQLI_ASSOC);
 
     <!-- Bootstrap CSS v5.2.0-beta1 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <style>
     .ellipsis {
@@ -59,13 +60,13 @@ $rows = $resultIns->fetch_all(MYSQLI_ASSOC);
         $cart_count = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
         ?>
         <div class="pt-5 pb-2 text-end">
-            <a class="btn btn-info position-relative" href="cart.php">購物車<span id="cartCount" class="cart-count"><?= $cart_count ?></span></a>
+            <a class="btn btn-grey position-relative" href="cart.php">購物車<span id="cartCount" class="cart-count"><?= $cart_count ?></span></a>
         </div>
         <ul class="nav nav-pills py-3">
             <li class="nav-item ">
-                <a class="btn btn-info" href="ins-products.php">樂器商城</a>
-                <a class="btn btn-info" href="place-products.php">場地租借</a>
-                <a class="btn btn-info" href="course-products.php">音樂教育</a>
+                <a class="btn btn-grey me-3" href="ins-products.php">樂器商城</a>
+                <a class="btn btn-grey me-3" href="place-products.php">場地租借</a>
+                <a class="btn btn-grey me-3" href="course-products.php">音樂教育</a>
             </li>
         </ul>
         <?php require("price-filter.php") ?>
@@ -84,8 +85,8 @@ $rows = $resultIns->fetch_all(MYSQLI_ASSOC);
                 // console.log("click");
                 let id = this.dataset.id //抓產品id
                 let cate = this.dataset.cate; //抓產品cate
-                console.log(id)
-                console.log(cate)
+                // console.log(id)
+                // console.log(cate)
                 $.ajax({
                         method: "POST", //or GET 
                         url: "add-cart.php", //撈資料 那裏寫了php

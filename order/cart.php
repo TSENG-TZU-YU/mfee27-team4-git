@@ -21,13 +21,13 @@ $payMethodCount = $resultPayMethod->num_rows;
 
     <!-- Bootstrap CSS v5.2.0-beta1 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="../style.css">
 </head>
 
 <body>
     <div class="container">
         <div class="py-2 text-end">
-            <a class="btn btn-info" href="ins-products.php">繼續購物</a>
+            <a class="btn btn-grey" href="ins-products.php">繼續購物</a>
         </div>
         <table class="table table-bordered">
             <thead>
@@ -51,13 +51,9 @@ $payMethodCount = $resultPayMethod->num_rows;
 
             $_SESSION["proCate"] = $cateArr;
             $products = array_count_values($cateArr); //算數量
-            var_dump($products);
-            echo "<br>";
+            // var_dump($products);
+            // echo "<br>";
             $_SESSION["products"] = $products;
-
-
-
-
             foreach ($products as $key => $value) :
                 $arrKey = str_split($key);
 
@@ -117,7 +113,7 @@ $payMethodCount = $resultPayMethod->num_rows;
                     // echo $key;
                     // echo "<br>";
                     $arrKey = str_split($key);
-                    var_dump($arrKey);
+                    // var_dump($arrKey);
                     if ($arrKey[0] == "A") : ?>
                         <tr>
                             <th class="text-end">貨物寄送地址：</th>
@@ -131,7 +127,7 @@ $payMethodCount = $resultPayMethod->num_rows;
                 <?php endforeach; ?>
             </table>
             <div class="py-2 text-end">
-                <button type="submit" class="btn btn-info">結帳</button>
+                <button type="submit" class="btn btn-grey">結帳</button>
             </div>
         </form>
     </div>
