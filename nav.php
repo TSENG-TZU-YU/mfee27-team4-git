@@ -65,10 +65,10 @@
                     客服系統
                 </a>
             </li>
-            <div class="<?php if ($sqlOrder_qna){echo "collapse-in";}else {echo "collapse";}  ?>" id="multiCollapseExample3">
+            <div class="<?php if ($sqlOrder_qna ||$sqlUser_qna){echo "collapse-in";}else {echo "collapse";}  ?>" id="multiCollapseExample3">
                 <div>
                     <a href="http://localhost/mfee27-team4-git/customer/order_qna/order_qna.php" class="nav-link nav-link-item my-1 <?php if ($sqlOrder_qna) echo "nav-active " ?>">訂單問題</a>
-                    <a href="#" class="nav-link nav-link-item my-1">客服問答</a>
+                    <a href="http://localhost/mfee27-team4-git/customer/user_qna/user_qna.php" class="nav-link nav-link-item my-1  <?php if ($sqlUser_qna) echo "nav-active " ?>">客服問答</a>
                 </div>
             </div>
             <li>

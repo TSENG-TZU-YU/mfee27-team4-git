@@ -85,6 +85,8 @@ if($endItem>$userCount)$endItem=$userCount;
 
 $totalPage=ceil($userCount/$perPage);
 
+$sqlUser_qna="WHERE user_qna.php"
+
 ?>
 <!DOCTYPE html>
 <html lang="zh-tw">
