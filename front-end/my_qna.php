@@ -4,11 +4,10 @@ if(!isset($_SESSION["front_user"])){
     header("location: front_login.php");
   }
 require("../db-connect.php");
+
 $user_id=$_SESSION["front_user"]["id"];
 
-$sql="SELECT order_product.*, users.id, users.name FROM order_product 
-    JOIN users ON order_product.account = users.account 
-    WHERE users.id = $user_id";
+$sql="SELECT * FROM user_qna WHERE user_id =$user_id";
 // print_r($sql);
 $result=$conn->query($sql); 
 $rows=$result->fetch_all(MYSQLI_ASSOC); 
@@ -109,59 +108,37 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);
         <div class="row mt-3">
             <main class="<?php if(isset($_SESSION["front_user"])){echo"col-md-10";}else{echo"col-md";}?>">
                 <article class="content">
-                <h1><?=$_SESSION["front_user"]["name"]?>的訂單</h1>
+                <h1><?=$_SESSION["front_user"]["name"]?>的提問<a class="btn btn-khak fs-5 p-1" href="user_qna_table.php">我要提問＋</a></h1>
                 <table class="table mt-2">
                     <thead>
                         <tr >
-                            <th scope="col" class="text-nowrap">訂單編號</th>
-                            <th scope="col" class="text-nowrap">訂單狀態</th>
-                            <th scope="col" class="text-nowrap">付款狀態</th>
-                            <th scope="col" class="text-nowrap">付款方式</th>
-                            <th scope="col" class="text-nowrap">總金額</th>                                   
-                            <th scope="col" class="text-nowrap">下單時間</th>        
+                            <th scope="col" class="text-nowrap">提問編號</th>
+                            <th scope="col" class="text-nowrap">問題類型</th>
+                            <th scope="col" class="text-nowrap">問題標題</th>
+                            <th scope="col" class="text-nowrap">回覆狀態</th>
+                            <th scope="col" class="text-nowrap">詢問時間</th>
+                            <th scope="col" class="text-nowrap">最後更新時間</th>        
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach($rows as $row): ?>
                         <tr>
-                            <th class="text-nowrap"><?=$row["order_id"]?> </th>
-                            <td class="text-nowrap"><?=$row["order_state"]?></td>
-                            <td class="text-nowrap"><?=$row["payment_state"]?></td>
-                            <td class="text-nowrap"><?=$row["payment_method"]?></td>
-                            <td class="text-nowrap"><?=$row["total_amount"]?></td>
-                            <td class="text-nowrap"><?=$row["payment_time"]?></td>
-                            <form action="qna_table.php" method="post">
-                                <td class="text-nowrap">
-                                    <button class="btn bg-orange-color me-2" type="submit">
-                                        <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                                        訂單詳細
-                                    </button>
-                                    <?php
-                                    $order_id=$row["order_id"];
-                                    $sqlQna="SELECT * FROM order_qna WHERE order_id = '$order_id'" ;
-                                    $resultQna=$conn->query($sqlQna);
-                                    $sqlCount=$resultQna->num_rows; 
-                                    $rowQna = $resultQna->fetch_assoc();
-                                    ?>
-                                    <?php if($sqlCount>0):?>
-                                    <button class="btn btn-green me-2 position-relative" type="submit">
-                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                        查看問題
-                                        <span class="reply-state <?php if($rowQna["user_reply_state"]=="未回覆"){echo"bg-danger";}else{echo"bg-success";}?>" ><?=$rowQna["user_reply_state"]?></span>
-                                    </button>
-                                    
-                                    <?php else:?>    
-                                    <button class="btn btn-red me-2" type="submit">
-                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                        我有問題
-                                    </button>
-                                    <?php endif;?>       
-                                </td>
-                                <input type="hidden" name="sqlCount" value="<?=$sqlCount?>"> 
-                                <input type="hidden" name="order_id" value="<?=$row["order_id"]?>">
-                                <input type="hidden" name="user_id" value="<?=$row["id"]?>">
-                                <input type="hidden" name="name" value="<?=$row["name"]?>">
-                            </form>
+                            <th class="text-nowrap"><?=$row["id"]?> </th>
+                            <td class="text-nowrap"><?=$row["q_category"]?></td>
+                            <td class="text-nowrap"><?=$row["title"]?></td>
+                            <td class="text-nowrap"><?=$row["user_reply_state"]?></td>
+                            <td class="text-nowrap"><?=$row["create_time"]?></td>
+                            <td class="text-nowrap"><?=$row["update_time"]?></td>
+                            <td class="text-nowrap">
+                                <form action="user_qna_reply_table.php" method="get">  
+                                <button class="btn btn-green me-2 position-relative" type="submit">
+                                    <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                                    查看問題
+                                    <span class="reply-state <?php if($row["user_reply_state"]=="未回覆"){echo"bg-danger";}else{echo"bg-success";}?>" ><?=$row["user_reply_state"]?></span>
+                                </button>
+                                <input type="hidden" name="user_qna_id" value="<?=$row["id"]?>">
+                                </form>  
+                            </td>
                         </tr>
                         <?php endforeach;?>
                     </tbody>
@@ -176,7 +153,7 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);
                     <a href="my_order.php" class="list-group-item list-group-item-action" aria-current="true">
                         我的訂單
                     </a>
-                    <a href="my_qna.php" class="list-group-item list-group-item-action" aria-current="true">
+                    <a href="#" class="list-group-item list-group-item-action" aria-current="true">
                         我的提問
                     </a>
                   </div>

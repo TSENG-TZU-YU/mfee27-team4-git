@@ -1,5 +1,10 @@
 <?php
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 3b7b986020e92122427af0d4af9ee099e4430e64
 require("../db-connect.php");
 
 // 篩選

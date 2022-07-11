@@ -2,13 +2,6 @@
 
 require("../db-connect.php");
 
-// 篩選
-if (isset($_GET["page"])) {
-    $page = $_GET["page"];
-} else {
-    $page = 1;
-}
-
 
 
 

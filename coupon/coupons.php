@@ -129,7 +129,7 @@ $totalPage=ceil($couponCountAll / $perPage);
                 <div class="container">
                 <form action="coupons.php" method="get">   
                     <div class="row">    
-                    <h3 class="mt-5"><?=$search?>的搜尋結果</h3>
+                  
                     <span class="col-5"> 第<?=$startItem?>- <?=$endItem?>筆</span>
                          <p class="col-8 m-auto">總共<?=$couponCountAll?>筆資料</p>
                         <input class="col form-control me-3 " type="text" name="search"   >

@@ -1,8 +1,7 @@
 <?php
 require("../db-connect.php");
-
-if(!isset($_POST["product_id"])){  //後端檢查是否帶資料
-    echo"沒帶資料";
+if(!isset($_POST["course_name"])){
+    echo "沒有帶資料到本頁";
     exit;
 }
 

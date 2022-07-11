@@ -1,8 +1,13 @@
 <?php
 require("../db-connect.php");
+<<<<<<< HEAD
+if(!isset($_POST["brnd_model"])){
+    echo "沒有帶資料到本頁";
+=======
 
 if(!isset($_POST["brnd_model"])){  //後端檢查是否帶資料
     echo"沒帶資料";
+>>>>>>> 3b7b986020e92122427af0d4af9ee099e4430e64
     exit;
 }
 
