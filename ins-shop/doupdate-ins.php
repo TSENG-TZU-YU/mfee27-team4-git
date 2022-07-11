@@ -31,4 +31,3 @@ header("location: ins-detail.php?id=".$id);
 
 ?>
 
-<?php

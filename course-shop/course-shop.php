@@ -2,8 +2,12 @@
 
 require("../db-connect.php");
 
-
-
+// 篩選
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+} else {
+    $page = 1;
+}
 
 
 
@@ -159,39 +163,10 @@ $totalPage = ceil($courseCount / $perPage);
                                         <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
                                         下架
                                     </button>
-                                    <a class="btn btn-khak" type="button" id="show" href="ins-detail.php?id=<?= $row["id"] ?>">
+                                    <a class="btn btn-khak" type="button" id="show" href="course-detail.php?id=<?= $row["id"] ?>">
                                         <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                                         修改
                                     </a>
-                                    <!-- <dialog id="infoModal">
-                                    <div class="container">
-                                        <form action="docreate-ins.php" method="post">
-                                            <div class="mb-2">
-                                                <label for="">樂器類別</label>
-                                                <input type="text" class="form-control" name="ins_cate">
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="">品牌型號</label>
-                                                <input type="text" class="form-control" name="brnd_model">
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="">庫存</label>
-                                                <input type="number" class="form-control" name="stock">
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="">價格</label>
-                                                <input type="number" class="form-control" name="price">
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="">商品簡介</label>
-                                                <textarea type="text" class="form-control" name="intro"></textarea>
-                                            </div>
-                                                    <button class="btn btn-info add" type="submit">送出</button>
-                                                    <button class="btn btn-info" type="reset">清除</button>
-                                                    <button type="button" class="btn btn-warning" id="close">關閉</button>
-                                        </form>
-                                    </div>
-                                    </dialog> -->
                                 </td>
                             </tr>
                             <?php endwhile; ?>

@@ -10,8 +10,8 @@ $course_name=$_POST["course_name"];
 $location=$_POST["location"];
 $stock=$_POST["stock"];
 $price=$_POST["price"];
-$begin_date=date('Y-m-d');
-$over_date=date('Y-m-d');
+$begin_date=date('Y-m-d H-i-s');
+$over_date=date('Y-m-d H-i-s');
 $course_intro=$_POST["course_intro"];
 $create_time=date('Y-m-d H-i-s');
 
@@ -70,6 +70,6 @@ if ($conn->query($sqlCreate) === TRUE) {
 
 
 $conn->close();
-header("location: course-shop.php");
+// header("location: course-shop.php");
 
 ?>
