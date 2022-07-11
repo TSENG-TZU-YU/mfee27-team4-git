@@ -72,7 +72,7 @@ $row = $result->fetch_assoc();
                     <div class="row ">
                         <!-- 文字按鈕 -->
                         <a class="col-1 btn btn-green mx-3" href="user-detail.php?id=<?= $row["id"] ?>">
-                            <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                            <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
 
@@ -126,7 +126,7 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>會員生日</th>
-                                        <td><input type="date" class="form-control text-center" name="birthday" id="birthday"></td>
+                                        <td><?= $row["birthday"] ?></td>
 
                                     </tr>
                                     <tr>
@@ -135,7 +135,7 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>會員郵件</th>
-                                        <td><input type="text" class="form-control text-center" value="<?= $row["email"] ?>" name="email"></td>
+                                        <td><input type="email" class="form-control text-center" value="<?= $row["email"] ?>" name="email"></td>
                                     </tr>
                                     <tr>
                                     <th>會員地址</th>
