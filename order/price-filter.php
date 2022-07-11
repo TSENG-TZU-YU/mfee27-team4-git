@@ -15,7 +15,7 @@
                 ?>">
             </div>
             <div class="col-auto">
-                <button class="btn btn-info" type="submit">篩選</button>
+                <button class="btn btn-grey me-3" type="submit">篩選</button>
             </div>
         </div>
     </form>

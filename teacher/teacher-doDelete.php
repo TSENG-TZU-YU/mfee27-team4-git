@@ -1,9 +1,9 @@
 <?php
-require("../db-connect.php");
 if (!isset($_GET["id"])) {
   echo "<script>alert('沒有師資資料'); location.href = 'teachers.php'; </script>";
   exit;
 }
+require("../db-connect.php");
 
 $id = $_GET["id"];
 
