@@ -1,6 +1,7 @@
 <?php
 
 require("../db-connect.php");
+$sqlCoupon  = "WHERE coupons.users.php";
 
 
 $sqlAll= "SELECT coupon.*, users.name AS users_name FROM coupon
@@ -106,7 +107,7 @@ $totalPage=ceil($couponCountAll / $perPage);
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
-           
+            <?php require("../nav.php"); ?>
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
