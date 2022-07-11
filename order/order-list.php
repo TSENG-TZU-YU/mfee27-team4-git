@@ -53,6 +53,8 @@ $totalPage = ceil($list_count / $perPage);
 
 $conn->close();
 
+$sqlOrder="WHERE order-list.php";
+
 ?>
 
 <!DOCTYPE html>

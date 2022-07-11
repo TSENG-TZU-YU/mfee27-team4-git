@@ -94,11 +94,11 @@ $row = $result->fetch_assoc();
                                 </tr>
                                 <tr>
                                     <th>樂器類別</th>
-                                    <td><?= $row["ins_cate"] ?></td>
+                                    <td><?= $row["cate"] ?></td>
                                 </tr>
                                 <tr>
                                     <th>品牌型號</th>
-                                    <td><?= $row["brnd_model"] ?></td>
+                                    <td><?= $row["name"] ?></td>
                                 </tr>
                                 <tr>
                                     <th>定價</th>

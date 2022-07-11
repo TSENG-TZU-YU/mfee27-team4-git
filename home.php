@@ -102,8 +102,8 @@ session_start();
                 <!-- 子項目 -->
                 <div class="border-top border-3 border-white ">
                   <div class="mt-3"><a class="link-dark fw-bold fs-5" href="ins-shop/ins-shop.php">樂器商城</a></div>
-                  <div class="mt-1"><a class="link-dark fw-bold fs-5" href="#">音樂教育</a></div>
-                  <div class="mt-1"><a class="link-dark fw-bold fs-5" href="#">場地租借</a></div>
+                  <div class="mt-1"><a class="link-dark fw-bold fs-5" href="course-shop/course-shop.php">音樂教育</a></div>
+                  <div class="mt-1"><a class="link-dark fw-bold fs-5" href="place-shop/place-shop.php">場地租借</a></div>
                   
                 </div>
                 <!-- 子項目 end -->

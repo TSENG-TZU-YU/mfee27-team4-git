@@ -42,8 +42,8 @@
             </li>
             <div class="collapse" id="multiCollapseExample2">
                 <div>
-                    <a href="#" class="nav-link nav-link-item my-1">樂器商城</a>
-                    <a href="#" class="nav-link nav-link-item my-1">音樂教育</a>
+                    <a href="http://localhost/mfee27-team4-git/ins-shop/ins-shop.php" class="nav-link nav-link-item my-1">樂器商城</a>
+                    <a href="http://localhost/mfee27-team4-git/course-shop/course-shop.php" class="nav-link nav-link-item my-1">音樂教育</a>
                     <a href="#" class="nav-link nav-link-item my-1">場地租借</a>
                 </div>
             </div>
@@ -65,14 +65,14 @@
                     客服系統
                 </a>
             </li>
-            <div class="collapse" id="multiCollapseExample3">
+            <div class="<?php if ($sqlOrder_qna){echo "collapse-in";}else {echo "collapse";}  ?>" id="multiCollapseExample3">
                 <div>
-                    <a href="http://localhost/mfee27-team4-git/customer/order_qna/order_qna.php" class="nav-link nav-link-item my-1">訂單問題</a>
+                    <a href="http://localhost/mfee27-team4-git/customer/order_qna/order_qna.php" class="nav-link nav-link-item my-1 <?php if ($sqlOrder_qna) echo "nav-active " ?>">訂單問題</a>
                     <a href="#" class="nav-link nav-link-item my-1">客服問答</a>
                 </div>
             </div>
             <li>
-                <a href="http://localhost/mfee27-team4-git/coupon/coupon.php" class="nav-link my-1">
+                <a href="http://localhost/mfee27-team4-git/coupon/coupons.php" class="nav-link my-1 <?php if ($sqlCoupon) echo "nav-active" ?>">
                     <img class="mb-1 me-2" src="/mfee27-team4-git/icon/sell-icon.svg" width="16" height="16"></img>
                     優惠券
                 </a>

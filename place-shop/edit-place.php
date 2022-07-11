@@ -8,9 +8,9 @@ if (!isset($_GET["id"])) {
 }
 
 $id = $_GET["id"];
-$sql = "SELECT * FROM instrument_product WHERE id=$id";
+$sql = "SELECT * FROM place_produce WHERE id=$id";
 $result = $conn->query($sql);
-$insCount = $result->num_rows;
+$placeCount = $result->num_rows;
 $row = $result->fetch_assoc();
 
 ?>
@@ -18,7 +18,7 @@ $row = $result->fetch_assoc();
 <html lang="zh-tw">
 
 <head>
-    <title>後台系統</title>
+    <title>修改課程</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -55,7 +55,7 @@ $row = $result->fetch_assoc();
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item"><a href="">樂器商城</a></li>
+                        <li class="breadcrumb-item"><a href="">場地商城</a></li>
                         <li class="breadcrumb-item" aria-current="page">詳細</li>
                     </ol>
                 </biv>
@@ -70,7 +70,7 @@ $row = $result->fetch_assoc();
                     <!-- 按鈕 -->
                     <div class="row ">
                         <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green mx-3" href="ins-detail.php?id=<?= $row["id"] ?>">
+                        <a class="col-1 btn btn-green mx-3" href="place-detail.php?id=<?= $row["id"] ?>">
                             <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
@@ -82,8 +82,8 @@ $row = $result->fetch_assoc();
 
                 </div>
                 <div class="container mt-5  ">
-                    <?php if ($insCount > 0) :  $row;?>
-                        <form action="doupdate-ins.php" method="post">
+                    <?php if ($placeCount > 0) :  $row;?>
+                        <form action="doupdate-place.php" method="post">
                             <div class="d-flex justify-content-center">
                             <input name="id" type="hidden" value=" <?= $row["id"] ?>">
                                 <table class="table table-bordered panel">
@@ -93,11 +93,11 @@ $row = $result->fetch_assoc();
                                         <td ><?= $row["id"] ?></td>
                                     </tr>
                                     <tr>
-                                        <th>樂器類別</th>
+                                        <th>店面</th>
                                         <td> <input type="text" class="form-control text-center " value="<?= $row["cate"] ?>" name="cate"></td>
                                     </tr>
                                     <tr>
-                                        <th>品牌型號</th>
+                                        <th>場地類型</th>
                                         <td><input type="text" class="form-control text-center" value="<?= $row["name"] ?>" name="name"></td>
                                     </tr>
                                     <tr>
@@ -109,7 +109,15 @@ $row = $result->fetch_assoc();
                                         <td><input type="number" class="form-control text-center" value="<?= $row["stock"] ?>" name="stock"></td>
                                     </tr>
                                     <tr>
-                                        <th>商品簡介</th>
+                                        <th>開放時間</th>
+                                        <td><input type="date" class="form-control text-center" value="<?= $row["use_time"] ?>" name="use_time"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>結束時間</th>
+                                        <td><input type="date" class="form-control text-center" value="<?= $row["over_time"] ?>" name="over_time"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>場地簡介</th>
                                         <td><textarea type="text" class="form-control text-center" name="intro"></textarea></td>
                                     </tr>
                                     <tr>

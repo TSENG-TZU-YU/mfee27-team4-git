@@ -1,10 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 3b7b986020e92122427af0d4af9ee099e4430e64
 require("../db-connect.php");
 
 // 篩選
@@ -159,8 +154,8 @@ $totalPage = ceil($insCount / $perPage);
                                 <th><input type="checkbox" class="ckb" id=" con.id " value=" con.id "></th>
                                 <td><?=$row["product_id"]?></td>
                                 <td><?=$row["creat_time"]?></td>
-                                <td><?=$row["ins_cate"]?></td>
-                                <td><?=$row["brnd_model"]?></td>
+                                <td><?=$row["cate"]?></td>
+                                <td><?=$row["name"]?></td>
                                 <td><?=$row["price"]?></td>
                                 <td><?=$row["stock"]?></td>
                                 <td><?=$row["intro"]?></td>
