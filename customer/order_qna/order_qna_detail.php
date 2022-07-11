@@ -1,12 +1,42 @@
 <?php
 require("../../db-connect.php");
 
-$order_qna_id=$_POST["order_qna_id"];
-$page=$_POST["page"];
-$perPage=$_POST["perPage"];
-$category=$_POST["category"];
-$order=$_POST["order"];
-$search=$_POST["search"];
+if(isset($_GET["order_qna_id"])){
+    $order_qna_id=$_GET["order_qna_id"];
+}else{
+    $order_qna_id=$_POST["order_qna_id"];
+}
+if(isset($_GET["page"])){
+    $page=$_GET["page"];
+}else{
+    $page=$_POST["page"];
+}
+if(isset($_GET["perPage"])){
+    $perPage=$_GET["perPage"];
+}else{
+    $perPage=$_POST["perPage"];
+}
+if(isset($_GET["category"])){
+    $category=$_GET["category"];
+}else{
+    $category=$_POST["category"];
+}
+if(isset($_GET["order"])){
+    $order=$_GET["order"];
+}else{
+    $order=$_POST["order"];
+}
+if(isset($_GET["search"])){
+    $search=$_GET["search"];
+}else{
+    $search=$_POST["search"];
+}
+
+// $page=$_POST["page"];
+// $perPage=$_POST["perPage"];
+// $category=$_POST["category"];
+// $order=$_POST["order"];
+// $search=$_POST["search"];
 
 
 $sql="SELECT order_qna.*, users.account FROM order_qna
@@ -81,15 +111,15 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                     <form action="doReply.php" method="post">
                         <table class="table">
                             <tr>
-                                <th>訂單編號:</th>
+                                <th>訂單編號</th>
                                 <td colspan="2"><?=$row["order_id"]?></td>
                             </tr>
                             <tr>
-                                <th>問題類型:</th>
+                                <th>問題類型</th>
                                 <td colspan="2"><?=$row["q_category"]?></td>
                             </tr>
                             <tr>
-                                <th>回覆狀態:</th>
+                                <th>回覆狀態</th>
                                 <td colspan="2" >
                                     <div class="d-flex justify-content-center">    
                                         <span class="reply-state
@@ -114,15 +144,15 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                 </td>
                             </tr>
                             <tr>
-                                <th>詢問時間:</th>
+                                <th>詢問時間</th>
                                 <td colspan="2"><?=$row["create_time"]?></td>
                             </tr>
                             <tr>
-                                <th>最後更新時間:</th>
+                                <th>最後更新時間</th>
                                 <td colspan="2"><?=$row["update_time"]?></td>
                             </tr>
                             <tr>
-                                <th>問題標題:</th>
+                                <th>問題標題</th>
                                 <th colspan="2"><?=$row["title"]?></th>
                             </tr>
                             <tr>
@@ -157,7 +187,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                             
                             <tr>
                                 <th>進行回覆:</th>
-                                <td colspan="1">
+                                <td colspan="2">
                                     <!-- <textarea type="" pattern=".*[^ ].*" class="form-control inputcontent" placeholder='輸入對話' name="reply" ></textarea> -->
                                     <input type="text" name="reply" class="form-control inputcontent" pattern=".*[^ ].*" placeholder='輸入對話' autocomplete="off" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required >
                                 </td>  
@@ -172,6 +202,11 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                     <button class="btn btn-green" type="submit">確定</button>
                                     <input type="hidden" name="order_id" value="<?=$order_id?>">
                                     <input type="hidden" name="order_qna_id" value="<?=$order_qna_id?>">
+                                    <input type="hidden" name="page" value="<?=$page?>">
+                                    <input type="hidden" name="perPage" value="<?=$perPage?>">
+                                    <input type="hidden" name="category" value="<?=$category?>">
+                                    <input type="hidden" name="order" value="<?=$order?>">
+                                    <input type="hidden" name="search" value="<?=$search?>">
                                 </div>
                                 <div class="py-2 mx-2">
                                     <a class="btn btn-grey" href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&order=<?=$order?>&search=<?=$search?>">離開</a>
