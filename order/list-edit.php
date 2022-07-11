@@ -38,6 +38,7 @@ $payMethodCount = $resultPayMethod->num_rows;
 // echo $sql;
 // exit;
 $conn->close();
+$sqlOrder="WHERE order-list.php";
 ?>
 
 <!doctype html>
