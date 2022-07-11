@@ -7,6 +7,8 @@ if (isset($_GET["page"])) {
     $page = 1;
 }
 $_SESSION["page"]=$page;
+echo $page."######<br>";
+
 require("../db-connect.php");
 $sqlAll = "SELECT*FROM order_product WHERE valid=1";
 $resultAll = $conn->query($sqlAll);
