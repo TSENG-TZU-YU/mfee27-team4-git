@@ -183,11 +183,6 @@ $totalPage=ceil($userCount/$perPage);
                                 <label for="category4">新訊息</label>
                             </div>
                         </div>
-                        <!-- <input type="hidden" name="page" value="<?=$page?>">
-                        <input type="hidden" name="perPage" value="<?=$perPage?>">
-                        <input type="hidden" name="category" value="<?=$category?>">
-                        <input type="hidden" name="order" value="<?=$order?>">
-                        <input type="hidden" name="search" value="<?=$search?>"> -->
                     </form> 
                     <!-- <hr>                    -->
                     <table class="table mt-2">
