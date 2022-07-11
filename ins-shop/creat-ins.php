@@ -48,11 +48,11 @@
             <form action="docreate-ins.php" method="post">
                 <div class="mb-2">
                     <label for="">樂器類別</label>
-                    <input type="text" class="form-control" name="ins_cate">
+                    <input type="text" class="form-control" name="cate">
                 </div>
                 <div class="mb-2">
                     <label for="">品牌型號</label>
-                    <input type="text" class="form-control" name="brnd_model">
+                    <input type="text" class="form-control" name="name">
                 </div>                
                 <div class="mb-2">
                     <label for="">價格</label>

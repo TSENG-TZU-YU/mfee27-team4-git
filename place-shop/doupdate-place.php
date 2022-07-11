@@ -5,17 +5,17 @@ if(!isset($_POST["location"])){
 require("../db-connect.php");
 
 $id=$_POST["id"];
-$location=$_POST["location"];
-$placetype=$_POST["placetype"];
+$cate=$_POST["cate"];
+$name=$_POST["name"];
 $stock=$_POST["stock"];
 $price=$_POST["price"];
 $use_time=date('Y-m-d H-i-s');
 $over_time=date('Y-m-d H-i-s');
-$place_intro=$_POST["place_intro"];
+$intro=$_POST["intro"];
 $create_time=date('Y-m-d H-i-s');
 
 $sql="UPDATE place_produce SET 
-location='$location',placetype='$placetype',price='$price',stock='$stock',date('Y-m-d H-i-s')='$use_time', date('Y-m-d H-i-s')='$over_time',place_intro='$place_intro'
+cate='$cate',name='$name',price='$price',stock='$stock',date('Y-m-d H-i-s')='$use_time', date('Y-m-d H-i-s')='$over_time',intro='$intro'
 WHERE id=$id AND valid=1";
 
 

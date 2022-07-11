@@ -94,11 +94,11 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>課程類別</th>
-                                        <td> <input type="text" class="form-control text-center " value="<?= $row["course_cate"] ?>" name="course_cate"></td>
+                                        <td> <input type="text" class="form-control text-center " value="<?= $row["cate"] ?>" name="cate"></td>
                                     </tr>
                                     <tr>
                                         <th>課程名稱</th>
-                                        <td><input type="text" class="form-control text-center" value="<?= $row["course_name"] ?>" name="course_name"></td>
+                                        <td><input type="text" class="form-control text-center" value="<?= $row["name"] ?>" name="name"></td>
                                     </tr>
                                     <tr>
                                         <th>地點</th>
@@ -122,7 +122,7 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>課程簡介</th>
-                                        <td><textarea type="text" class="form-control text-center" name="course_intro"></textarea></td>
+                                        <td><textarea type="text" class="form-control text-center" name="intro"></textarea></td>
                                     </tr>
                                     <tr>
                                         <th>建立時間</th>

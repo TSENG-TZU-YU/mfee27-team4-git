@@ -94,11 +94,11 @@ $row = $result->fetch_assoc();
                                 </tr>
                                 <tr>
                                     <th>課程類別</th>
-                                    <td><?= $row["course_cate"] ?></td>
+                                    <td><?= $row["cate"] ?></td>
                                 </tr>
                                 <tr>
                                     <th>課程名稱</th>
-                                    <td><?= $row["course_name"] ?></td>
+                                    <td><?= $row["name"] ?></td>
                                 </tr>
                                 <tr>
                                     <th>地點</th>
@@ -122,7 +122,7 @@ $row = $result->fetch_assoc();
                                 </tr>
                                 <tr>
                                     <th>課程簡介</th>
-                                    <td><?= $row["course_intro"] ?></td>
+                                    <td><?= $row["intro"] ?></td>
                                 </tr>
                                 <tr>
                                     <th>建立時間</th>

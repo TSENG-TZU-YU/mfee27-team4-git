@@ -5,15 +5,15 @@ if(!isset($_POST["brnd_model"])){
 require("../db-connect.php");
 
 $id=$_POST["id"];
-$ins_cate=$_POST["ins_cate"];
-$brnd_model=$_POST["brnd_model"];
+$cate=$_POST["cate"];
+$name=$_POST["name"];
 $price=$_POST["price"];
 $stock=$_POST["stock"];
 $intro=$_POST["intro"];
 $create_time=date('Y-m-d H-i-s');
 
 $sql="UPDATE instrument_product SET 
-ins_cate='$ins_cate',brnd_model='$brnd_model',price='$price',stock='$stock',intro='$intro'
+cate='$cate',name='$name',price='$price',stock='$stock',intro='$intro'
 WHERE id=$id AND valid=1";
 
 

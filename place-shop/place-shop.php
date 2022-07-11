@@ -154,13 +154,13 @@ $totalPage = ceil($placeCount / $perPage);
                                 <th><input type="checkbox" class="ckb" id=" con.id " value=" con.id "></th>
                                 <td><?=$row["product_id"]?></td>
                                 <td><?=$row["creat_time"]?></td>
-                                <td><?=$row["location"]?></td>
-                                <td><?=$row["placetype"]?></td>
+                                <td><?=$row["cate"]?></td>
+                                <td><?=$row["name"]?></td>
                                 <td><?=$row["price"]?></td>
                                 <td><?=$row["stock"]?></td>
                                 <td><?=$row["use_time"]?></td>
                                 <td><?=$row["over_time"]?></td>
-                                <td><?=$row["place_intro"]?></td>
+                                <td><?=$row["intro"]?></td>
                                 <td>商品圖片</td>
                                 <td>
                                     <button class="btn btn-red me-3" type="button">
