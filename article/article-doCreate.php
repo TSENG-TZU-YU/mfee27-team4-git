@@ -39,7 +39,7 @@ if (move_uploaded_file($_FILES["image"]["tmp_name"], "../images/" . $_FILES["ima
   $sqlImage = "INSERT INTO images (name, image, upload_time) VALUES ('$title' ,'$fileName', '$now')";
   $conn->query($sqlImage);
 } else {
-  echo "師資照片上傳失敗";
+  echo "文章照片上傳失敗";
 }
 
 echo "<script>alert('文章建立成功'); location.href = 'articles.php'; </script>";
