@@ -2,31 +2,15 @@
 // 連結資料庫
 require("../db-connect.php");
 
-// 抓師資資料
-// $sql = "SELECT * FROM teacher  WHERE valid=1";
-// $result = $conn->query($sql);
-// $rows = $result->fetch_all(MYSQLI_ASSOC);
-
-// 抓課程商品資料
-$sqlCourseProduct = "SELECT * FROM course_product WHERE id AND valid=1";
-$resultCourseProduct = $conn->query($sqlCourseProduct);
-$CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
-
-if (isset($_GET["page"])) {
-    $page = $_GET["page"];
-} else {
-    $page = 1;
-}
-
-
 //search
 if (!isset($_GET["search"])) {
     $search = "";
     $sqlSearch = "";
-    $teacherCount = 0;
+    // $teacherCount = 0;
 } else {
     $search = $_GET["search"];
-    $sqlSearch = "id LIKE '%$search%' || name LIKE '%$search%' || courses LIKE '%$search%' || field LIKE '%$search%' || profile LIKE '%$search%' AND";
+    // 搜尋條件要群組
+    $sqlSearch = "(name LIKE '%$search%' OR courses LIKE '%$search%' OR field LIKE '%$search%' OR profile LIKE '%$search%') AND";
 }
 
 // 排序
@@ -45,7 +29,6 @@ $fieldOrderArray = ["琴鍵類音樂", "弦樂類音樂", "管樂類音樂", "�
 if (!isset($_GET["fieldOrder"])) {
     $fieldOrder = "";
     $fieldOrderType = "";
-    $teacherCount = 0;
 } else {
     $fieldOrder = $_GET["fieldOrder"];
     switch ($fieldOrder) {
@@ -69,15 +52,20 @@ if (!isset($_GET["fieldOrder"])) {
     }
 }
 
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+} else {
+    $page = 1;
+}
 
 // 頁碼
-$sqlAll = "SELECT * FROM teacher WHERE $sqlSearch valid=1";
+$sqlAll = "SELECT * FROM teacher WHERE $fieldOrderType $sqlSearch valid=1";
 $resultAll = $conn->query($sqlAll);
 $teacherCount = $resultAll->num_rows;
 
+
 $perPage = 4;
 $startPage = ($page - 1) * $perPage;
-// $sqlTeacher = "SELECT * FROM teacher WHERE $sqlSearch valid=1 ORDER BY $orderType LIMIT $startPage, $perPage";
 $sqlTeacher = "SELECT * FROM teacher WHERE $fieldOrderType $sqlSearch valid=1 ORDER BY $orderType LIMIT $startPage, $perPage";
 
 $resultTeacher = $conn->query($sqlTeacher);
@@ -87,8 +75,8 @@ $teacherRows = $resultTeacher->fetch_all(MYSQLI_ASSOC);
 $startItem = ($page - 1) * $perPage + 1;
 $endItem = $page * $perPage;
 
-if ($endItem > $pageTeacherCount) $endItem = $pageTeacherCount;
-$totalPage = ceil($pageTeacherCount / $perPage);
+if ($endItem > $teacherCount) $endItem = $teacherCount;
+$totalPage = ceil($teacherCount / $perPage);
 
 ?>
 
@@ -157,7 +145,7 @@ $totalPage = ceil($pageTeacherCount / $perPage);
                             <input type="hidden" value="<?= $page ?>" name="page">
                             <input type="hidden" value="<?= $order ?>" name="order">
                             <div class="row">
-                                <p class="col-8 m-auto">目前 <?= $startItem ?> - <?= $endItem ?> 筆，總共 <?= $pageTeacherCount ?> 筆資料</p>
+                                <p class="col-8 m-auto">目前 <?= $startItem ?> - <?= $endItem ?> 筆，總共 <?= $teacherCount ?> 筆資料</p>
                                 <input class="col form-control me-3" type="text" name="search">
                                 <button class="col-1 btn btn-green" type="submit">
                                     <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -182,7 +170,6 @@ $totalPage = ceil($pageTeacherCount / $perPage);
                             <form action="teachers.php" method="get">
                                 <input type="hidden" value="<?= $page ?>" name="page">
                                 <input type="hidden" value="<?= $search ?>" name="search">
-                                <input type="hidden" value="<?= $order ?>" name="order">
                                 <input type="hidden" value="<?php if ($order == "") {
                                                                 echo "1";
                                                             } ?>" name="order">
@@ -279,7 +266,7 @@ $totalPage = ceil($pageTeacherCount / $perPage);
                                 </a> -->
                         <!-- </li> -->
                         <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
-                            <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="teachers.php?page=<?= $i ?>&search=<?= $search ?>&order=<?= $order ?>&fieldOrderType=<?= $fieldOrderType ?>"><?= $i ?></a></li>
+                            <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="teachers.php?page=<?= $i ?>&search=<?= $search ?>&order=<?= $order ?>&fieldOrder=<?= $fieldOrder ?>"><?= $i ?></a></li>
                         <?php endfor; ?>
                         <!-- <li class="page-item"> -->
                         <!-- <a class="page-link" href="#" aria-label="Next">
