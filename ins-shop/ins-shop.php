@@ -219,7 +219,7 @@ $totalPage = ceil($insCount / $perPage);
                                     <td>
                                         <a class="btn btn-khak" type="button" id="show" href="ins-detail.php?id=<?= $row["id"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                            修改
+                                            詳細
                                         </a>                         
                                     </td>
                                 </tr>
