@@ -48,27 +48,27 @@
             <form action="docreate-place.php" method="post">
                 <div class="mb-2">
                     <label for="">店面</label>
-                    <input type="text" class="form-control" name="cate">
+                    <input type="text" class="form-control" name="cate" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">場地類型</label>
-                    <input type="text" class="form-control" name="name">
+                    <input type="text" class="form-control" name="name" required pattern=".*[^ ].*">
                 </div>                
                 <div class="mb-2">
                     <label for="">庫存</label>
-                    <input type="number" class="form-control" name="stock">
+                    <input type="number" class="form-control" name="stock" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">定價</label>
-                    <input type="number" class="form-control" name="price">
+                    <input type="number" class="form-control" name="price" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">開放時間</label>
-                    <input type="date" class="form-control" name="begin_time">
+                    <input type="date" class="form-control" name="begin_time" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">結束時間</label>
-                    <input type="date" class="form-control" name="over_time">
+                    <input type="date" class="form-control" name="over_time" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">場地簡介</label>
