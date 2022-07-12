@@ -28,7 +28,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
 <html lang="zh-tw">
 
 <head>
-  <title>師資管理</title>
+  <title>HAMAYA MUSIC - 修改師資</title>
 
   <!-- Required meta tags -->
   <meta charset="utf-8">
