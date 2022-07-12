@@ -3,7 +3,7 @@
         <div class="col-md-4 ">
             <div>
                 <figure class="ratio ratio-4x3 mb-2">
-                    <img class="object-cover" src="../images/ins/<?= $row["image"] ?>" alt="">
+                    <img class="object-cover" src="../images/ins-image/<?= $row["image"] ?>" alt="">
                 </figure>
                 <div class="text-primary"><?= $row["cate"] ?></div>
                 <h4 class="mb-2"><?= $row["name"] ?></h4>
