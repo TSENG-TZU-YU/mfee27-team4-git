@@ -7,37 +7,28 @@ if (isset($_GET["order_id"])) {
     exit;
 }
 
-
 require("../db-connect.php");
 $sql = "SELECT * FROM order_product WHERE order_id=$order_id AND valid=1 ";
 
 $result = $conn->query($sql);
 $orderCount = $result->num_rows;
 $row = $result->fetch_assoc();
-// print_r($row);
-// echo "<br>";
-$sqlPayState = "SELECT * FROM pay_state";
-$sqlOrderState = "SELECT * FROM state";
-$sqlPayMethod = "SELECT * FROM pay_by";
 
+$sqlPayState = "SELECT * FROM pay_state";
 $resultPayState = $conn->query($sqlPayState);
 $payStaterows = $resultPayState->fetch_all(MYSQLI_ASSOC);
 $payStateCount = $resultPayState->num_rows;
-// print_r($payStaterows);
-// echo "<br>";
 
+$sqlOrderState = "SELECT * FROM state";
 $resultOrderState = $conn->query($sqlOrderState);
 $orderStaterows = $resultOrderState->fetch_all(MYSQLI_ASSOC);
 $orderStateCount = $resultOrderState->num_rows;
-// print_r($orderStaterows);
-// echo "<br>";
+
+$sqlPayMethod = "SELECT * FROM pay_by";
 $resultPayMethod = $conn->query($sqlPayMethod);
 $payMethodrows = $resultPayMethod->fetch_all(MYSQLI_ASSOC);
 $payMethodCount = $resultPayMethod->num_rows;
-// print_r($payMethodrows);
-// echo "<br>";
-// echo $sql;
-// exit;
+
 $conn->close();
 $sqlOrder = "WHERE order-list.php";
 ?>

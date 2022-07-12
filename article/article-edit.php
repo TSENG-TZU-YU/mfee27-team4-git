@@ -13,10 +13,11 @@ $page = $_GET["page"];
 $search = $_GET["search"];
 $order = $_GET["order"];
 $categoryOrder = $_GET["categoryOrder"];
+$publish = $_GET["publish"];
 
 
 // 抓師資資料
-$sqlAll = "SELECT * FROM article WHERE id=$id AND valid=1";
+$sqlAll = "SELECT * FROM article WHERE id=$id AND valid > 0";
 $resultAll = $conn->query($sqlAll);
 $ArticleCount = $resultAll->num_rows;
 
@@ -27,7 +28,7 @@ $ArticleCount = $resultAll->num_rows;
 <html lang="zh-tw">
 
 <head>
-  <title>修改文章</title>
+  <title>HAMAYA MUSIC - 修改文章</title>
 
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -54,6 +55,21 @@ $ArticleCount = $resultAll->num_rows;
     .text-align-justify {
       text-align: justify;
     }
+
+    /* 淺紅色色按鈕 */
+    .btn-light-red,
+    .btn-light-red:focus {
+      background: #e2c4d2;
+      border-color: #e2c4d2;
+      color: #fff;
+    }
+
+    .btn-light-red:hover,
+    .btn-light-red:active:hover {
+      color: #fff;
+      background: #e2c4d2;
+      border-color: #e2c4d2;
+    }
   </style>
 
 
@@ -64,6 +80,7 @@ $ArticleCount = $resultAll->num_rows;
     <div class="row d-flex">
 
       <!-- 導覽列 nav -->
+      <?php require("../nav.php"); ?>
       <!-- 導覽列 nav end -->
 
 
@@ -131,14 +148,26 @@ $ArticleCount = $resultAll->num_rows;
                     </div>
                   </div>
                   <div class="d-flex justify-content-center align-items-center mt-2">
-                    <a class="btn btn-green me-5" href="articles.php?page=<?= $page ?>&search=<?= $search ?>&order=<?= $order ?>&categoryOrder=<?= $categoryOrder ?>">
+                    <a class="btn btn-green me-3" href="articles.php?page=<?= $page ?>&search=<?= $search ?>&order=<?= $order ?>&categoryOrder=<?= $categoryOrder ?>&publish=<?= $publish ?>">
                       <img class="mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                       取消修改
                     </a>
-                    <button class="btn btn-khak" type="submit" name="submit">
+                    <button class="btn btn-khak me-3" type="submit" name="submit">
                       <img class="mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                      發佈文章
+                      修改完成
                     </button>
+                    <?php if ($rowArticle["valid"] == 1) : ?>
+                      <?= '<a class="btn btn-grey" href="article-doPublish.php?id=' . $id ?>
+                      <?= '"><img class="mb-1" src="../icon/article-icon.svg" width="16" height="16"></img>
+                        發佈文章
+                      </a>' ?>
+                    <?php endif; ?>
+                    <?php if ($rowArticle["valid"] == 2) : ?>
+                      <?= '<a class="btn btn-red" href="article-noPublish.php?id=' . $id ?>
+                      <?= '"><img class="mb-1" src="../icon/article-icon.svg" width="16" height="16"></img>
+                        取消發佈
+                      </a>' ?>
+                    <?php endif; ?>
                     <div class="ms-auto p-2">
                       <a class="btn btn-red" href="article-doDelete.php?id=<?= $id ?>">
                         <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>

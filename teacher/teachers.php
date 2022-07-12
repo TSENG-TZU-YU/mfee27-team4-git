@@ -155,7 +155,7 @@ $totalPage = ceil($teacherCount / $perPage);
                                         if ($startItem == $endItem) {
                                           echo "最後1筆";
                                         } else {
-                                          echo "目前 " . $startItem . " - " . $endItem . " 筆";
+                                          echo "第 " . $startItem . " - " . $endItem . " 筆";
                                         }
                                         ?>，總共 <?= $teacherCount  ?> 筆資料</p>
                 <input class="col form-control me-3" type="text" name="search">
@@ -169,64 +169,65 @@ $totalPage = ceil($teacherCount / $perPage);
         </div>
         <hr>
         <!-- 新增按鈕 -->
-        <div class="d-flex justify-content-between">
-          <div class="col">
-            <a class="col btn btn-green me-2" href="teacher-create.php">
-              <img class="mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
-              新增師資
-            </a>
-          </div>
-          <!-- 排序、篩選按鈕 -->
-          <div class="col d-flex justify-content-end">
-            <div class="me-2">
-              <form action="teachers.php" method="get">
+        <div class="container">
+          <div class="d-flex justify-content-between">
+            <div class="col">
+              <a class="col btn btn-green me-2" href="teacher-create.php">
+                <img class="mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                新增師資
+              </a>
+            </div>
+            <!-- 排序、篩選按鈕 -->
+            <div class="col d-flex justify-content-end">
+              <div class="me-2">
+                <form action="teachers.php" method="get">
+                  <input type="hidden" value="<?= $page ?>" name="page">
+                  <input type="hidden" value="<?= $search ?>" name="search">
+                  <input type="hidden" value="<?= $order ?>" name="order">
+                  <input type="hidden" value="<?= $fieldOrder ?>" name="fieldOrder">
+                  <input type="hidden" value="<?php if ($order == "") {
+                                                echo "1";
+                                              } ?>" name="order">
+                  <button class="btn  btn-khak me-3" type="submit">
+                    師資編號排序
+                  </button>
+                </form>
+              </div>
+              <!-- 教學領域篩選 -->
+              <form class="d-flex" action="teachers.php" method="get">
                 <input type="hidden" value="<?= $page ?>" name="page">
                 <input type="hidden" value="<?= $search ?>" name="search">
                 <input type="hidden" value="<?= $order ?>" name="order">
-                <input type="hidden" value="<?= $fieldOrder ?>" name="fieldOrder">
-                <input type="hidden" value="<?php if ($order == "") {
-                                              echo "1";
-                                            } ?>" name="order">
-                <button class="btn  btn-khak me-3" type="submit">
-                  師資編號排序
+                <select class="col form-select me-2" aria-label="Default select example" name="fieldOrder">
+                  <option selected value="教學領域">教學領域</option>
+                  <?php foreach ($fieldOrderArray as $rowOrderArray) : ?>
+                    <option value="<?= $rowOrderArray ?>"><?= $rowOrderArray ?></option>
+                  <?php endforeach; ?>
+                </select>
+                <button class="btn btn-grey" type="submit">
+                  篩選
                 </button>
               </form>
             </div>
-            <!-- 教學領域篩選 -->
-            <form class="d-flex" action="teachers.php" method="get">
-              <input type="hidden" value="<?= $page ?>" name="page">
-              <input type="hidden" value="<?= $search ?>" name="search">
-              <input type="hidden" value="<?= $order ?>" name="order">
-              <select class="col form-select me-2" aria-label="Default select example" name="fieldOrder">
-                <option selected value="教學領域">教學領域</option>
-                <?php foreach ($fieldOrderArray as $rowOrderArray) : ?>
-                  <option value="<?= $rowOrderArray ?>"><?= $rowOrderArray ?></option>
-                <?php endforeach; ?>
-              </select>
-              <button class="btn btn-grey" type="submit">
-                篩選
-              </button>
-            </form>
           </div>
-        </div>
-        <table class="table mt-4">
-          <thead>
-            <tr>
-              <th scope="col">編號</th>
-              <th scope="col">師資照片</th>
-              <th scope="col">師資姓名</th>
-              <th scope="col">教學領域</th>
-              <th scope="col" width="130">教授課程</th>
-              <th scope="col" width="400">師資簡介</th>
-              <th scope="col-2">管理操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- 撈每一筆資料 -->
-            <?php foreach ($teacherRows as $row) : ?>
+          <table class="table mt-4">
+            <thead>
               <tr>
-                <td><?= $row["id"] ?></td>
-                <td><img class="object-cover  rounded" src="
+                <th scope="col">編號</th>
+                <th scope="col">師資照片</th>
+                <th scope="col">師資姓名</th>
+                <th scope="col">教學領域</th>
+                <th scope="col" width="130">教授課程</th>
+                <th scope="col" width="400">師資簡介</th>
+                <th scope="col-2">管理操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- 撈每一筆資料 -->
+              <?php foreach ($teacherRows as $row) : ?>
+                <tr>
+                  <td><?= $row["id"] ?></td>
+                  <td><img class="object-cover  rounded" src="
                         <?php if (empty($row["image"])) {
                           // 如果沒有照片就顯示頭像icon
                           echo "../images/img-icon.svg";
@@ -237,65 +238,55 @@ $totalPage = ceil($teacherCount / $perPage);
                         }
                         ?>
                         "></td>
-                <td><?= $row["name"] ?></td>
-                <td><?= $row["field"] ?></td>
-                <td align="left"><?= $row["courses"]; ?></td>
-                <td align="left">
-                  <p class="ellipsis">
-                    <?= $row["profile"] ?>
-                  </p>
-                </td>
-                <td>
-                  <div class="d-flex">
-                    <form class="col" action="teacher.php" method="git">
-                      <input type="hidden" value="<?= $page ?>" name="page">
-                      <input type="hidden" value="<?= $search ?>" name="search">
-                      <input type="hidden" value="<?= $order ?>" name="order">
-                      <input type="hidden" value="<?= $fieldOrder ?>" name="fieldOrder">
-                      <input type="hidden" value="<?= $row["id"] ?>" name="id">
-                      <button class="btn btn-green" type="submit">
-                        <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                        詳細
-                      </button>
-                    </form>
-                    <form class="col" action="teacher-edit.php" method="git">
-                      <input type="hidden" value="<?= $page ?>" name="page">
-                      <input type="hidden" value="<?= $search ?>" name="search">
-                      <input type="hidden" value="<?= $order ?>" name="order">
-                      <input type="hidden" value="<?= $fieldOrder ?>" name="fieldOrder">
-                      <input type="hidden" value="<?= $row["id"] ?>" name="id">
-                      <button class="btn btn-khak" type="submit">
-                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                        修改
-                      </button>
-                    </form>
-                  </div>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          </tbody>
-        </table>
+                  <td><?= $row["name"] ?></td>
+                  <td><?= $row["field"] ?></td>
+                  <td align="left"><?= $row["courses"]; ?></td>
+                  <td align="left">
+                    <p class="ellipsis">
+                      <?= $row["profile"] ?>
+                    </p>
+                  </td>
+                  <td>
+                    <div class="d-flex">
+                      <form class="col" action="teacher.php" method="git">
+                        <input type="hidden" value="<?= $page ?>" name="page">
+                        <input type="hidden" value="<?= $search ?>" name="search">
+                        <input type="hidden" value="<?= $order ?>" name="order">
+                        <input type="hidden" value="<?= $fieldOrder ?>" name="fieldOrder">
+                        <input type="hidden" value="<?= $row["id"] ?>" name="id">
+                        <button class="btn btn-green" type="submit">
+                          <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                          詳細
+                        </button>
+                      </form>
+                      <form class="col" action="teacher-edit.php" method="git">
+                        <input type="hidden" value="<?= $page ?>" name="page">
+                        <input type="hidden" value="<?= $search ?>" name="search">
+                        <input type="hidden" value="<?= $order ?>" name="order">
+                        <input type="hidden" value="<?= $fieldOrder ?>" name="fieldOrder">
+                        <input type="hidden" value="<?= $row["id"] ?>" name="id">
+                        <button class="btn btn-khak" type="submit">
+                          <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                          修改
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
 
-        <!-- 頁碼 -->
-        <div aria-label="Page navigation example text-end" class="d-flex mt-4  justify-content-center">
-          <ul class="pagination">
-            <!-- <li class="page-item"> -->
-            <!-- <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a> -->
-            <!-- </li> -->
-            <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
-              <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="teachers.php?page=<?= $i ?>&search=<?= $search ?>&order=<?= $order ?>&fieldOrder=<?= $fieldOrder ?>"><?= $i ?></a></li>
-            <?php endfor; ?>
-            <!-- <li class="page-item"> -->
-            <!-- <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a> -->
-            <!-- </li> -->
-          </ul>
+          <!-- 頁碼 -->
+          <div aria-label="Page navigation example text-end" class="d-flex mt-4  justify-content-center">
+            <ul class="pagination">
+              <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+                <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="teachers.php?page=<?= $i ?>&search=<?= $search ?>&order=<?= $order ?>&fieldOrder=<?= $fieldOrder ?>"><?= $i ?></a></li>
+              <?php endfor; ?>
+            </ul>
+          </div>
+          <!-- 頁碼 end -->
         </div>
-        <!-- 頁碼 end -->
-
 
     </div>
     <!-- 內容 end -->
