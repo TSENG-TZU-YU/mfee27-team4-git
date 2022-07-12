@@ -217,7 +217,7 @@ $totalPage = ceil($teacherCount / $perPage);
                 <th scope="col">師資照片</th>
                 <th scope="col">師資姓名</th>
                 <th scope="col">教學領域</th>
-                <th scope="col" width="130">教授課程</th>
+                <th scope="col" width="270">教授課程</th>
                 <th scope="col" width="400">師資簡介</th>
                 <th scope="col-2">管理操作</th>
               </tr>

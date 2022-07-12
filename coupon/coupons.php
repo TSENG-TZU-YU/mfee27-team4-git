@@ -124,8 +124,8 @@ $totalPage = ceil($couponCountAll / $perPage);
                     <form action="coupons.php" method="get">
                         <div class="row">
 
-                            <span class="col-5"> 第<?= $startItem ?>- <?= $endItem ?>筆</span>
-                            <p class="col-8 m-auto">總共<?= $couponCountAll ?>筆資料</p>
+                            <span class="col-5"> 第<?= $startItem ?>- <?= $endItem ?>筆 , 總共<?= $couponCountAll ?>筆資料</span>
+                            <!-- <p class="col-8 m-auto">總共<?= $couponCountAll ?>筆資料</p> -->
                             <input class="col form-control me-3 " type="text" name="search">
                             <button type="submit" class="col-1 btn btn-green">
                                 <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -150,8 +150,8 @@ $totalPage = ceil($couponCountAll / $perPage);
 
 
 
-                    <a href="coupons.php?page=<?= $page ?>&order=1" class="btn btn-khak  <?php if ($order == 1) echo " active" ?>">By id asc</a>
-                    <a href="coupons.php?page=<?= $page ?>&order=2" class="btn btn-khak  <?php if ($order == 2) echo " active" ?>">By id desc</a>
+                    <a href="coupons.php?page=<?= $page ?>&order=1" class="btn btn-khak  <?php if ($order == 1) echo " " ?>">By id asc</a>
+                    <a href="coupons.php?page=<?= $page ?>&order=2" class="btn btn-khak  <?php if ($order == 2) echo " " ?>">By id desc</a>
 
 
                     <?php if ($couponCountAll > 0) : ?>

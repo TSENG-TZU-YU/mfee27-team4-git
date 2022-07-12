@@ -80,7 +80,7 @@ $resultAll = $conn->query($sqlAll);
 $articleCount = $resultAll->num_rows;
 
 // 頁碼
-$perPage = 6;
+$perPage = 3;
 $startPage = ($page - 1) * $perPage;
 $sqlArticle = "SELECT * FROM article WHERE $categoryOrderType $sqlSearch $publishType ORDER BY $orderType  LIMIT $startPage, $perPage";
 
