@@ -190,11 +190,11 @@ $totalPage = ceil($placeCount / $perPage);
                                 <td><?=$row["creat_time"]?></td>
                                 <td>
                                 <?php if($row["state"]==1):?>
-                                    <a class="btn btn-red me-3" type="button" href="downstate-place.php?id=<?=$row["id"]?>">
+                                    <a class="btn btn-green me-3" type="button" href="downstate-place.php?id=<?=$row["id"]?>">
                                         上架
                                     </a>
                                         <?php else: ?>
-                                    <a class="btn btn-green me-3" type="button" href="dostate-place.php?id=<?=$row["id"]?>">
+                                    <a class="btn btn-red me-3" type="button" href="dostate-place.php?id=<?=$row["id"]?>">
                                         下架
                                     </a>
                                     <?php endif ; ?>
