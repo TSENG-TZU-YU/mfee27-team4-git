@@ -101,14 +101,14 @@ switch($order){
 $start=($page-1)*$perPage;
 
 $sql="SELECT order_qna.*, users.account , users.name FROM order_qna
-    JOIN users ON order_qna.user_id = users.id WHERE $sqlWhere $sqlseach users.valid=1 ORDER BY $orderType
+    JOIN users ON order_qna.user_id = users.id WHERE $sqlWhere $sqlseach order_qna.valid=1 ORDER BY $orderType
     LIMIT $start, $perPage" ; 
    
 $result=$conn->query($sql);
 $rows=$result->fetch_all(MYSQLI_ASSOC);
 
 $sqlAll="SELECT order_qna.*, users.account, users.name FROM order_qna
-    JOIN users ON order_qna.user_id = users.id  AND $sqlWhere $sqlseach users.valid=1";
+    JOIN users ON order_qna.user_id = users.id  AND $sqlWhere $sqlseach order_qna.valid=1";
 $resultAll=$conn->query($sqlAll);
 $userCount=$resultAll->num_rows;
 

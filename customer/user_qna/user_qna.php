@@ -1,5 +1,6 @@
 <?php
 require("../../db-connect.php");
+$sqlUser_qna="WHERE user_qna.php";
 session_start();
 
 
@@ -53,11 +54,11 @@ switch($category){
 if (isset($_GET["search"])){
     $_SESSION["userstate"]["search"]=$_GET["search"];
     $search=$_SESSION["userstate"]["search"];
-    $sqlseach="( users.account LIKE '%$search%' OR users.name LIKE '%$search%') AND"; 
+    $sqlseach="( users.account LIKE '%$search%' OR user_qna.name LIKE '%$search%') AND"; 
 }elseif(isset($_SESSION["userstate"]["search"])){
     $_SESSION["userstate"]["search"]=$_SESSION["userstate"]["search"];
     $search=$_SESSION["userstate"]["search"];
-    $sqlseach="( users.account LIKE '%$search%' OR users.name LIKE '%$search%') AND"; 
+    $sqlseach="( users.account LIKE '%$search%' OR user_qna.name LIKE '%$search%') AND"; 
 }else{
     $_SESSION["userstate"]["search"]="";
     $search="";
@@ -100,12 +101,12 @@ switch($order){
 
 $start=($page-1)*$perPage;
 
-$sql="SELECT user_qna.*,users.account, users.name AS user_name FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id WHERE $sqlWhere $sqlseach users.valid=1 ORDER BY $orderType LIMIT $start, $perPage";
+$sql="SELECT user_qna.*,users.account, users.name AS user_name FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id WHERE $sqlWhere $sqlseach user_qna.valid=1 ORDER BY $orderType LIMIT $start, $perPage";
 $result=$conn->query($sql);
 $rows=$result->fetch_all(MYSQLI_ASSOC);
 
 
-$sqlAll="SELECT user_qna.*,users.account, users.name FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id WHERE $sqlWhere $sqlseach users.valid=1";
+$sqlAll="SELECT user_qna.*,users.account, users.name AS user_name FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id WHERE $sqlWhere $sqlseach user_qna.valid=1";
 $resultAll=$conn->query($sqlAll);
 $userCount=$resultAll->num_rows;
 
@@ -114,8 +115,6 @@ $endItem=$page*$perPage;
 if($endItem>$userCount)$endItem=$userCount;
 
 $totalPage=ceil($userCount/$perPage);
-
-$sqlUser_qna="WHERE user_qna.php";
 
 ?>
 <!DOCTYPE html>
