@@ -182,7 +182,7 @@ $totalPage=ceil($userCount/$perPage);
                                         <p class="text-nowrap">帳號姓名搜尋</p> 
                                     </button>
                                 </div>
-                                <input type="hidden" name="category" value="<?=$category?>">
+                                <input type="hidden" name="page" value="1">
                             </form>
                         </div>
                     </div>
@@ -213,6 +213,7 @@ $totalPage=ceil($userCount/$perPage);
                                 <label for="category4">新訊息</label>
                             </div>
                         </div>
+                        <input type="hidden" name="page" value="1">
                     </form> 
                     <!-- <hr>                    -->
                     <table class="table mt-2">
