@@ -43,6 +43,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
     <!-- 版面元件樣式 css -->
     <link rel="stylesheet" href="/mfee27-team4-git/style.css">
     </link>
+    <!-- <meta http-equiv="refresh" content="10" >  -->
     <style>
         .inputcontent{
             height: 70px;    
