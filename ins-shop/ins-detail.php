@@ -101,6 +101,10 @@ $row = $result->fetch_assoc();
                                     <td><?= $row["name"] ?></td>
                                 </tr>
                                 <tr>
+                                    <th>商品圖片</th>
+                                    <td><img class="object-cover " src="<?$teacherImage = $row["image"];?>"></td>
+                                </tr>
+                                <tr>
                                     <th>定價</th>
                                     <td><?= $row["price"] ?></td>
                                 </tr>

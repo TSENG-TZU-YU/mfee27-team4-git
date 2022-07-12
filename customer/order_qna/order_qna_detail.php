@@ -51,6 +51,11 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
             font-size: 14px;
             border-radius: 15px;
         }
+        /* .viewItem{
+            height: 500px;
+            overflow: auto;
+
+        } */
     </style>
 </head>
 
@@ -135,9 +140,10 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                     </script>
                     <form name="form1" action="" method="post">    
                         <table class="table">
-                            <tr>
+                            <tr class="viewItem">
                                 <th width=200  class="align-top fs-6">問題內容</th>
                                 <td style="word-break:break-all" class="">
+                                <div class="viewItem">
                                 <?php foreach($rowsDetail as $rowDetail): ?>
                                 <p class="text-start ">
                                     <label>
@@ -147,14 +153,15 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                     </label>
                                 </p>
                                 <p class="text-start  fs-6">&nbsp&nbsp&nbsp&nbsp<?=$rowDetail["q_content"]?></p>
-                                <?php endforeach;?>   
+                                <?php endforeach;?>
+                                </div>   
                                 </td>  
                             </tr>  
                             <tr>
                                 <th>進行回覆:</th>
                                 <td>
                                     <!-- <textarea type="" pattern=".*[^ ].*" class="form-control inputcontent" placeholder='輸入對話' name="reply" ></textarea> -->
-                                    <input type="text" name="reply" class="form-control inputcontent" placeholder='輸入對話' autocomplete="off" >
+                                    <input type="text" name="reply" class="form-control inputcontent" autofocus placeholder='輸入對話' autocomplete="off" >
                                 </td>   
                             </tr>
                         </table>
