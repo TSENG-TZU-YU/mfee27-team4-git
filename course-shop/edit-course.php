@@ -118,11 +118,11 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>結束時間</th>
-                                        <td><input type="date" class="form-control text-center" value="<?= $row["over_date"] ?>" name="over_date"></td>
+                                        <td><input type="date" class="form-control text-center" value="<?= $row["over_date"]?>" name="over_date"></td>
                                     </tr>
                                     <tr>
                                         <th>課程簡介</th>
-                                        <td><textarea type="text" class="form-control text-center" name="intro"><?= $row["intro"] ?></textarea></td>
+                                        <td><textarea type="text" class="form-control text-center" name="intro"><?= $row["intro"]?></textarea></td>
                                     </tr>
                                     <tr>
                                         <th>建立時間</th>
