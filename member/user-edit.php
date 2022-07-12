@@ -9,6 +9,7 @@ if (!isset($_GET["id"])) {
 }
 
 $id = $_GET["id"];
+$name = $_GET["name"];
 $sql = "SELECT * FROM users WHERE id=$id";
 $result = $conn->query($sql);
 $userCount = $result->num_rows;
@@ -71,7 +72,7 @@ $row = $result->fetch_assoc();
                     <!-- 按鈕 -->
                     <div class="row ">
                         <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green mx-3" href="user-detail.php?id=<?= $row["id"] ?>">
+                        <a class="col-1 btn btn-green mx-3" href="user-detail.php?id=<?= $id ?>&name=<?=$name?>">
                             <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
