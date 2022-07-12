@@ -1,14 +1,13 @@
 <?php
 require("../db-connect.php");
+$sqlMember = "WHERE member.users.php";
 session_start();
+
 if (!isset($_SESSION["user"])) {   //重整後會需要重新登入
     echo "請循正常管道進入本頁";
     header("location:http://localhost/mfee27-team4-git/backstage.php");
     exit;
 }
-
-
-$sqlMember = "WHERE member.users.php";
 
 // if (isset($_GET["page"])) {
 //     $page = $_GET["page"];
