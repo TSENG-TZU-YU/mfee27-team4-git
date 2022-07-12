@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_GET["order_id"])) {
     $order_id = $_GET["order_id"];
 } else {
@@ -6,6 +7,9 @@ if (isset($_GET["order_id"])) {
     exit;
 }
 require("../db-connect.php");
+
+$listPage = $_SESSION["page"];
+$orderType = $_SESSION["orderType"];
 
 $sql = "SELECT * FROM order_product_detail WHERE order_id=$order_id AND valid=1 ";
 
@@ -15,7 +19,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 
 $inArray = array_column($rows, 'category_id');
 
-$conn->close();
+// $conn->close();
 $sqlOrder = "WHERE order-list.php";
 ?>
 
@@ -35,7 +39,13 @@ $sqlOrder = "WHERE order-list.php";
     <!-- 版面元件樣式 css -->
     <link rel="stylesheet" href="../style.css">
     </link>
-
+    <style>
+         .object-cover {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+        }
+    </style>
 </head>
 
 <body>
@@ -60,7 +70,19 @@ $sqlOrder = "WHERE order-list.php";
                 <!-- 麵包屑 breadcrumb end -->
                 <!-- 內容 -->
                 <div class="container">
-                    <h5 class="pt-3">訂單編號：<?= $order_id ?>，總共<?= $pageDetailCount ?>筆資料</h5>
+                    <div class="pt-2 row align-items-baseline">
+                        <a class="col-1 btn btn-green me-2" href="order-list.php?page=<?= $listPage ?><?php
+                                                                                                        if ($orderType == "&order=1") echo "&order=1";
+                                                                                                        if ($orderType == "&order=2") echo "&order=2";
+                                                                                                        if ($orderType == "payment_method=1 AND") echo "&payment=1";
+                                                                                                        if ($orderType == "payment_method=2 AND") echo "&payment=2";
+                                                                                                        if ($orderType == "payment_state=1 AND") echo "&payment=3";
+                                                                                                        if ($orderType == "payment_state=2 AND") echo "&payment=4";
+                                                                                                        ?>">
+                            <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>返回
+                        </a>
+                        <h5 class="col-4">訂單編號：<?= $order_id ?>，總共<?= $pageDetailCount ?>筆資料</h5>
+                    </div>
                     <hr>
                     <h2 class="text-center py-2">樂器訂單記錄</h2>
                     <hr>
@@ -71,6 +93,7 @@ $sqlOrder = "WHERE order-list.php";
                                     <thead>
                                         <tr>
                                             <th scope="col">產品編號</th>
+                                            <th scope="col">產品圖片</th>
                                             <th scope="col">產品類別</th>
                                             <th scope="col">數量</th>
                                             <th scope="col">寄送地址</th>
@@ -79,10 +102,17 @@ $sqlOrder = "WHERE order-list.php";
                                     </thead>
                                     <tbody>
                                         <?php foreach ($rows as $row) : ?>
-                                            <?php if ($row["category_id"] === "A") : ?>
+                                            <?php if ($row["category_id"] === "A") :
+                                                $proImg = $row["product_id"];
+                                                $sql = "SELECT product_id, image FROM instrument_product WHERE product_id='$proImg'";
+                                                $result = $conn->query($sql);
+                                                $orderCount = $result->num_rows;
+                                                $rowPic = $result->fetch_assoc();
+                                            ?>
                                                 <tr>
                                                     <td><?= $row["product_id"] ?></td>
-                                                    <td><?= $row["category_id"] ?></td>
+                                                    <td><img class="object-cover" src="<?php echo "../images/ins-image/".$rowPic["image"]?>"></td>
+                                                    <td>樂器商城</td>
                                                     <td><?= $row["amount"] ?></td>
                                                     <td><?= $row["address"] ?></td>
                                                     <td>
@@ -112,6 +142,7 @@ $sqlOrder = "WHERE order-list.php";
                                     <thead>
                                         <tr>
                                             <th scope="col">產品編號</th>
+                                            <th scope="col">產品圖片</th>
                                             <th scope="col">產品類別</th>
                                             <th scope="col">數量</th>
                                             <th scope="col"></th>
@@ -119,10 +150,17 @@ $sqlOrder = "WHERE order-list.php";
                                     </thead>
                                     <tbody>
                                         <?php foreach ($rows as $row) : ?>
-                                            <?php if ($row["category_id"] === "B") : ?>
+                                            <?php if ($row["category_id"] === "B") : 
+                                                $proImg = $row["product_id"];
+                                                $sql = "SELECT product_id, image FROM course_product WHERE product_id='$proImg'";
+                                                $result = $conn->query($sql);
+                                                $orderCount = $result->num_rows;
+                                                $rowPic = $result->fetch_assoc();
+                                                ?>
                                                 <tr>
                                                     <td><?= $row["product_id"] ?></td>
-                                                    <td><?= $row["category_id"] ?></td>
+                                                    <td><img class="object-cover" src="<?php echo "../images/ins-image/".$rowPic["image"]?>"></td>
+                                                    <td>音樂教育</td>
                                                     <td><?= $row["amount"] ?></td>
                                                     <td>
                                                         <a class="col btn btn-red me-2" href="doListDetailDelete.php?order_id=<?= $order_id ?> &product_id=<?= $row["product_id"] ?>">
@@ -150,6 +188,7 @@ $sqlOrder = "WHERE order-list.php";
                                     <thead>
                                         <tr>
                                             <th scope="col">產品編號</th>
+                                            <th scope="col">產品圖片</th>
                                             <th scope="col">產品類別</th>
                                             <th scope="col">數量</th>
                                             <th scope="col"></th>
@@ -157,10 +196,18 @@ $sqlOrder = "WHERE order-list.php";
                                     </thead>
                                     <tbody>
                                         <?php foreach ($rows as $row) : ?>
-                                            <?php if ($row["category_id"] === "C") : ?>
+                                            <?php if ($row["category_id"] === "C") : 
+                                                $proImg = $row["product_id"];
+                                                $sql = "SELECT product_id, image FROM place_produce WHERE product_id='$proImg'";
+                                                $result = $conn->query($sql);
+                                                $orderCount = $result->num_rows;
+                                                $rowPic = $result->fetch_assoc();
+                                                
+                                                ?>
                                                 <tr>
                                                     <td><?= $row["product_id"] ?></td>
-                                                    <td><?= $row["category_id"] ?></td>
+                                                    <td><img class="object-cover" src="<?php echo "../images/ins-image/".$rowPic["image"]?>"></td>
+                                                    <td>場地租借</td>
                                                     <td><?= $row["amount"] ?></td>
                                                     <td>
                                                         <a class="col btn btn-red me-2" href="doListDetailDelete.php?order_id=<?= $order_id ?> &product_id=<?= $row["product_id"] ?>">

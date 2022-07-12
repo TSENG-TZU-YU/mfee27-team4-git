@@ -17,7 +17,7 @@ if (!isset($_GET["search"])) {
 }
 
 
-$order = isset($_GET["order"]) ? $_GET["order"] : 1;
+$order = isset($_GET["order"]) ? $_GET["order"] : '1';
 switch ($order) {
     case 1:
         $orderType = "order_id DESC";
@@ -163,8 +163,9 @@ $sqlOrder = "WHERE order-list.php";
                 <hr>
                 <div class="container">
                     <div class="py-2 d-flex justify-content-end align-items-center">
-                        <a href="order-list.php?page=<?= $page ?>&order=1" class="btn btn-grey me-2">最新訂單</a>
-                        <a href="order-list.php?page=<?= $page ?>&order=2" class="btn btn-grey me-2">舊訂單</a>
+                        <a href="order-list.php?page=<?= $page ?>&order=<?php if ($order == 1) echo "2";
+                                                                        if ($order == 2) echo "1";
+                                                                        ?>" class="btn btn-grey me-2">建立時間排序</a>
                         <a href="order-list.php?page=<?= $page ?>&payment=1" class="btn btn-khak me-2">信用卡</a>
                         <a href="order-list.php?page=<?= $page ?>&payment=2" class="btn btn-khak me-2 ">轉帳</a>
                         <a href="order-list.php?page=<?= $page ?>&payment=3" class="btn btn-khak me-2">未付款</a>
@@ -191,10 +192,10 @@ $sqlOrder = "WHERE order-list.php";
                             <tbody>
                                 <?php foreach ($rows as $row) : ?>
                                     <tr>
-                                        <th><?= $row["order_id"] ?></th>
-                                        <th><?= $row["account"] ?></th>
-                                        <th><?= $row["create_time"] ?></th>
-                                        <th><?= $row["total_amount"] ?></th>
+                                        <td><?= $row["order_id"] ?></td>
+                                        <td><?= $row["account"] ?></td>
+                                        <td><?= $row["create_time"] ?></td>
+                                        <td><?= $row["total_amount"] ?></td>
                                         <td><?= $row["payMethodName"] ?></td>
                                         <td><?= $row["payName"] ?></td>
                                         <td><?= $row["payment_time"] ?></td>

@@ -11,7 +11,7 @@ $id = $_GET["id"];
 $sql = "UPDATE teacher SET valid=0 WHERE id='$id'";
 
 if ($conn->query($sql) === TRUE) {
-  echo "<script>alert('師資刪除成功'); location.href = 'teachers.php'; </script>";
+  echo "<script>alert('師資刪除成功'); location.href = 'teachers.php?page=1&search=&order=1&fieldOrder=>'; </script>";
 } else {
   echo "師資刪除錯誤: " . $conn->error;
 }
