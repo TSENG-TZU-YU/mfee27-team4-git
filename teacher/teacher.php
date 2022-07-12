@@ -23,7 +23,7 @@ $teacherCount = $resultAll->num_rows;
 <html lang="zh-tw">
 
 <head>
-    <title>師資管理</title>
+    <title>HAMAYA MUSIC - 師資詳細資料</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">

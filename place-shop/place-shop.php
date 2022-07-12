@@ -105,13 +105,9 @@ $totalPage = ceil($placeCount / $perPage);
                         <input type="checkbox" id="ckb_selectAll">
                             全選
                         </a>
-                        <a class="col-1 btn btn-red me-2" href="#">
-                            <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
-                            批次刪除
-                        </a>
                         <!-- 無文字按鈕 -->
                         <form action="place-shop.php" class="col-6 me-2 "  >
-                        <select onchange="this.form.submit()" name="ins_cate" id="">
+                        <select onchange="this.form.submit()" name="cate" id="">
                             <option value="">全部店面</option>
                             <option value="1" >台北總店</option>
                             <option value="2" >中壢店</option>
@@ -119,10 +115,10 @@ $totalPage = ceil($placeCount / $perPage);
                         </select>
                         </form>
                         <a class="col-1 btn btn-green me-2" href="ins-shop.php?valid=1">
-                            已上架
+                            批次上架
                         </a>
                         <a class="col-1 btn btn-red me-2" href="ins-shop.php?valid=2">
-                            已下架
+                            批次下架
                         </a>
                     </div>
                     <!-- 按鈕 end-->
@@ -133,7 +129,6 @@ $totalPage = ceil($placeCount / $perPage);
                             <tr>
                                 <th scope="col">勾選</th>
                                 <th scope="col">商品編號</th>
-                                <th scope="col">建立時間</th>
                                 <th scope="col">店面</th>
                                 <th scope="col">場地類型</th>
                                 <th scope="col">定價</th>
@@ -141,7 +136,8 @@ $totalPage = ceil($placeCount / $perPage);
                                 <th scope="col">開放時間</th>
                                 <th scope="col">結束時間</th>
                                 <th scope="col">場地簡介</th>
-                                <th scope="col">場地圖片</th>
+                                <th scope="col">建立時間</th>
+                                <th scope="col">上架狀態</th>
                                 <th scope="col">功能</th>                                
                             </tr>
                         </thead>
@@ -153,7 +149,7 @@ $totalPage = ceil($placeCount / $perPage);
                             <tr>
                                 <th><input type="checkbox" class="ckb" id=" con.id " value=" con.id "></th>
                                 <td><?=$row["product_id"]?></td>
-                                <td><?=$row["creat_time"]?></td>
+                              
                                 <td><?=$row["cate"]?></td>
                                 <td><?=$row["name"]?></td>
                                 <td><?=$row["price"]?></td>
@@ -161,45 +157,24 @@ $totalPage = ceil($placeCount / $perPage);
                                 <td><?=$row["use_time"]?></td>
                                 <td><?=$row["over_time"]?></td>
                                 <td><?=$row["intro"]?></td>
-                                <td>商品圖片</td>
+                                <td><?=$row["creat_time"]?></td>
                                 <td>
-                                    <button class="btn btn-red me-3" type="button">
+                                <?php if($row["state"]==1):?>
+                                    <a class="btn btn-red me-3" type="button" href="downstate-place.php?id=<?=$row["id"]?>">
+                                        <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
+                                        上架
+                                    </a>
+                                        <?php else: ?>
+                                    <a class="btn btn-green me-3" type="button" href="dostate-place.php?id=<?=$row["id"]?>">
                                         <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
                                         下架
-                                    </button>
+                                    </a>
+                                    <?php endif ; ?>
+                                </td>                    
                                     <a class="btn btn-khak" type="button" id="show" href="place-detail.php?id=<?= $row["id"] ?>">
                                         <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                                         修改
                                     </a>
-                                    <!-- <dialog id="infoModal">
-                                    <div class="container">
-                                        <form action="docreate-ins.php" method="post">
-                                            <div class="mb-2">
-                                                <label for="">樂器類別</label>
-                                                <input type="text" class="form-control" name="ins_cate">
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="">品牌型號</label>
-                                                <input type="text" class="form-control" name="brnd_model">
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="">庫存</label>
-                                                <input type="number" class="form-control" name="stock">
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="">價格</label>
-                                                <input type="number" class="form-control" name="price">
-                                            </div>
-                                            <div class="mb-2">
-                                                <label for="">商品簡介</label>
-                                                <textarea type="text" class="form-control" name="intro"></textarea>
-                                            </div>
-                                                    <button class="btn btn-info add" type="submit">送出</button>
-                                                    <button class="btn btn-info" type="reset">清除</button>
-                                                    <button type="button" class="btn btn-warning" id="close">關閉</button>
-                                        </form>
-                                    </div>
-                                    </dialog> -->
                                 </td>
                             </tr>
                             <?php endwhile; ?>

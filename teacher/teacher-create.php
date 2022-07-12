@@ -13,7 +13,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
 <html lang="zh-tw">
 
 <head>
-    <title>師資管理</title>
+    <title>HAMAYA MUSIC - 新增師資</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -110,8 +110,8 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                                                 <!-- 帶入課程商品資料 作為選項check-box -->
                                                 <?php foreach ($CourseProductRows as $row) : ?>
                                                     <label class="form-check-label" for="flexCheckDefault<?= $row["id"] ?>">
-                                                        <input class="form-check-input" type="checkbox" id="flexCheckDefault<?= $row["id"] ?>" name="courseName[]" value="<?= $row["course_name"] ?>">
-                                                        <?= $row["course_name"] ?>
+                                                        <input class="form-check-input" type="checkbox" id="flexCheckDefault<?= $row["id"] ?>" name="courseName[]" value="<?= $row["name"] ?>">
+                                                        <?= $row["name"] ?>
                                                     </label>
                                                 <?php endforeach; ?>
                                             </td>
