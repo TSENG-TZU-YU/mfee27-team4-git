@@ -218,7 +218,11 @@ $totalPage = ceil($articleCount / $perPage);
                                           echo "第 " . $startItem . " - " . $endItem . " 筆";
                                         }
                                         ?>，總共 <?= $articleCount ?> 筆資料</p>
-                <input class="col form-control me-3" type="text" name="search">
+                <input class="col form-control me-3" type="text" name="search" placeholder="<?php if ($search != "") {
+                                                                                              echo "搜尋 " . $search . " 結果";
+                                                                                            } else {
+                                                                                              echo "搜尋關鍵字";
+                                                                                            } ?>" onfocus="this.placeholder='搜尋關鍵字'">
                 <button class="col-1 btn btn-green" type="submit">
                   <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                   搜尋
@@ -354,16 +358,21 @@ $totalPage = ceil($articleCount / $perPage);
               </div>
             <?php endforeach; ?>
           </div>
+          <?php if ($articleCount == 0) : ?>
+            <div class="d-flex mt-5  justify-content-center">
+              <?= "沒有符合條件的資料"; ?>
+            <?php endif; ?>
+            </div>
 
-          <!-- 頁碼 -->
-          <div aria-label="Page navigation example text-end" class="d-flex mt-3  justify-content-center">
-            <ul class="pagination">
-              <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
-                <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="articles.php?page=<?= $i ?>&search=<?= $search ?>&categoryOrder=<?= $categoryOrder ?>&publish=<?= $publish ?>"><?= $i ?></a></li>
-              <?php endfor; ?>
-            </ul>
-          </div>
-          <!-- 頁碼 end -->
+            <!-- 頁碼 -->
+            <div aria-label="Page navigation example text-end" class="d-flex mt-3  justify-content-center">
+              <ul class="pagination">
+                <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+                  <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="articles.php?page=<?= $i ?>&search=<?= $search ?>&categoryOrder=<?= $categoryOrder ?>&publish=<?= $publish ?>"><?= $i ?></a></li>
+                <?php endfor; ?>
+              </ul>
+            </div>
+            <!-- 頁碼 end -->
         </div>
         <!-- 內容 end -->
 

@@ -74,7 +74,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
           <ol class="breadcrumb fw-bold">
             <li class="breadcrumb-item"><a href="../home.php">首頁</a></li>
             <li class="breadcrumb-item"><a href="teachers.php">師資管理</a></li>
-            <li class="breadcrumb-item" aria-current="page">修改師資資料</li>
+            <li class="breadcrumb-item" aria-current="page">修改師資</li>
           </ol>
         </biv>
         <!-- 麵包屑 breadcrumb end -->
@@ -83,7 +83,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
 
         <!-- 內容 -->
         <div class="container">
-          <h3>修改師資資料</h3>
+          <h3>修改師資</h3>
           <hr>
           <form class="mt-1" action="teacher-doUpdate.php" method="post" enctype="multipart/form-data">
             <?php if ($teacherCount > 0) :

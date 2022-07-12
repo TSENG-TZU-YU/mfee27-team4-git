@@ -56,7 +56,7 @@ if ($_FILES['newImage']['error'] == 0) {
 }
 
 
-echo "<script>alert('師資修改成功'); location.href = 'teachers.php'; </script>";
+echo "<script>alert('師資修改成功'); location.href = 'teachers.php?page=1&search=&order=1&fieldOrder=>'; </script>";
 
 
 $conn->close();

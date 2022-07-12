@@ -11,7 +11,7 @@ $id = $_GET["id"];
 $sql = "UPDATE article SET valid=0 WHERE id='$id'";
 
 if ($conn->query($sql) === TRUE) {
-  echo "<script>alert('文章刪除成功'); location.href = 'articles.php'; </script>";
+  echo "<script>alert('文章刪除成功'); location.href='articles.php?page=1&search=&categoryOrder=1&publish='</script>";
 } else {
   echo "文章刪除錯誤: " . $conn->error;
 }

@@ -45,5 +45,5 @@ if (move_uploaded_file($_FILES["image"]["tmp_name"], "../images/" . $_FILES["ima
 }
 
 
-echo "<script>alert('師資建立成功'); location.href = 'teachers.php'; </script>";
+echo "<script>alert('師資建立成功'); location.href = 'teachers.php?page=1&search=&order=1&fieldOrder=>'; </script>";
 $conn->close();
