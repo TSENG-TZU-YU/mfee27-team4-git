@@ -3,27 +3,31 @@
 require("../db-connect.php");
 
 
-$sqlAll= "SELECT coupon.*, users.name AS users_name FROM coupon
-JOIN users ON coupon.coupon_c = users.coupon WHERE shelf=0 ";
+// $sqlAll= "SELECT coupon.*, users.name AS users_name FROM coupon
+// JOIN users ON coupon.coupon_c = users.coupon WHERE shelf=0 ";
+// $resultAll = $conn->query($sqlAll);
+// $couponCountAll=$resultAll->num_rows;
+
+
+
+$sqlAll="SELECT * FROM coupon WHERE  shelf=0";
 $resultAll = $conn->query($sqlAll);
 $couponCountAll=$resultAll->num_rows;
 
+// if(!isset($_GET["search"])){
+//     $search="";
+//     $couponCount=0;
+
+// }else{
+
+// $search=$_GET["search"];
+// $sqlSearch="SELECT id, name , number, discount, dateline, several_times, min_price FROM coupon 
+// WHERE  name  LIKE '%$search%'";
+// $result = $conn->query($sqlSearch);
+// $couponCount=$result->num_rows;
 
 
-if(!isset($_GET["search"])){
-    $search="";
-    $couponCount=0;
-
-}else{
-
-$search=$_GET["search"];
-$sqlSearch="SELECT id, name , number, discount, dateline, several_times, min_price FROM coupon 
-WHERE  name  LIKE '%$search%'";
-$result = $conn->query($sqlSearch);
-$couponCount=$result->num_rows;
-
-
-}
+// }
 
 
 
@@ -46,6 +50,12 @@ switch($order){
     case 2:
         $orderType="id DESC";
         break;
+    case 3:
+        $orderType="min_price ASC";
+        break;
+    case 4:
+        $orderType="min_price DESC";
+        break;
     default:
         $orderType="name ASC";        
 }
@@ -63,11 +73,13 @@ switch($order){
 $perPage=4;
 $start=($page-1)*$perPage;
 
-$sql= "SELECT coupon.*, users.name AS users_name FROM coupon
-  JOIN users ON coupon.coupon_c = users.coupon WHERE shelf=0  ORDER BY $orderType  LIMIT $start, 4 ";//
-$result = $conn->query($sql);
+// $sql= "SELECT coupon.*, users.name AS users_name FROM coupon
+//   JOIN users ON coupon.coupon_c = users.coupon WHERE shelf=0  ORDER BY $orderType  LIMIT $start, 4 ";//
+// $result = $conn->query($sql);
+// $couponCount=$result->num_rows;
+$sql="SELECT * FROM coupon WHERE  shelf=0  ORDER BY $orderType  LIMIT $start, 4  ";
+ $result = $conn->query($sql);
 $couponCount=$result->num_rows;
-
 
 $startItem=($page-1)*$perPage+1;
 $endItem=$page*$perPage;
@@ -97,6 +109,10 @@ $totalPage=ceil($couponCountAll / $perPage);
         .panel{
             width:500px;
         }
+        .panel2{
+            width:100px;
+
+        }
     </style>
 
 </head>
@@ -125,15 +141,14 @@ $totalPage=ceil($couponCountAll / $perPage);
 
                 <!-- 內容 -->
                 <div class="container">
-                <form action="coupons.php" method="get">   
+                <form action="coupon-search.php" method="get">   
                     <div class="row">    
-                  
-                    <span class="col-5"> 第<?=$startItem?>- <?=$endItem?>筆</span>
-                         <p class="col-8 m-auto">總共<?=$couponCountAll?>筆資料</p>
-                        <input class="col form-control me-3 " type="text" name="search"   >
-                      <button type="submit" class="col-1 btn btn-green">
-                      <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
-                    搜尋</button>
+                    <p class="col-8 m-auto"> 第<?=$startItem?>- <?=$endItem?>筆，總共<?=$couponCountAll?>筆資料</p>
+                        <input class="col form-control me-3" type="text" name="search"   >
+                        <button class="col-1 btn btn-green" type="submit">
+                                    <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
+                                    搜尋
+                                </button>
                         </div>
                        </form>
                     <hr>
@@ -149,11 +164,13 @@ $totalPage=ceil($couponCountAll / $perPage);
                        
                         
                 
-                <a href="coupons.php?page=<?=$page?>&order=1" class="btn btn-khak  <?php if($order==1)echo" active" ?>">By id asc</a>
-                <a href="coupons.php?page=<?=$page?>&order=2" class="btn btn-khak  <?php if($order==2)echo" active" ?>">By id desc</a>
+                <a href="coupons.php?page=<?=$page?>&order=1" class="btn btn-khak  <?php if($order==1)echo" hover" ?>">By id asc</a>
+                <a href="coupons.php?page=<?=$page?>&order=2" class="btn btn-khak  <?php if($order==2)echo" hover" ?>">By id desc</a>
+                <a href="coupons.php?page=<?=$page?>&order=3" class="btn btn-khak  <?php if($order==3)echo" hover" ?>">By min_price asc</a>
+                <a href="coupons.php?page=<?=$page?>&order=4" class="btn btn-khak  <?php if($order==4)echo" hover" ?>">By min_price desc</a>
                
                
-                <?php if($couponCountAll>0): ?>
+                <?php if($couponCount>0): ?>
                       
                     <table class="table mt-5">
                    
@@ -163,13 +180,13 @@ $totalPage=ceil($couponCountAll / $perPage);
                           
                                 <th scope="col">編號</th>
                                 <th scope="col">優惠券名稱</th>
-                                <th scope="col">使用者資格</th>
+                               
                                 <th scope="col">序號</th>
                                 <th scope="col">折扣</th>
                                 <th scope="col">日期</th>
                                 <th scope="col">使用次數</th>
                                 <th scope="col">最低金額</th>
-                            
+                                <th scope="col">管理操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -177,7 +194,7 @@ $totalPage=ceil($couponCountAll / $perPage);
                     <tr>
                         <td><?=$row["id"]?></td>
                         <td><?=$row["name"]?></td>
-                        <td><?=$row["users_name"]?></td>
+                    
                         <td><?=$row["number"]?></td>
                         <td><?=$row["discount"]?></td>
                         <td><?=$row["dateline"]?></td>
