@@ -9,7 +9,7 @@ if (!isset($_GET["search"])) {
     // $teacherCount = 0;
 } else {
     $search = $_GET["search"];
-    // 搜尋條件要群組
+    // 搜尋條件要群組!!
     $sqlSearch = "(name LIKE '%$search%' OR courses LIKE '%$search%' OR field LIKE '%$search%' OR profile LIKE '%$search%') AND";
 }
 
@@ -58,12 +58,13 @@ if (isset($_GET["page"])) {
     $page = 1;
 }
 
-// 頁碼
+// 抓師資資料
 $sqlAll = "SELECT * FROM teacher WHERE $fieldOrderType $sqlSearch valid=1";
 $resultAll = $conn->query($sqlAll);
 $teacherCount = $resultAll->num_rows;
 
 
+// 頁碼
 $perPage = 4;
 $startPage = ($page - 1) * $perPage;
 $sqlTeacher = "SELECT * FROM teacher WHERE $fieldOrderType $sqlSearch valid=1 ORDER BY $orderType LIMIT $startPage, $perPage";

@@ -2,12 +2,67 @@
 // 連結資料庫
 require("../db-connect.php");
 
+//search
+if (!isset($_GET["search"])) {
+    $search = "";
+    $sqlSearch = "";
+    // $teacherCount = 0;
+} else {
+    $search = $_GET["search"];
+    // 搜尋條件要群組!!
+    $sqlSearch = "(title LIKE '%$search%' OR content LIKE '%$search%') AND";
+}
+
+//文章類別篩選
+$fieldOrderArray = ["產品資訊", "弦樂類音樂", "管樂類音樂", "熱音類音樂"];
+if (!isset($_GET["fieldOrder"])) {
+    $fieldOrder = "";
+    $fieldOrderType = "";
+} else {
+    $fieldOrder = $_GET["fieldOrder"];
+    switch ($fieldOrder) {
+        case '產品資訊':
+            $fieldOrderType = "field='產品資訊' AND";
+            break;
+        case '活動快訊':
+            $fieldOrderType = "field='活動快訊' AND";
+            break;
+        case '音樂教育':
+            $fieldOrderType = "field='音樂教育' AND";
+            break;
+        case '重要通知':
+            $fieldOrderType = "field='重要通知' AND";
+            break;
+        default:
+            $fieldOrderType = "";
+    }
+}
+
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+} else {
+    $page = 1;
+}
 
 // 抓文章資料
-$sqlAll = "SELECT * FROM article WHERE id AND valid=1";
+$sqlAll = "SELECT * FROM article WHERE  $sqlSearch  valid=1";
 $resultAll = $conn->query($sqlAll);
-$rows = $resultAll->fetch_all(MYSQLI_ASSOC);
+$articleCount = $resultAll->num_rows;
 
+// 頁碼
+$perPage = 3;
+$startPage = ($page - 1) * $perPage;
+$sqlArticle = "SELECT * FROM article WHERE  $sqlSearch valid=1 LIMIT $startPage, $perPage";
+
+$resultArticle = $conn->query($sqlArticle);
+$pageArticleCount = $resultArticle->num_rows;
+$articleRows = $resultArticle->fetch_all(MYSQLI_ASSOC);
+
+$startItem = ($page - 1) * $perPage + 1;
+$endItem = $page * $perPage;
+
+if ($endItem > $articleCount) $endItem = $articleCount;
+$totalPage = ceil($articleCount / $perPage);
 
 
 ?>
@@ -73,7 +128,7 @@ $rows = $resultAll->fetch_all(MYSQLI_ASSOC);
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="../home.php">首頁</a></li>
                         <li class="breadcrumb-item" aria-current="page">文章管理</li>
                     </ol>
                 </biv>
@@ -81,9 +136,10 @@ $rows = $resultAll->fetch_all(MYSQLI_ASSOC);
                 <hr>
                 <div class="container">
                     <div class="row">
-                        <form action="teacher-search.php" method="get">
+                        <form action="articles.php" method="get">
+                            <input type="hidden" value="<?= $page ?>" name="page">
                             <div class="row">
-                                <p class="col-8 m-auto">本頁 筆資料，總共 筆資料</p>
+                                <p class="col-8 m-auto">目前 <?= $startItem ?> - <?= $endItem ?> 筆，總共 <?= $articleCount ?> 筆資料</p>
                                 <input class="col form-control me-3" type="text" name="search">
                                 <button class="col-1 btn btn-green" type="submit">
                                     <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -123,7 +179,7 @@ $rows = $resultAll->fetch_all(MYSQLI_ASSOC);
                     </div>
 
                     <div class="row row-cols-1 row-cols-md-3 g-3 mt-1">
-                        <?php foreach ($rows as $row) : ?>
+                        <?php foreach ($articleRows as $row) : ?>
                             <div class="col">
                                 <div class="card h-80">
                                     <img src="../images/<?= $row["image"] ?>" class="card-img-top" alt="...">
@@ -164,19 +220,21 @@ $rows = $resultAll->fetch_all(MYSQLI_ASSOC);
                     </div>
 
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example text-end" class="d-flex mt-5  justify-content-center">
+                    <div aria-label="Page navigation example text-end" class="d-flex mt-3  justify-content-center">
                         <ul class="pagination">
-                            <li class="page-item">
+                            <!-- <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item">
+                            </li> -->
+                            <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+                                <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="articles.php?page=<?= $i ?>&search=<?= $search ?>"><?= $i ?></a></li>
+                            <?php endfor; ?>
+                            <!-- <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
                     <!-- 頁碼 end -->
