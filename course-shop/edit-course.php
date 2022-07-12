@@ -122,7 +122,7 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>課程簡介</th>
-                                        <td><textarea type="text" class="form-control text-center" name="intro"></textarea></td>
+                                        <td><textarea type="text" class="form-control text-center" name="intro"><?= $row["intro"] ?></textarea></td>
                                     </tr>
                                     <tr>
                                         <th>建立時間</th>

@@ -1,5 +1,5 @@
 <?php
-if(!isset($_POST["brnd_model"])){
+if(!isset($_POST["name"])){
     echo "沒有參數";
 }
 require("../db-connect.php");
@@ -12,8 +12,7 @@ $stock=$_POST["stock"];
 $intro=$_POST["intro"];
 $create_time=date('Y-m-d H-i-s');
 
-$sql="UPDATE instrument_product SET 
-cate='$cate',name='$name',price='$price',stock='$stock',intro='$intro'
+$sql="UPDATE instrument_product SET cate='$cate',name='$name',price='$price',stock='$stock',intro='$intro'
 WHERE id=$id AND valid=1";
 
 
