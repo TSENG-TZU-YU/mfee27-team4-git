@@ -154,7 +154,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                 <th>進行回覆:</th>
                                 <td>
                                     <!-- <textarea type="" pattern=".*[^ ].*" class="form-control inputcontent" placeholder='輸入對話' name="reply" ></textarea> -->
-                                    <input type="text" name="reply" class="form-control inputcontent" placeholder='輸入對話' autocomplete="off" >
+                                    <input type="text" name="reply" class="form-control inputcontent" autofocus placeholder='輸入對話' autocomplete="off" >
                                 </td>   
                             </tr>
                         </table>
