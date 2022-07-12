@@ -15,7 +15,7 @@ $intro=$_POST["intro"];
 $create_time=date('Y-m-d H-i-s');
 
 $sql="UPDATE place_produce SET 
-cate='$cate',name='$name',price='$price',stock='$stock',date('Y-m-d H-i-s')='$use_time', date('Y-m-d H-i-s')='$over_time',intro='$intro'
+cate='$cate',name='$name',price='$price',stock='$stock',use_time='$use_time', over_time='$over_time',intro='$intro'
 WHERE id=$id AND valid=1";
 
 

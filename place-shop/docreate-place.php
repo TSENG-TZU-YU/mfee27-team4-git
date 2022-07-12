@@ -17,7 +17,7 @@ $creat_time=date('Y-m-d H-i-s');
 
 
 // 寫入資料庫
-$sqlCreate="INSERT INTO place_produce (cate, name, price, stock, use_time, over_time, creat_time, intro, valid) 
+$sql="INSERT INTO place_produce (cate, name, price, stock, use_time, over_time, creat_time, intro, valid) 
                             VALUES ('$cate','$name', '$price','$stock','$use_time','$over_time', '$creat_time','$intro' ,1)";
 
 
@@ -26,7 +26,7 @@ if ($conn->query($sql) === TRUE) {
     $sqlselect="SELECT * FROM place_produce ORDER BY id DESC LIMIT 1";
     $result=$conn->query($sqlselect);
     $row=$result->fetch_assoc();
-    $rowid="B".$row["id"];
+    $rowid="C".$row["id"];
     $product_id=$row["id"];
     $sqlInsert="UPDATE place_produce SET product_id = '$rowid' WHERE id = $product_id";
     $conn->query($sqlInsert);
@@ -44,6 +44,6 @@ if ($conn->query($sql) === TRUE) {
 
 
 $conn->close();
-header("location: course-shop.php");
+header("location: place-shop.php");
 
 ?>
