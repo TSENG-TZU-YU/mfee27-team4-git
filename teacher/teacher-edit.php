@@ -1,13 +1,14 @@
 <?php
-if (!isset($_POST["id"])) {
+if (!isset($_GET["id"])) {
   echo "<script>alert('沒有師資資料'); location.href = 'teachers.php'; </script>";
   exit;
 }
 
-$id = $_POST["id"];
-$page = $_POST["page"];
-$search = $_POST["search"];
-$order = $_POST["order"];
+$id = $_GET["id"];
+$page = $_GET["page"];
+$search = $_GET["search"];
+$order = $_GET["order"];
+$fieldOrder = $_GET["fieldOrder"];
 
 require("../db-connect.php");
 
@@ -192,7 +193,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                   </table>
                   <div class="d-flex mb-3">
                     <div class="p-2">
-                      <a class="btn btn-green  me-2" href="teachers.php?page=<?= $page ?>&search=<?= $search ?>&order=<?= $order ?>">
+                      <a class="btn btn-green  me-2" href="teachers.php?page=<?= $page ?>&search=<?= $search ?>&order=<?= $order ?>&fieldOrder=<?= $fieldOrder ?>">
                         <img class="mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                         取消修改
                       </a>

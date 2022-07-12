@@ -97,11 +97,11 @@
                                 <div class="d-flex justify-content-center align-items-center mt-3">
                                     <a class="btn btn-khak me-5" href="articles.php">
                                         <img class="mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
-                                        取消新增
+                                        取消發佈
                                     </a>
                                     <button class="btn btn-green" type="submit" name="submit">
                                         <img class="mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
-                                        送出新增
+                                        文章發佈
                                     </button>
                                 </div>
                             </form>
