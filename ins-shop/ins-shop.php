@@ -171,7 +171,6 @@ $totalPage = ceil($insCount / $perPage);
                             <tr>
                                 <th scope="col">勾選</th>
                                 <th scope="col">商品編號</th>
-                                <th scope="col">商品圖片</th>
                                 <th scope="col">樂器類別</th>
                                 <th scope="col">品牌型號</th>
                                 <th scope="col">定價</th>
@@ -199,7 +198,6 @@ $totalPage = ceil($insCount / $perPage);
                                 <tr>
                                     <th><input type="checkbox" name="arryid[]" value="<?=$row["id"]?>"></th>
                                     <td><?=$row["product_id"]?></td>
-                                    <td>商品圖片</td>
                                     <td><?=$row["cate"]?></td>
                                     <td><?=$row["name"]?></td>
                                     <td><?=$row["price"]?></td>
