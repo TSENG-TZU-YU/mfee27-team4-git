@@ -76,7 +76,10 @@ $sql="SELECT account FROM users WHERE account='$account'";
 $result = $conn->query($sql); //存取物件
 $userCount = $result->num_rows;  //幾筆資料
 if($userCount>0){
-    echo"該帳號已存在";
+    echo"該帳號已存在 <br> 3秒後跳轉回註冊頁面" ;
+    header("refresh:3;url=user-sign-up.php "); //延遲跳轉
+
+    // echo "<script language='JavaScript'>;alert('該帳號已存在 3秒後跳轉回註冊頁面');location.href='user-sign-up.php';</script>;";
     exit;
 }
 // 寫入資料庫
@@ -84,7 +87,7 @@ $sqlCreate="INSERT INTO users (name,account, password,gender,birthday,phone,emai
 
 
 if($conn->query($sqlCreate) === TRUE){
-    if($coupon==2){
+    if($coupon==1){
         echo "<script language='JavaScript'>;alert('註冊成功 獲得商品50元折價券');location.href='users.php';</script>;";
     }
     elseif($coupon==0){
@@ -96,15 +99,6 @@ else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
-
-// if ($conn->query($sqlCreate) === TRUE && ) {
-//     echo "<script language='JavaScript'>;alert('註冊成功 獲得商品50元折價券');location.href='users.php';</script>;";
-    
-// }
-// if($conn->query($sqlCreate) === TRUE  && $coupon==0){
-//     echo "<script language='JavaScript'>;alert('註冊成功');location.href='users.php';</script>;";
-   
-// }
 
 
 
