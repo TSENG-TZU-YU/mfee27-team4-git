@@ -10,15 +10,43 @@ if (isset($_GET["page"])) {
 }
 
 
+if (isset($_GET["catestring"])) {
+    $catestring = $_GET["catestring"];
+} else {
+    $catestring = "";
+}
+
+if (isset($_GET["search"])) {
+    $search = $_GET["search"];
+    $sqlsearch = "name LIKE '%$search%' AND";
+} else {
+    $search = "";
+    $sqlsearch = "";
+}
+
+
+
+switch($catestring) {
+    case 1 :
+        $category="cate='成人課程' AND";
+    break;
+    case 2 :
+        $category="cate='兒童課程' AND";
+    break;
+    default : 
+        $category="" ;
+    break;
+}
+
 
 //page
-$sqlAll = "SELECT * FROM course_product WHERE id";
+$sqlAll = "SELECT * FROM course_product ";
 $resultAll = $conn->query($sqlAll);
 $courseCount = $resultAll->num_rows;
 
-$perPage = 5;
+$perPage = 6;
 $startPage = ($page - 1) * $perPage;
-$sql = "SELECT * FROM course_product WHERE  id  LIMIT $startPage ,5";
+$sql = "SELECT * FROM course_product WHERE  $category $sqlsearch valid=1 LIMIT $startPage ,$perPage";
 
 $result = $conn->query($sql);
 $pagecourseCount = $resultAll->num_rows;
@@ -79,7 +107,7 @@ $totalPage = ceil($courseCount / $perPage);
                 <!-- 內容 -->
                 <div class="container">
                     <div class="row">
-                        <p class="col-8 m-auto">總共 筆資料</p>
+                        <p class="col-8 m-auto">總共 <?=$courseCount?>筆資料</p>
                         <input class="col form-control me-2" type="text">
                         <a class="col-1 btn btn-green" href="#">
                             <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -102,24 +130,14 @@ $totalPage = ceil($courseCount / $perPage);
                         <input type="checkbox" id="ckb_selectAll">
                             全選
                         </a>
-                        <a class="col-1 btn btn-red me-2" href="#">
-                            <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
-                            批次刪除
-                        </a>
                         <!-- 無文字按鈕 -->
-                        <form action="ins-shop.php" class="col-6 me-2 "  >
-                        <select onchange="this.form.submit()" name="ins_cate" id="">
-                            <option value="">全部課程</option>
-                            <option value="1" >成人課程</option>
-                            <option value="1" >兒童課程</option>
+                        <form action="course-shop.php" class="col-6 me-2 "  >
+                        <select onchange="this.form.submit()" name="catestring" id="">
+                            <option  <?php if($catestring=="") echo "selected";?>value="">全部課程</option>
+                            <option  <?php if($catestring==1) echo "selected";?>value="1" >成人課程</option>
+                            <option <?php if($catestring==2) echo "selected";?>value="2" >兒童課程</option>
                         </select>
                         </form>
-                        <a class="col-1 btn btn-green me-2" href="ins-shop.php?valid=1">
-                            已上架
-                        </a>
-                        <a class="col-1 btn btn-red me-2" href="ins-shop.php?valid=2">
-                            已下架
-                        </a>
                     </div>
                     <!-- 按鈕 end-->
 
@@ -128,8 +146,7 @@ $totalPage = ceil($courseCount / $perPage);
                         <thead>
                             <tr>
                                 <th scope="col">勾選</th>
-                                <th scope="col">課程編號</th>
-                                <th scope="col">建立時間</th>
+                                <th scope="col">課程編號</th>                            
                                 <th scope="col">課程類別</th>
                                 <th scope="col">地點</th>
                                 <th scope="col">課程名稱</th>
@@ -138,39 +155,60 @@ $totalPage = ceil($courseCount / $perPage);
                                 <th scope="col">定價</th>
                                 <th scope="col">開始時間</th>
                                 <th scope="col">結束時間</th>
+                                <th scope="col">建立時間</th>
+                                <th scope="col">上架狀態</th>
                                 <th scope="col">功能</th>                                
                             </tr>
                         </thead>
                         <tbody>
+                            <form action="" name="form1">
+                                <tr>
+                                    <div class="col-3">
+                                        <button class=" btn btn-green me-2" onclick="up()">
+                                            批次上架
+                                        </button>
+                                        <button class=" btn btn-red me-2" onclick="down()">
+                                            批次下架
+                                        </button>
+                                    </div>
+                                </tr>
+
                             <?php
                             //把資料轉換成關聯式陣列
                             while($row = $result->fetch_assoc()):  ?>
                           
-                            <tr>
-                                <th><input type="checkbox" class="ckb" id=" con.id " value=" con.id "></th>
-                                <td><?=$row["product_id"]?></td>
-                                <td><?=$row["creat_time"]?></td>
-                                <td><?=$row["cate"]?></td>
-                                <td><?=$row["location"]?></td>
-                                <td><?=$row["name"]?></td>
-                                <td>指導老師</td>
-                                <td><?=$row["stock"]?></td>
-                                <td><?=$row["price"]?></td>
-                                <td><?=$row["begin_date"]?></td>
-                                <td><?=$row["over_date"]?></td>
-                                <td>
-                                    <button class="btn btn-red me-3" type="button">
-                                        <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
-                                        下架
-                                    </button>
-                                    <a class="btn btn-khak" type="button" id="show" href="course-detail.php?id=<?= $row["id"] ?>">
-                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                        修改
-                                    </a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <th><input type="checkbox" name="arryid[]" value="<?=$row["id"]?>"></th>
+                                    <td><?=$row["product_id"]?></td>                               
+                                    <td><?=$row["cate"]?></td>
+                                    <td><?=$row["location"]?></td>
+                                    <td><?=$row["name"]?></td>
+                                    <td>指導老師</td>
+                                    <td><?=$row["stock"]?></td>
+                                    <td><?=$row["price"]?></td>
+                                    <td><?=date('Y-m-d', strtotime($row["begin_date"]));?></td>
+                                    <td><?=date('Y-m-d', strtotime($row["over_date"]));?></td>
+                                    <td><?=$row["creat_time"]?></td>
+                                    <td>
+                                        <?php if($row["state"]==1):?>
+                                            <a class="btn btn-green me-3" type="button" href="downstate-course.php?id=<?=$row["id"]?>">
+                                                上架
+                                            </a>
+                                                <?php else: ?>
+                                            <a class="btn btn-red me-3" type="button" href="dostate-course.php?id=<?=$row["id"]?>">
+                                                下架
+                                            </a>
+                                        <?php endif ; ?>
+                                    </td>
+                                    <td>                 
+                                        <a class="btn btn-khak" type="button" id="show" href="course-detail.php?id=<?= $row["id"] ?>">
+                                            <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                                            修改
+                                        </a>
+                                    </td>
+                                </tr>
                             <?php endwhile; ?>
-                            
+                            </form>
                         </tbody>
                     </table>
                     <!-- 頁碼 -->
@@ -204,21 +242,14 @@ $totalPage = ceil($courseCount / $perPage);
   
 
     <script>
-        let btn=document.querySelector("#show");
-        let infoModal=document.querySelector("#infoModal");
-        let close=document.querySelector("#close");
-
-        btn.addEventListener("click", function(){
-            infoModal.showModal();
-        })
-        close.addEventListener("click", function(){
-            infoModal.close();
-        });
-
-
-
-
-
+        function up(){
+        document.form1.action="batchstate-course.php";
+        document.form1.submit();
+            }
+        function down(){
+        document.form1.action="batchdownstate-course.php";
+        document.form1.submit();
+            }
     </script>
 
     

@@ -1,5 +1,5 @@
 <?php
-if(!isset($_POST["course_name"])){
+if(!isset($_POST["name"])){
     echo "沒有參數";
 }
 require("../db-connect.php");
@@ -13,12 +13,12 @@ $price=$_POST["price"];
 $begin_date=date('Y-m-d H-i-s');
 $over_date=date('Y-m-d H-i-s');
 $intro=$_POST["intro"];
-$create_time=date('Y-m-d H-i-s');
+$creat_time=date('Y-m-d H-i-s');
 
-$sql="UPDATE course_product SET 
-cate='$cate',name='$name',price='$price',stock='$stock',date('Y-m-d H-i-s')='$begin_date', date('Y-m-d H-i-s')='$over_date',intro='$intro'
+$sql="UPDATE course_product SET cate='$cate',name='$name',price='$price',stock='$stock',begin_date='$begin_date', over_date='$over_date',intro='$intro'
 WHERE id=$id AND valid=1";
 
+echo $sql;
 
 if ($conn->query($sql) === TRUE) {
     echo "修改完成";

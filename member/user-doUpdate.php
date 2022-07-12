@@ -48,14 +48,14 @@ $sql="UPDATE users SET name='$name',account='$account',password='$password',gend
 
 if ($conn->query($sql) === TRUE) {
     echo "資料表 users 修改完成";
-    echo "<script language='JavaScript'>;alert('成功加入黑名單');location.href='users.php';</script>;";
+    // echo "<script language='JavaScript'>;alert('資料表 users 修改完成');location.href='user-detail.php?id='.$id;</script>;";
 } else {
     echo "修改資料表錯誤: " . $conn->error;
 }
 
 $conn->close(); 
 
-header("location: user-detail.php?id=".$id);
+header("location: user-detail.php?id=".$id ."&name=".$name);
 
 
 

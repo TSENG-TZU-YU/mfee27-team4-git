@@ -1,6 +1,7 @@
 <?php
 // 連結資料庫
 require("../db-connect.php");
+session_start();
 
 //search
 if (!isset($_GET["search"])) {
@@ -88,7 +89,7 @@ $totalPage = ceil($teacherCount / $perPage);
 <html lang="zh-tw">
 
 <head>
-  <title>師資管理</title>
+  <title>HAMAYA MUSIC - 師資管理</title>
 
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -126,6 +127,7 @@ $totalPage = ceil($teacherCount / $perPage);
     <div class="row d-flex">
 
       <!-- 導覽列 nav -->
+      <?php require("../nav.php"); ?>
       <!-- 導覽列 nav end -->
 
       <!-- 主要區塊 main -->
