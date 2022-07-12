@@ -4,7 +4,7 @@ if(isset($_POST["reply"])){
     $order_id=$_POST["order_id"];
     $reply=$_POST["reply"];
     $now=date('Y-m-d H:i:s');
-    $sqlins="INSERT INTO order_qna_detail (order_id, name, q_content, create_time) VALUES ('$order_id', '管理員', '$reply','$now')";
+    $sqlins="INSERT INTO order_qna_detail (order_id, name, q_content, create_time) VALUES ('$order_id', '客服小編', '$reply','$now')";
     $conn->query($sqlins);
 
     $order_qna_id=$_POST["order_qna_id"];

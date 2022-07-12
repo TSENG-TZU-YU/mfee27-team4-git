@@ -7,42 +7,31 @@ $resultIns = $conn->query($sqlIns);
 $product_countIns = $resultIns->num_rows;
 $rows = $resultIns->fetch_all(MYSQLI_ASSOC);
 
-
-
-// $sqlCategory=" SELECT * FROM category";
-// $resultCategory = $conn->query($sqlCategory);
-// $rowsCategory = $resultCategory->fetch_all(MYSQLI_ASSOC);
-
-
-// if (isset($_GET["category"])) {
-//     $category = $_GET["category"];
-//     $sqlWhere="WHERE product.category_id = $category";
-
-// } else {
-//     $category="";
-//     $sqlWhere="";
-// }
-// $sql = " SELECT product.*, category.name AS category_name FROM product JOIN category ON product.category_id = category.id $sqlWhere";
-
-
-// $result = $conn->query($sql);
-// $product_count = $result->num_rows;
-// $rows = $result->fetch_all(MYSQLI_ASSOC);
-
 ?>
 <!doctype html>
 <html lang="en">
 
 <head>
-    <title>music-Products</title>
+    <title>音樂商城</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS v5.2.0-beta1 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <style>
+    .ellipsis {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      /* display: -webkit-box; */
+      /* -webkit-line-clamp: 3; */
+      /* -webkit-box-orient: vertical; */
+      /* white-space: normal; */
+      text-align: justify;
+    }
     .object-cover {
         width: 100%;
         height: 100%;
@@ -70,17 +59,16 @@ $rows = $resultIns->fetch_all(MYSQLI_ASSOC);
         <?php
         $cart_count = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
         ?>
-        <div class="pt-5 pb-2 text-end">
-            <a class="btn btn-info position-relative" href="cart.php">購物車<span id="cartCount" class="cart-count"><?= $cart_count ?></span></a>
+        <div class="pt-3 text-end">
+            <a class="btn btn-green position-relative" href="cart.php">購物車<span id="cartCount" class="cart-count"><?= $cart_count ?></span></a>
         </div>
         <ul class="nav nav-pills py-3">
             <li class="nav-item ">
-                <a class="btn btn-info" href="ins-products.php">樂器商城</a>
-                <a class="btn btn-info" href="place-products.php">場地租借</a>
-                <a class="btn btn-info" href="course-products.php">音樂教育</a>
+                <a class="btn btn-grey me-3" href="ins-products.php">樂器商城</a>
+                <a class="btn btn-grey me-3" href="place-products.php">場地租借</a>
+                <a class="btn btn-grey me-3" href="course-products.php">音樂教育</a>
             </li>
         </ul>
-        <?php require("price-filter.php") ?>
         <div class="py-2">
             共<?= $product_countIns ?>筆資料
         </div>
@@ -96,8 +84,8 @@ $rows = $resultIns->fetch_all(MYSQLI_ASSOC);
                 // console.log("click");
                 let id = this.dataset.id //抓產品id
                 let cate = this.dataset.cate; //抓產品cate
-                console.log(id)
-                console.log(cate)
+                // console.log(id)
+                // console.log(cate)
                 $.ajax({
                         method: "POST", //or GET 
                         url: "add-cart.php", //撈資料 那裏寫了php

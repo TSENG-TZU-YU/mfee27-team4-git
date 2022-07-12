@@ -74,7 +74,7 @@ $sqlOrder = "WHERE order-list.php";
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="../home.php">首頁</a></li>
                         <li class="breadcrumb-item" aria-current="page"><a href="order-list.php">訂單管理</a></li>
                         <li class="breadcrumb-item" aria-current="page"><a href="list-edit.php?order_id=<?= $order_id ?>">修改訂單</a></li>
                     </ol>
@@ -83,8 +83,8 @@ $sqlOrder = "WHERE order-list.php";
                 <!-- 內容 -->
                 <div class="container">
                     <?php if ($orderCount > 0) :
-                        $listPage = $_SESSION["page"]; //
-                        echo $listPage;
+                        $listPage = $_SESSION["page"];
+                        // echo $listPage;
                     ?>
                         <div class="pt-2 pb-5 row align-items-baseline">
                             <a class="col-1 btn btn-green me-2" href="order-list.php?page=<?= $listPage ?>">

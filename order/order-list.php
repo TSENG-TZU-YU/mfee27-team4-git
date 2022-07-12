@@ -7,7 +7,6 @@ if (isset($_GET["page"])) {
     $page = 1;
 }
 $_SESSION["page"]=$page;
-echo $page."######<br>";
 
 require("../db-connect.php");
 $sqlAll = "SELECT*FROM order_product WHERE valid=1";
@@ -92,7 +91,7 @@ $sqlOrder="WHERE order-list.php";
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="../home.php">首頁</a></li>
                         <li class="breadcrumb-item" aria-current="page"><a href="order-list.php">訂單管理</a></li>
                     </ol>
                 </biv>
@@ -103,8 +102,7 @@ $sqlOrder="WHERE order-list.php";
                 <!-- 內容 -->
                 <div class="container">
                     <div class="row">
-                        <p class="col m-auto">第<?=$startItem ?>-<?= $endItem ?>筆</p>
-                        <p class="col m-auto">總共<?= $list_count ?>筆資料</p>
+                        <p class="col-8 m-auto">目前第<?=$startItem ?>-<?= $endItem ?>筆，總共<?= $list_count ?>筆資料</p>
                         <input class="col form-control me-3" type="text">
                         <a class="col-1 btn btn-green" href="#">
                             <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -160,7 +158,7 @@ $sqlOrder="WHERE order-list.php";
                         <h2 class="text-center">目前沒有訂單</h2>
                     <?php endif; ?>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example">
+                    <div aria-label="Page navigation example" class="d-flex mt-4  justify-content-center">
                         <ul class="pagination">
                             <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
                                 <li class="page-item

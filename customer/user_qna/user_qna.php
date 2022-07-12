@@ -63,7 +63,7 @@ switch($order){
 
 $start=($page-1)*$perPage;
 
-$sql="SELECT user_qna.*,users.account, users.name FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id $sqlWhere ORDER BY $orderType LIMIT $start, $perPage";
+$sql="SELECT user_qna.*,users.account, users.name AS user_name FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id $sqlWhere ORDER BY $orderType LIMIT $start, $perPage";
 $result=$conn->query($sql);
 $rows=$result->fetch_all(MYSQLI_ASSOC);
 
@@ -136,8 +136,8 @@ $sqlUser_qna="WHERE user_qna.php";
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">xxx</li>
+                        <li class="breadcrumb-item"><a href="home.php">首頁</a></li>
+                        <li class="breadcrumb-item" aria-current="page">客服問答</li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -215,7 +215,7 @@ $sqlUser_qna="WHERE user_qna.php";
                             <?php foreach($rows as $row): ?>
                             <tr>
                                 <th><?=$row["id"]?></th>
-                                <td ><?php if(!isset($row["account"])==null){echo $row["account"];}else{echo "訪客";}?></td>
+                                <td class="<?php if(isset($row["account"])==null){echo "text-danger fw-bolder";}?>"><?php if(!isset($row["account"])==null){echo $row["account"];}else{echo "訪客";}?></td>
                                 <td class="text-nowrap"><?=$row["name"]?></td>
                                 <td class="text-nowrap"><?=$row["email"]?></td>
                                 <td class="text-nowrap"><?=$row["phone"]?></td>
@@ -249,7 +249,7 @@ $sqlUser_qna="WHERE user_qna.php";
                                 <td class="text-nowrap">
                                 <form action="user_qna_detail.php" method="get">  
                                 <button class="btn btn-khak me-2 position-relative" type="submit">
-                                        <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/update-icon.svg" width="16" height="16"></img>
+                                        <img class="bi pe-none mb-1" src="../../icon/read-icon.svg" width="16" height="16"></img>
                                         詳細
                                 </button>
                                 <input type="hidden" name="user_qna_id" value="<?=$row["id"]?>">

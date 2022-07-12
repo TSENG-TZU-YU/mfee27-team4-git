@@ -1,5 +1,10 @@
 <?php
+if (!isset($_GET["id"])) {
+  echo "<script>alert('沒有師資資料'); location.href = 'teachers.php'; </script>";
+  exit;
+}
 require("../db-connect.php");
+
 $id = $_GET["id"];
 
 //update to valid 0  軟刪除
@@ -10,3 +15,5 @@ if ($conn->query($sql) === TRUE) {
 } else {
   echo "師資刪除錯誤: " . $conn->error;
 }
+
+$conn->close();

@@ -5,6 +5,8 @@ if (!isset($_POST["id"])) {
   exit;
 }
 
+
+
 // 連結資料庫
 require("../db-connect.php");
 
@@ -19,14 +21,14 @@ $oldImage = $_POST["oldImage"];
 
 
 // 教授課程複選資料 組成陣列寫入 teacher資料表
-$courseId = array();
+$courseName = array();
 // 取得 post courseId
-$courseId = $_POST["courseId"];
+$courseName = $_POST["courseName"];
 // // 將陣列轉字串存入
-$courseIdArray = implode(',', $courseId);
+$courseNameArray = implode('、', $courseName);
 
 // 將資料寫入 teacher 資料表
-$sqlAll = "UPDATE teacher SET courses='$courseIdArray', field='$field', profile='$profile', video='$video' WHERE id=$id";
+$sqlAll = "UPDATE teacher SET courses='$courseNameArray', field='$field', profile='$profile', video='$video' WHERE id=$id";
 $conn->query($sqlAll);
 
 
@@ -54,5 +56,7 @@ if ($_FILES['newImage']['error'] == 0) {
 }
 
 
-echo "<script>alert('師資修改成功'); location.href = 'teacher.php?id=$id'; </script>";
+echo "<script>alert('師資修改成功'); location.href = 'teachers.php'; </script>";
+
+
 $conn->close();

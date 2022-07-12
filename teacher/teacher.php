@@ -1,19 +1,21 @@
 <?php
-if (isset($_POST["name"])) {
-    // 如果沒抓到name(師資姓名)資料
-    echo "<script>alert('沒有輸入師資姓名'); location.href = 'teachers-index.php'; </script>";
+if (!isset($_GET["id"])) {
+    echo "<script>alert('沒有師資資料'); location.href = 'teachers.php'; </script>";
     exit;
 }
-$id = $_GET["id"];
 
-require_once("../db-connect.php");
+$id = $_GET["id"];
+$page = $_GET["page"];
+$search = $_GET["search"];
+$order = $_GET["order"];
+$fieldOrder = $_GET["fieldOrder"];
+
+require("../db-connect.php");
 
 // 抓師資資料
 $sqlAll = "SELECT * FROM teacher WHERE id=$id AND valid=1";
 $resultAll = $conn->query($sqlAll);
 $teacherCount = $resultAll->num_rows;
-
-
 
 ?>
 
@@ -65,7 +67,7 @@ $teacherCount = $resultAll->num_rows;
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="../home.php">首頁</a></li>
                         <li class="breadcrumb-item"><a href="teachers.php">師資管理</a></li>
                         <li class="breadcrumb-item" aria-current="page">師資詳細資料</li>
                     </ol>
@@ -115,19 +117,19 @@ $teacherCount = $resultAll->num_rows;
                                             <td align="left">
                                                 <?php
                                                 switch ($row["field"]) {
-                                                    case '1':
+                                                    case '琴鍵類音樂':
                                                         echo "琴鍵類音樂";
                                                         break;
-                                                    case '2':
+                                                    case '弦樂類音樂':
                                                         echo "弦樂類音樂";
                                                         break;
-                                                    case '3':
+                                                    case '管樂類音樂':
                                                         echo "管樂類音樂";
                                                         break;
-                                                    case '4':
+                                                    case '熱音類音樂':
                                                         echo "熱音類音樂";
                                                         break;
-                                                    case '5':
+                                                    case '其他類音樂':
                                                         echo "其他類音樂";
                                                         break;
                                                 }
@@ -137,16 +139,7 @@ $teacherCount = $resultAll->num_rows;
                                         <tr>
                                             <th>教授課程</th>
                                             <td align="left">
-                                                <?php
-                                                $coursesArray = explode(",", $row["courses"]);
-                                                foreach ($coursesArray as $key => $value) :
-                                                    $sqlCourseName = "SELECT course_name FROM course_product WHERE id=$value";
-                                                    $resultCourseName = $conn->query($sqlCourseName);
-                                                    $rowsCourseName = $resultCourseName->fetch_array(MYSQLI_ASSOC);
-                                                ?>
-                                                    <?= $rowsCourseName["course_name"];
-                                                    " "; ?>
-                                                <?php endforeach; ?>
+                                                <?= $row["courses"]; ?>
                                             </td>
                                         </tr>
                                         <tr>
@@ -167,16 +160,23 @@ $teacherCount = $resultAll->num_rows;
                                 </table>
                                 <div class="d-flex mb-3">
                                     <div class="p-2">
-                                        <a class="btn btn-green  me-2" href="teachers.php">
+                                        <a class="btn btn-green  me-2" href="teachers.php?page=<?= $page ?>&search=<?= $search ?>&order=<?= $order ?>&fieldOrder=<?= $fieldOrder ?>">
                                             <img class="mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                                             返回列表
                                         </a>
                                     </div>
                                     <div class="p-2">
-                                        <a class="btn btn-khak" type="button" href="teacher-update.php?id=<?= $row["id"] ?>">
-                                            <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                            修改
-                                        </a>
+                                        <form action="teacher-edit.php" method="get">
+                                            <input type="hidden" value="<?= $page ?>" name="page">
+                                            <input type="hidden" value="<?= $search ?>" name="search">
+                                            <input type="hidden" value="<?= $order ?>" name="order">
+                                            <input type="hidden" value="<?= $fieldOrder ?>" name="fieldOrder">
+                                            <input type="hidden" value="<?= $row["id"] ?>" name="id">
+                                            <button class="btn btn-khak" type="submit">
+                                                <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                                                修改
+                                            </button>
+                                        </form>
                                     </div>
                                     <div class="ms-auto p-2">
                                         <a class="btn btn-red" href="teacher-doDelete.php?id=<?= $row["id"] ?>">
@@ -189,7 +189,7 @@ $teacherCount = $resultAll->num_rows;
                         </div>
                 </div>
             <?php else : ?>
-                <?= "<script>alert('沒有師資資料'); location.href = 'teachers-index.php'; </script>"; ?>
+                <?= "沒有師資資料"; ?>
             <?php endif; ?>
         </div>
     </div>

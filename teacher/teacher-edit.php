@@ -1,12 +1,16 @@
 <?php
-
 if (!isset($_GET["id"])) {
-  echo "沒有參數";
+  echo "<script>alert('沒有師資資料'); location.href = 'teachers.php'; </script>";
   exit;
 }
 
-require("../db-connect.php");
 $id = $_GET["id"];
+$page = $_GET["page"];
+$search = $_GET["search"];
+$order = $_GET["order"];
+$fieldOrder = $_GET["fieldOrder"];
+
+require("../db-connect.php");
 
 // 抓師資資料
 $sqlAll = "SELECT * FROM teacher WHERE id=$id AND valid=1";
@@ -14,7 +18,7 @@ $resultAll = $conn->query($sqlAll);
 $teacherCount = $resultAll->num_rows;
 
 // 抓課程資料
-$sqlCourseProduct = "SELECT * FROM course_product WHERE id AND valid=1";
+$sqlCourseProduct = "SELECT * FROM course_product WHERE valid=1";
 $resultCourseProduct = $conn->query($sqlCourseProduct);
 $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
 
@@ -68,7 +72,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
         <!-- 麵包屑 breadcrumb -->
         <biv aria-label="breadcrumb">
           <ol class="breadcrumb fw-bold">
-            <li class="breadcrumb-item"><a href="#">首頁</a></li>
+            <li class="breadcrumb-item"><a href="../home.php">首頁</a></li>
             <li class="breadcrumb-item"><a href="teachers.php">師資管理</a></li>
             <li class="breadcrumb-item" aria-current="page">修改師資資料</li>
           </ol>
@@ -130,29 +134,29 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                             <option selected value="<?= $rowTeacher["field"]  ?>">
                               <?php
                               switch ($rowTeacher["field"]) {
-                                case '1':
+                                case '琴鍵類音樂':
                                   echo "琴鍵類音樂";
                                   break;
-                                case '2':
+                                case '弦樂類音樂':
                                   echo "弦樂類音樂";
                                   break;
-                                case '3':
+                                case '管樂類音樂':
                                   echo "管樂類音樂";
                                   break;
-                                case '4':
+                                case '熱音類音樂':
                                   echo "熱音類音樂";
                                   break;
-                                case '5':
+                                case '其他類音樂':
                                   echo "其他類音樂";
                                   break;
                               }
                               ?>
                             </option>
-                            <option value="1">琴鍵類音樂</option>
-                            <option value="2">弦樂類音樂</option>
-                            <option value="3">管樂類音樂</option>
-                            <option value="4">熱音類音樂</option>
-                            <option value="5">其他類音樂</option>
+                            <option value="琴鍵類音樂">琴鍵類音樂</option>
+                            <option value="弦樂類音樂">弦樂類音樂</option>
+                            <option value="管樂類音樂">管樂類音樂</option>
+                            <option value="熱音類音樂">熱音類音樂</option>
+                            <option value="其他類音樂">其他類音樂</option>
                           </select>
                         </td>
                       </tr>
@@ -162,11 +166,10 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                           <!-- 帶入課程商品資料 作為選項check-box -->
                           <?php foreach ($CourseProductRows as $row) : ?>
                             <label class="form-check-label" for="flexCheckDefault<?= $row["id"] ?>">
-                              <input class="form-check-input" type="checkbox" id="flexCheckDefault<?= $row["id"] ?>" name="courseId[]" value="<?= $row["id"] ?>" <?php if (preg_match("/{$row["id"]}/i", $rowTeacher["courses"])) {
-                                                                                                                                                                    // 抓取舊資料打勾
-                                                                                                                                                                    echo 'checked=""';
-                                                                                                                                                                  }
-                                                                                                                                                                  ?>>
+                              <input class="form-check-input" type="checkbox" id="flexCheckDefault<?= $row["id"] ?>" name="courseName[]" value="<?= $row["course_name"] ?>" <?php if (strpos($rowTeacher["courses"], $row["course_name"]) !== false) {
+                                                                                                                                                                              echo 'checked=""';
+                                                                                                                                                                            }
+                                                                                                                                                                            ?>>
                               <?= $row["course_name"] ?>
                             </label>
                           <?php endforeach; ?>
@@ -190,7 +193,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                   </table>
                   <div class="d-flex mb-3">
                     <div class="p-2">
-                      <a class="btn btn-green  me-2" href="teachers.php">
+                      <a class="btn btn-green  me-2" href="teachers.php?page=<?= $page ?>&search=<?= $search ?>&order=<?= $order ?>&fieldOrder=<?= $fieldOrder ?>">
                         <img class="mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                         取消修改
                       </a>
