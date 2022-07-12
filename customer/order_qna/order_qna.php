@@ -4,36 +4,34 @@ session_start();
 
 
 if(isset($_GET["perPage"])){
-    $_SESSION["userstate"]["perPage"]=$_GET["perPage"];
-}elseif(isset($_SESSION["userstate"]["perPage"])){
-    $_SESSION["userstate"]["perPage"]=$_SESSION["userstate"]["perPage"];
+    $_SESSION["orderstate"]["perPage"]=$_GET["perPage"];
+}elseif(isset($_SESSION["orderstate"]["perPage"])){
+    $_SESSION["orderstate"]["perPage"]=$_SESSION["orderstate"]["perPage"];
 }else{
-    $_SESSION["userstate"]["perPage"]=4;
+    $_SESSION["orderstate"]["perPage"]=4;
 }
-$perPage=$_SESSION["userstate"]["perPage"];
+$perPage=$_SESSION["orderstate"]["perPage"];
 // $perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
 
 if(isset($_GET["page"])){
-    $_SESSION["userstate"]["page"]=$_GET["page"];
-}elseif(isset($_SESSION["userstate"]["page"])){
-    $_SESSION["userstate"]["page"]=$_SESSION["userstate"]["page"];
+    $_SESSION["orderstate"]["page"]=$_GET["page"];
+}elseif(isset($_SESSION["orderstate"]["page"])){
+    $_SESSION["orderstate"]["page"]=$_SESSION["orderstate"]["page"];
 }else{
-    $_SESSION["userstate"]["page"]=1;
+    $_SESSION["orderstate"]["page"]=1;
 }
-$page=$_SESSION["userstate"]["page"];
+$page=$_SESSION["orderstate"]["page"];
 // $page=isset($_GET["page"])? $_GET["page"] : 1;
 
-
 if(isset($_GET["category"])){
-    $_SESSION["userstate"]["category"]=$_GET["category"];
-}elseif(isset($_SESSION["userstate"]["category"])){
-    $_SESSION["userstate"]["category"]=$_SESSION["userstate"]["category"];
+    $_SESSION["orderstate"]["category"]=$_GET["category"];
+}elseif(isset($_SESSION["orderstate"]["category"])){
+    $_SESSION["orderstate"]["category"]=$_SESSION["orderstate"]["category"];
 }else{
-    $_SESSION["userstate"]["category"]="";
+    $_SESSION["orderstate"]["category"]="";
 }
-$category=$_SESSION["userstate"]["category"];
+$category=$_SESSION["orderstate"]["category"];
 // $category=isset($_GET["category"])? $_GET["category"] : "";
-
 switch($category){
     case 1:
         $sqlWhere="";
@@ -53,30 +51,28 @@ switch($category){
 }
 
 if (isset($_GET["search"])){
-    $_SESSION["userstate"]["search"]=$_GET["search"];
-    $search=$_SESSION["userstate"]["search"];
+    $_SESSION["orderstate"]["search"]=$_GET["search"];
+    $search=$_SESSION["orderstate"]["search"];
     $sqlseach="( users.account LIKE '%$search%' OR users.name LIKE '%$search%') AND"; 
-}elseif(isset($_SESSION["userstate"]["search"])){
-    $_SESSION["userstate"]["search"]=$_SESSION["userstate"]["search"];
-    $search=$_SESSION["userstate"]["search"];
+}elseif(isset($_SESSION["orderstate"]["search"])){
+    $_SESSION["orderstate"]["search"]=$_SESSION["orderstate"]["search"];
+    $search=$_SESSION["orderstate"]["search"];
     $sqlseach="( users.account LIKE '%$search%' OR users.name LIKE '%$search%') AND"; 
 }else{
-    $_SESSION["userstate"]["search"]="";
+    $_SESSION["orderstate"]["search"]="";
     $search="";
     $sqlseach="";
 }
 
-
 if(isset($_GET["order"])){
-    $_SESSION["userstate"]["order"]=$_GET["order"];
-}elseif(isset($_SESSION["userstate"]["order"])){
-    $_SESSION["userstate"]["order"]=$_SESSION["userstate"]["order"];
+    $_SESSION["orderstate"]["order"]=$_GET["order"];
+}elseif(isset($_SESSION["orderstate"]["order"])){
+    $_SESSION["orderstate"]["order"]=$_SESSION["orderstate"]["order"];
 }else{
-    $_SESSION["userstate"]["order"]=2;
+    $_SESSION["orderstate"]["order"]=2;
 }
-$order=$_SESSION["userstate"]["order"];
+$order=$_SESSION["orderstate"]["order"];
 // $order=isset($_GET["order"])? $_GET["order"] : 2;
-
 switch($order){
     case 1:
         $orderType="order_qna.order_id ASC";
@@ -111,7 +107,7 @@ $result=$conn->query($sql);
 $rows=$result->fetch_all(MYSQLI_ASSOC);
 
 $sqlAll="SELECT order_qna.*, users.account, users.name FROM order_qna
-    JOIN users ON order_qna.user_id = users.id  AND $sqlWhere $sqlseach users.valid=1 ";
+    JOIN users ON order_qna.user_id = users.id  AND $sqlWhere $sqlseach users.valid=1";
 $resultAll=$conn->query($sqlAll);
 $userCount=$resultAll->num_rows;
 
@@ -301,8 +297,6 @@ $totalPage=ceil($userCount/$perPage);
                     </div>
                     <!-- 頁碼 end -->
                 </div>
-
-
         </div>
         <!-- 內容 end -->
 

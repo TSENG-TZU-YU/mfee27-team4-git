@@ -1,23 +1,49 @@
 <?php
 require("../../db-connect.php");
-
 session_start();
-$perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
-$page=isset($_GET["page"])? $_GET["page"] : 1;
 
-$category=isset($_GET["category"])? $_GET["category"] : "";
+
+if(isset($_GET["perPage"])){
+    $_SESSION["userstate"]["perPage"]=$_GET["perPage"];
+}elseif(isset($_SESSION["userstate"]["perPage"])){
+    $_SESSION["userstate"]["perPage"]=$_SESSION["userstate"]["perPage"];
+}else{
+    $_SESSION["userstate"]["perPage"]=4;
+}
+$perPage=$_SESSION["userstate"]["perPage"];
+// $perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
+
+if(isset($_GET["page"])){
+    $_SESSION["userstate"]["page"]=$_GET["page"];
+}elseif(isset($_SESSION["userstate"]["page"])){
+    $_SESSION["userstate"]["page"]=$_SESSION["userstate"]["page"];
+}else{
+    $_SESSION["userstate"]["page"]=1;
+}
+$page=$_SESSION["userstate"]["page"];
+// $page=isset($_GET["page"])? $_GET["page"] : 1;
+
+if(isset($_GET["category"])){
+    $_SESSION["userstate"]["category"]=$_GET["category"];
+}elseif(isset($_SESSION["userstate"]["category"])){
+    $_SESSION["userstate"]["category"]=$_SESSION["userstate"]["category"];
+}else{
+    $_SESSION["userstate"]["category"]="";
+}
+$category=$_SESSION["userstate"]["category"];
+// $category=isset($_GET["category"])? $_GET["category"] : "";
 switch($category){
     case 1:
         $sqlWhere="";
         break;
     case 2:
-        $sqlWhere="WHERE user_qna.reply_state ='未回覆'";
+        $sqlWhere="user_qna.reply_state ='未回覆' AND";
         break;
     case 3:
-        $sqlWhere="WHERE user_qna.reply_state ='已回覆'";
+        $sqlWhere="user_qna.reply_state ='已回覆' AND";
         break;
     case 4:
-        $sqlWhere="WHERE user_qna.reply_state ='新訊息'";
+        $sqlWhere="user_qna.reply_state ='新訊息' AND";
         break;    
     default:
         $sqlWhere="";
@@ -25,17 +51,28 @@ switch($category){
 }
 
 if (isset($_GET["search"])){
-    $search=$_GET["search"];
-    if(isset($_GET["category"])){
-        $sqlseach="AND ( users.account LIKE '%$search%' OR users.name LIKE '%$search%') ";
-    }else{
-        $sqlseach="WHERE ( users.account LIKE '%$search%' OR users.name LIKE '%$search%') ";
-    } 
+    $_SESSION["userstate"]["search"]=$_GET["search"];
+    $search=$_SESSION["userstate"]["search"];
+    $sqlseach="( users.account LIKE '%$search%' OR users.name LIKE '%$search%') AND"; 
+}elseif(isset($_SESSION["userstate"]["search"])){
+    $_SESSION["userstate"]["search"]=$_SESSION["userstate"]["search"];
+    $search=$_SESSION["userstate"]["search"];
+    $sqlseach="( users.account LIKE '%$search%' OR users.name LIKE '%$search%') AND"; 
 }else{
+    $_SESSION["userstate"]["search"]="";
     $search="";
     $sqlseach="";
 }
-  
+
+if(isset($_GET["order"])){
+    $_SESSION["userstate"]["order"]=$_GET["order"];
+}elseif(isset($_SESSION["userstate"]["order"])){
+    $_SESSION["userstate"]["order"]=$_SESSION["userstate"]["order"];
+}else{
+    $_SESSION["userstate"]["order"]=2;
+}
+$order=$_SESSION["userstate"]["order"];
+// $order=isset($_GET["order"])? $_GET["order"] : 2;  
 $order=isset($_GET["order"])? $_GET["order"] : 1;
 switch($order){
     case 1:
@@ -63,26 +100,14 @@ switch($order){
 
 $start=($page-1)*$perPage;
 
-$sql="SELECT user_qna.*,users.account, users.name AS user_name FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id $sqlWhere ORDER BY $orderType LIMIT $start, $perPage";
+$sql="SELECT user_qna.*,users.account, users.name AS user_name FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id WHERE $sqlWhere $sqlseach users.valid=1 ORDER BY $orderType LIMIT $start, $perPage";
 $result=$conn->query($sql);
 $rows=$result->fetch_all(MYSQLI_ASSOC);
 
-// $sql="SELECT order_qna.*, users.account , users.name FROM order_qna
-//     JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ORDER BY $orderType
-//     LIMIT $start, $perPage" ; 
-  
-// $result=$conn->query($sql);
-// $rows=$result->fetch_all(MYSQLI_ASSOC);
 
-$sqlAll="SELECT user_qna.*,users.account, users.name FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id $sqlWhere $sqlseach ";
+$sqlAll="SELECT user_qna.*,users.account, users.name FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id WHERE $sqlWhere $sqlseach users.valid=1";
 $resultAll=$conn->query($sqlAll);
 $userCount=$resultAll->num_rows;
-
-
-// $sqlAll="SELECT order_qna.*, users.account, users.name FROM order_qna
-//     JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ";
-// $resultAll=$conn->query($sqlAll);
-// $userCount=$resultAll->num_rows;
 
 $startItem=($page-1)*$perPage+1;
 $endItem=$page*$perPage;
@@ -170,31 +195,31 @@ $sqlUser_qna="WHERE user_qna.php";
                 <hr>
                 <div class="container">
                 <form class="" action="user_qna.php" method="get">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>   
-                                每頁顯示
-                                <select onchange="this.form.submit()" name="perPage">
-                                    <option <?php if($perPage==4)echo "selected";?> value="4">4</option>
-                                    <option <?php if($perPage==6)echo "selected";?> value="6">6</option>
-                                    <option <?php if($perPage==8)echo "selected";?> value="8">8</option>
-                                    <option <?php if($perPage==10)echo "selected";?> value="10">10</option>
-                                </select>
-                                筆, 第 <?=$startItem?>-<?=$endItem?> 筆, 共 <?=$userCount?> 筆資料
-                                </div> 
-                            <div>
-                                回覆狀態:
-                                <input type="radio" name="category" id="category1" class="" value="1" <?php if($category==1 || $category=="")echo "checked";?> onclick="this.form.submit()">
-                                <label for="category1">全部</label>
-                                <input type="radio" name="category" id="category2" class="" value="2" <?php if($category==2)echo "checked";?> onclick="this.form.submit()">
-                                <label for="category2">未回覆</label>
-                                <input type="radio" name="category" id="category3" class="" value="3" <?php if($category==3)echo "checked";?> onclick="this.form.submit()">
-                                <label for="category3">已回覆</label>
-                                <input type="radio" name="category" id="category4" class="" value="4" <?php if($category==4)echo "checked";?> onclick="this.form.submit()">
-                                <label for="category4">新訊息</label>
-                            </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>   
+                            每頁顯示
+                            <select onchange="this.form.submit()" name="perPage">
+                                <option <?php if($perPage==4)echo "selected";?> value="4">4</option>
+                                <option <?php if($perPage==6)echo "selected";?> value="6">6</option>
+                                <option <?php if($perPage==8)echo "selected";?> value="8">8</option>
+                                <option <?php if($perPage==10)echo "selected";?> value="10">10</option>
+                            </select>
+                            筆, 第 <?=$startItem?>-<?=$endItem?> 筆, 共 <?=$userCount?> 筆資料
+                            </div> 
+                        <div>
+                            回覆狀態:
+                            <input type="radio" name="category" id="category1" class="" value="1" <?php if($category==1 || $category=="")echo "checked";?> onclick="this.form.submit()">
+                            <label for="category1">全部</label>
+                            <input type="radio" name="category" id="category2" class="" value="2" <?php if($category==2)echo "checked";?> onclick="this.form.submit()">
+                            <label for="category2">未回覆</label>
+                            <input type="radio" name="category" id="category3" class="" value="3" <?php if($category==3)echo "checked";?> onclick="this.form.submit()">
+                            <label for="category3">已回覆</label>
+                            <input type="radio" name="category" id="category4" class="" value="4" <?php if($category==4)echo "checked";?> onclick="this.form.submit()">
+                            <label for="category4">新訊息</label>
                         </div>
-                    </form>
-                    <!-- <hr>                    -->
+                    </div>
+                </form>
+                <!-- <hr> -->
                     <table class="table mt-2">
                         <thead>
                             <tr >
@@ -262,28 +287,15 @@ $sqlUser_qna="WHERE user_qna.php";
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example">
                         <ul class="pagination">
-                        <?php for($i=1; $i<=$totalPage; $i++): ?>
-                        <li class="page-item <?php if($page==$i)echo "active";?>"><a class="page-link" href="user_qna.php?page=<?=$i?>&perPage=<?=$perPage?>&order=<?=$order?>&category=<?=$category?>&search=<?=$search?>"><?=$i?></a></li>
-                        <?php endfor; ?>
-                            <!-- <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
+                            <?php for($i=1; $i<=$totalPage; $i++): ?>
+                            <li class="page-item <?php if($page==$i)echo "active";?>">
+                                <a class="page-link" href="user_qna.php?page=<?=$i?>&perPage=<?=$perPage?>&order=<?=$order?>&category=<?=$category?>&search=<?=$search?>"><?=$i?></a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li> -->
+                            <?php endfor; ?>
                         </ul>
                     </div>
                     <!-- 頁碼 end -->
                 </div>
-
-
         </div>
         <!-- 內容 end -->
 
