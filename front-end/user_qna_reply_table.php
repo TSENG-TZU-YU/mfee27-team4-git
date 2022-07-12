@@ -72,19 +72,18 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                 <!-- 內容 -->
                 <div class="content mx-auto">
                     <h1><?=$_SESSION["front_user"]["name"]?>的提問</h1>
-                    <form action="user_qna_doReply.php" method="post">
                         <table class="table">
                             <tr>
-                                <th>提問編號</th>
-                                <td colspan="2"><?=$row["id"]?></td>
+                                <th width=200>提問編號</th>
+                                <td><?=$row["id"]?></td>
                             </tr>
                             <tr>
                                 <th>問題類型</th>
-                                <td colspan="2"><?=$row["q_category"]?></td>
+                                <td><?=$row["q_category"]?></td>
                             </tr>
                             <tr>
                                 <th>回覆狀態</th>
-                                <td colspan="2">
+                                <td>
                                 <div class="d-flex justify-content-center">    
                                         <span class="reply-state
                                         <?php 
@@ -106,45 +105,40 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                             </tr>
                             <tr>
                                 <th>詢問時間</th>
-                                <td colspan="2"><?=$row["create_time"]?></td>
+                                <td><?=$row["create_time"]?></td>
                             </tr>
                             <tr>
                                 <th>最後更新時間</th>
-                                <td colspan="2"><?=$row["update_time"]?></td>
+                                <td><?=$row["update_time"]?></td>
                             </tr>
                             <tr>
                                 <th>問題標題</th>
-                                <th colspan="2"><?=$row["title"]?></th>
+                                <th><?=$row["title"]?></th>
                             </tr>
+                        </table>    
+                    <form action="user_qna_doReply.php" method="post">
+                        <table class="table">        
                             <tr>
-                                <th>問題內容</th>              
+                                <th width=200  class="align-top fs-6">問題內容</th>
+                                <td style="word-break:break-all" class="">
+                                <?php foreach($rowsDetail as $rowDetail): ?>
+                                <p class="text-start ">
+                                    <label>
+                                        
+                                        <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
+                                        <span class="fs-6"><?=$rowDetail["create_time"]?></span>
+                                    </label>
+                                </p>
+                                <p class="text-start  fs-6"><?=$rowDetail["q_content"]?></p>
+                                <?php endforeach;?>   
+                                </td>  
                             </tr>
-                            <tr> 
-                                <td>
-                                    <?php foreach($rowsDetail as $rowDetail): ?>
-                                    <p class="text-end my-2 fw-bolder"><?=$rowDetail["name"]." : "?></p>
-                                    <?php endforeach;?> 
-                                </td>
-                                <td >
-                                    <?php foreach($rowsDetail as $rowDetail): ?>
-                                    <p class="text-start my-2 fw-bolder"><?=$rowDetail["q_content"]?></p>
-                                    <?php endforeach;?>    
-                                </td>
-                                <td>
-                                    <?php foreach($rowsDetail as $rowDetail): ?>
-                                    <p class="text-start my-2"><?=$rowDetail["create_time"]?></p>
-                                    <?php endforeach;?>
-                                </td>
-                            </tr>
-                            
                             <tr>
                                 <th>進行回覆</th>
-                                <td colspan="2">
+                                <td>
                                     <!-- <textarea type="" pattern=".*[^ ].*" class="form-control inputcontent" placeholder='輸入對話' name="reply" ></textarea> -->
                                     <input type="text" name="reply" class="form-control inputcontent" pattern=".*[^ ].*" placeholder='輸入內容' autocomplete="off" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required >
-                                </td>  
-                                <td>
-                                </td>  
+                                </td>    
                             </tr>
                         </table>
                         <div class="d-flex justify-content-between">
@@ -157,8 +151,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                 <div class="py-2 mx-2">
                                     <a class="btn btn-grey" href="my_qna.php">離開</a>
                                 </div>
-                            </div>
-                            
+                            </div>    
                         </div>
                     </form>     
                 </div>        

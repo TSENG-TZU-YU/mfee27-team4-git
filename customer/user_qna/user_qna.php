@@ -63,7 +63,7 @@ switch($order){
 
 $start=($page-1)*$perPage;
 
-$sql="SELECT user_qna.*,users.account, users.name FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id $sqlWhere ORDER BY $orderType LIMIT $start, $perPage";
+$sql="SELECT user_qna.*,users.account, users.name AS user_name FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id $sqlWhere ORDER BY $orderType LIMIT $start, $perPage";
 $result=$conn->query($sql);
 $rows=$result->fetch_all(MYSQLI_ASSOC);
 

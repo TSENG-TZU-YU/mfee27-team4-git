@@ -108,7 +108,7 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);
         <div class="row mt-3">
             <main class="<?php if(isset($_SESSION["front_user"])){echo"col-md-10";}else{echo"col-md";}?>">
                 <article class="content">
-                <h1><?=$_SESSION["front_user"]["name"]?>的提問<a class="btn btn-khak fs-5 p-1" href="user_qna_table.php">我要提問＋</a></h1>
+                <h1><?=$_SESSION["front_user"]["name"]?>的提問<a class="btn btn-khak fs-5 p-1 ps-2 mx-2" href="user_qna_table.php">我要提問＋</a></h1>
                 <table class="table mt-2">
                     <thead>
                         <tr >

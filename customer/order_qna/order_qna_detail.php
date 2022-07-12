@@ -110,8 +110,8 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                 <div class="container">
                         <table class="table">
                             <tr>
-                                <th width=200 class="">訂單編號</th>
-                                <td class=""><?=$row["order_id"]?></td>
+                                <th width=200>訂單編號</th>
+                                <td><?=$row["order_id"]?></td>
                             </tr>
                             <tr>
                                 <th>問題類型</th>

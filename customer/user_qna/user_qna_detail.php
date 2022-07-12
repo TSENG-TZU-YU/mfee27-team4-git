@@ -183,7 +183,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                         </table>
                         <div class="d-flex justify-content-between">
                             <div class="d-flex">
-                                <div class="py-2 mx-2  ">
+                                <div class="py-2 mx-2 ">
                                     <button onclick="rep()" class="btn btn-green" type="">確定</button>
                                     <input type="hidden" name="user_qna_id" value="<?=$user_qna_id?>">
                                 </div>
