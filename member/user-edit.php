@@ -72,7 +72,7 @@ $row = $result->fetch_assoc();
                     <!-- 按鈕 -->
                     <div class="row ">
                         <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green mx-3" href="user-detail.php?id=<?= $id ?>&name=<?=$name?>">
+                        <a class="col-1 btn btn-green mx-3" href="user-detail.php?id=<?= $id ?>&name=<?= $name ?>">
                             <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                             返回
                         </a>
@@ -84,15 +84,15 @@ $row = $result->fetch_assoc();
 
                 </div>
                 <div class="container mt-5  ">
-                    <?php if ($userCount > 0) :  $row;?>
+                    <?php if ($userCount > 0) :  $row; ?>
                         <form action="user-doUpdate.php" method="post">
                             <div class="d-flex justify-content-center">
-                            <input name="id" type="hidden" value=" <?= $row["id"] ?>">
+                                <input name="id" type="hidden" value=" <?= $row["id"] ?>">
                                 <table class="table table-bordered panel">
-                                     <input name="id" type="hidden" value=" <?= $row["id"] ?>">
+                                    <input name="id" type="hidden" value=" <?= $row["id"] ?>">
                                     <tr>
                                         <th>會員編號</th>
-                                        <td ><?= $row["id"] ?></td>
+                                        <td><?= $row["id"] ?></td>
                                     </tr>
                                     <tr>
                                         <th>會員姓名</th>
@@ -127,7 +127,10 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>會員生日</th>
-                                        <td><?= $row["birthday"] ?></td>
+                                        <td>
+                                            <input type="date" class="form-control text-center" name="birthday" id="birthday" value="<?= $row["birthday"] ?>">
+                                        </td>
+
 
                                     </tr>
                                     <tr>
@@ -139,9 +142,9 @@ $row = $result->fetch_assoc();
                                         <td><input type="email" class="form-control text-center" value="<?= $row["email"] ?>" name="email"></td>
                                     </tr>
                                     <tr>
-                                    <th>會員地址</th>
-                                    <td><input type="text" class="form-control text-center" value="<?= $row["address"] ?>" name="address"></td>
-                                </tr>
+                                        <th>會員地址</th>
+                                        <td><input type="text" class="form-control text-center" value="<?= $row["address"] ?>" name="address"></td>
+                                    </tr>
                                     <tr>
                                         <th>註冊時間</th>
                                         <td><?= $row["create_time"] ?></td>
@@ -151,8 +154,8 @@ $row = $result->fetch_assoc();
                             </div>
                             <div class="py-2  ">
                                 <div class="d-flex justify-content-center">
-                                    <button class="col-1 btn btn-khak me-3"  type="submit">
-                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16" ></img>
+                                    <button class="col-1 btn btn-khak me-3" type="submit">
+                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                                         儲存
                                     </button>
                                 </div>

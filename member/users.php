@@ -192,6 +192,7 @@ $totalPage = ceil($userCount / $perPage);
                                 <th scope="col">會員電話</th>
                                 <th scope="col">會員郵件</th>
                                 <th scope="col">註冊時間</th>
+                                <th colspan="2">管理操作</th>
                             </tr>
                         </thead>
                         <tbody>

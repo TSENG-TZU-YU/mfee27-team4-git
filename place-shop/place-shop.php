@@ -1,6 +1,8 @@
 <?php
 
 require("../db-connect.php");
+$sqlPlace= "WHERE place-shop.php";
+session_start();
 
 // 篩選
 if (isset($_GET["page"])) {
@@ -9,22 +11,51 @@ if (isset($_GET["page"])) {
     $page = 1;
 }
 
+if (isset($_GET["catestring"])) {
+    $catestring = $_GET["catestring"];
+} else {
+    $catestring = "";
+}
 
+if (isset($_GET["search"])) {
+    $search = $_GET["search"];
+    $sqlsearch = "name LIKE '%$search%' AND";
+} else {
+    $search = "";
+    $sqlsearch = "";
+}
+
+
+
+switch($catestring) {
+    case 1 :
+        $category="cate='台北總店' AND";
+    break;
+    case 2 :
+        $category="cate='中壢店' AND";
+    break;
+    case 3 :
+        $category="cate='高雄店' AND";
+    break;
+    default : 
+        $category="" ;
+    break;
+}
 
 
 
 
 //page
-$sqlAll = "SELECT * FROM place_produce WHERE id";
+$sqlAll = "SELECT * FROM place_produce ";
 $resultAll = $conn->query($sqlAll);
 $placeCount = $resultAll->num_rows;
 
 $perPage = 5;
 $startPage = ($page - 1) * $perPage;
-$sql = "SELECT * FROM place_produce WHERE  id  LIMIT $startPage ,5";
+$sql = "SELECT * FROM place_produce WHERE $category $sqlsearch valid=1 LIMIT $startPage ,$perPage";
 
 $result = $conn->query($sql);
-$pageinsCount = $resultAll->num_rows;
+$pageplaceCount = $resultAll->num_rows;
 
 $startItem = ($page - 1) * $perPage;
 $endItem = $page * $perPage;
@@ -82,7 +113,7 @@ $totalPage = ceil($placeCount / $perPage);
                 <!-- 內容 -->
                 <div class="container">
                     <div class="row">
-                        <p class="col-8 m-auto">總共 筆資料</p>
+                        <p class="col-8 m-auto">總共 <?=$placeCount?>筆資料</p>
                         <input class="col form-control me-2" type="text">
                         <a class="col-1 btn btn-green" href="#">
                             <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -107,19 +138,14 @@ $totalPage = ceil($placeCount / $perPage);
                         </a>
                         <!-- 無文字按鈕 -->
                         <form action="place-shop.php" class="col-6 me-2 "  >
-                        <select onchange="this.form.submit()" name="cate" id="">
-                            <option value="">全部店面</option>
-                            <option value="1" >台北總店</option>
-                            <option value="2" >中壢店</option>
-                            <option value="3" >高雄店</option>
+                        <select onchange="this.form.submit()" name="catestring" id="" class="">
+                            <option <?php if($catestring=="") echo "selected";?> value="">全部店面</option>
+                            <option <?php if($catestring==1) echo "selected";?> value="1" >台北總店</option>
+                            <option <?php if($catestring==2) echo "selected";?> value="2" >中壢店</option>
+                            <option <?php if($catestring==3) echo "selected";?> value="3" >高雄店</option>
                         </select>
                         </form>
-                        <a class="col-1 btn btn-green me-2" href="ins-shop.php?valid=1">
-                            批次上架
-                        </a>
-                        <a class="col-1 btn btn-red me-2" href="ins-shop.php?valid=2">
-                            批次下架
-                        </a>
+                        
                     </div>
                     <!-- 按鈕 end-->
 
@@ -142,35 +168,40 @@ $totalPage = ceil($placeCount / $perPage);
                             </tr>
                         </thead>
                         <tbody>
+                            <form action="" name="form1">
+                                <button class="col-1 btn btn-green me-2" onclick="up()">
+                                    批次上架
+                                </button>
+                                <button class="col-1 btn btn-red me-2" onclick="down()">
+                                    批次下架
+                                </button>
                             <?php
                             //把資料轉換成關聯式陣列
                             while($row = $result->fetch_assoc()):  ?>
                           
                             <tr>
-                                <th><input type="checkbox" class="ckb" id=" con.id " value=" con.id "></th>
-                                <td><?=$row["product_id"]?></td>
-                              
+                                <th><input type="checkbox" name="arryid[]" value="<?=$row["id"]?>"></th>
+                                <td><?=$row["product_id"]?></td>                           
                                 <td><?=$row["cate"]?></td>
                                 <td><?=$row["name"]?></td>
                                 <td><?=$row["price"]?></td>
                                 <td><?=$row["stock"]?></td>
-                                <td><?=$row["use_time"]?></td>
-                                <td><?=$row["over_time"]?></td>
+                                <td><?=date('Y-m-d', strtotime($row["use_time"]));?></td>
+                                <td><?=date('Y-m-d', strtotime($row["over_time"]));?></td>
                                 <td><?=$row["intro"]?></td>
                                 <td><?=$row["creat_time"]?></td>
                                 <td>
                                 <?php if($row["state"]==1):?>
-                                    <a class="btn btn-red me-3" type="button" href="downstate-place.php?id=<?=$row["id"]?>">
-                                        <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
+                                    <a class="btn btn-green me-3" type="button" href="downstate-place.php?id=<?=$row["id"]?>">
                                         上架
                                     </a>
                                         <?php else: ?>
-                                    <a class="btn btn-green me-3" type="button" href="dostate-place.php?id=<?=$row["id"]?>">
-                                        <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
+                                    <a class="btn btn-red me-3" type="button" href="dostate-place.php?id=<?=$row["id"]?>">
                                         下架
                                     </a>
                                     <?php endif ; ?>
-                                </td>                    
+                                </td>
+                                <td>                    
                                     <a class="btn btn-khak" type="button" id="show" href="place-detail.php?id=<?= $row["id"] ?>">
                                         <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                                         修改
@@ -178,7 +209,7 @@ $totalPage = ceil($placeCount / $perPage);
                                 </td>
                             </tr>
                             <?php endwhile; ?>
-                            
+                            </form>
                         </tbody>
                     </table>
                     <!-- 頁碼 -->
@@ -212,21 +243,14 @@ $totalPage = ceil($placeCount / $perPage);
   
 
     <script>
-        let btn=document.querySelector("#show");
-        let infoModal=document.querySelector("#infoModal");
-        let close=document.querySelector("#close");
-
-        btn.addEventListener("click", function(){
-            infoModal.showModal();
-        })
-        close.addEventListener("click", function(){
-            infoModal.close();
-        });
-
-
-
-
-
+                    function up(){
+                        document.form1.action="batchstate-ins.php";
+                        document.form1.submit();
+                    }
+                    function down(){
+                        document.form1.action="batchdownstate-ins.php";
+                        document.form1.submit();
+                    }
     </script>
 
     

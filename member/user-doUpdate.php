@@ -9,6 +9,7 @@ $name=$_POST["name"];
 $account=$_POST["account"];
 $password=$_POST["password"];
 $gender=$_POST["gender"];
+$birthday=$_POST["birthday"];
 $phone=$_POST["phone"];
 $email=$_POST["email"];
 $address=$_POST["address"];
@@ -42,8 +43,9 @@ if(empty($address)){
     exit;
 }
 
+$password=md5($password);
 
-$sql="UPDATE users SET name='$name',account='$account',password='$password',gender='$gender', phone='$phone',email='$email',address='$address' WHERE id=$id AND valid=1";
+$sql="UPDATE users SET name='$name',account='$account',password='$password',gender='$gender',birthday='$birthday', phone='$phone',email='$email',address='$address' WHERE id=$id AND valid=1";
 
 
 if ($conn->query($sql) === TRUE) {

@@ -1,6 +1,8 @@
 <?php
 
 require("../db-connect.php");
+$sqlIns= "WHERE ins-shop.php";
+session_start();
 
 // 篩選
 if (isset($_GET["page"])) {
