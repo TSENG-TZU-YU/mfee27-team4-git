@@ -2,7 +2,7 @@
 
 require("../db-connect.php");
 $sqlCoupon  = "WHERE coupons.users.php";
-
+session_start();
 
 $sqlAll = "SELECT coupon.*, users.name AS users_name FROM coupon
 JOIN users ON coupon.coupon_c = users.coupon WHERE shelf=0 ";

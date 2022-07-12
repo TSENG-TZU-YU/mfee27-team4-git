@@ -1,4 +1,5 @@
 <?php
+session_start();
 if(!isset($_GET["id"])){
     echo "沒有參數";
     exit;
@@ -37,7 +38,7 @@ $couponCount=$result->num_rows;
   <div class="container-fluid">
         <div class="row d-flex">
 
-        
+        <?php require("../nav.php"); ?>
             <main class="col-10 px-5 py-4">
 
                 <!-- 麵包屑 breadcrumb -->
