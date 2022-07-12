@@ -2,7 +2,7 @@
 <html lang="zh-tw">
 
 <head>
-    <title>新增文章</title>
+    <title>HAMAYA MUSIC - 新增文章</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -97,11 +97,11 @@
                                 <div class="d-flex justify-content-center align-items-center mt-3">
                                     <a class="btn btn-khak me-5" href="articles.php">
                                         <img class="mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
-                                        取消發佈
+                                        取消新增
                                     </a>
                                     <button class="btn btn-green" type="submit" name="submit">
                                         <img class="mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
-                                        文章發佈
+                                        送出新增
                                     </button>
                                 </div>
                             </form>
