@@ -88,11 +88,17 @@ switch($order){
         $orderType="users.account DESC";
         break; 
     case 5:
-        $orderType="order_qna.create_time ASC";
+        $orderType="users.name ASC";
         break;
     case 6:
+        $orderType="users.name DESC";
+        break;
+    case 7:
+        $orderType="order_qna.create_time ASC";
+        break;
+    case 8:
         $orderType="order_qna.create_time DESC";
-        break;   
+        break;       
     default:
         $orderType="order_qna.order_id DESC";
         break;
@@ -162,7 +168,7 @@ $totalPage=ceil($userCount/$perPage);
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="home.php">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="../../home.php">首頁</a></li>
                         <li class="breadcrumb-item" aria-current="page">訂單問答</li>
                     </ol>
                 </biv>
@@ -180,12 +186,12 @@ $totalPage=ceil($userCount/$perPage);
                             <form action="order_qna.php" method="get">
                                 <div class="d-flex align-items-center">
                                     <?php if(!empty($search)):?>
-                                    <h2 class="text-nowrap" ><?=$search?> 的搜尋結果 </h2>
+                                    <h4 class="text-nowrap mt-2 mx-2" >"<?=$search?>"的搜尋結果</h4>
                                     <?php endif;?>
-                                    <input  class="form-control me-3" type="text" name="search">
+                                    <input  class="form-control me-3" type="text" name="search" placeholder="<?php if(empty($search))echo"未填寫為全部搜索"?>">
                                     <button class=" btn btn-green " type="submit" href="#">
                                         <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/search-icon.svg" width="16" height="16"></img>
-                                        <p class="text-nowrap">會員搜尋</p> 
+                                        <p class="text-nowrap">帳號姓名搜尋</p> 
                                     </button>
                                 </div>
                                 <input type="hidden" name="category" value="<?=$category?>">
@@ -227,11 +233,11 @@ $totalPage=ceil($userCount/$perPage);
                                 <?php //echo $order ?>
                                 <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==1){echo "2";}else{echo "1";}?>">訂單編號</a> </th>
                                 <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==3){echo "4";}else{echo "3";}?>">會員帳號</a></th>
-                                <th scope="col" class="text-nowrap">姓名</th>
+                                <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==5){echo "6";}else{echo "5";}?>">姓名</a></th>
                                 <th scope="col" class="text-nowrap">問題類型</th>
                                 <th scope="col" class="text-nowrap">問題標題</th>
                                 <th scope="col" class="text-nowrap">回覆狀態</th>
-                                <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==5){echo "6";}else{echo "5";}?>">詢問時間</a></th>
+                                <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==5){echo "8";}else{echo "7";}?>">詢問時間</a></th>
                                 <th scope="col" class="text-nowrap">最後更新時間</th>
                             </tr>
                         </thead>

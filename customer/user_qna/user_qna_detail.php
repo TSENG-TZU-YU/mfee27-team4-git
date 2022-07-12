@@ -73,7 +73,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="home.php">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="../../home.php">首頁</a></li>
                         <li class="breadcrumb-item"><a href="user_qna.php">客服問答</a></li>
                         <li class="breadcrumb-item" aria-current="page">問答詳細</li>
                     </ol>
