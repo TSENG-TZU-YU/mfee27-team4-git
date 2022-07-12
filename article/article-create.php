@@ -72,11 +72,11 @@
                                     <div class="form-group col-6 mt-1">
                                         <label for="category" class="fw-bold">文章類別</label>
                                         <select class="form-select mt-1" aria-label="Default select example" name="category">
-                                            <option selected value="0">請選擇文章類別</option>
-                                            <option value="1">產品資訊</option>
-                                            <option value="2">活動快訊</option>
-                                            <option value="3">音樂教育</option>
-                                            <option value="4">重要通知</option>
+                                            <option selected value="請選擇文章類別">請選擇文章類別</option>
+                                            <option value="產品資訊">產品資訊</option>
+                                            <option value="活動快訊">活動快訊</option>
+                                            <option value="音樂教育">音樂教育</option>
+                                            <option value="重要通知">重要通知</option>
                                         </select>
                                     </div>
                                     <div class="col-6">
@@ -97,11 +97,11 @@
                                 <div class="d-flex justify-content-center align-items-center mt-3">
                                     <a class="btn btn-khak me-5" href="articles.php">
                                         <img class="mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
-                                        取消新增
+                                        取消發佈
                                     </a>
                                     <button class="btn btn-green" type="submit" name="submit">
                                         <img class="mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
-                                        送出新增
+                                        文章發佈
                                     </button>
                                 </div>
                             </form>

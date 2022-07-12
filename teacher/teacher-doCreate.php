@@ -4,7 +4,7 @@ if (empty($_POST["name"])) {
   echo "<script>alert('未輸入師資姓名'); location.href = 'teacher-create.php'; </script>";
   exit;
 }
-if (($_POST["field"] == 0)) {
+if (($_POST["field"] == "請選擇教學領域")) {
   echo "<script>alert('未選擇師資教學領域'); location.href = 'teacher-create.php'; </script>";
   exit;
 }
@@ -21,14 +21,14 @@ $video = $_POST["video"];
 
 
 // 教授課程複選資料 組成陣列寫入 teacher資料表
-$courseId = array();
+$courseName = array();
 // 取得 post courseId
-$courseId = $_POST["courseId"];
+$courseName = $_POST["courseName"];
 // 將陣列轉字串存入
-$courseIdArray = implode(',', $courseId);
+$courseNameArray = implode('、', $courseName);
 
 // 將資料寫入 teacher 資料表
-$sqlAll = "INSERT INTO teacher (name, image, courses, field, profile, video, valid) VALUES ('$name', '$fileName', '$courseIdArray', '$field', '$profile', '$video', 1) ";
+$sqlAll = "INSERT INTO teacher (name, image, courses, field, profile, video, valid) VALUES ('$name', '$fileName', '$courseNameArray', '$field', '$profile', '$video', 1) ";
 $conn->query($sqlAll);
 
 

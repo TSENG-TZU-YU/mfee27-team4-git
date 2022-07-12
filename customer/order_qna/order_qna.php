@@ -1,5 +1,6 @@
 <?php
 require("../../db-connect.php");
+session_start();
 $sqlOrder_qna="WHERE order_qna.php";
 
 $perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
@@ -126,8 +127,8 @@ $totalPage=ceil($userCount/$perPage);
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">xxx</li>
+                        <li class="breadcrumb-item"><a href="home.php">首頁</a></li>
+                        <li class="breadcrumb-item" aria-current="page">訂單問答</li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -183,11 +184,6 @@ $totalPage=ceil($userCount/$perPage);
                                 <label for="category4">新訊息</label>
                             </div>
                         </div>
-                        <!-- <input type="hidden" name="page" value="<?=$page?>">
-                        <input type="hidden" name="perPage" value="<?=$perPage?>">
-                        <input type="hidden" name="category" value="<?=$category?>">
-                        <input type="hidden" name="order" value="<?=$order?>">
-                        <input type="hidden" name="search" value="<?=$search?>"> -->
                     </form> 
                     <!-- <hr>                    -->
                     <table class="table mt-2">

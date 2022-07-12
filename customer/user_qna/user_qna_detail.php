@@ -7,7 +7,7 @@ $sql="SELECT user_qna.*,users.account FROM user_qna LEFT JOIN users ON user_qna.
 $result=$conn->query($sql);
 $row = $result->fetch_assoc();
 
-$sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id";
+$sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id AND valid=1" ;
 $resultDetail = $conn->query($sqlDetail);
 $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 
@@ -45,7 +45,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
     </link>
     <style>
         .inputcontent{
-            height: 100px;    
+            height: 70px;    
         }
         .reply-state{
             width: 60px;
@@ -73,8 +73,9 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">xxx</li>
+                        <li class="breadcrumb-item"><a href="home.php">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="user_qna.php">客服問答</a></li>
+                        <li class="breadcrumb-item" aria-current="page">問答詳細</li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -82,35 +83,34 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                 <!-- 內容 -->
                 <div class="container">
                     
-                    <form action="user_doReply.php" method="post">
                         <table class="table">
                             <tr>
-                                <th>編號</th>
-                                <td colspan="2"><?=$row["id"]?></td>
+                                <th width=200>編號</th>
+                                <td><?=$row["id"]?></td>
                             </tr>
                             <tr>
                                 <th>會員帳號</th>
-                                <td colspan="2"><?php if(!isset($row["account"])==null){echo $row["account"];}else{echo "非會員\"訪客\"";}?></td>
+                                <td class="<?php if(isset($row["account"])==null){echo "text-danger fw-bolder";}?>"><?php if(!isset($row["account"])==null){echo $row["account"];}else{echo "訪客";}?></td>
                             </tr>
                             <tr>
                                 <th>姓名</th>
-                                <td colspan="2"><?=$row["name"]?></td>
+                                <td><?=$row["name"]?></td>
                             </tr>
                             <tr>
                                 <th>E-MAIL</th>
-                                <td colspan="2"><?=$row["email"]?></td>
+                                <td><?=$row["email"]?></td>
                             </tr>
                             <tr>
                                 <th>電話</th>
-                                <td colspan="2"><?=$row["phone"]?></td>
+                                <td><?=$row["phone"]?></td>
                             </tr>
                             <tr>
                                 <th>問題類型</th>
-                                <td colspan="2"><?=$row["q_category"]?></td>
+                                <td><?=$row["q_category"]?></td>
                             </tr>
                             <tr>
                                 <th>回覆狀態</th>
-                                <td colspan="2" >
+                                <td>
                                     <div class="d-flex justify-content-center">    
                                         <span class="reply-state
                                         <?php 
@@ -135,61 +135,56 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                             </tr>
                             <tr>
                                 <th>詢問時間</th>
-                                <td colspan="2"><?=$row["create_time"]?></td>
+                                <td><?=$row["create_time"]?></td>
                             </tr>
                             <tr>
                                 <th>最後更新時間</th>
-                                <td colspan="2"><?=$row["update_time"]?></td>
+                                <td><?=$row["update_time"]?></td>
                             </tr>
                             <tr>
                                 <th>問題標題</th>
-                                <th colspan="2"><?=$row["title"]?></th>
+                                <th><?=$row["title"]?></th>
+                            </tr>
+                        </table>
+                    <script>
+                    function rep(){
+                        document.form1.action="user_doReply.php";
+                        document.form1.submit();
+                    }
+                    function del(){
+                        document.form1.action="user_doDelete.php";
+                        document.form1.submit();
+                    }
+                    </script>
+                    <form name="form1" action="" method="post">    
+                        <table class="table">
+                            <tr>
+                                <th width=200 class="align-top fs-6">問題內容</th>
+                                <td style="word-break:break-all" class="">
+                                <?php foreach($rowsDetail as $rowDetail): ?>
+                                <p class="text-start ">
+                                    <label>
+                                        <input type="checkbox" name="arrayId[]" value="<?=$rowDetail["id"]?>">&nbsp
+                                        <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
+                                        <span class="fs-6"><?=$rowDetail["create_time"]?></span>
+                                    </label>
+                                </p>
+                                <p class="text-start  fs-6">&nbsp&nbsp&nbsp&nbsp<?=$rowDetail["q_content"]?></p>
+                                <?php endforeach;?>   
+                                </td>  
                             </tr>
                             <tr>
-                                <th >問題內容</th>              
-                            </tr>
-                            <tr> 
-                                <td>
-                                    <?php foreach($rowsDetail as $rowDetail): ?>
-                                    <p class="text-end my-2"><?=$rowDetail["name"]." : "?></p>
-                                    <?php endforeach;?> 
-                                </td>
+                                <th class="">進行回覆</th>
                                 <td >
-                                    <?php foreach($rowsDetail as $rowDetail): ?>
-                                    <p class="text-start my-2"><?=$rowDetail["q_content"]?></p>
-                                    <?php endforeach;?>    
-                                </td>
-                                <td>
-                                    <form action="doDelete.php" method="post">
-                                    <?php foreach($rowsDetail as $rowDetail): ?>
-                                    <p class="text-start my-2">
-                                        <?=$rowDetail["create_time"]?>
-                                        <input type="checkbox" name="delete[]" value=<?php $rowDetail["id"]?>>
-                                    </p>
-                                    <?php endforeach;?>
-                                    <!-- <button class="btn btn-red" type="submit">
-                                        <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>刪除
-                                    </button> -->
-                                    </form>
-                                </td>
-                                
-                            </tr>
-                            
-                            <tr>
-                                <th>進行回覆</th>
-                                <td colspan="1">
                                     <!-- <textarea type="" pattern=".*[^ ].*" class="form-control inputcontent" placeholder='輸入對話' name="reply" ></textarea> -->
-                                    <input type="text" name="reply" class="form-control inputcontent" pattern=".*[^ ].*" placeholder='輸入對話' autocomplete="off" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required >
-                                </td>  
-                                <td>
-
-                                </td>  
+                                    <input type="text" name="reply" class="form-control inputcontent"  placeholder="<?php if(isset($row["account"])==null){echo "非會員請由其他方式聯絡";}else{echo "輸入內容";}?>" autocomplete="off" <?php if(isset($row["account"])==null){echo "disabled";}?> >
+                                </td>    
                             </tr>
                         </table>
                         <div class="d-flex justify-content-between">
                             <div class="d-flex">
-                                <div class="py-2 mx-2  ">
-                                    <button class="btn btn-green" type="submit">確定</button>
+                                <div class="py-2 mx-2 ">
+                                    <button onclick="rep()" class="btn btn-green" type="">確定</button>
                                     <input type="hidden" name="user_qna_id" value="<?=$user_qna_id?>">
                                 </div>
                                 <div class="py-2 mx-2">
@@ -197,8 +192,9 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                 </div>
                             </div>
                             <div class="py-2">                                
-                                <button class="btn btn-red" type="submit">
-                                    <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>刪除
+                                <button onclick="del()" class="btn btn-red" type="">
+                                    <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>
+                                    刪除訊息
                                 </button>
                             </div>
                         </div>
