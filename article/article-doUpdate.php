@@ -47,6 +47,6 @@ if (!isset($_POST["id"])) {
   }
 
 
-  echo "<script>alert('文章修改成功'); location.href = 'articles.php'; </script>";
+  echo "<script>alert('文章發佈成功'); location.href = 'articles.php'; </script>";
   $conn->close();
 }

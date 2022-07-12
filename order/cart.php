@@ -1,8 +1,8 @@
 <?php
 session_start();
-// if (!isset($_SESSION["cart"])) {
-//     header("location:music-products.php");
-// }
+if (!isset($_SESSION["cart"])) {
+    header("location:ins-products.php");
+}
 require("../db-connect.php");
 $sqlPayMethod = "SELECT * FROM pay_by";
 $resultPayMethod = $conn->query($sqlPayMethod);
@@ -39,9 +39,6 @@ $payMethodCount = $resultPayMethod->num_rows;
                 </tr>
             </thead>
             <?php
-            // var_dump($_SESSION["cart"]);
-            // echo "<br>";
-
             $total = 0;
             $cateArr = [];
             foreach ($_SESSION["cart"] as $item) :
@@ -49,10 +46,9 @@ $payMethodCount = $resultPayMethod->num_rows;
                 array_push($cateArr, $product_id);
             endforeach;
 
-            $_SESSION["proCate"] = $cateArr;
+            // $_SESSION["proCate"] = $cateArr;
             $products = array_count_values($cateArr); //算數量
-            // var_dump($products);
-            // echo "<br>";
+
             $_SESSION["products"] = $products;
             foreach ($products as $key => $value) :
                 $arrKey = str_split($key);
@@ -110,10 +106,7 @@ $payMethodCount = $resultPayMethod->num_rows;
                 </tr>
                 <?php
                 foreach ($products as $key => $value) :
-                    // echo $key;
-                    // echo "<br>";
                     $arrKey = str_split($key);
-                    // var_dump($arrKey);
                     if ($arrKey[0] == "A") : ?>
                         <tr>
                             <th class="text-end">貨物寄送地址：</th>
@@ -121,8 +114,9 @@ $payMethodCount = $resultPayMethod->num_rows;
                                 <input type="text" name="address" class="form-control">
                             </td>
                         </tr>
-                        <?php break; else: ?>
-                            <tr></tr>
+                    <?php break;
+                    else : ?>
+                        <tr></tr>
                     <?php endif; ?>
                 <?php endforeach; ?>
             </table>

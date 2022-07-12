@@ -9,6 +9,10 @@ if (isset($_POST["id"])) {
 require("../db-connect.php");
 
 $id = $_GET["id"];
+$page = $_GET["page"];
+$search = $_GET["search"];
+$order = $_GET["order"];
+$categoryOrder = $_GET["categoryOrder"];
 
 // 抓文章資料
 $sqlAll = "SELECT * FROM article WHERE id=$id AND valid=1";
@@ -101,25 +105,27 @@ $ArticleCount = $resultAll->num_rows;
                 $rowArticle = $resultAll->fetch_assoc();
               ?>
                 <div class="mx-auto mt-3 w-75">
-                  <button type="button" class="btn btn-sm me-3
-                                            <?php switch ($rowArticle["category"]) {
-                                              case '產品資訊':
-                                                echo "btn-green";
-                                                break;
-                                              case '活動快訊':
-                                                echo "btn-blue";
-                                                break;
-                                              case '音樂教育':
-                                                echo "btn-grey";
-                                                break;
-                                              case '重要通知':
-                                                echo "btn-red";
-                                                break;
-                                            }
-                                            ?>" style="cursor: inherit; ">
-                    <?= $rowArticle["category"] ?>
-                  </button>
-                  <p class="d-inline-block" style="line-height : 30px;">建立時間：<?= date("Y年m月d日 H:i", strtotime($rowArticle["creation_date"])) ?></p>
+                  <div class="d-flex align-content-center">
+                    <button type="button" class="btn btn-sm me-3
+                                              <?php switch ($rowArticle["category"]) {
+                                                case '產品資訊':
+                                                  echo "btn-green";
+                                                  break;
+                                                case '活動快訊':
+                                                  echo "btn-blue";
+                                                  break;
+                                                case '音樂教育':
+                                                  echo "btn-grey";
+                                                  break;
+                                                case '重要通知':
+                                                  echo "btn-red";
+                                                  break;
+                                              }
+                                              ?>" style="cursor: inherit; ">
+                      <?= $rowArticle["category"] ?>
+                    </button>
+                    <div class="py-1">發佈時間：<?= date("Y年m月d日 H:i", strtotime($rowArticle["creation_date"])) ?></div>
+                  </div>
                   <hr>
                   <h2 class=" fw-bold text-center" style=" color:#265f74;"><?= $rowArticle["title"] ?></h2>
                   <hr>
@@ -128,14 +134,21 @@ $ArticleCount = $resultAll->num_rows;
                     <p class="mx-3" style="text-overflow: ellipsis; line-height:2; text-align: justify; "><?= $rowArticle["content"] ?></p>
                     <hr>
                     <div class="d-flex justify-content-center align-items-center mt-2">
-                      <a class="btn btn-green me-5" href="articles.php">
+                      <a class="btn btn-green me-5" href="articles.php?page=<?= $page ?>&search=<?= $search ?>&order=<?= $order ?>&categoryOrder=<?= $categoryOrder ?>">
                         <img class="mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>
                         返回列表
                       </a>
-                      <a class="btn btn-khak" href="article-edit.php?id=<?= $id ?>">
-                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                        修改
-                      </a>
+                      <form action="article-edit.php" method="get">
+                        <input type="hidden" value="<?= $page ?>" name="page">
+                        <input type="hidden" value="<?= $search ?>" name="search">
+                        <input type="hidden" value="<?= $order ?>" name="order">
+                        <input type="hidden" value="<?= $categoryOrder ?>" name="categoryOrder">
+                        <input type="hidden" value="<?= $id ?>" name="id">
+                        <button class="btn btn-khak" type="submit">
+                          <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                          修改
+                        </button>
+                      </form>
                       <div class="ms-auto p-2">
                         <a class="btn btn-red" href="article-doDelete.php?id=<?= $id ?>">
                           <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>

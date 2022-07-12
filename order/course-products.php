@@ -13,7 +13,7 @@ $rows = $resultCou->fetch_all(MYSQLI_ASSOC);
 <html lang="en">
 
 <head>
-    <title>course-product</title>
+    <title>音樂商城</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -60,8 +60,8 @@ $rows = $resultCou->fetch_all(MYSQLI_ASSOC);
         <?php
         $cart_count = isset($_SESSION["cart"]) ? count($_SESSION["cart"]) : 0;
         ?>
-        <div class="pt-5 pb-2 text-end">
-            <a class="btn btn-grey position-relative" href="cart.php">購物車<span id="cartCount" class="cart-count"><?= $cart_count ?></span></a>
+        <div class="pt-3 text-end">
+            <a class="btn btn-green position-relative" href="cart.php">購物車<span id="cartCount" class="cart-count"><?= $cart_count ?></span></a>
         </div>
         <ul class="nav nav-pills py-3">
             <li class="nav-item ">
@@ -70,8 +70,6 @@ $rows = $resultCou->fetch_all(MYSQLI_ASSOC);
                 <a class="btn btn-grey me-3" href="course-products.php">音樂教育</a>
             </li>
         </ul>
-        <?php require("price-filter.php") 
-        ?>
         <div class="py-2">
             共<?= $product_countCou ?>筆資料
         </div>
