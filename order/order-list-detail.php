@@ -16,7 +16,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 $inArray = array_column($rows, 'category_id');
 
 $conn->close();
-$sqlOrder="WHERE order-list.php";
+$sqlOrder = "WHERE order-list.php";
 ?>
 
 <!DOCTYPE html>
@@ -52,25 +52,15 @@ $sqlOrder="WHERE order-list.php";
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="../home.php">首頁</a></li>
                         <li class="breadcrumb-item" aria-current="page"><a href="order-list.php">訂單管理</a></li>
-                        <li class="breadcrumb-item" aria-current="page"><a href="order-list-detail.php?order_id=<?=$order_id?>">訂單詳細內容</a></li>
+                        <li class="breadcrumb-item" aria-current="page"><a href="order-list-detail.php?order_id=<?= $order_id ?>">訂單詳細內容</a></li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
                 <!-- 內容 -->
                 <div class="container">
-                    <div class="row">
-                        <h5 class="col">訂單編號：<?= $order_id ?></h5>
-                        <p class="col m-auto">總共<?= $pageDetailCount ?>筆資料</p>
-                        <input class="col form-control me-3" type="text">
-                        <a class="col-1 btn btn-green" href="#">
-                            <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
-                            搜尋
-                        </a>
-                    </div>
-                </div>
-                <div class="container">
+                    <h5 class="pt-3">訂單編號：<?= $order_id ?>，總共<?= $pageDetailCount ?>筆資料</h5>
                     <hr>
                     <h2 class="text-center py-2">樂器訂單記錄</h2>
                     <hr>

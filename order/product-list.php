@@ -11,7 +11,7 @@
                 <div class="text-end text-danger">$<?= $row["price"] ?></div>
                 <div class="py-2">
                     <div class="d-grid">
-                        <button data-id="<?=$row["product_id"]?>" data-cate="<?=$row["category"]?>" class="btn btn-grey btn-cart">+加到購物車</button>
+                        <button data-id="<?=$row["product_id"]?>" data-cate="<?=$row["category"]?>" class="btn btn-green btn-cart">+加到購物車</button>
                     </div>
                 </div>
             </div>
