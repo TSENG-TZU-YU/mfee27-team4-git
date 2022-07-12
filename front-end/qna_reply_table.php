@@ -37,7 +37,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
     </link>
     <style>
         .inputcontent{
-            height: 100px;    
+            height: 70px;    
         }
         .reply-state{
             width: 60px;
