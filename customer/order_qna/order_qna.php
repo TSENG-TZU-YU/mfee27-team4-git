@@ -1,24 +1,50 @@
 <?php
 require("../../db-connect.php");
+$sqlOrder_qna = "WHERE order_qna.php";
 session_start();
-$sqlOrder_qna="WHERE order_qna.php";
 
-$perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
-$page=isset($_GET["page"])? $_GET["page"] : 1;
 
-$category=isset($_GET["category"])? $_GET["category"] : "";
+if(isset($_GET["perPage"])){
+    $_SESSION["orderstate"]["perPage"]=$_GET["perPage"];
+}elseif(isset($_SESSION["orderstate"]["perPage"])){
+    $_SESSION["orderstate"]["perPage"]=$_SESSION["orderstate"]["perPage"];
+}else{
+    $_SESSION["orderstate"]["perPage"]=4;
+}
+$perPage=$_SESSION["orderstate"]["perPage"];
+// $perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
+
+if(isset($_GET["page"])){
+    $_SESSION["orderstate"]["page"]=$_GET["page"];
+}elseif(isset($_SESSION["orderstate"]["page"])){
+    $_SESSION["orderstate"]["page"]=$_SESSION["orderstate"]["page"];
+}else{
+    $_SESSION["orderstate"]["page"]=1;
+}
+$page=$_SESSION["orderstate"]["page"];
+// $page=isset($_GET["page"])? $_GET["page"] : 1;
+
+if(isset($_GET["category"])){
+    $_SESSION["orderstate"]["category"]=$_GET["category"];
+}elseif(isset($_SESSION["orderstate"]["category"])){
+    $_SESSION["orderstate"]["category"]=$_SESSION["orderstate"]["category"];
+}else{
+    $_SESSION["orderstate"]["category"]="";
+}
+$category=$_SESSION["orderstate"]["category"];
+// $category=isset($_GET["category"])? $_GET["category"] : "";
 switch($category){
     case 1:
         $sqlWhere="";
         break;
     case 2:
-        $sqlWhere="WHERE order_qna.reply_state ='未回覆'";
+        $sqlWhere="order_qna.reply_state ='未回覆' AND";
         break;
     case 3:
-        $sqlWhere="WHERE order_qna.reply_state ='已回覆'";
+        $sqlWhere="order_qna.reply_state ='已回覆' AND";
         break;
     case 4:
-        $sqlWhere="WHERE order_qna.reply_state ='新訊息'";
+        $sqlWhere="order_qna.reply_state ='新訊息' AND";
         break;    
     default:
         $sqlWhere="";
@@ -26,18 +52,28 @@ switch($category){
 }
 
 if (isset($_GET["search"])){
-    $search=$_GET["search"];
-    if(isset($_GET["category"])){
-        $sqlseach="AND ( users.account LIKE '%$search%' OR users.name LIKE '%$search%') ";
-    }else{
-        $sqlseach="WHERE ( users.account LIKE '%$search%' OR users.name LIKE '%$search%') ";
-    }  
+    $_SESSION["orderstate"]["search"]=$_GET["search"];
+    $search=$_SESSION["orderstate"]["search"];
+    $sqlseach="( users.account LIKE '%$search%' OR users.name LIKE '%$search%') AND"; 
+}elseif(isset($_SESSION["orderstate"]["search"])){
+    $_SESSION["orderstate"]["search"]=$_SESSION["orderstate"]["search"];
+    $search=$_SESSION["orderstate"]["search"];
+    $sqlseach="( users.account LIKE '%$search%' OR users.name LIKE '%$search%') AND"; 
 }else{
+    $_SESSION["orderstate"]["search"]="";
     $search="";
     $sqlseach="";
 }
-  
-$order=isset($_GET["order"])? $_GET["order"] : 1;
+
+if(isset($_GET["order"])){
+    $_SESSION["orderstate"]["order"]=$_GET["order"];
+}elseif(isset($_SESSION["orderstate"]["order"])){
+    $_SESSION["orderstate"]["order"]=$_SESSION["orderstate"]["order"];
+}else{
+    $_SESSION["orderstate"]["order"]=2;
+}
+$order=$_SESSION["orderstate"]["order"];
+// $order=isset($_GET["order"])? $_GET["order"] : 2;
 switch($order){
     case 1:
         $orderType="order_qna.order_id ASC";
@@ -65,14 +101,14 @@ switch($order){
 $start=($page-1)*$perPage;
 
 $sql="SELECT order_qna.*, users.account , users.name FROM order_qna
-    JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ORDER BY $orderType
+    JOIN users ON order_qna.user_id = users.id WHERE $sqlWhere $sqlseach users.valid=1 ORDER BY $orderType
     LIMIT $start, $perPage" ; 
    
 $result=$conn->query($sql);
 $rows=$result->fetch_all(MYSQLI_ASSOC);
 
 $sqlAll="SELECT order_qna.*, users.account, users.name FROM order_qna
-    JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ";
+    JOIN users ON order_qna.user_id = users.id  AND $sqlWhere $sqlseach users.valid=1";
 $resultAll=$conn->query($sqlAll);
 $userCount=$resultAll->num_rows;
 
@@ -112,7 +148,6 @@ $totalPage=ceil($userCount/$perPage);
         }
     </style>
 </head>
-
 <body>
     <div class="container-fluid">
         <div class="row d-flex">
@@ -263,8 +298,6 @@ $totalPage=ceil($userCount/$perPage);
                     </div>
                     <!-- 頁碼 end -->
                 </div>
-
-
         </div>
         <!-- 內容 end -->
 

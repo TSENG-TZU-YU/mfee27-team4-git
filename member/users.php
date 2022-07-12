@@ -3,7 +3,7 @@ require("../db-connect.php");
 session_start();
 if (!isset($_SESSION["user"])) {   //重整後會需要重新登入
     echo "請循正常管道進入本頁";
-    header("location:backstage.php");
+    header("location:http://localhost/mfee27-team4-git/backstage.php");
     exit;
 }
 
@@ -192,6 +192,7 @@ $totalPage = ceil($userCount / $perPage);
                                 <th scope="col">會員電話</th>
                                 <th scope="col">會員郵件</th>
                                 <th scope="col">註冊時間</th>
+                                <th colspan="2">管理操作</th>
                             </tr>
                         </thead>
                         <tbody>

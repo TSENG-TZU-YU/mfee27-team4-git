@@ -135,7 +135,7 @@ $totalPage = ceil($userCount / $perPage);
                                     <td><?php echo $row["email"] ?></td>
                                     <td><?php echo $row["create_time"] ?></td>
                                     <td>
-                                        <a class="btn btn-grey me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>">
+                                        <a class="btn btn-grey me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>&name=<?= $row["name"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </a>

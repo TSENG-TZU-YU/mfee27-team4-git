@@ -1,43 +1,11 @@
 <?php
 require("../../db-connect.php");
-
+session_start();
 if(isset($_GET["order_qna_id"])){
     $order_qna_id=$_GET["order_qna_id"];
 }else{
     $order_qna_id=$_POST["order_qna_id"];
 }
-// if(isset($_GET["page"])){
-//     $page=$_GET["page"];
-// }else{
-//     $page=$_POST["page"];
-// }
-// if(isset($_GET["perPage"])){
-//     $perPage=$_GET["perPage"];
-// }else{
-//     $perPage=$_POST["perPage"];
-// }
-// if(isset($_GET["category"])){
-//     $category=$_GET["category"];
-// }else{
-//     $category=$_POST["category"];
-// }
-// if(isset($_GET["order"])){
-//     $order=$_GET["order"];
-// }else{
-//     $order=$_POST["order"];
-// }
-// if(isset($_GET["search"])){
-//     $search=$_GET["search"];
-// }else{
-//     $search=$_POST["search"];
-// }
-
-// $page=$_POST["page"];
-// $perPage=$_POST["perPage"];
-// $category=$_POST["category"];
-// $order=$_POST["order"];
-// $search=$_POST["search"];
-
 
 $sql="SELECT order_qna.*, users.account FROM order_qna
     JOIN users ON order_qna.user_id = users.id 
