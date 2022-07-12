@@ -104,7 +104,7 @@ $sqlMember  = "WHERE member.users.php";
                             </div>
 
                             <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" name="coupon" value="1" >
+                                <input class="form-check-input" type="checkbox" name="coupon" value="2" >
                                 <label class="form-check-label" for="flexCheckDefault">
                                     訂閱(獲得50元商品折價券)
                                 </label>

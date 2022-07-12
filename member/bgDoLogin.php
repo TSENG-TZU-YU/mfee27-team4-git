@@ -32,7 +32,7 @@ if($userExist>0){
     
 
 }else{
-    header("location:backstage.php");
+    header("location:location:http://localhost/mfee27-team4-git/backstage.php");
 }
 
 ?>
