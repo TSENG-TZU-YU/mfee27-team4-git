@@ -17,7 +17,7 @@ $birthday=$_POST["birthday"];
 $phone=$_POST["phone"];
 $email=$_POST["email"];
 $address=$_POST["address"];
-// $coupon=$_POST["coupon"];
+$coupon=$_POST["coupon"];
 $create_time=date('Y-m-d H-i-s');
 
 if(empty($name)){    //後端檢查 
@@ -58,14 +58,14 @@ if(empty($address)){
 //當gender選擇時 value 輸出1 or 2  前端checkbox 有男女兩個選擇時
 
 // 判斷checkbox 未勾選時 
-  $coupon=false;    
-  if(isset($_POST['coupon'])){
-    $coupon=true;
-    // echo"有優惠券";
-  } 
-  else{
-    // echo"無優惠券";
-  }
+//   $coupon=0;    
+//   if(isset($_POST['coupon'])){
+//     $coupon=2;
+//     // echo"有優惠券";
+//   } 
+//   else{
+//     // echo"無優惠券";
+//   }
 
 
 
@@ -76,21 +76,30 @@ $sql="SELECT account FROM users WHERE account='$account'";
 $result = $conn->query($sql); //存取物件
 $userCount = $result->num_rows;  //幾筆資料
 if($userCount>0){
-    echo"該帳號已存在";
+    echo"該帳號已存在 <br> 3秒後跳轉回註冊頁面" ;
+    header("refresh:3;url=user-sign-up.php "); //延遲跳轉
+
+    // echo "<script language='JavaScript'>;alert('該帳號已存在 3秒後跳轉回註冊頁面');location.href='user-sign-up.php';</script>;";
     exit;
 }
 // 寫入資料庫
 $sqlCreate="INSERT INTO users (name,account, password,gender,birthday,phone,email,address,coupon,create_time,enable,valid) VALUES ('$name','$account', '$password','$gender','$birthday','$phone','$email','$address','$coupon','$create_time',1,1)";
 
-if ($conn->query($sqlCreate) === TRUE && $coupon==1) {
-    echo "<script language='JavaScript'>;alert('註冊成功 獲得商品50元折價券');location.href='users.php';</script>;";
-    // header("location:users.php");
-}if ($conn->query($sqlCreate) === TRUE  && $coupon==0){
-    echo "<script language='JavaScript'>;alert('註冊成功');location.href='users.php';</script>;";
+
+if($conn->query($sqlCreate) === TRUE){
+    if($coupon==1){
+        echo "<script language='JavaScript'>;alert('註冊成功 獲得商品50元折價券');location.href='users.php';</script>;";
+    }
+    elseif($coupon==0){
+        echo "<script language='JavaScript'>;alert('註冊成功');location.href='users.php';</script>;";
+    }
+   
 }
 else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
+
+
 
 
 $conn->close();

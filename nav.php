@@ -78,7 +78,7 @@
                 </a>
             </li>
         </ul>
-        <a href="user-doLogut.php" class="signOutLink bottom-0 start-0 position-fixed p-2 m-2">
+        <a href="http://localhost/mfee27-team4-git/user-doLogut.php" class="signOutLink bottom-0 start-0 position-fixed p-2 m-2">
             <img class="mb-1 me-2" src="/mfee27-team4-git/icon/signout-icon.svg" width="25" height="25"></img>
             登出
         </a>

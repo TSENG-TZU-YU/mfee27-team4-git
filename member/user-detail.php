@@ -155,7 +155,7 @@ $row = $result->fetch_assoc();
                     <?php endif; ?>
                     <div class="py-2  ">
                         <div class="d-flex justify-content-center">
-                            <a class="col-1 btn btn-khak me-3" href="user-edit.php?id=<?= $row["id"] ?>">
+                            <a class="col-1 btn btn-khak me-3" href="user-edit.php?id=<?= $id ?>&name=<?=$name?>">
                                 <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                                 修改
                             </a>

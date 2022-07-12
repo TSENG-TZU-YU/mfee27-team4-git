@@ -1,6 +1,7 @@
 <?php
 // 連結資料庫
 require("../db-connect.php");
+session_start();
 
 //search
 if (!isset($_GET["search"])) {
@@ -163,6 +164,7 @@ $totalPage = ceil($articleCount / $perPage);
     <div class="row d-flex">
 
       <!-- 導覽列 nav -->
+      <?php require("../nav.php"); ?>
       <!-- 導覽列 nav end -->
 
 

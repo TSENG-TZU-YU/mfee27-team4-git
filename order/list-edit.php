@@ -84,10 +84,19 @@ $sqlOrder = "WHERE order-list.php";
                 <div class="container">
                     <?php if ($orderCount > 0) :
                         $listPage = $_SESSION["page"];
-                        // echo $listPage;
+                        $orderType = $_SESSION["orderType"];
+                        // echo $orderType;
+                        // echo "<br>";
                     ?>
                         <div class="pt-2 pb-5 row align-items-baseline">
-                            <a class="col-1 btn btn-green me-2" href="order-list.php?page=<?= $listPage ?>">
+                            <a class="col-1 btn btn-green me-2" href="order-list.php?page=<?= $listPage ?><?php
+                                                                                                            if ($orderType == "&order=1") echo "&order=1";
+                                                                                                            if ($orderType == "&order=2") echo "&order=2";
+                                                                                                            if ($orderType == "payment_method=1 AND") echo "&payment=1";
+                                                                                                            if ($orderType == "payment_method=2 AND") echo "&payment=2";
+                                                                                                            if ($orderType == "payment_state=1 AND") echo "&payment=3";
+                                                                                                            if ($orderType == "payment_state=2 AND") echo "&payment=4";
+                                                                                                            ?>">
                                 <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>返回
                             </a>
                             <h5 class="col-2">訂單編號：<?= $order_id ?></h5>
@@ -140,7 +149,7 @@ $sqlOrder = "WHERE order-list.php";
                                     </td>
                                 </tr>
                                 <tr>
-                                    <?php //已儲存時的時間為已付款時間
+                                    <?php //儲存時的時間為已付款時間
                                     if ($row["payment_state"] == "2") : ?>
                                         <th>付款時間</th>
                                         <td>
@@ -182,7 +191,7 @@ $sqlOrder = "WHERE order-list.php";
                             <div class="py-2">
                                 <div class="d-flex justify-content-between">
                                     <button class="btn btn-green me-2" type="submit">儲存</button>
-                                    <a class=" btn btn-red me-2" href="doListDelete.php?order_id=<?=$row["order_id"]?>">
+                                    <a class=" btn btn-red me-2" href="doListDelete.php?order_id=<?= $row["order_id"] ?>">
                                         <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>刪除</a>
                                 </div>
                             </div>
