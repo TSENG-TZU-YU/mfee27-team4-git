@@ -51,6 +51,11 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
             font-size: 14px;
             border-radius: 15px;
         }
+        /* .viewItem{
+            height: 500px;
+            overflow: auto;
+
+        } */
     </style>
 </head>
 
@@ -135,9 +140,10 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                     </script>
                     <form name="form1" action="" method="post">    
                         <table class="table">
-                            <tr>
+                            <tr class="viewItem">
                                 <th width=200  class="align-top fs-6">問題內容</th>
                                 <td style="word-break:break-all" class="">
+                                <div class="viewItem">
                                 <?php foreach($rowsDetail as $rowDetail): ?>
                                 <p class="text-start ">
                                     <label>
@@ -147,7 +153,8 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                     </label>
                                 </p>
                                 <p class="text-start  fs-6">&nbsp&nbsp&nbsp&nbsp<?=$rowDetail["q_content"]?></p>
-                                <?php endforeach;?>   
+                                <?php endforeach;?>
+                                </div>   
                                 </td>  
                             </tr>  
                             <tr>
