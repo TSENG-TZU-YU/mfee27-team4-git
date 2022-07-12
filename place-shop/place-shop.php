@@ -1,6 +1,8 @@
 <?php
 
 require("../db-connect.php");
+$sqlPlace= "WHERE place-shop.php";
+session_start();
 
 // 篩選
 if (isset($_GET["page"])) {
