@@ -278,7 +278,6 @@ $totalPage = ceil($articleCount / $perPage);
               </div>
               <!-- 文章類別篩選 -->
               <form class="d-flex" action="articles.php" method="get">
-                <input type="hidden" value="<?= $page ?>" name="page">
                 <input type="hidden" value="<?= $search ?>" name="search">
                 <input type="hidden" value="<?= $order ?>" name="order">
                 <input type="hidden" value="<?= $publish ?>" name="publish">
