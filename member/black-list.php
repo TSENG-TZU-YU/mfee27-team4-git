@@ -43,7 +43,7 @@ $totalPage = ceil($userCount / $perPage);
 <html lang="zh-tw">
 
 <head>
-    <title>會員管理</title>
+    <title>HAMAYA MUSIC - 會員管理</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -91,7 +91,7 @@ $totalPage = ceil($userCount / $perPage);
                 <div class="container">
                     <div class="row">
                         <p class="col-8 m-auto">
-                            第 <?= $startItem ?>-<?= $endItem ?> 筆 , 總共 <?= $userCount ?> 筆資料
+                            第 <?= $startItem ?>-<?= $endItem ?> 筆 ， 總共 <?= $userCount ?> 筆資料
                         </p>
                         <input class="col form-control me-3" type="text">
                         <a class="col-1 btn btn-green" href="#">
@@ -123,6 +123,7 @@ $totalPage = ceil($userCount / $perPage);
                                 <th scope="col">會員電話</th>
                                 <th scope="col">會員郵件</th>
                                 <th scope="col">建立時間</th>
+                                <th colspan="2">管理操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -135,7 +136,7 @@ $totalPage = ceil($userCount / $perPage);
                                     <td><?php echo $row["email"] ?></td>
                                     <td><?php echo $row["create_time"] ?></td>
                                     <td>
-                                        <a class="btn btn-grey me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>">
+                                        <a class="btn btn-grey me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>&name=<?= $row["name"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </a>

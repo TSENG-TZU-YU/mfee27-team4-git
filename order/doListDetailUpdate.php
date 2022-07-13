@@ -17,10 +17,11 @@ $now = date('Y-m-d H:i:s');
 $payMethod = $_POST["payMethod"];
 $paymentState = $_POST["paymentState"];
 $orderState = $_POST["orderState"];
-$paymentTime = $_POST["paymentTime"];
+// $paymentTime = $_POST["paymentTime"];
 // echo $payMethod . ":::::<br>";
 // echo $paymentState." : ".$orderState ;
-
+// var_dump($paymentTime);
+// echo"<br>";
 // exit;
 if ($payMethod == $row["payment_method"] && $paymentState == $row["payment_state"] && $orderState == $row["order_state"]) {
     echo "付款狀態跟訂單狀態沒有變";
@@ -91,38 +92,6 @@ if ($payMethod == $row["payment_method"] && $paymentState == $row["payment_state
     }
 }
 
-
-
-
-
-    //判斷付款狀態＆訂單狀態
-    // if ($paymentState == $row["payment_state"] && $orderState == $row["order_state"]) {
-    //     echo "付款狀態跟訂單狀態沒有變";
-    // } else {
-    //     if ($paymentState != $row["payment_state"] && $orderState != $row["order_state"]) {
-    //         $sql = "UPDATE order_product 
-    //         SET payment_state='$paymentState', payment_time='$now', order_state='$orderState'
-    //         WHERE order_id='$order_id'
-    //         ";
-    //     } else {
-    //         if ($paymentState != $row["payment_state"]) {
-    //             echo "買家已付款請修改訂單狀態";
-    //         } else {
-    //             if ($orderState == "2" || $orderState == "3" || $orderState == "4") {
-    //                 if ($paymentState == "2") {
-    //                     $sql = "UPDATE order_product 
-    //                 SET order_state='$orderState'
-    //                 WHERE order_id='$order_id'
-    //                 ";
-    //                 } else {
-    //                     echo "買家未付款時請勿修改訂單狀態";
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
-    
-
 if ($conn->query($sql) === TRUE) {
     // echo "資料表order_product修改完成";
 } else {
@@ -130,4 +99,4 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $conn->close();
-// header("location:order-list.php");
+header("location:list-edit.php?order_id=".$order_id);

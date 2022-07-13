@@ -1,6 +1,8 @@
 <?php
 
 require("../db-connect.php");
+$sqlCoupon  = "WHERE coupons.users.php";
+session_start();
 
 
 // $sqlAll= "SELECT coupon.*, users.name AS users_name FROM coupon
@@ -8,11 +10,9 @@ require("../db-connect.php");
 // $resultAll = $conn->query($sqlAll);
 // $couponCountAll=$resultAll->num_rows;
 
-
-
 $sqlAll="SELECT * FROM coupon WHERE  shelf=0";
 $resultAll = $conn->query($sqlAll);
-$couponCountAll=$resultAll->num_rows;
+$couponCountAll = $resultAll->num_rows;
 
 // if(!isset($_GET["search"])){
 //     $search="";
@@ -32,23 +32,23 @@ $couponCountAll=$resultAll->num_rows;
 
 
 
-if(isset($_GET["page"])){
-    $page=$_GET["page"];
-  }else{
-    $page=1;
-  }
+if (isset($_GET["page"])) {
+    $page = $_GET["page"];
+} else {
+    $page = 1;
+}
 
 
 
 
-$order=isset($_GET["order"]) ? $_GET["order"] : 1;
+$order = isset($_GET["order"]) ? $_GET["order"] : 1;
 
-switch($order){
+switch ($order) {
     case 1:
-        $orderType="id ASC";
+        $orderType = "id ASC";
         break;
     case 2:
-        $orderType="id DESC";
+        $orderType = "id DESC";
         break;
     case 3:
         $orderType="min_price ASC";
@@ -57,7 +57,7 @@ switch($order){
         $orderType="min_price DESC";
         break;
     default:
-        $orderType="name ASC";        
+        $orderType = "name ASC";
 }
 
 
@@ -70,13 +70,14 @@ switch($order){
 
 
 
-$perPage=4;
-$start=($page-1)*$perPage;
+$perPage = 4;
+$start = ($page - 1) * $perPage;
 
 // $sql= "SELECT coupon.*, users.name AS users_name FROM coupon
 //   JOIN users ON coupon.coupon_c = users.coupon WHERE shelf=0  ORDER BY $orderType  LIMIT $start, 4 ";//
 // $result = $conn->query($sql);
 // $couponCount=$result->num_rows;
+
 $sql="SELECT * FROM coupon WHERE  shelf=0  ORDER BY $orderType  LIMIT $start, 4  ";
  $result = $conn->query($sql);
 $couponCount=$result->num_rows;
@@ -85,7 +86,7 @@ $startItem=($page-1)*$perPage+1;
 $endItem=$page*$perPage;
 if($endItem>$couponCountAll)$endItem=$couponCountAll;
 
-$totalPage=ceil($couponCountAll / $perPage); 
+$totalPage = ceil($couponCountAll / $perPage);
 ?>
 
 
@@ -106,8 +107,8 @@ $totalPage=ceil($couponCountAll / $perPage);
     <link rel="stylesheet" href="../style.css">
     </link>
     <style>
-        .panel{
-            width:500px;
+        .panel {
+            width: 500px;
         }
         .panel2{
             width:100px;
@@ -122,7 +123,7 @@ $totalPage=ceil($couponCountAll / $perPage);
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
-           
+            <?php require("../nav.php"); ?>
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
@@ -138,7 +139,21 @@ $totalPage=ceil($couponCountAll / $perPage);
                 <!-- 麵包屑 breadcrumb end -->
 
                 <hr>
+                <div class="container">
+                    <form action="coupons.php" method="get">
+                        <div class="row">
 
+                            <span class="col-5"> 第<?= $startItem ?>- <?= $endItem ?>筆 , 總共<?= $couponCountAll ?>筆資料</span>
+                            <!-- <p class="col-8 m-auto">總共<?= $couponCountAll ?>筆資料</p> -->
+                            <input class="col form-control me-3 " type="text" name="search">
+                            <button type="submit" class="col-1 btn btn-green">
+                                <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
+                                搜尋</button>
+                        </div>
+                    </form>
+                </div>
+
+                <hr>
                 <!-- 內容 -->
                 <div class="container">
                 <form action="coupon-search.php" method="get">   
@@ -225,13 +240,13 @@ $totalPage=ceil($couponCountAll / $perPage);
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example">
                         <ul class="pagination">
-                            <?php for($i=1; $i<=$totalPage; $i++): ?>
-                               <li class="page-item <?php if($page==$i)echo "active";?>"><a class="page-link" href="coupons.php?page=<?=$i?>&order=<?=$order?>"><?=$i?>
-                            </a></li> 
+                            <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+                                <li class="page-item <?php if ($page == $i) echo "active"; ?>"><a class="page-link" href="coupons.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?>
+                                    </a></li>
                             <?php endfor; ?>
 
 
-                           
+
                         </ul>
                     </div>
                     <!-- 頁碼 end -->

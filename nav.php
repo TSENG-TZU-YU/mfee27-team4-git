@@ -40,11 +40,11 @@
                     商品管理
                 </a>
             </li>
-            <div class="collapse" id="multiCollapseExample2">
+            <div class="<?php if ($sqlIns || $sqlCourse || $sqlPlace){echo "collapse-in";}else {echo "collapse";}  ?>" id="multiCollapseExample2">
                 <div>
-                    <a href="#" class="nav-link nav-link-item my-1">樂器商城</a>
-                    <a href="#" class="nav-link nav-link-item my-1">音樂教育</a>
-                    <a href="#" class="nav-link nav-link-item my-1">場地租借</a>
+                    <a href="http://localhost/mfee27-team4-git/ins-shop/ins-shop.php" class="nav-link nav-link-item my-1 <?php if ($sqlIns) echo "nav-active " ?>">樂器商城</a>
+                    <a href="http://localhost/mfee27-team4-git/course-shop/course-shop.php" class="nav-link nav-link-item my-1 <?php if ($sqlCourse) echo "nav-active " ?>">音樂教育</a>
+                    <a href="http://localhost/mfee27-team4-git/place-shop/place-shop.php" class="nav-link nav-link-item my-1 <?php if ($sqlPlace) echo "nav-active " ?>">場地租借</a>
                 </div>
             </div>
             <li>
@@ -65,20 +65,20 @@
                     客服系統
                 </a>
             </li>
-            <div class="collapse" id="multiCollapseExample3">
+            <div class="<?php if ($sqlOrder_qna ||$sqlUser_qna){echo "collapse-in";}else {echo "collapse";}  ?>" id="multiCollapseExample3">
                 <div>
-                    <a href="http://localhost/mfee27-team4-git/customer/order_qna/order_qna.php" class="nav-link nav-link-item my-1">訂單問題</a>
-                    <a href="#" class="nav-link nav-link-item my-1">客服問答</a>
+                    <a href="http://localhost/mfee27-team4-git/customer/order_qna/order_qna.php" class="nav-link nav-link-item my-1 <?php if ($sqlOrder_qna) echo "nav-active " ?>">訂單問題</a>
+                    <a href="http://localhost/mfee27-team4-git/customer/user_qna/user_qna.php" class="nav-link nav-link-item my-1  <?php if ($sqlUser_qna) echo "nav-active " ?>">客服問答</a>
                 </div>
             </div>
             <li>
-                <a href="http://localhost/mfee27-team4-git/coupon/coupons.php" class="nav-link my-1">
+                <a href="http://localhost/mfee27-team4-git/coupon/coupons.php" class="nav-link my-1 <?php if ($sqlCoupon) echo "nav-active" ?>">
                     <img class="mb-1 me-2" src="/mfee27-team4-git/icon/sell-icon.svg" width="16" height="16"></img>
                     優惠券
                 </a>
             </li>
         </ul>
-        <a href="user-doLogut.php" class="signOutLink bottom-0 start-0 position-fixed p-2 m-2">
+        <a href="http://localhost/mfee27-team4-git/user-doLogut.php" class="signOutLink bottom-0 start-0 position-fixed p-2 m-2">
             <img class="mb-1 me-2" src="/mfee27-team4-git/icon/signout-icon.svg" width="25" height="25"></img>
             登出
         </a>

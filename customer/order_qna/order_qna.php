@@ -1,23 +1,43 @@
 <?php
 require("../../db-connect.php");
+$sqlOrder_qna = "WHERE order_qna.php";
+session_start();
 
+if(isset($_GET["perPage"])){
+    $_SESSION["orderState"]["perPage"]=$_GET["perPage"];
+}elseif(!isset($_SESSION["orderState"]["perPage"])){
+    $_SESSION["orderState"]["perPage"]=4;
+}
+$perPage=$_SESSION["orderState"]["perPage"];
+// $perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
 
-$perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
-$page=isset($_GET["page"])? $_GET["page"] : 1;
+if(isset($_GET["page"])){
+    $_SESSION["orderState"]["page"]=$_GET["page"];
+}elseif(!isset($_SESSION["orderState"]["page"])){
+    $_SESSION["orderState"]["page"]=1;
+}
+$page=$_SESSION["orderState"]["page"];
+// $page=isset($_GET["page"])? $_GET["page"] : 1;
 
-$category=isset($_GET["category"])? $_GET["category"] : "";
+if(isset($_GET["category"])){
+    $_SESSION["orderState"]["category"]=$_GET["category"];
+}elseif(!isset($_SESSION["orderState"]["category"])){
+    $_SESSION["orderState"]["category"]="";
+}
+$category=$_SESSION["orderState"]["category"];
+// $category=isset($_GET["category"])? $_GET["category"] : "";
 switch($category){
     case 1:
         $sqlWhere="";
         break;
     case 2:
-        $sqlWhere="WHERE order_qna.reply_state ='未回覆'";
+        $sqlWhere="order_qna.reply_state ='未回覆' AND";
         break;
     case 3:
-        $sqlWhere="WHERE order_qna.reply_state ='已回覆'";
+        $sqlWhere="order_qna.reply_state ='已回覆' AND";
         break;
     case 4:
-        $sqlWhere="WHERE order_qna.reply_state ='新訊息'";
+        $sqlWhere="order_qna.reply_state ='新訊息' AND";
         break;    
     default:
         $sqlWhere="";
@@ -25,18 +45,23 @@ switch($category){
 }
 
 if (isset($_GET["search"])){
-    $search=$_GET["search"];
-    if(isset($_GET["category"])){
-        $sqlseach="AND ( users.account LIKE '%$search%' OR users.name LIKE '%$search%') ";
-    }else{
-        $sqlseach="WHERE ( users.account LIKE '%$search%' OR users.name LIKE '%$search%') ";
-    }  
+    $_SESSION["orderState"]["search"]=$_GET["search"];
+    $search=$_SESSION["orderState"]["search"];
+    $sqlseach="( users.account LIKE '%$search%' OR users.name LIKE '%$search%') AND"; 
+}elseif(!isset($_SESSION["orderState"]["search"])){
+    $sqlseach="";  
 }else{
-    $search="";
-    $sqlseach="";
+    $search=$_SESSION["orderState"]["search"];
+    $sqlseach="( users.account LIKE '%$search%' OR users.name LIKE '%$search%') AND"; 
 }
-  
-$order=isset($_GET["order"])? $_GET["order"] : 1;
+
+if(isset($_GET["order"])){
+    $_SESSION["orderState"]["order"]=$_GET["order"];
+}elseif(!isset($_SESSION["orderState"]["order"])){
+    $_SESSION["orderState"]["order"]=2;
+}
+$order=$_SESSION["orderState"]["order"];
+// $order=isset($_GET["order"])? $_GET["order"] : 2;
 switch($order){
     case 1:
         $orderType="order_qna.order_id ASC";
@@ -51,11 +76,17 @@ switch($order){
         $orderType="users.account DESC";
         break; 
     case 5:
-        $orderType="order_qna.create_time ASC";
+        $orderType="users.name ASC";
         break;
     case 6:
+        $orderType="users.name DESC";
+        break;
+    case 7:
+        $orderType="order_qna.create_time ASC";
+        break;
+    case 8:
         $orderType="order_qna.create_time DESC";
-        break;   
+        break;       
     default:
         $orderType="order_qna.order_id DESC";
         break;
@@ -64,14 +95,14 @@ switch($order){
 $start=($page-1)*$perPage;
 
 $sql="SELECT order_qna.*, users.account , users.name FROM order_qna
-    JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ORDER BY $orderType
+    JOIN users ON order_qna.user_id = users.id WHERE $sqlWhere $sqlseach order_qna.valid=1 ORDER BY $orderType
     LIMIT $start, $perPage" ; 
    
 $result=$conn->query($sql);
 $rows=$result->fetch_all(MYSQLI_ASSOC);
 
 $sqlAll="SELECT order_qna.*, users.account, users.name FROM order_qna
-    JOIN users ON order_qna.user_id = users.id  $sqlWhere $sqlseach ";
+    JOIN users ON order_qna.user_id = users.id  AND $sqlWhere $sqlseach order_qna.valid=1";
 $resultAll=$conn->query($sqlAll);
 $userCount=$resultAll->num_rows;
 
@@ -111,7 +142,6 @@ $totalPage=ceil($userCount/$perPage);
         }
     </style>
 </head>
-
 <body>
     <div class="container-fluid">
         <div class="row d-flex">
@@ -126,8 +156,8 @@ $totalPage=ceil($userCount/$perPage);
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page">xxx</li>
+                        <li class="breadcrumb-item"><a href="../../home.php">首頁</a></li>
+                        <li class="breadcrumb-item" aria-current="page">訂單問答</li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -144,15 +174,15 @@ $totalPage=ceil($userCount/$perPage);
                             <form action="order_qna.php" method="get">
                                 <div class="d-flex align-items-center">
                                     <?php if(!empty($search)):?>
-                                    <h2 class="text-nowrap" ><?=$search?> 的搜尋結果 </h2>
+                                    <h4 class="text-nowrap mt-2 mx-2" >"<?=$search?>"的搜尋結果</h4>
                                     <?php endif;?>
-                                    <input  class="form-control me-3" type="text" name="search">
+                                    <input  class="form-control me-3" type="text" name="search" placeholder="<?php if(empty($search))echo"未填寫為全部搜索"?>">
                                     <button class=" btn btn-green " type="submit" href="#">
                                         <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/search-icon.svg" width="16" height="16"></img>
-                                        <p class="text-nowrap">會員搜尋</p> 
+                                        <p class="text-nowrap">帳號姓名搜尋</p> 
                                     </button>
                                 </div>
-                                <input type="hidden" name="category" value="<?=$category?>">
+                                <input type="hidden" name="page" value="1">
                             </form>
                         </div>
                     </div>
@@ -183,24 +213,19 @@ $totalPage=ceil($userCount/$perPage);
                                 <label for="category4">新訊息</label>
                             </div>
                         </div>
-                        <!-- <input type="hidden" name="page" value="<?=$page?>">
-                        <input type="hidden" name="perPage" value="<?=$perPage?>">
-                        <input type="hidden" name="category" value="<?=$category?>">
-                        <input type="hidden" name="order" value="<?=$order?>">
-                        <input type="hidden" name="search" value="<?=$search?>"> -->
+                        <input type="hidden" name="page" value="1">
                     </form> 
                     <!-- <hr>                    -->
                     <table class="table mt-2">
                         <thead>
                             <tr >
-                                <?php //echo $order ?>
-                                <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==1){echo "2";}else{echo "1";}?>">訂單編號</a> </th>
-                                <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==3){echo "4";}else{echo "3";}?>">會員帳號</a></th>
-                                <th scope="col" class="text-nowrap">姓名</th>
+                                <th scope="col" class="text-nowrap"><a href="order_qna.php?order=<?php if($order==1){echo "2";}else{echo "1";}?>">訂單編號</a> </th>
+                                <th scope="col" class="text-nowrap"><a href="order_qna.php?order=<?php if($order==3){echo "4";}else{echo "3";}?>">會員帳號</a></th>
+                                <th scope="col" class="text-nowrap"><a href="order_qna.php?order=<?php if($order==5){echo "6";}else{echo "5";}?>">姓名</a></th>
                                 <th scope="col" class="text-nowrap">問題類型</th>
                                 <th scope="col" class="text-nowrap">問題標題</th>
                                 <th scope="col" class="text-nowrap">回覆狀態</th>
-                                <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==5){echo "6";}else{echo "5";}?>">詢問時間</a></th>
+                                <th scope="col" class="text-nowrap"><a href="order_qna.php?order=<?php if($order==7){echo "8";}else{echo "7";}?>">詢問時間</a></th>
                                 <th scope="col" class="text-nowrap">最後更新時間</th>
                             </tr>
                         </thead>
@@ -260,15 +285,13 @@ $totalPage=ceil($userCount/$perPage);
                         <ul class="pagination">
                             <?php for($i=1; $i<=$totalPage; $i++): ?>
                             <li class="page-item <?php if($page==$i)echo "active";?>">
-                                <a class="page-link" href="order_qna.php?page=<?=$i?>&perPage=<?=$perPage?>&category=<?=$category?>&order=<?=$order?>&search=<?=$search?>"><?=$i?></a>
+                                <a class="page-link" href="order_qna.php?page=<?=$i?>"><?=$i?></a>
                             </li>
                             <?php endfor; ?>
                         </ul>
                     </div>
                     <!-- 頁碼 end -->
                 </div>
-
-
         </div>
         <!-- 內容 end -->
 

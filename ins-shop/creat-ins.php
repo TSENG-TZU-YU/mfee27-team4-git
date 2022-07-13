@@ -48,23 +48,27 @@
             <form action="docreate-ins.php" method="post">
                 <div class="mb-2">
                     <label for="">樂器類別</label>
-                    <input type="text" class="form-control" name="ins_cate">
+                    <input type="text" class="form-control" name="cate" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">品牌型號</label>
-                    <input type="text" class="form-control" name="brnd_model">
+                    <input type="text" class="form-control" name="name" required pattern=".*[^ ].*">
                 </div>                
                 <div class="mb-2">
                     <label for="">價格</label>
-                    <input type="number" class="form-control" name="price">
+                    <input type="number" class="form-control" name="price" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">庫存</label>
-                    <input type="number" class="form-control" name="stock">
+                    <input type="number" class="form-control" name="stock" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">商品簡介</label>
-                    <textarea type="text" class="form-control" name="intro"></textarea>
+                    <textarea type="text" class="form-control" name="intro" required pattern=".*[^ ].*"></textarea>
+                </div>
+                <div class="mb-2">
+                    <label for="">圖片上傳</label>
+                    <input type="file" class="form-control" name="image">
                 </div>
                 <button class="btn btn-info" type="submit">送出</button>
                 <button class="btn btn-info" type="reset">清除</button>

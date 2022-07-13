@@ -1,36 +1,25 @@
 <?php
 require("../db-connect.php");
-if(!isset($_POST["course_name"])){
+if(!isset($_POST["name"])){
     echo "沒有帶資料到本頁";
     exit;
 }
 
-$course_cate=$_POST["course_cate"];
-$course_name=$_POST["course_name"];
+$cate=$_POST["cate"];
+$name=$_POST["name"];
 $location=$_POST["location"];
 $stock=$_POST["stock"];
 $price=$_POST["price"];
-$begin_date=date('Y-m-d');
-$over_date=date('Y-m-d');
-$course_intro=$_POST["course_intro"];
-$create_time=date('Y-m-d H-i-s');
+$begin_date=date('Y-m-d H-i-s');
+$over_date=date('Y-m-d H-i-s');
+$intro=$_POST["intro"];
+$creat_time=date('Y-m-d H-i-s');
 
-if(empty($course_cate)){    //後端檢查 
-    echo"沒有填 course_cate";
-    exit;
-}
-if(empty($course_name)){    
-    echo"沒有填 course_name";
-    exit;
-}
-if(empty($price)){
-    echo"沒有填price";
-    exit;
-}
-if(empty($stock)){
-    echo"沒有填stock";
-    exit;
-}
+
+
+// 寫入資料庫
+$sql="INSERT INTO course_product (cate, name, location, price, stock, begin_date, over_date, intro, creat_time, valid) 
+                            VALUES ('$cate','$name', '$location', '$price','$stock','$begin_date','$over_date', '$intro', '$creat_time',1)";
 
 
 if ($conn->query($sql) === TRUE) {
@@ -48,25 +37,6 @@ if ($conn->query($sql) === TRUE) {
 }
 
 
-
-$sql="SELECT product_id FROM course_product WHERE product_id='$product_id'";
-
-$result = $conn->query($sql); //存取物件
-$courseCount = $result->num_rows;  //幾筆資料
-if($courseCount>0){
-    echo"該課程已存在";
-    exit;
-}
-// 寫入資料庫
-$sqlCreate="INSERT INTO course_product (course_cate, course_name, location, price, stock, begin_date, over_date, create_time, valid) 
-                            VALUES ('$course_cate','$course_name', '$location', '$price','$stock','$begin_date','$over_date', '$create_time',1)";
-
-if ($conn->query($sqlCreate) === TRUE) {
-    echo "<script language='JavaScript'>;alert('新增成功');location.href='course-shop.php';</script>;";
-    // header("location:users.php");
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
 
 
 $conn->close();

@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_GET["order_id"])) {
     $order_id = $_GET["order_id"];
 } else {
@@ -6,38 +7,30 @@ if (isset($_GET["order_id"])) {
     exit;
 }
 
-
 require("../db-connect.php");
 $sql = "SELECT * FROM order_product WHERE order_id=$order_id AND valid=1 ";
 
 $result = $conn->query($sql);
 $orderCount = $result->num_rows;
 $row = $result->fetch_assoc();
-// print_r($row);
-// echo "<br>";
-$sqlPayState = "SELECT * FROM pay_state";
-$sqlOrderState = "SELECT * FROM state";
-$sqlPayMethod = "SELECT * FROM pay_by";
 
+$sqlPayState = "SELECT * FROM pay_state";
 $resultPayState = $conn->query($sqlPayState);
 $payStaterows = $resultPayState->fetch_all(MYSQLI_ASSOC);
 $payStateCount = $resultPayState->num_rows;
-// print_r($payStaterows);
-// echo "<br>";
 
+$sqlOrderState = "SELECT * FROM state";
 $resultOrderState = $conn->query($sqlOrderState);
 $orderStaterows = $resultOrderState->fetch_all(MYSQLI_ASSOC);
 $orderStateCount = $resultOrderState->num_rows;
-// print_r($orderStaterows);
-// echo "<br>";
+
+$sqlPayMethod = "SELECT * FROM pay_by";
 $resultPayMethod = $conn->query($sqlPayMethod);
 $payMethodrows = $resultPayMethod->fetch_all(MYSQLI_ASSOC);
 $payMethodCount = $resultPayMethod->num_rows;
-// print_r($payMethodrows);
-// echo "<br>";
-// echo $sql;
-// exit;
+
 $conn->close();
+$sqlOrder = "WHERE order-list.php";
 ?>
 
 <!doctype html>
@@ -72,7 +65,7 @@ $conn->close();
                 <!-- 麵包屑 breadcrumb -->
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
-                        <li class="breadcrumb-item"><a href="#">首頁</a></li>
+                        <li class="breadcrumb-item"><a href="../home.php">首頁</a></li>
                         <li class="breadcrumb-item" aria-current="page"><a href="order-list.php">訂單管理</a></li>
                         <li class="breadcrumb-item" aria-current="page"><a href="list-edit.php?order_id=<?= $order_id ?>">修改訂單</a></li>
                     </ol>
@@ -81,23 +74,20 @@ $conn->close();
                 <!-- 內容 -->
                 <div class="container">
                     <?php if ($orderCount > 0) :
-
-                        // echo var_dump($row);
-                        // $paymentState = [
-                        //     "1" => "未付款",
-                        //     "2" => "已付款",
-                        //     "3" => "退款"
-                        // ];
-                        // $orderState = [
-                        //     "1" => "訂單確認中",
-                        //     "2" => "訂單成立",
-                        //     "3" => "商家出貨",
-                        //     "4" => "訂單完成",
-                        //     "5" => "退貨處理中"
-                        // ];
+                        $listPage = $_SESSION["page"];
+                        $orderType = $_SESSION["orderType"];
+                        // echo $orderType;
+                        // echo "<br>";
                     ?>
                         <div class="pt-2 pb-5 row align-items-baseline">
-                            <a class="col-1 btn btn-green me-2" href="order-list.php">
+                            <a class="col-1 btn btn-green me-2" href="order-list.php?page=<?= $listPage ?><?php
+                                                                                                            if ($orderType == "&order=1") echo "&order=1";
+                                                                                                            if ($orderType == "&order=2") echo "&order=2";
+                                                                                                            if ($orderType == "payment_method=1 AND") echo "&payment=1";
+                                                                                                            if ($orderType == "payment_method=2 AND") echo "&payment=2";
+                                                                                                            if ($orderType == "payment_state=1 AND") echo "&payment=3";
+                                                                                                            if ($orderType == "payment_state=2 AND") echo "&payment=4";
+                                                                                                            ?>">
                                 <img class="bi pe-none mb-1" src="../icon/redo-icon.svg" width="16" height="16"></img>返回
                             </a>
                             <h5 class="col-2">訂單編號：<?= $order_id ?></h5>
@@ -150,7 +140,7 @@ $conn->close();
                                     </td>
                                 </tr>
                                 <tr>
-                                    <?php //已儲存時的時間為已付款時間
+                                    <?php //儲存時的時間為已付款時間
                                     if ($row["payment_state"] == "2") : ?>
                                         <th>付款時間</th>
                                         <td>
@@ -190,7 +180,11 @@ $conn->close();
 
                             </table>
                             <div class="py-2">
-                                <button class="btn btn-green me-2" type="submit">儲存</button>
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-green me-2" type="submit">儲存</button>
+                                    <a class=" btn btn-red me-2" href="doListDelete.php?order_id=<?= $row["order_id"] ?>">
+                                        <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>刪除</a>
+                                </div>
                             </div>
                         </form>
                     <?php else : ?>

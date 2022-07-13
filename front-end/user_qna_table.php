@@ -100,11 +100,11 @@ require("../../db-connect.php");
                 <form action="user_qna_doAsker.php" method="post">
                     <div class="formitem">
                         <label for="name" class="fs-5 fw-bolder">姓名</label>
-                        <input type="text" id="name" name="name" class="form-control mt-2 mb-3" placeholder='請輸入您的姓名' value="<?php if(isset($_SESSION["front_user"])) echo $_SESSION["front_user"]["name"]?>" required >
+                        <input type="text" id="name" name="name" class="form-control mt-2 mb-3" placeholder='請輸入您的姓名' value="<?php if(isset($_SESSION["front_user"])) echo $_SESSION["front_user"]["name"]?>"<?php if(isset($_SESSION["front_user"])) echo"disabled"?> required >
                         <label for="email" class="fs-5 fw-bolder">電子郵件</label>
-                        <input type="email" id="email" name="email" class="form-control mt-2 mb-3" placeholder='請輸入您的E-MAIL' value="<?php if(isset($_SESSION["front_user"])) echo $_SESSION["front_user"]["email"]?>" required >
+                        <input type="email" id="email" name="email" class="form-control mt-2 mb-3" placeholder='請輸入您的E-MAIL' value="<?php if(isset($_SESSION["front_user"])) echo $_SESSION["front_user"]["email"]?>"<?php if(isset($_SESSION["front_user"])) echo"disabled"?> required >
                         <label for="phone" class="fs-5 fw-bolder">聯絡電話</label>
-                        <input type="phone" id="phone" name="phone" class="form-control mt-2 mb-3" placeholder='請填寫連絡電話' value="<?php if(isset($_SESSION["front_user"])) echo $_SESSION["front_user"]["phone"]?>" required >
+                        <input type="phone" id="phone" name="phone" class="form-control mt-2 mb-3" placeholder='請填寫連絡電話' value="<?php if(isset($_SESSION["front_user"])) echo $_SESSION["front_user"]["phone"]?>"<?php if(isset($_SESSION["front_user"])) echo"disabled"?> required >
                         <label for="q_category" class="fs-5 fw-bolder">問題類型</label>
                         <select id="q_category" class="form-control mt-2 mb-3" name="q_category">
                             <option value="其他問題">選擇問題</option>
@@ -119,7 +119,7 @@ require("../../db-connect.php");
                         <label for="title" class="fs-5 fw-bolder">問題標題</label>
                         <input type="text" id="title" name="title" class="form-control mt-2 mb-3" placeholder='請輸入標題' required >
                         <label for="reply" class="fs-5 fw-bolder">題問內容</label>
-                        <textarea id="reply" class="form-control inputcontent mt-2 mb-3" placeholder='輸入內容' name="reply" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required></textarea>
+                        <textarea id="reply" class="form-control inputcontent mt-2 mb-3" placeholder='輸入內容' name="reply" pattern=".*[^ ].*" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required></textarea>
                         <div class="d-flex">
                             <div class="py-2 mx-2  ">
                                 <button class="btn btn-green" type="submit">送出</button>

@@ -18,12 +18,7 @@ if(isset($_POST["reply"])){
     
     $conn->close();
     // echo "新增成功";
-    if(!isset($_SESSION["front_user"])){
-        header("location: my_order.php");
-      }else{
-        header("location: user_qna_table.php");
-    }
+    echo "<script>alert('表單送出成功'); location.href = 'my_order.php'; </script>";
 }
 
- 
 ?>

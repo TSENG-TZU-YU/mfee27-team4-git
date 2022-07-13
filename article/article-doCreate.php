@@ -4,7 +4,7 @@ if (empty($_POST["title"])) {
   echo "<script>alert('未輸入文章標題'); location.href = 'article-create.php'; </script>";
   exit;
 }
-if (($_POST["category"] == 0)) {
+if (($_POST["category"] == "請選擇文章類別")) {
   echo "<script>alert('未選擇文章類別'); location.href = 'article-create.php'; </script>";
   exit;
 }
@@ -24,7 +24,8 @@ $image = $_FILES["image"];
 
 // 設定成系統時間
 date_default_timezone_set('Asia/Taipei');
-$now = date('Y-m-d H:i:s');
+$now = date('Y-m-d H:i');
+
 
 
 // 將資料寫入 article 資料表
@@ -38,8 +39,8 @@ if (move_uploaded_file($_FILES["image"]["tmp_name"], "../images/" . $_FILES["ima
   $sqlImage = "INSERT INTO images (name, image, upload_time) VALUES ('$title' ,'$fileName', '$now')";
   $conn->query($sqlImage);
 } else {
-  echo "師資照片上傳失敗";
+  echo "文章照片上傳失敗";
 }
 
-echo "<script>alert('文章建立成功'); location.href = 'articles.php'; </script>";
+echo "<script>alert('文章建立成功'); location.href='articles.php?page=1&search=&categoryOrder=1&publish='</script>";
 $conn->close();

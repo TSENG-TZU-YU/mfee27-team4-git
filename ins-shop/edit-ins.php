@@ -36,6 +36,9 @@ $row = $result->fetch_assoc();
             width: 800px;
             height: 400px;
         }
+        .introbox {
+            height: 200px;
+        }
     </style>
 
 </head>
@@ -94,11 +97,11 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>樂器類別</th>
-                                        <td> <input type="text" class="form-control text-center " value="<?= $row["ins_cate"] ?>" name="ins_cate"></td>
+                                        <td> <input type="text" class="form-control text-center " value="<?= $row["cate"] ?>" name="cate"></td>
                                     </tr>
                                     <tr>
                                         <th>品牌型號</th>
-                                        <td><input type="text" class="form-control text-center" value="<?= $row["brnd_model"] ?>" name="brnd_model"></td>
+                                        <td><input type="text" class="form-control text-center" value="<?= $row["name"] ?>" name="name"></td>
                                     </tr>
                                     <tr>
                                         <th>定價</th>
@@ -110,7 +113,7 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>商品簡介</th>
-                                        <td><textarea type="text" class="form-control text-center" name="intro"></textarea></td>
+                                        <td><textarea type="text" class="form-control text-center introbox" name="intro"><?= $row["intro"]?></textarea></td>
                                     </tr>
                                     <tr>
                                         <th>建立時間</th>

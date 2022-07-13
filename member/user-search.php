@@ -45,7 +45,7 @@ if (!isset($_GET["search"])) {
     $userCountS = 0;
 } else {
     $search = $_GET["search"];
-    $sqlSearch = "SELECT id, name, account, phone, email, create_time FROM users WHERE  enable=1 AND  valid=1 AND name like  '%$search%'  or account like '%$search%' ORDER BY $orderType  LIMIT $startPage ,10";
+    $sqlSearch = "SELECT id, name, account, phone, email, create_time FROM users WHERE  enable=1 AND  valid=1 AND name like  '%$search%'  || account like '%$search%' ORDER BY $orderType  LIMIT $startPage ,10";
     $resultS = $conn->query($sqlSearch);
     $userCountS = $resultS->num_rows;
 }
@@ -105,7 +105,7 @@ if (!isset($_GET["search"])) {
                     <form action="user-search.php" method="get">
                         <div class="row">
                             <p class="col-8 m-auto">總共<?= $userCountS ?>筆資料</p>
-                            <input class="col form-control me-3" type="text" name="search">
+                            <input class="col form-control me-3" type="text" name="search" value="搜尋 <?= $search ?>">
                             <button class="col-1 btn btn-green" type="submit">
                                 <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                                 搜尋

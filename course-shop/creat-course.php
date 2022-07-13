@@ -48,35 +48,39 @@
             <form action="docreate-course.php" method="post">
                 <div class="mb-2">
                     <label for="">課程類別</label>
-                    <input type="text" class="form-control" name="course_cate">
+                    <input type="text" class="form-control" name="cate" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">地點</label>
-                    <input type="text" class="form-control" name="location">
+                    <input type="text" class="form-control" name="location" required pattern=".*[^ ].*">
                 </div>                
                 <div class="mb-2">
                     <label for="">課程名稱</label>
-                    <input type="text" class="form-control" name="course_name">
+                    <input type="text" class="form-control" name="name" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">庫存</label>
-                    <input type="number" class="form-control" name="stock">
+                    <input type="number" class="form-control" name="stock" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">定價</label>
-                    <input type="number" class="form-control" name="price">
+                    <input type="number" class="form-control" name="price" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">開始時間</label>
-                    <input type="date" class="form-control" name="begin_date">
+                    <input type="date" class="form-control" name="begin_date" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">結束時間</label>
-                    <input type="date" class="form-control" name="overdate">
+                    <input type="date" class="form-control" name="overdate" required pattern=".*[^ ].*">
                 </div>
                 <div class="mb-2">
                     <label for="">課程介紹</label>
-                    <textarea type="number" class="form-control" name="course_intro"></textarea>
+                    <textarea type="text" class="form-control" name="intro" required pattern=".*[^ ].*"></textarea>
+                </div>
+                <div class="mb-2">
+                    <label for="">圖片上傳</label>
+                    <input type="file" class="form-control" name="image">
                 </div>
                 <button class="btn btn-info" type="submit">送出</button>
                 <button class="btn btn-info" type="reset">清除</button>

@@ -1,14 +1,13 @@
 <?php
 require("../db-connect.php");
+$sqlMember = "WHERE member.users.php";
 session_start();
+
 if (!isset($_SESSION["user"])) {   //重整後會需要重新登入
     echo "請循正常管道進入本頁";
-    header("location:backstage.php");
+    header("location:http://localhost/mfee27-team4-git/backstage.php");
     exit;
 }
-
-
-$sqlMember = "WHERE member.users.php";
 
 // if (isset($_GET["page"])) {
 //     $page = $_GET["page"];
@@ -75,7 +74,7 @@ $totalPage = ceil($userCount / $perPage);
 <html lang="zh-tw">
 
 <head>
-    <title>後台系統</title>
+    <title>HAMAYA MUSIC - 會員管理</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -124,7 +123,7 @@ $totalPage = ceil($userCount / $perPage);
                         <div class="row">
 
                             <p class="col-8 m-auto">
-                                第 <?= $startItem ?>-<?= $endItem ?> 筆 , 總共 <?= $userCount ?> 筆資料
+                                第 <?= $startItem ?>-<?= $endItem ?> 筆 ， 總共 <?= $userCount ?> 筆資料
                             </p>
                             <input class="col form-control me-3" type="text" name="search">
                             <button class="col-1 btn btn-green" type="submit">
@@ -192,6 +191,7 @@ $totalPage = ceil($userCount / $perPage);
                                 <th scope="col">會員電話</th>
                                 <th scope="col">會員郵件</th>
                                 <th scope="col">註冊時間</th>
+                                <th colspan="2">管理操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -204,7 +204,7 @@ $totalPage = ceil($userCount / $perPage);
                                     <td><?= $row["email"] ?></td>
                                     <td><?= $row["create_time"] ?></td>
                                     <td>
-                                        <a class="btn btn-grey  me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>">
+                                        <a class="btn btn-grey  me-3" type="button" href="user-detail.php?id=<?= $row["id"] ?>&name=<?= $row["name"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細
                                         </a>
