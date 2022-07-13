@@ -45,7 +45,7 @@ switch($catestring) {
 
 
 //page
-$sqlAll = "SELECT * FROM course_product ";
+$sqlAll = "SELECT * FROM course_product WHERE  $category $sqlsearch valid=1 ";
 $resultAll = $conn->query($sqlAll);
 $courseCount = $resultAll->num_rows;
 
@@ -132,10 +132,6 @@ $totalPage = ceil($courseCount / $perPage);
                                         <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                                         新增
                                     </a>
-                                    <a href=""   style="font-weight:normal" class="btn btn-green me-2 text-nowrap">
-                                    <input type="checkbox" id="ckb_selectAll">
-                                        全選
-                                    </a>
                                     <select onchange="cateSelect()" name="catestring" id="" class="form-control ">
                                         <option <?php if($catestring==1) echo "selected";?> value="1">全部課程</option>
                                         <option <?php if($catestring==2) echo "selected";?> value="2">成人課程</option>
@@ -167,7 +163,6 @@ $totalPage = ceil($courseCount / $perPage);
                                     <th scope="col">定價</th>
                                     <th scope="col">開始時間</th>
                                     <th scope="col">結束時間</th>
-                                    <th scope="col">建立時間</th>
                                     <th scope="col">上架狀態</th>
                                     <th scope="col">功能</th>                                
                                 </tr>
@@ -184,24 +179,22 @@ $totalPage = ceil($courseCount / $perPage);
                                     <td><?=$row["name"]?></td>
                                     <td>
                                         <?php 
-                                        $course= $row["id"];
+                                        $course= $row["name"];
                                         $sqlSelt="SELECT course_teacher.* ,teacher.name AS tName ,course_product.name AS cName FROM course_teacher 
                                         JOIN teacher ON course_teacher.teacher_id = teacher.id
                                         JOIN course_product ON course_teacher.course = course_product.id  
-                                        WHERE course = $course";
+                                        WHERE course_product.name = '$course'";
                                         $resultSelt = $conn->query($sqlSelt);
                                         $rowsSelt= $resultSelt->fetch_all(MYSQLI_ASSOC);
                                         foreach ($rowsSelt AS $rowSelt){
                                             echo "<p>".$rowSelt["tName"]."</p>";
                                         }
-                                        ?>
-                                        
+                                        ?>                                     
                                     </td>
                                     <td><?=$row["stock"]?></td>
                                     <td><?=$row["price"]?></td>
                                     <td><?=date('Y-m-d', strtotime($row["begin_date"]));?></td>
                                     <td><?=date('Y-m-d', strtotime($row["over_date"]));?></td>
-                                    <td><?=$row["creat_time"]?></td>
                                     <td>
                                         <?php if($row["state"]==1):?>
                                             <a class="btn btn-green mx-0 px-4" type="button" href="downstate-course.php?id=<?=$row["id"]?>">
@@ -229,7 +222,7 @@ $totalPage = ceil($courseCount / $perPage);
                         <ul class="pagination">
                         <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
                         <li class="page-item ">
-                        <a class="page-link <?php if ($page == $i) echo "active"; ?>" href="course-shop.php"><?= $i ?></a>
+                        <a class="page-link <?php if ($page == $i) echo "active"; ?>" href="course-shop.php?page=<?= $i ?>"><?= $i ?></a>
                         </li>
                         <?php endfor; ?>
                         </ul>

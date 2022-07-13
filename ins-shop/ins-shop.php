@@ -144,10 +144,6 @@ $totalPage = ceil($insCount / $perPage);
                                         <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                                         新增
                                     </a>
-                                    <a href=""   style="font-weight:normal" class=" btn btn-green me-2 text-nowrap">
-                                    <input type="checkbox" id="ckb_selectAll">
-                                        全選
-                                    </a>  
                                     <select onchange="cateSelect()" name="catestring" id="" class="form-control ">
                                         <option <?php if($catestring=="") echo "selected";?> value="">全部樂器</option>
                                         <option <?php if($catestring==1) echo "selected";?> value="1" >電鋼琴</option>
