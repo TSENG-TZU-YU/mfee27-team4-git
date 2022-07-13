@@ -72,11 +72,7 @@ $couponCount=$result->num_rows;
                              value="<?=$row["name"]?>"></td>
                              </tr>
 
-                             <tr>
-                             <th scope="col">使用者資格</th>
-                             <td><input type="text" name="members" required  class="form-control"
-                             value="<?=$row["members"]?>"></td>
-                             </tr>
+                        
 
                              <tr>
                              <th scope="col">序號</th>
@@ -132,7 +128,7 @@ $couponCount=$result->num_rows;
                         <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                         儲存
                     </button>
-                    <a class=" btn btn-grey  ms-3" href="coupons-hide.php">
+                    <a class=" btn btn-grey  ms-3" href="coupons.php">
                     <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                       返回上一頁
                       </a>
