@@ -150,7 +150,7 @@ $totalPage = ceil($userCount / $perPage);
                         </tbody>
                     </table>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example" class="d-flex mt-5  justify-content-center">
+                    <div aria-label="Page navigation example" class="d-flex mt-4  justify-content-center">
                         <ul class="pagination">
                             <!-- <li class="page-item">
                                 <a class="page-link" href="#" aria-label="Previous">
