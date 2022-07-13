@@ -31,8 +31,6 @@ $id=$_GET["id"];
  $couponCountAll=$resultAll->num_rows;
  
 
-
-
 ?>
 <!doctype html>
 <html lang="en">
