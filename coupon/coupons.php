@@ -185,8 +185,7 @@ $totalPage = ceil($couponCountAll / $perPage);
                                         <td><?= $row["several_times"] ?></td>
                                         <td><?= $row["min_price"] ?></td>
                                         <td>
-                                            <a class="btn btn-grey me-3" type="" href="coupon.php?
-                        id=<?= $row["id"] ?>">
+                                            <a class="btn btn-grey me-3" type="" href="coupon.php?id=<?= $row["id"] ?>">
                                                 <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                                 詳細
                                             </a>
