@@ -1,5 +1,14 @@
-<svg width="368" height="262" viewBox="0 0 368 262" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect y="262" width="262" height="368" transform="rotate(-90 0 262)" fill="#BFBFBF"/>
-<path d="M108 103.8C108 93.9695 116.245 86 126.415 86C136.585 86 144.829 93.9695 144.829 103.8C144.829 113.63 136.585 121.6 126.415 121.6C116.245 121.6 108 113.63 108 103.8Z" fill="#959595"/>
-<path d="M259 175H111.683V153.64L129.874 136.056C132.032 133.971 135.529 133.971 137.687 136.056L155.878 153.64L210.898 100.456C213.056 98.3706 216.554 98.3706 218.711 100.456L259 139.4V175Z" fill="#959595"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.3.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 355.2 259.2" style="enable-background:new 0 0 355.2 259.2;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#BFBFBF;}
+	.st1{fill:#959595;}
+</style>
+<rect x="-18.2" y="-14.8" class="st0" width="391.5" height="288.8"/>
+<path class="st1" d="M101.6,102.4c0-9.8,8.2-17.8,18.4-17.8s18.4,8,18.4,17.8s-8.2,17.8-18.4,17.8
+	C109.8,120.2,101.6,112.2,101.6,102.4z"/>
+<path class="st1" d="M252.6,173.6H105.3v-21.4l18.2-17.6c2.2-2.1,5.7-2.1,7.8,0l18.2,17.6l55-53.2c2.2-2.1,5.7-2.1,7.8,0l40.3,38.9
+	V173.6z"/>
 </svg>
