@@ -8,7 +8,7 @@ if(isset($_POST["reply"])){
     $sqlins="INSERT INTO user_qna_detail (user_qna_id, name, q_content, create_time) VALUES ('$user_qna_id', '$name', '$reply','$now')";
     $conn->query($sqlins);
 
-    $order_qna_id=$_POST["order_qna_id"];
+
     $sql="UPDATE user_qna SET reply_state='新訊息', user_reply_state='未回覆', update_time='$now' WHERE id=$user_qna_id";
     $conn->query($sql);
 
