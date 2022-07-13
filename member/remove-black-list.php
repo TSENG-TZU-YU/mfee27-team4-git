@@ -6,7 +6,7 @@ $id=$_GET["id"];
 $sql="UPDATE users SET enable=1 WHERE id='$id'";
 
 if ($conn->query($sql) === TRUE) {
-    echo "<script language='JavaScript'>;alert('成功解除黑名單');location.href='black-list.php';</script>;";
+    echo "<script >alert('成功解除黑名單');location.href='black-list.php';</script>;";
 } else {
     echo "解除黑名單失敗: " . $conn->error;
 }

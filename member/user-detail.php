@@ -159,7 +159,7 @@ $row = $result->fetch_assoc();
                                 <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                                 修改
                             </a>
-                            <a class="col-1 btn btn-red  me-3" href="doDelete.php?id=<?= $row["id"] ?>">
+                            <a class="col-1 btn btn-red  me-3" href="javascript:if (confirm('是否確定刪除會員？')) location.href='doDelete.php?id=<?=$row['id']?>'">
                                 <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                 刪除
                             </a>
