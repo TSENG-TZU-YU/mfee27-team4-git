@@ -26,8 +26,6 @@ $id=$_GET["id"];
 
  
 
-
-
  $sqlAll="SELECT * FROM coupon WHERE id=$id AND valid=1";
  $resultAll= $conn->query($sqlAll);
  $couponCountAll=$resultAll->num_rows;
