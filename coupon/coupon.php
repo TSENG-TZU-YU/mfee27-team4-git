@@ -33,8 +33,6 @@ $id=$_GET["id"];
 
 
 
-
-
 ?>
 <!doctype html>
 <html lang="en">
