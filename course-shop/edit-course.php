@@ -94,7 +94,12 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>課程類別</th>
-                                        <td> <input type="text" class="form-control text-center " value="<?= $row["cate"] ?>" name="cate"></td>
+                                        <td> <select class="form-select mt-1 autoCategory" aria-label="Default select example" name="cate">
+                                            <option selected value="請選擇課程類別">請選擇課程類別</option>
+                                            <option value="成人課程">成人課程</option>
+                                            <option value="兒童課程">兒童課程</option>
+                                            </select>                                                            
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>課程名稱</th>

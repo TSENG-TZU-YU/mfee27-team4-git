@@ -97,7 +97,16 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>樂器類別</th>
-                                        <td> <input type="text" class="form-control text-center " value="<?= $row["cate"] ?>" name="cate"></td>
+                                        <td>     
+                                            <select class="form-select mt-1 autoCategory" aria-label="Default select example" name="cate">
+                                            <option selected value="請選擇樂器類別">請選擇樂器類別</option>
+                                            <option value="電鋼琴">電鋼琴</option>
+                                            <option value="木吉他">木吉他</option>
+                                            <option value="電吉他">電吉他</option>
+                                            <option value="電貝斯">電貝斯</option>
+                                            <option value="電子鼓">電子鼓</option>
+                                            </select>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th>品牌型號</th>

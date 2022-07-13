@@ -21,8 +21,8 @@ $image = $_FILES["image"];
 
 
 // 寫入資料庫
-$sql="INSERT INTO course_product (cate, name, location, price, stock, begin_date, over_date, intro, creat_time, valid) 
-                            VALUES ('$cate','$name', '$location', '$price','$stock','$begin_date','$over_date', '$intro', '$creat_time',1)";
+$sql="INSERT INTO course_product (cate, name, location, price, stock, begin_date, over_date, image, intro, creat_time, valid) 
+                            VALUES ('$cate','$name', '$location', '$price','$stock','$begin_date','$over_date', '$fileName', '$intro', '$creat_time',1)";
 
 
 if ($conn->query($sql) === TRUE) {
@@ -39,13 +39,9 @@ if ($conn->query($sql) === TRUE) {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
-if (move_uploaded_file($_FILES["image"]["tmp_name"], "../images/ins-image/" . $_FILES["image"]["name"])) {
+move_uploaded_file($_FILES["image"]["tmp_name"], "../images/ins-image/" . $_FILES["image"]["name"]);
     // 將關於圖片的文字資料傳入 images 資料表
-    $sqlImage = "UPDATE place_produce SET image='$fileName'";
-    $conn->query($sqlImage);
-  } else {
-    echo "文章照片上傳失敗";
-  }
+
 
 
 $conn->close();

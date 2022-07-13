@@ -18,7 +18,7 @@ $image = $_FILES["image"];
 
 
 // 寫入資料庫
-$sql="INSERT INTO instrument_product (creat_time, cate, name, stock, price, intro, valid) VALUES ('$creat_time','$cate', '$name', '$stock','$price','$intro', 1)";
+$sql="INSERT INTO instrument_product (creat_time, cate, name, stock, price, image, intro, valid) VALUES ('$creat_time','$cate', '$name', '$stock','$price','$fileName','$intro', 1)";
 
 if ($conn->query($sql) === TRUE) {
     $sqlselect="SELECT * FROM instrument_product ORDER BY id DESC LIMIT 1";
@@ -35,13 +35,10 @@ if ($conn->query($sql) === TRUE) {
 }
 
 
-if (move_uploaded_file($_FILES["image"]["tmp_name"], "../images/ins-image/" . $_FILES["image"]["name"])) {
+move_uploaded_file($_FILES["image"]["tmp_name"], "../images/ins-image/" . $_FILES["image"]["name"]);
     // 將關於圖片的文字資料傳入 images 資料表
-    $sqlImage = "UPDATE instrument_product SET image='$fileName'";
-    $conn->query($sqlImage);
-  } else {
-    echo "文章照片上傳失敗";
-  }
+ 
+
 
 
 

@@ -48,11 +48,21 @@
             <form action="docreate-place.php" method="post" enctype="multipart/form-data">
                 <div class="mb-2">
                     <label for="">店面</label>
-                    <input type="text" class="form-control" name="cate" required pattern=".*[^ ].*">
+                    <select class="form-select mt-1 autoCategory" aria-label="Default select example" name="cate">
+                        <option selected value="請選擇店面">請選擇店面</option>
+                        <option value="台北總店">台北總店</option>
+                        <option value="中壢店">中壢店</option>
+                        <option value="高雄店">高雄店</option>
+                    </select>                                 
                 </div>
                 <div class="mb-2">
                     <label for="">場地類型</label>
-                    <input type="text" class="form-control" name="name" required pattern=".*[^ ].*">
+                    <select class="form-select mt-1 autoCategory" aria-label="Default select example" name="name">
+                        <option selected value="請選擇場地">請選擇場地</option>
+                        <option value="小練習室">小練習室</option>
+                        <option value="大練習室">大練習室</option>
+                        <option value="錄音室">錄音室</option>
+                    </select>   
                 </div>                
                 <div class="mb-2">
                     <label for="">庫存</label>
