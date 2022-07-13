@@ -11,7 +11,6 @@ $sql="SELECT * FROM coupon WHERE id=$id AND valid=1 ";
 $result = $conn->query($sql);
 $couponCount=$result->num_rows;
 
-
 ?>
 <!doctype html>
 <html lang="en">
