@@ -13,6 +13,8 @@ $price=$_POST["price"];
 $stock=$_POST["stock"];
 $intro=$_POST["intro"];
 $creat_time=date('Y-m-d H-i-s');
+$fileName = $_FILES["image"]["name"];
+$image = $_FILES["image"];
 
 
 // 寫入資料庫
@@ -32,6 +34,14 @@ if ($conn->query($sql) === TRUE) {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 
+
+if (move_uploaded_file($_FILES["image"]["tmp_name"], "../images/ins-image/" . $_FILES["image"]["name"])) {
+    // 將關於圖片的文字資料傳入 images 資料表
+    $sqlImage = "UPDATE instrument_product SET image='$fileName'";
+    $conn->query($sqlImage);
+  } else {
+    echo "文章照片上傳失敗";
+  }
 
 
 

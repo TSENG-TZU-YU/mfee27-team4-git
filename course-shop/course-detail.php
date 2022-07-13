@@ -101,6 +101,10 @@ $row = $result->fetch_assoc();
                                     <td><?= $row["name"] ?></td>
                                 </tr>
                                 <tr>
+                                    <th>商品圖片</th>
+                                    <td><img width=400 class="object-cover " src="../images/ins-image/<?= $row["image"];?>"></td>
+                                </tr>
+                                <tr>
                                     <th>地點</th>
                                     <td><?= $row["location"] ?></td>
                                 </tr>
@@ -114,11 +118,11 @@ $row = $result->fetch_assoc();
                                 </tr>
                                 <tr>
                                     <th>開始時間</th>
-                                    <td><?= $row["begin_date"] ?></td>
+                                    <td><?= date($row["begin_date"]) ?></td>
                                 </tr>
                                 <tr>
                                     <th>結束時間</th>
-                                    <td><?= $row["over_date"] ?></td>
+                                    <td><?= date($row["over_date"]) ?></td>
                                 </tr>
                                 <tr>
                                     <th>課程簡介</th>

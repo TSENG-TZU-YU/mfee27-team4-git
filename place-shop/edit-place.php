@@ -94,31 +94,31 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>店面</th>
-                                        <td> <input type="text" class="form-control text-center " value="<?= $row["cate"] ?>" name="cate"></td>
+                                        <td> <input type="text" class="form-control text-center " value="<?= $row["cate"] ?>" name="cate" required></td>
                                     </tr>
                                     <tr>
                                         <th>場地類型</th>
-                                        <td><input type="text" class="form-control text-center" value="<?= $row["name"] ?>" name="name"></td>
+                                        <td><input type="text" class="form-control text-center" value="<?= $row["name"] ?>" name="name" required></td>
                                     </tr>
                                     <tr>
                                         <th>定價</th>
-                                        <td><input type="number" class="form-control text-center" value="<?= $row["price"] ?>" name="price"></td>
+                                        <td><input type="number" class="form-control text-center" value="<?= $row["price"] ?>" name="price" required></td>
                                     </tr>
                                     <tr>
                                         <th>庫存</th>
-                                        <td><input type="number" class="form-control text-center" value="<?= $row["stock"] ?>" name="stock"></td>
+                                        <td><input type="number" class="form-control text-center" value="<?= $row["stock"] ?>" name="stock" required></td>
                                     </tr>
                                     <tr>
                                         <th>開放時間</th>
-                                        <td><input type="date" class="form-control text-center" value="<?= $row["use_time"] ?>" name="use_time"></td>
+                                        <td><input type="datetime-local" class="form-control text-center" value="<?=date(($row["use_time"]));?>" name="use_time" required></td>
                                     </tr>
                                     <tr>
                                         <th>結束時間</th>
-                                        <td><input type="date" class="form-control text-center" value="<?= $row["over_time"] ?>" name="over_time"></td>
+                                        <td><input type="datetime-local" class="form-control text-center" value="<?=date(($row["over_time"]));?>" name="over_time" required></td>
                                     </tr>
                                     <tr>
                                         <th>場地簡介</th>
-                                        <td><textarea type="text" class="form-control text-center" name="intro"><?= $row["intro"]?></textarea></td>
+                                        <td><textarea type="text" class="form-control text-center" name="intro" required><?= $row["intro"]?></textarea></td>
                                     </tr>
                                     <tr>
                                         <th>建立時間</th>

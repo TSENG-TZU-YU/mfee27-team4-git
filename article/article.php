@@ -131,7 +131,9 @@ $ArticleCount = $resultAll->num_rows;
                   <hr>
                   <h2 class=" fw-bold text-center" style=" color:#265f74;"><?= $rowArticle["title"] ?></h2>
                   <hr>
-                  <img class="img-fluid rounded mx-auto d-block" id="preview" src="../images/<?= $rowArticle["image"] ?>">
+                  <?php if (isset($rowArticle["image"])) : ?>
+                    <?= '<img class="img-fluid rounded mx-auto d-block" id="preview" src="../images/' . $rowArticle["image"] . '">' ?>
+                  <?php endif; ?>
                   <div class="p-4">
                     <p class="mx-3" style="text-overflow: ellipsis; line-height:2; text-align: justify; "><?= $rowArticle["content"] ?></p>
                     <hr>

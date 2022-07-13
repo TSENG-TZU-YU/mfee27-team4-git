@@ -5,7 +5,7 @@ require("../db-connect.php");
 $id=$_GET["id"];
 
 
-$sql="UPDATE coupon SET valid=0, shelf=0  WHERE id='$id'";
+$sql="UPDATE coupon SET valid=0, coupon_c=10, shelf=2 WHERE id='$id'";
 
 
 // echo $sql;

@@ -9,7 +9,7 @@ session_start();
 <html lang="zh-tw">
 
 <head>
-  <title>後台系統-首頁</title>
+  <title>HAMAYA MUSIC - 首頁</title>
 
   <!-- Required meta tags -->
   <meta charset="utf-8">

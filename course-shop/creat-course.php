@@ -45,7 +45,7 @@
 
                 <!-- 內容 -->
                 <div class="container">
-            <form action="docreate-course.php" method="post">
+            <form action="docreate-course.php" method="post" enctype="multipart/form-data">
                 <div class="mb-2">
                     <label for="">課程類別</label>
                     <input type="text" class="form-control" name="cate" required pattern=".*[^ ].*">

@@ -102,7 +102,7 @@ $row = $result->fetch_assoc();
                                 </tr>
                                 <tr>
                                     <th>商品圖片</th>
-                                    <td><img class="object-cover " src="<?$teacherImage = $row["image"];?>"></td>
+                                    <td><img width=400 class="object-cover " src="../images/ins-image/<?= $row["image"];?>"></td>
                                 </tr>
                                 <tr>
                                     <th>定價</th>

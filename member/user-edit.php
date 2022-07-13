@@ -20,7 +20,7 @@ $row = $result->fetch_assoc();
 <html lang="zh-tw">
 
 <head>
-    <title>後台系統</title>
+    <title>HAMAYA MUSIC - 會員管理</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
