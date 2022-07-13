@@ -17,7 +17,7 @@ $birthday=$_POST["birthday"];
 $phone=$_POST["phone"];
 $email=$_POST["email"];
 $address=$_POST["address"];
-$coupon=$_POST["coupon"];
+// $coupon=$_POST["coupon"];
 $create_time=date('Y-m-d H-i-s');
 
 if(empty($name)){    //後端檢查 
@@ -58,14 +58,14 @@ if(empty($address)){
 //當gender選擇時 value 輸出1 or 2  前端checkbox 有男女兩個選擇時
 
 // 判斷checkbox 未勾選時 
-//   $coupon=0;    
-//   if(isset($_POST['coupon'])){
-//     $coupon=2;
-//     // echo"有優惠券";
-//   } 
-//   else{
-//     // echo"無優惠券";
-//   }
+  $coupon=0;    
+  if(isset($_POST['coupon'])){
+    $coupon=1;
+    // echo"有優惠券";
+  } 
+  else{
+    // echo"無優惠券";
+  }
 
 
 
@@ -88,7 +88,7 @@ $sqlCreate="INSERT INTO users (name,account, password,gender,birthday,phone,emai
 
 if($conn->query($sqlCreate) === TRUE){
     if($coupon==1){
-        echo "<script language='JavaScript'>;alert('註冊成功 獲得商品50元折價券');location.href='users.php';</script>;";
+        echo "<script language='JavaScript'>;alert('註冊成功 獲得商品50元優惠券');location.href='users.php';</script>;";
     }
     elseif($coupon==0){
         echo "<script language='JavaScript'>;alert('註冊成功');location.href='users.php';</script>;";

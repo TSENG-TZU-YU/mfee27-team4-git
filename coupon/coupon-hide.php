@@ -38,38 +38,53 @@ $id=$_GET["id"];
 
 
 
+if (!isset($_GET["id"])) {
+    echo "沒有參數";
+    exit;
+}
+$id = $_GET["id"];
+
+require("../db-connect.php");
+$sql = "SELECT * FROM coupon WHERE id=$id AND shelf=0  ";
+
+$result = $conn->query($sql);
+$couponCount = $result->num_rows;
 
 
 
 ?>
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <title>Coupon Edit</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS v5.2.0-beta1 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
- <!-- 版面元件樣式 css -->
- <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!-- 版面元件樣式 css -->
+    <link rel="stylesheet" href="../style.css">
     </link>
     <style>
-        .panel{
-            width:430px;
+       
+        .panel {
+            width: 800px;
 
         }
    
     </style>
-  </head>
-  <body>
-  <div class="container-fluid">
+</head>
+
+<body>
+    <div class="container-fluid">
         <div class="row d-flex">
 
         <!-- 導覽列 nav -->
         <?php require("../nav.php"); ?>
             <!-- 導覽列 nav end -->
+
             <main class="col-10 px-5 py-4">
 
                 <!-- 麵包屑 breadcrumb -->

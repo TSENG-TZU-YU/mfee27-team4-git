@@ -9,20 +9,11 @@ $sqlAll = "SELECT payment_method,payment_state,payment_time,order_state FROM ord
 $resultAll = $conn->query($sqlAll);
 $row = $resultAll->fetch_assoc();
 
-// print_r($row);
-// echo "<br>";
-
 date_default_timezone_set("Asia/Taipei");
 $now = date('Y-m-d H:i:s');
 $payMethod = $_POST["payMethod"];
 $paymentState = $_POST["paymentState"];
 $orderState = $_POST["orderState"];
-// $paymentTime = $_POST["paymentTime"];
-// echo $payMethod . ":::::<br>";
-// echo $paymentState." : ".$orderState ;
-// var_dump($paymentTime);
-// echo"<br>";
-// exit;
 if ($payMethod == $row["payment_method"] && $paymentState == $row["payment_state"] && $orderState == $row["order_state"]) {
     echo "付款狀態跟訂單狀態沒有變";
     exit;
@@ -77,15 +68,15 @@ if ($payMethod == $row["payment_method"] && $paymentState == $row["payment_state
                         SET payment_method='$payMethod'
                         WHERE order_id='$order_id'
                         ";
-                        // echo $sql. "<br>";
-                        echo "修改付款方式成功";
-                }else{
-                    
+                    // echo $sql. "<br>";
+                    echo "修改付款方式成功";
+                } else {
+
                     $sql = "UPDATE order_product 
                         SET payment_method,='$payMethod',order_state='$orderState'
                         WHERE order_id='$order_id'
                         ";
-                    echo"修改付款方式＆訂單狀態成功";
+                    echo "修改付款方式＆訂單狀態成功";
                 }
             }
         }
@@ -99,4 +90,4 @@ if ($conn->query($sql) === TRUE) {
 }
 
 $conn->close();
-header("location:list-edit.php?order_id=".$order_id);
+header("location:list-edit.php?order_id=" . $order_id);

@@ -45,7 +45,7 @@
 
                 <!-- 內容 -->
                 <div class="container">
-            <form action="docreate-ins.php" method="post">
+            <form action="docreate-ins.php" method="post" enctype="multipart/form-data">
                 <div class="mb-2">
                     <label for="">樂器類別</label>
                     <input type="text" class="form-control" name="cate" required pattern=".*[^ ].*">

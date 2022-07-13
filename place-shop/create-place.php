@@ -45,7 +45,7 @@
 
                 <!-- 內容 -->
                 <div class="container">
-            <form action="docreate-place.php" method="post">
+            <form action="docreate-place.php" method="post" enctype="multipart/form-data">
                 <div class="mb-2">
                     <label for="">店面</label>
                     <input type="text" class="form-control" name="cate" required pattern=".*[^ ].*">

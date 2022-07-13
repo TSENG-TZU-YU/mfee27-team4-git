@@ -13,11 +13,11 @@ $sql="SELECT order_qna.*, users.account FROM order_qna
 $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
-$order_id=$row["order_id"];
 
-$sqlDetail="SELECT * FROM order_qna_detail WHERE order_id = $order_id AND valid=1";
-$resultDetail = $conn->query($sqlDetail);
-$rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
+$order_id=$row["order_id"];
+// $sqlDetail="SELECT * FROM order_qna_detail WHERE order_id = $order_id AND valid=1";
+// $resultDetail = $conn->query($sqlDetail);
+// $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 
 ?>
 
@@ -140,21 +140,26 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                     </script>
                     <form name="form1" action="" method="post">    
                         <table class="table">
-                            <tr class="viewItem">
+                            <tr>
                                 <th width=200  class="align-top fs-6">問題內容</th>
                                 <td style="word-break:break-all" class="">
-                                <div class="viewItem">
-                                <?php foreach($rowsDetail as $rowDetail): ?>
-                                <p class="text-start ">
-                                    <label>
-                                        <input type="checkbox" name="arrayId[]" value="<?=$rowDetail["id"]?>">&nbsp
-                                        <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
-                                        <span class="fs-6"><?=$rowDetail["create_time"]?></span>
-                                    </label>
-                                </p>
-                                <p class="text-start  fs-6">&nbsp&nbsp&nbsp&nbsp<?=$rowDetail["q_content"]?></p>
-                                <?php endforeach;?>
-                                </div>   
+                                    <div id="viewContent">
+                                        <?php 
+                                        $sqlDetail="SELECT * FROM order_qna_detail WHERE order_id = $order_id AND valid=1";
+                                        $resultDetail = $conn->query($sqlDetail);
+                                        $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
+                                        ?>
+                                        <?php foreach($rowsDetail as $rowDetail): ?>
+                                        <p class="text-start ">
+                                            <label>
+                                                <input type="checkbox" name="arrayId[]" value="<?=$rowDetail["id"]?>">&nbsp
+                                                <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
+                                                <span class="fs-6"><?=$rowDetail["create_time"]?></span>
+                                            </label>
+                                        </p>
+                                        <p class="text-start  fs-6">&nbsp&nbsp&nbsp&nbsp<?=$rowDetail["q_content"]?></p>
+                                        <?php endforeach;?>
+                                    </div>   
                                 </td>  
                             </tr>  
                             <tr>
@@ -191,8 +196,12 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
         <!-- 主要區塊 main end-->
         </div>
     </div>
-
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        setInterval(function () {
+            $("#viewContent").load(location.href + " #viewContent>*","");//注意後面DIV的ID前面的空格，很重要！沒有空格的話，會出錯（也可以使用類名）
+        }, 5000);//5秒自動刷新
+    </script>
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>

@@ -9,10 +9,10 @@ $cate=$_POST["cate"];
 $name=$_POST["name"];
 $stock=$_POST["stock"];
 $price=$_POST["price"];
-$use_time=date('Y-m-d H-i-s');
-$over_time=date('Y-m-d H-i-s');
+$use_time=$_POST["use_time"];
+$over_time=$_POST["over_time"];
 $intro=$_POST["intro"];
-$create_time=date('Y-m-d H-i-s');
+$create_time=date('Y-m-d H-i');
 
 $sql="UPDATE place_produce SET 
 cate='$cate',name='$name',price='$price',stock='$stock',use_time='$use_time', over_time='$over_time',intro='$intro'

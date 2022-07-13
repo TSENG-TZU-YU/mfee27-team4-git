@@ -37,12 +37,41 @@ switch($order){
 
 
 
-$sql="SELECT * FROM coupon WHERE shelf=1 ORDER BY id $orderType LIMIT 
+require("../db-connect.php");
+
+$sqlAll = "SELECT * FROM coupon WHERE shelf=1 ";
+$resultAll = $conn->query($sqlAll);
+$couponHideCount = $resultAll->num_rows;
+
+
+$perPage = 4;
+$start = ($page - 1) * $perPage;
+
+$startItem = ($page - 1) * $perPage + 1;
+$endItem = $page * $perPage;
+if ($endItem > $couponHideCount) $endItem = $couponHideCount;
+
+$order = isset($_GET["order"]) ? $_GET["order"] : 1;
+
+switch ($order) {
+    case 1:
+        $orderType = "ASC";
+        break;
+    case 2:
+        $orderType = "DESC";
+        break;
+    default:
+        $orderType = "ASC";
+}
+
+
+
+$sql = "SELECT * FROM coupon WHERE shelf=1 ORDER BY id $orderType LIMIT 
 $start,4";
 
 
 $result = $conn->query($sql);
-$pageCouponCount=$result->num_rows;
+$pageCouponCount = $result->num_rows;
 
 $totalPage=ceil($couponCount / $perPage); 
 
@@ -69,8 +98,8 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
     <link rel="stylesheet" href="../style.css">
     </link>
     <style>
-        .panel{
-            width:500px;
+        .panel {
+            width: 500px;
         }
     </style>
 
@@ -108,7 +137,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                       <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                     搜尋</button>
                         </div>
-                       </form>
+                    </form>
                     <hr>
                     <a class="col-1 btn btn-green me-2" href="create-coupon.php">
                         <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
@@ -126,12 +155,19 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                
                           
                       
-                    <table class="table mt-5">
+
+
+
+
                    
+
+
+                    <table class="table mt-5">
+
                         <thead>
-                       
+
                             <tr>
-                          
+
                                 <th scope="col">編號</th>
                                 <th scope="col">優惠券名稱</th>
                                 <th scope="col">序號</th>
@@ -168,24 +204,27 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                     </tr>
                     <?php endforeach; ?>       
                </tbody>
+
+                            
                     </table>
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example"  class="d-flex mt-4  justify-content-center">
                         <ul class="pagination">
-                            <?php for($i=1; $i<=$totalPage; $i++):?>
-                               <li class="page-item <?php if($page==$i)echo "active";
-                               ?>"><a class="page-link" href="coupons-hide.php?page=<?=$i?>"><?=$i?>
-                            </a></li> 
+                            <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+                                <li class="page-item <?php if ($page == $i) echo "active";
+                                                        ?>"><a class="page-link" href="coupons-hide.php?page=<?= $i ?>"><?= $i ?>
+                                    </a></li>
                             <?php endfor; ?>
-                        <li>
-                        <a class=" btn btn-grey ms-4" href="coupons.php">
-                   <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
-                     返回上一頁
-                     </a></li>
+                            <li>
+                                <a class=" btn btn-grey ms-4" href="coupons.php">
+                                    <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                                    返回上一頁
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <!-- 頁碼 end -->
-                    
+
                 </div>
 
 

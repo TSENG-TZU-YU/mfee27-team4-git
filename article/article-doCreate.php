@@ -42,5 +42,5 @@ if (move_uploaded_file($_FILES["image"]["tmp_name"], "../images/" . $_FILES["ima
   echo "文章照片上傳失敗";
 }
 
-echo "<script>alert('文章建立成功'); location.href='articles.php?page=1&search=&categoryOrder=1&publish='</script>";
+echo "<script>alert('文章建立成功'); location.href='articles.php?page=1&search=&order=1&categoryOrder=&publish=1'</script>";
 $conn->close();

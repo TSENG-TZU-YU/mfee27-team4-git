@@ -16,8 +16,11 @@ if (!isset($_GET["search"])) {
     $sqlSearch = "(order_id LIKE '%$search%' OR account LIKE '%$search%' OR create_time LIKE '%$search%' OR total_amount LIKE '%$search%') AND";
 }
 
-
-$order = isset($_GET["order"]) ? $_GET["order"] : '1';
+if (!isset($_GET["order"])) {
+    $order = 1;
+} else {
+    $order = $_GET["order"];
+}
 switch ($order) {
     case 1:
         $orderType = "order_id DESC";
@@ -26,6 +29,14 @@ switch ($order) {
     case 2:
         $orderType = "order_id ASC";
         $_SESSION["orderType"] = "&order=2";
+        break;
+    case 3:
+        $orderType = "total_amount DESC";
+        $_SESSION["orderType"] =  "&order=3";
+        break;
+    case 4:
+        $orderType = "total_amount ASC";
+        $_SESSION["orderType"] = "&order=4";
         break;
     default:
         $orderType = "order_id DESC";
@@ -60,8 +71,6 @@ $resultAll = $conn->query($sqlAll);
 $rowsAll = $resultAll->fetch_all(MYSQLI_ASSOC);
 $list_count = $resultAll->num_rows;
 
-// echo $sqlAll;
-
 $perPage = 8;
 $start = ($page - 1) * $perPage;
 
@@ -69,8 +78,6 @@ $sql = "SELECT * FROM order_product WHERE $paymentType $sqlSearch valid=1 ORDER 
 $result = $conn->query($sql);
 $pageListCount = $result->num_rows;
 $rows = $result->fetch_all(MYSQLI_ASSOC);
-
-// echo $sql;
 
 //關聯pay_state state pay_by 3個table
 for ($i = 0; $i < count($rows); $i++) {
@@ -97,8 +104,6 @@ $endItem = $page * $perPage;
 if ($endItem > $list_count) $endItem = $list_count;
 if ($endItem < $startItem) $startItem = 0;
 $totalPage = ceil($list_count / $perPage);
-
-
 
 $conn->close();
 $sqlOrder = "WHERE order-list.php";
@@ -163,9 +168,14 @@ $sqlOrder = "WHERE order-list.php";
                 <hr>
                 <div class="container">
                     <div class="py-2 d-flex justify-content-end align-items-center">
-                        <a href="order-list.php?page=<?= $page ?>&order=<?php if ($order == 1) echo "2";
-                                                                        if ($order == 2) echo "1";
-                                                                        ?>" class="btn btn-grey me-2">建立時間排序</a>
+                        <a href="order-list.php?page=<?= $page ?>&order=<?php
+                                                                        if ($order == 3 || $order == 4 || $order == 2) echo "1";
+                                                                        if ($order == 1) echo "2";
+                                                                        ?>" class="btn btn-grey me-2">依照建立時間排序</a>
+                        <a href="order-list.php?page=<?= $page ?>&order=<?php
+                                                                        if ($order == 1 || $order == 2 || $order == 4) echo "3";
+                                                                        if ($order == 3) echo "4";
+                                                                        ?>" class="btn btn-grey me-2">依照總金額排序</a>
                         <a href="order-list.php?page=<?= $page ?>&payment=1" class="btn btn-khak me-2">信用卡</a>
                         <a href="order-list.php?page=<?= $page ?>&payment=2" class="btn btn-khak me-2 ">轉帳</a>
                         <a href="order-list.php?page=<?= $page ?>&payment=3" class="btn btn-khak me-2">未付款</a>
@@ -219,15 +229,26 @@ $sqlOrder = "WHERE order-list.php";
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example" class="d-flex mt-4  justify-content-center">
                         <ul class="pagination">
-                            <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
-                                <li class="page-item
-                        <?php
-                                if ($page == $i) echo "active"; //
+                            <?php
+                            if (!isset($_GET["search"])) :
+                                for ($i = 1; $i <= $totalPage; $i++) : ?>
+                                    <li class="page-item <?php if ($page == $i) echo "active"; ?>"><a class="page-link" href="order-list.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a>
+                                    </li>
+                                <?php
 
+                                endfor;
+                            else :
+                                // echo $totalPage;
+                                $searchPage = $_GET["search"];
+                                for ($i = 1; $i <= $totalPage; $i++) :
+                                ?>
+                                    <li class="page-item <?php if ($page == $i) echo "active"; ?>">
+                                        <a class="page-link" href="order-list.php?page=<?=$i?>&?search=<?= $searchPage ?>"><?=$i?></a>
+                                    </li>
 
-                        ?>
-                        "><a class="page-link" href="order-list.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
-                            <?php endfor; ?>
+                            <?php
+                                endfor;
+                            endif; ?>
                         </ul>
                     </div>
                     <!-- 頁碼 end -->
