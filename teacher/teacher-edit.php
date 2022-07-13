@@ -102,7 +102,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                     echo "../images/$teacherImage";
                   }
                   ?>
-                  " style="height: 250px;">
+                  " style="height: 300px;">
                 </div>
                 <div class="col-9 m-auto">
                   <table class="table">
@@ -179,7 +179,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
                       <tr>
                         <th>師資簡介</th>
                         <td colspan="2" align="left" class="text-align-justify">
-                          <textarea class="form-control" id="floatingTextarea2" type="text" name="profile" style="height: 230px; resize:none;"><?= $rowTeacher["profile"]  ?></textarea>
+                          <textarea class="form-control" id="floatingTextarea2" type="text" name="profile" style="height: 260px; resize:none;"><?= $rowTeacher["profile"]  ?></textarea>
                         </td>
                       </tr>
                       <tr>
