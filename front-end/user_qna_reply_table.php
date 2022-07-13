@@ -12,9 +12,9 @@ $result = $conn->query($sql);
 $row = $result->fetch_assoc();
 
 
-$sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id";
-$resultDetail = $conn->query($sqlDetail);
-$rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
+// $sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id";
+// $resultDetail = $conn->query($sqlDetail);
+// $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 
 ?>
 
@@ -121,16 +121,22 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                             <tr>
                                 <th width=200  class="align-top fs-6">問題內容</th>
                                 <td style="word-break:break-all" class="">
-                                <?php foreach($rowsDetail as $rowDetail): ?>
-                                <p class="text-start ">
-                                    <label>
-                                        
-                                        <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
-                                        <span class="fs-6"><?=$rowDetail["create_time"]?></span>
-                                    </label>
-                                </p>
-                                <p class="text-start  fs-6"><?=$rowDetail["q_content"]?></p>
-                                <?php endforeach;?>   
+                                    <div id="viewContent">
+                                        <?php
+                                        $sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id";
+                                        $resultDetail = $conn->query($sqlDetail);
+                                        $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
+                                        ?>
+                                        <?php foreach($rowsDetail as $rowDetail): ?>
+                                        <p class="text-start ">
+                                            <label>
+                                                <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
+                                                <span class="fs-6"><?=$rowDetail["create_time"]?></span>
+                                            </label>
+                                        </p>
+                                        <p class="text-start  fs-6"><?=$rowDetail["q_content"]?></p>
+                                        <?php endforeach;?>
+                                    </div>   
                                 </td>  
                             </tr>
                             <tr>
@@ -160,7 +166,12 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
         <!-- 主要區塊 main end-->
         </div>
     </div>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        setInterval(function () {
+            $("#viewContent").load(location.href + " #viewContent>*","");//注意後面DIV的ID前面的空格，很重要！沒有空格的話，會出錯（也可以使用類名）
+        }, 5000);//5秒自動刷新
+    </script>                               
 
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>

@@ -382,7 +382,7 @@ $totalPage = ceil($articleCount / $perPage);
             </div>
 
             <!-- 頁碼 -->
-            <div aria-label="Page navigation example text-end" class="d-flex mt-3  justify-content-center">
+            <div aria-label="Page navigation example text-end" class="d-flex mt-4  justify-content-center">
               <ul class="pagination">
                 <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
                   <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="articles.php?page=<?= $i ?>&search=<?= $search ?>&categoryOrder=<?= $categoryOrder ?>&publish=<?= $publish ?>"><?= $i ?></a></li>
