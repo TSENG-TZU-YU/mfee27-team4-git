@@ -8,7 +8,11 @@ require("../db-connect.php");
 
 $user_id = "zxcasd"; //因為沒有登入狀態所以先預設
 $payMethod = $_POST["payMethod"];
-$address=$_POST["address"];
+if(isset($_POST["address"])){
+  $address=$_POST["address"];
+}else{
+  $address="";
+}
 date_default_timezone_set("Asia/Taipei");
 $now = date('Y-m-d H:i:s');
 $total_amount = $_SESSION["total_amount"];
