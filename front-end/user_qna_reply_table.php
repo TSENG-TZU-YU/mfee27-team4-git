@@ -143,7 +143,7 @@ $row = $result->fetch_assoc();
                                 <th>進行回覆</th>
                                 <td>
                                     <!-- <textarea type="" pattern=".*[^ ].*" class="form-control inputcontent" placeholder='輸入對話' name="reply" ></textarea> -->
-                                    <input type="text" name="reply" class="form-control inputcontent" pattern=".*[^ ].*" placeholder='輸入內容' autocomplete="off" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required >
+                                    <input type="text" name="reply" class="form-control inputcontent" autofocus pattern=".*[^ ].*" placeholder='輸入內容' autocomplete="off" oninvalid="setCustomValidity('不能為空值');" oninput="setCustomValidity('');" required >
                                 </td>    
                             </tr>
                         </table>
