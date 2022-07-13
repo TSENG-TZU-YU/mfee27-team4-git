@@ -8,7 +8,8 @@ $user_id=$_SESSION["front_user"]["id"];
 $sql="SELECT order_product.*,state.name AS order_state ,pay_state.name AS payment_state,pay_by.name AS payment_method FROM order_product 
     JOIN state ON order_product.order_state = state.id
     JOIN pay_state ON order_product.payment_state = pay_state.id 
-    JOIN pay_by ON order_product.payment_method = pay_by.id";
+    JOIN pay_by ON order_product.payment_method = pay_by.id
+    WHERE users.id = $user_id";
 
 // $sql="SELECT order_product.*, users.id, users.name FROM order_product 
 //     JOIN users ON order_product.account = users.account 
