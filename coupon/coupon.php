@@ -34,10 +34,6 @@ $id=$_GET["id"];
  
 
 
-//$result = $conn->query($sql);
-//$couponCount=$result->num_rows;
-
-
 
 
 
