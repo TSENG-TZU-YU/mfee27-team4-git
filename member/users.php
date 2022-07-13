@@ -9,6 +9,16 @@ if (!isset($_SESSION["user"])) {   //重整後會需要重新登入
     exit;
 }
 
+//search 定義要寫在前面
+if (!isset($_GET["search"])) {
+    $search = "";
+    $sqlSearch="";
+} else {
+    $search = $_GET["search"];
+    $sqlSearch = "(name LIKE  '%$search%'  || account like '%$search%') AND";
+  
+}
+
 // if (isset($_GET["page"])) {
 //     $page = $_GET["page"];
 // } else {
@@ -47,14 +57,14 @@ switch ($order) {
 }
 
 //page
-$sqlAll = "SELECT * FROM users WHERE  valid=1 AND enable=1";
+$sqlAll = "SELECT * FROM users WHERE  $sqlSearch valid=1 AND enable=1";
 $resultAll = $conn->query($sqlAll);
 $pageUserCount = $resultAll->num_rows;
 $userCount = $resultAll->num_rows;
 
 
 $startPage = ($page - 1) * $perPage;
-$sql = "SELECT id, name, account, phone, email, create_time  FROM users WHERE valid=1 AND enable=1  ORDER BY $orderType  LIMIT $startPage ,$perPage";
+$sql = "SELECT id, name, account, phone, email, create_time  FROM users WHERE  $sqlSearch  valid=1 AND enable=1  ORDER BY $orderType  LIMIT $startPage ,$perPage";
 
 $result = $conn->query($sql);
 $rows = $result->fetch_all(MYSQLI_ASSOC);
@@ -119,13 +129,17 @@ $totalPage = ceil($userCount / $perPage);
 
                 <!-- 內容 -->
                 <div class="container">
-                    <form action="user-search.php" method="get">
+                    <form action="users.php" method="get">
                         <div class="row">
 
                             <p class="col-8 m-auto">
                                 第 <?= $startItem ?>-<?= $endItem ?> 筆 ， 總共 <?= $userCount ?> 筆資料
                             </p>
-                            <input class="col form-control me-3" type="text" name="search">
+                            <input class="col form-control me-3" type="text" name="search" placeholder="<?php if ($search != "") {
+                                                                                              echo "搜尋 ". $search ." 結果";
+                                                                                            } else {
+                                                                                              echo "搜尋關鍵字";
+                                                                                            } ?>" onfocus="this.placeholder='搜尋關鍵字'">
                             <button class="col-1 btn btn-green" type="submit">
                                 <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                                 搜尋
