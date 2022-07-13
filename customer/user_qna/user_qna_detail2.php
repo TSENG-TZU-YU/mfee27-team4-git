@@ -1,15 +1,15 @@
 <?php
 require("../../db-connect.php");
 
-$user_qna_id=$_GET["user_qna_id"];
+// $user_qna_id=$_GET["user_qna_id"];
 
-$sql="SELECT user_qna.*,users.account FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id WHERE user_qna.id= $user_qna_id";
+$sql="SELECT user_qna.*,users.account FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id WHERE user_qna.id= 1";
 $result=$conn->query($sql);
 $row = $result->fetch_assoc();
 
-$sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id AND valid=1" ;
-$resultDetail = $conn->query($sqlDetail);
-$rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
+// $sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id AND valid=1" ;
+// $resultDetail = $conn->query($sqlDetail);
+// $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 
 // $order_qna_id=$_GET["order_qna_id"];
 
@@ -162,16 +162,23 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                             <tr>
                                 <th width=200 class="align-top fs-6">問題內容</th>
                                 <td style="word-break:break-all" class="">
-                                <?php foreach($rowsDetail as $rowDetail): ?>
-                                <p class="text-start ">
-                                    <label>
-                                        <input type="checkbox" name="arrayId[]" value="<?=$rowDetail["id"]?>">&nbsp
-                                        <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
-                                        <span class="fs-6"><?=$rowDetail["create_time"]?></span>
-                                    </label>
-                                </p>
-                                <p class="text-start  fs-6">&nbsp&nbsp&nbsp&nbsp<?=$rowDetail["q_content"]?></p>
-                                <?php endforeach;?>   
+                                <div id="test1">
+                                    <?php
+                                    $sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = 1 AND valid=1" ;
+                                    $resultDetail = $conn->query($sqlDetail);
+                                    $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
+                                    ?>
+                                    <?php foreach($rowsDetail as $rowDetail): ?>
+                                    <p class="text-start ">
+                                        <label>
+                                            <input type="checkbox" name="arrayId[]" value="<?=$rowDetail["id"]?>">&nbsp
+                                            <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
+                                            <span class="fs-6"><?=$rowDetail["create_time"]?></span>
+                                        </label>
+                                    </p>
+                                    <p class="text-start  fs-6">&nbsp&nbsp&nbsp&nbsp<?=$rowDetail["q_content"]?></p>
+                                    <?php endforeach;?>  
+                                </div>
                                 </td>  
                             </tr>
                             <tr>
@@ -206,7 +213,29 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
         <!-- 主要區塊 main end-->
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
 
+    function userDetail (user_qna_id){    
+        $.ajax({
+            	method: "GET", 
+            	url: "userDetailApi.php",
+            	dataType: "json",
+                data: { user_qna_id: user_qna_id }
+            	})
+            	.done(function( response ) {
+                	console.log(response);
+
+            	}).fail(function( jqXHR, textStatus ) {
+                	console.log( "Request failed: " + textStatus );
+            	});
+    }            
+    </script>
+    <script type="text/javascript">
+        setInterval(function () {
+            $("#test1").load(location.user_qna_detail2.php" #test1>*","");//注意後面DIV的ID前面的空格，很重要！沒有空格的話，會出錯（也可以使用類名）
+        }, 5000);                         //5秒自動刷新
+    </script>                                
 
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
