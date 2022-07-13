@@ -217,7 +217,7 @@ $sqlOrder = "WHERE order-list.php";
                         <h2 class="text-center">目前沒有訂單</h2>
                     <?php endif; ?>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example" class="d-flex mt-4  justify-content-center">
+                    <div aria-label="Page navigation example" class="d-flex mt-5  justify-content-center">
                         <ul class="pagination">
                             <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
                                 <li class="page-item
