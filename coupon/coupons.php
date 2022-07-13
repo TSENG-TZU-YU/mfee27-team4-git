@@ -2,7 +2,7 @@
 
 require("../db-connect.php");
 
-
+session_start();
 
 
 $sqlAll = "SELECT * FROM coupon WHERE  shelf=0";
@@ -59,7 +59,7 @@ $totalPage = ceil($couponCountAll / $perPage);
 <html lang="zh-tw">
 
 <head>
-    <title>Coupons-List</title>
+    <title>HAMAYA MUSIC - 優惠券</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">

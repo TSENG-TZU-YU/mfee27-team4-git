@@ -3,7 +3,7 @@
 require("../db-connect.php");
 
 
-
+session_start();
 if (!isset($_GET["search"])) {
     $search = "";
     $couponCount = 0;
@@ -25,7 +25,7 @@ if (!isset($_GET["search"])) {
 <html lang="en">
 
 <head>
-    <title>Coupon Hide search</title>
+    <title>HAMAYA MUSIC - 優惠券</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -77,7 +77,7 @@ if (!isset($_GET["search"])) {
                         <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                         待上架
                     </a>
-                      <a href="coupon-search.php?page=<?= $page ?>&order=1" class="btn btn-khak  <?php if ($order == 1) echo " hover" ?>">By id asc</a>
+                    <a href="coupon-search.php?page=<?= $page ?>&order=1" class="btn btn-khak  <?php if ($order == 1) echo " hover" ?>">By id asc</a>
                     <a href="coupon-search.php?page=<?= $page ?>&order=2" class="btn btn-khak  <?php if ($order == 2) echo " hover" ?>">By id desc</a>
 
 
@@ -93,6 +93,7 @@ if (!isset($_GET["search"])) {
                                     <th scope="col">日期</th>
                                     <th scope="col">使用次數</th>
                                     <th scope="col">最低金額</th>
+                                    <th scope="col">管理操作</th>
 
                                 </tr>
                             </thead>
@@ -106,6 +107,18 @@ if (!isset($_GET["search"])) {
                                         <td><?= $row["dateline"] ?></td>
                                         <td><?= $row["several_times"] ?></td>
                                         <td><?= $row["min_price"] ?></td>
+                                        <td>
+                                            <a class="btn btn-grey me-3" type="" href="coupon-hide.php?id=<?= $row["id"] ?>">
+                                                <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
+                                                詳細
+                                            </a>
+                                            </a>
+
+                                            <a class="btn btn-khak" type="" href="remove-coupon.php?id=<?= $row["id"] ?>">
+                                                <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                                                下架
+                                            </a>
+                                        </td>
                                     </tr>
                                 <?php endwhile; ?>
                             </tbody>
@@ -114,10 +127,13 @@ if (!isset($_GET["search"])) {
                         沒有符合條件結果
                     <?php endif; ?>
 
-                    <a class=" btn btn-grey me-3" href="coupons-hide.php">
+                    <div class="d-flex justify-content-center mt-4 ">
+                    <a class=" btn btn-grey me-3 " href="coupons-hide.php">
                         <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                         返回上一頁
                     </a>
+                    </div>
+                  
 
 
                 </div>
