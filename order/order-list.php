@@ -229,15 +229,26 @@ $sqlOrder = "WHERE order-list.php";
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example" class="d-flex mt-4  justify-content-center">
                         <ul class="pagination">
-                            <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
-                                <li class="page-item
-                        <?php
-                                if ($page == $i) echo "active"; //
+                            <?php
+                            if (!isset($_GET["search"])) :
+                                for ($i = 1; $i <= $totalPage; $i++) : ?>
+                                    <li class="page-item <?php if ($page == $i) echo "active"; ?>"><a class="page-link" href="order-list.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a>
+                                    </li>
+                                <?php
 
+                                endfor;
+                            else :
+                                // echo $totalPage;
+                                $searchPage = $_GET["search"];
+                                for ($i = 1; $i <= $totalPage; $i++) :
+                                ?>
+                                    <li class="page-item <?php if ($page == $i) echo "active"; ?>">
+                                        <a class="page-link" href="order-list.php?page=<?=$i?>&?search=<?= $searchPage ?>"><?=$i?></a>
+                                    </li>
 
-                        ?>
-                        "><a class="page-link" href="order-list.php?page=<?= $i ?>&order=<?= $order ?>"><?= $i ?></a></li>
-                            <?php endfor; ?>
+                            <?php
+                                endfor;
+                            endif; ?>
                         </ul>
                     </div>
                     <!-- 頁碼 end -->
