@@ -1,5 +1,5 @@
 <?php
-require("../db-connect.php");
+require("../../db-connect.php");
 session_start();
 
 $user_qna_id=$_GET["user_qna_id"];

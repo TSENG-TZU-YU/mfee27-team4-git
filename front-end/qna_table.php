@@ -1,6 +1,6 @@
 <?php
-session_start();
 require("../db-connect.php");
+session_start();
 
 $sqlCount=$_POST["sqlCount"];
 if($sqlCount>0){

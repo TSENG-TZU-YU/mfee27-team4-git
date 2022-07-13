@@ -1,5 +1,7 @@
 <?php
 require("../db-connect.php");
+session_start();
+
 if(isset($_POST["reply"])){
     $user_qna_id=$_POST["user_qna_id"];
     $name=$_POST["name"];

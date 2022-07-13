@@ -1,9 +1,11 @@
 <?php
+require("../db-connect.php");
 session_start();
+
 if (!isset($_SESSION["front_user"])) {
     header("location: front_login.php");
 }
-require("../db-connect.php");
+
 $user_id = $_SESSION["front_user"]["id"];
 $sql = "SELECT order_product.*,state.name AS order_state ,pay_state.name AS payment_state,pay_by.name AS payment_method,  users.id, users.name FROM order_product 
     JOIN state ON order_product.order_state = state.id

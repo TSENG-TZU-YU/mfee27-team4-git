@@ -1,5 +1,5 @@
 <?php
-require("../db-connect.php");
+require("../../db-connect.php");
 session_start();
 
 if(isset($_GET["order_qna_id"])){
