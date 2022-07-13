@@ -7,11 +7,10 @@ if(!isset($_GET["id"])){
 $id=$_GET["id"];
 
 require("../db-connect.php");
-$sql="SELECT * FROM coupon WHERE id=$id AND valid=1 ";
+$sql="SELECT * FROM coupon WHERE id=$id AND valid=1 AND shelf=0";
 
 $result = $conn->query($sql);
 $couponCount=$result->num_rows;
-
 
 ?>
 <!doctype html>
@@ -38,7 +37,10 @@ $couponCount=$result->num_rows;
   <div class="container-fluid">
         <div class="row d-flex">
 
-        <?php require("../nav.php"); ?>
+       <!-- 導覽列 nav -->
+       <?php require("../nav.php"); ?>
+            <!-- 導覽列 nav end -->
+            
             <main class="col-10 px-5 py-4">
 
                 <!-- 麵包屑 breadcrumb -->
@@ -73,11 +75,7 @@ $couponCount=$result->num_rows;
                              value="<?=$row["name"]?>"></td>
                              </tr>
 
-                             <tr>
-                             <th scope="col">使用者資格</th>
-                             <td><input type="text" name="members" required  class="form-control"
-                             value="<?=$row["members"]?>"></td>
-                             </tr>
+                        
 
                              <tr>
                              <th scope="col">序號</th>

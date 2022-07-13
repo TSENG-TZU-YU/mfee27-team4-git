@@ -12,11 +12,10 @@ if (!isset($_SESSION["user"])) {   //重整後會需要重新登入
 //search 定義要寫在前面
 if (!isset($_GET["search"])) {
     $search = "";
-    $sqlSearch="";
+    $sqlSearch = "";
 } else {
     $search = $_GET["search"];
     $sqlSearch = "(name LIKE  '%$search%'  || account like '%$search%') AND";
-  
 }
 
 // if (isset($_GET["page"])) {
@@ -136,10 +135,10 @@ $totalPage = ceil($userCount / $perPage);
                                 第 <?= $startItem ?>-<?= $endItem ?> 筆 ， 總共 <?= $userCount ?> 筆資料
                             </p>
                             <input class="col form-control me-3" type="text" name="search" placeholder="<?php if ($search != "") {
-                                                                                              echo "搜尋 ". $search ." 結果";
-                                                                                            } else {
-                                                                                              echo "搜尋關鍵字";
-                                                                                            } ?>" onfocus="this.placeholder='搜尋關鍵字'">
+                                                                                                            echo "搜尋 " . $search . " 結果";
+                                                                                                        } else {
+                                                                                                            echo "搜尋關鍵字";
+                                                                                                        } ?>" onfocus="this.placeholder='搜尋關鍵字'">
                             <button class="col-1 btn btn-green" type="submit">
                                 <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                                 搜尋
@@ -182,10 +181,10 @@ $totalPage = ceil($userCount / $perPage);
                                     會員帳號
                                 </a>
                                 <a class=" btn btn-khak me-2" href="users.php?page=<?= $page ?>&perPage=<?= $perPage ?>&order=<?php if ($order == 6) {
-                                                                                                                                echo "7";
-                                                                                                                            } else {
-                                                                                                                                echo "6";
-                                                                                                                            } ?>">
+                                                                                                                                    echo "7";
+                                                                                                                                } else {
+                                                                                                                                    echo "6";
+                                                                                                                                } ?>">
                                     註冊時間
                                 </a>
                             </div>
@@ -229,6 +228,14 @@ $totalPage = ceil($userCount / $perPage);
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
+                            <?php if ($userCount > 0) : ?>
+                                <tr>
+                                <?php else : ?>
+                                    <td colspan="7">
+                                        <?= "沒有符合條件的結果" ?>
+                                    </td>
+                                <?php endif; ?>
+                                </tr>
                         </tbody>
                     </table>
 

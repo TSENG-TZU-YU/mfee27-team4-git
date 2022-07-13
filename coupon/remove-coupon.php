@@ -18,7 +18,6 @@ if ($conn->query($sql) === TRUE) {
 
 
 
-
 header("location: coupons.php"); 
 
 ?>
