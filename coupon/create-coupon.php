@@ -2,7 +2,7 @@
 <html lang="zh-tw">
 
 <head>
-    <title>後台系統</title>
+    <title>HAMAYA MUSIC - 優惠券</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">

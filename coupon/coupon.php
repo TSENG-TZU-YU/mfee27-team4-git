@@ -3,7 +3,7 @@
 
 require("../db-connect.php");
 
-
+session_start();
 
 if (!isset($_GET["id"])) {
     echo "沒有參數";
@@ -32,7 +32,7 @@ $couponCountAll = $resultAll->num_rows;
 <html lang="en">
 
 <head>
-    <title>Coupon Edit</title>
+    <title>HAMAYA MUSIC - 優惠券</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

@@ -4,7 +4,7 @@ if(!isset($_POST["name"])){
     echo "沒有帶資料到本頁";
     exit;
 }
-
+session_start();
 $cate=$_POST["cate"];
 $name=$_POST["name"];
 $location=$_POST["location"];

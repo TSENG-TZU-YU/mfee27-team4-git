@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 if(isset($_GET["page"])){
     $page=$_GET["page"];
@@ -85,7 +86,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
 <html lang="zh-tw">
 
 <head>
-    <title>Coupons-Hide</title>
+    <title>HAMAYA MUSIC - 優惠券</title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
