@@ -74,6 +74,8 @@ $sqlOrder = "WHERE order-list.php";
                         <a class="col-1 btn btn-green me-2" href="order-list.php?page=<?= $listPage ?><?php
                                                                                                         if ($orderType == "&order=1") echo "&order=1";
                                                                                                         if ($orderType == "&order=2") echo "&order=2";
+                                                                                                        if ($orderType == "&order=3") echo "&order=3";
+                                                                                                        if ($orderType == "&order=4") echo "&order=4";
                                                                                                         if ($orderType == "payment_method=1 AND") echo "&payment=1";
                                                                                                         if ($orderType == "payment_method=2 AND") echo "&payment=2";
                                                                                                         if ($orderType == "payment_state=1 AND") echo "&payment=3";
@@ -104,7 +106,7 @@ $sqlOrder = "WHERE order-list.php";
                                         <?php foreach ($rows as $row) : ?>
                                             <?php if ($row["category_id"] === "A") :
                                                 $proImg = $row["product_id"];
-                                                $sql = "SELECT product_id, image FROM instrument_product WHERE product_id='$proImg'";
+                                                $sql = "SELECT image FROM instrument_product WHERE product_id='$proImg'";
                                                 $result = $conn->query($sql);
                                                 $orderCount = $result->num_rows;
                                                 $rowPic = $result->fetch_assoc();
@@ -152,7 +154,7 @@ $sqlOrder = "WHERE order-list.php";
                                         <?php foreach ($rows as $row) : ?>
                                             <?php if ($row["category_id"] === "B") : 
                                                 $proImg = $row["product_id"];
-                                                $sql = "SELECT product_id, image FROM course_product WHERE product_id='$proImg'";
+                                                $sql = "SELECT image FROM course_product WHERE product_id='$proImg'";
                                                 $result = $conn->query($sql);
                                                 $orderCount = $result->num_rows;
                                                 $rowPic = $result->fetch_assoc();
@@ -198,7 +200,7 @@ $sqlOrder = "WHERE order-list.php";
                                         <?php foreach ($rows as $row) : ?>
                                             <?php if ($row["category_id"] === "C") : 
                                                 $proImg = $row["product_id"];
-                                                $sql = "SELECT product_id, image FROM place_produce WHERE product_id='$proImg'";
+                                                $sql = "SELECT image FROM place_produce WHERE product_id='$proImg'";
                                                 $result = $conn->query($sql);
                                                 $orderCount = $result->num_rows;
                                                 $rowPic = $result->fetch_assoc();

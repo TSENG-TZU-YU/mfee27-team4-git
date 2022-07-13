@@ -6,7 +6,7 @@ $id=$_GET["id"];
 $sql="UPDATE users SET enable=0 WHERE id='$id'";
 
 if ($conn->query($sql) === TRUE) {
-    echo "<script language='JavaScript'>;alert('成功加入黑名單');location.href='users.php';</script>;";
+    echo "<script>alert('成功加入黑名單');location.href='users.php';</script>;";
     
 } else {
     echo "無法加入黑名單: " . $conn->error;

@@ -16,11 +16,15 @@ if (!isset($_POST["id"])) {
   $content = $_POST["content"];
   $oldImage = $_POST["oldImage"];
 
+  // 設定成系統時間
+  date_default_timezone_set('Asia/Taipei');
+  $now = date('Y-m-d H:i');
 
 
   // 將資料寫入 article 資料表
-  $sqlAll = "UPDATE article SET title='$title', category='$category', content='$content' WHERE id=$id";
+  $sqlAll = "UPDATE article SET title='$title', category='$category', content='$content', creation_date='$now' WHERE id=$id";
   $conn->query($sqlAll);
+
 
 
 
@@ -47,6 +51,6 @@ if (!isset($_POST["id"])) {
   }
 
 
-  echo "<script>alert('文章修改成功'); location.href='articles.php?page=1&search=&categoryOrder=1&publish='</script>";
+  echo "<script>alert('文章修改成功'); location.href='articles.php?page=1&search=&categoryOrder=1&publish=&order=1';</script>";
   $conn->close();
 }
