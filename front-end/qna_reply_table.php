@@ -1,9 +1,11 @@
 <?php
+require("../db-connect.php");
 session_start();
+
 if(!isset($_SESSION["front_user"])){
     header("location: front_login.php");
   }
-require("../db-connect.php");
+
 $order_id=$_GET["order_id"];
 
 $sql="SELECT order_qna.*, users.account,users.name FROM order_qna
