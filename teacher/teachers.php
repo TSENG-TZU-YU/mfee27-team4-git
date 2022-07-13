@@ -148,7 +148,6 @@ $totalPage = ceil($teacherCount / $perPage);
         <div class="container">
           <div class="row">
             <form action="teachers.php" method="get">
-              <input type="hidden" value="<?= $page ?>" name="page">
               <input type="hidden" value="<?= $order ?>" name="order">
               <div class="row">
                 <p class="col-8 m-auto"><?php
@@ -199,7 +198,6 @@ $totalPage = ceil($teacherCount / $perPage);
               </div>
               <!-- 教學領域篩選 -->
               <form class="d-flex" action="teachers.php" method="get">
-                <input type="hidden" value="<?= $page ?>" name="page">
                 <input type="hidden" value="<?= $search ?>" name="search">
                 <input type="hidden" value="<?= $order ?>" name="order">
                 <select class="col form-select me-2" aria-label="Default select example" name="fieldOrder">
