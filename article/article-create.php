@@ -84,7 +84,6 @@
                     <label for="content" class="fw-bold mt-3">文章內容</label>
                     <div class=" mt-1">
                       <textarea class="form-control autoContent" style="resize:none; height: 400px" name="content"></textarea>
-                      <!-- <label for="floatingTextarea2"></label> -->
                     </div>
                   </div>
                   <div class="col-6">

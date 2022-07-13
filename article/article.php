@@ -147,25 +147,32 @@ $ArticleCount = $resultAll->num_rows;
                         <input type="hidden" value="<?= $categoryOrder ?>" name="categoryOrder">
                         <input type="hidden" value="<?= $publish ?>" name="publish">
                         <input type="hidden" value="<?= $id ?>" name="id">
-                        <button class="btn btn-khak me-3" type="submit">
+                        <?php if ($rowArticle["valid"] == 1) : ?>
+                          <?= '<button class="btn btn-khak me-3" type="submit">
                           <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                          修改文章
-                        </button>
+                          修改文章' ?>
+                          </button>
+                        <?php endif; ?>
                       </form>
                       <?php if ($rowArticle["valid"] == 1) : ?>
                         <?= '<a class="btn btn-grey" href="article-doPublish.php?id=' . $id ?>
                         <?= '"><img class="mb-1" src="../icon/article-icon.svg" width="16" height="16"></img>
                         發佈文章
                       </a>' ?>
-                      <?php endif; ?>
-                      <?php if ($rowArticle["valid"] == 2) : ?>
+                      <?php else : ?>
                         <?= '<a class="btn btn-red" href="article-noPublish.php?id=' . $id ?>
                         <?= '"><img class="mb-1" src="../icon/article-icon.svg" width="16" height="16"></img>
                         取消發佈
                       </a>' ?>
                       <?php endif; ?>
                       <div class="ms-auto p-2">
-                        <a class="btn btn-red" href="article-doDelete.php?id=<?= $id ?>">
+                        <a class="btn btn-red" href="
+                        <?php if ($rowArticle["valid"] == 1) : ?>
+                          <?= 'article-doDelete.php?id=' . $id ?>
+                          <?php else : ?>
+                            <?= 'article-publish-doDelete.php?id=' . $id ?>
+                        <?php endif; ?>
+                        ">
                           <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
                           刪除
                         </a>
