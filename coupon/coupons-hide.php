@@ -12,7 +12,7 @@ require("../db-connect.php");
 
 $sqlAll="SELECT * FROM coupon WHERE shelf=1 ";
 $resultAll= $conn->query($sqlAll);
-$couponHideCount=$resultAll->num_rows;
+$couponCount=$resultAll->num_rows;
 
 
 $perPage=4;
@@ -20,7 +20,7 @@ $start=($page-1)*$perPage;
 
 $startItem=($page-1)*$perPage+1;
 $endItem=$page*$perPage;
-if($endItem>$couponHideCount)$endItem=$couponHideCount;
+if($endItem>$couponCount)$endItem=$couponCount;
 
 $order=isset($_GET["order"]) ? $_GET["order"] : 1;
 
@@ -44,7 +44,7 @@ $start,4";
 $result = $conn->query($sql);
 $pageCouponCount=$result->num_rows;
 
-$totalPage=ceil($couponHideCount / $perPage); 
+$totalPage=ceil($couponCount / $perPage); 
 
 $rows = $result->fetch_all(MYSQLI_ASSOC);
 
@@ -80,8 +80,8 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
     <div class="container-fluid">
         <div class="row d-flex">
 
-            <!-- 導覽列 nav -->
-           
+         <!-- 導覽列 nav -->
+         <?php require("../nav.php"); ?>
             <!-- 導覽列 nav end -->
 
             <!-- 主要區塊 main -->
@@ -91,7 +91,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                 <biv aria-label="breadcrumb">
                     <ol class="breadcrumb fw-bold">
                         <li class="breadcrumb-item"><a href="#">首頁</a></li>
-                        <li class="breadcrumb-item" aria-current="page"><a href="#">待使用優惠卷列表</a></li>
+                        <li class="breadcrumb-item" aria-current="page"><a href="#">使用中優惠卷列表</a></li>
                     </ol>
                 </biv>
                 <!-- 麵包屑 breadcrumb end -->
@@ -102,8 +102,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                 <div class="container">
                 <form action="couponHide-search.php" method="get">   
                     <div class="row">    
-                    <span class="col-5"> 第<?=$startItem?>- <?=$endItem?>筆</span>
-                         <p class="col-8 m-auto">總共<?=$couponHideCount?> 筆資料</p>
+                         <p class="col-8 m-auto">第<?=$startItem?>-<?=$endItem?>筆，總共<?=$couponCount?> 筆資料</p>
                         <input class="col form-control me-3" type="text" name="search">
                       <button type="submit" class="col-1 btn btn-green">
                       <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
@@ -111,12 +110,19 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                         </div>
                        </form>
                     <hr>
-                  
+                    <a class="col-1 btn btn-green me-2" href="create-coupon.php">
+                        <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                        新增
+                    </a>
+                    <a class="col-1 btn btn-green me-2" href="coupons.php">
+                        <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                        待上架
+                
                        
                         
                 
-                <a href="coupons-hide.php?page=<?=$page?>&order=1" class="btn btn-khak  <?php if($order==1)echo" active" ?>">By id asc</a>
-                <a href="coupons-hide.php?page=<?=$page?>&order=2" class="btn btn-khak  <?php if($order==2)echo" active" ?>">By id desc</a>
+                <a href="coupons-hide.php?page=<?=$page?>&order=1" class="btn btn-khak  <?php if($order==1)echo"hover" ?>">By id asc</a>
+                <a href="coupons-hide.php?page=<?=$page?>&order=2" class="btn btn-khak  <?php if($order==2)echo"hover" ?>">By id desc</a>
                
                           
                       
@@ -128,12 +134,12 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                           
                                 <th scope="col">編號</th>
                                 <th scope="col">優惠券名稱</th>
-                                <th scope="col">使用者資格</th>
                                 <th scope="col">序號</th>
                                 <th scope="col">折扣</th>
                                 <th scope="col">日期</th>
                                 <th scope="col">使用次數</th>
                                 <th scope="col">最低金額</th>
+                                <th scope="col">管理操作</th>
                             
                             </tr>
                         </thead>
@@ -142,21 +148,21 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                     <tr>
                         <td><?=$row["id"]?></td>
                         <td><?=$row["name"]?></td>
-                        <td><?=$row["member"]?></td>
                         <td><?=$row["number"]?></td>
                         <td><?=$row["discount"]?></td>
                         <td><?=$row["dateline"]?></td>
                         <td><?=$row["several_times"]?></td>
                         <td><?=$row["min_price"]?></td>
                         <td>
-                        <a class="btn btn-grey me-3" type="" href="coupon-hide.php?
-                        id=<?=$row["id"]?>">
+                        <a class="btn btn-grey me-3" type="" href="coupon-hide.php?id=<?=$row["id"]?>">
                         <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                         詳細
                         </a>
+                        </a>
+                   
                     <a class="btn btn-khak" type="" href="remove-coupon.php?id=<?=$row["id"]?>">
                         <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                        上架
+                        下架
                         </a>
                     </td>
                     </tr>
@@ -164,7 +170,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                </tbody>
                     </table>
                     <!-- 頁碼 -->
-                    <div aria-label="Page navigation example">
+                    <div aria-label="Page navigation example"  class="d-flex mt-4  justify-content-center">
                         <ul class="pagination">
                             <?php for($i=1; $i<=$totalPage; $i++):?>
                                <li class="page-item <?php if($page==$i)echo "active";

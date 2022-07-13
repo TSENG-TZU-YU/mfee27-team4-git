@@ -9,7 +9,6 @@ if(!isset($_POST["name"])){
 
 $name=$_POST["name"];
 $number=$_POST["number"];
-$member=$_POST["member"];
 $discount=$_POST["discount"];
 $dateline=$_POST["dateline"];
 $times=$_POST["times"];
@@ -17,10 +16,9 @@ $price=$_POST["price"];
 $now=date('Y-m-d H:i:s');
 
 
-
 //echo "$name, $number, $discount, $dateline, $times, $price";
-$sql="INSERT INTO coupon (name, number, member, discount, dateline, several_times, min_price, create_time, coupon_c, valid, shelf ) VALUES
- ('$name', '$number', '$member', '$discount', '$dateline', '$times', '$price','$now', 0,  1, 0 )"; 
+$sql="INSERT INTO coupon (name, number, discount, dateline, several_times, min_price, create_time, coupon_c, valid, shelf ) VALUES
+ ('$name', '$number', '$discount', '$dateline', '$times', '$price','$now', 7,  1, 0 )"; 
 
 if ($conn->query($sql) === TRUE) {
     echo "新資料輸入成功";

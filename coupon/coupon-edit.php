@@ -7,7 +7,7 @@ if(!isset($_GET["id"])){
 $id=$_GET["id"];
 
 require("../db-connect.php");
-$sql="SELECT * FROM coupon WHERE id=$id AND valid=1 ";
+$sql="SELECT * FROM coupon WHERE id=$id AND valid=1 AND shelf=0";
 
 $result = $conn->query($sql);
 $couponCount=$result->num_rows;
@@ -37,7 +37,10 @@ $couponCount=$result->num_rows;
   <div class="container-fluid">
         <div class="row d-flex">
 
-        <?php require("../nav.php"); ?>
+       <!-- 導覽列 nav -->
+       <?php require("../nav.php"); ?>
+            <!-- 導覽列 nav end -->
+            
             <main class="col-10 px-5 py-4">
 
                 <!-- 麵包屑 breadcrumb -->
@@ -128,7 +131,7 @@ $couponCount=$result->num_rows;
                         <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                         儲存
                     </button>
-                    <a class=" btn btn-grey  ms-3" href="coupons.php">
+                    <a class=" btn btn-grey  ms-3" href="coupons-hide.php">
                     <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                       返回上一頁
                       </a>

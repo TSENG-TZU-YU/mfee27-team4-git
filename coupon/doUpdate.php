@@ -9,14 +9,13 @@ require("../db-connect.php");
 
 $id=$_POST["id"];
 $name=$_POST["name"];
-$members=$_POST["members"];
 $number=$_POST["number"];
 $discount=$_POST["discount"];
 $dateline=$_POST["dateline"];
 $times=$_POST["times"];
 $price=$_POST["price"];
 
-$sql="UPDATE coupon SET name='$name', members='$members', number='$number', discount='$discount',
+$sql="UPDATE coupon SET name='$name', number='$number', discount='$discount',
 dateline='$dateline', several_times='$times', min_price='$price' WHERE id=$id";
 
 // echo $sql;
