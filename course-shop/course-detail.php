@@ -1,6 +1,6 @@
 <?php
 require("../db-connect.php");
-
+session_start();
 if (!isset($_GET["id"])) {
     echo "沒有參數";
     exit;

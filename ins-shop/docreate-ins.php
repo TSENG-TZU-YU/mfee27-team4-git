@@ -1,6 +1,6 @@
 <?php
 require("../db-connect.php");
-
+session_start();
 if(!isset($_POST["name"])){  //後端檢查是否帶資料
     echo"沒帶資料";
     exit;

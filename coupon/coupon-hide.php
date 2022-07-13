@@ -171,10 +171,7 @@ $result = $conn->query($sql);
 
 
                                 <div class="d-flex justify-content-center align-items-center mt-4">
-                                    <a class="btn btn-khak me-3" type="" href="coupon-edit.php?id=<?= $row["id"] ?>">
-                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                        修改
-                                    </a>
+                             
                                     <a class=" btn btn-grey me-3" href="coupons-hide.php">
                                         <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                         返回上一頁
