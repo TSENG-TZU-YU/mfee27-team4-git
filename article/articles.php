@@ -218,7 +218,11 @@ $totalPage = ceil($articleCount / $perPage);
                                           echo "第 " . $startItem . " - " . $endItem . " 筆";
                                         }
                                         ?>，總共 <?= $articleCount ?> 筆資料</p>
-                <input class="col form-control me-3" type="text" name="search">
+                <input class="col form-control me-3" type="text" name="search" placeholder="<?php if ($search != "") {
+                                                                                              echo "搜尋 " . $search . " 結果";
+                                                                                            } else {
+                                                                                              echo "搜尋關鍵字";
+                                                                                            } ?>" onfocus="this.placeholder='搜尋關鍵字'">
                 <button class="col-1 btn btn-green" type="submit">
                   <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                   搜尋
@@ -241,6 +245,10 @@ $totalPage = ceil($articleCount / $perPage);
             <!-- 排序、篩選按鈕 -->
             <div class="d-flex justify-content-end  align-items-center">
               <form class="d-flex" action="articles.php" method="get">
+                <input type="hidden" value="<?= $page ?>" name="page">
+                <input type="hidden" value="<?= $search ?>" name="search">
+                <input type="hidden" value="<?= $order ?>" name="order">
+                <input type="hidden" value="<?= $categoryOrder ?>" name="categoryOrder">
                 <div class="me-2">
                   發佈狀態：
                   <input class="form-check-input" type="radio" id="flexRadioDefault1" value="1" name="publish" <?php if ($publish == 1 || $publish == "") echo "checked"; ?> onclick="this.form.submit()">
@@ -309,7 +317,17 @@ $totalPage = ceil($articleCount / $perPage);
                       ?>" style="cursor: inherit; ">
                     <?= $row["category"] ?>
                   </div>
-                  <img src="../images/<?= $row["image"] ?>" class="card-img-top img-fluid" alt="...">
+                  <img src="
+                  <?php if (empty($row["image"])) {
+                    // 如果沒有照片就顯示icon
+                    echo "../images/article-img-icon.svg";
+                  } else {
+                    // 如果有照片就顯示上傳的照片
+                    $articleImage = $row["image"];
+                    echo "../images/$articleImage";
+                  }
+                  ?>
+                  " class="card-img-top img-fluid" alt="...">
                   <div class="card-body">
                     <!-- 文章詳細 -->
                     <form action="article.php" method="git">
@@ -343,7 +361,11 @@ $totalPage = ceil($articleCount / $perPage);
                         <input type="hidden" value="<?= $categoryOrder ?>" name="categoryOrder">
                         <input type="hidden" value="<?= $publish ?>" name="publish">
                         <input type="hidden" value="<?= $row["id"] ?>" name="id">
-                        <button class="btn btn-khak btn-sm mt-1" type="submit">
+                        <button class="btn btn-khak btn-sm mt-1
+                        <?php if ($row["valid"] == 2) : ?>
+                          <?= "d-none" ?>
+                          <?php endif; ?>
+                        " type="submit">
                           <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                           修改
                         </button>
@@ -354,16 +376,21 @@ $totalPage = ceil($articleCount / $perPage);
               </div>
             <?php endforeach; ?>
           </div>
+          <?php if ($articleCount == 0) : ?>
+            <div class="d-flex mt-5  justify-content-center">
+              <?= "沒有符合條件的資料"; ?>
+            <?php endif; ?>
+            </div>
 
-          <!-- 頁碼 -->
-          <div aria-label="Page navigation example text-end" class="d-flex mt-3  justify-content-center">
-            <ul class="pagination">
-              <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
-                <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="articles.php?page=<?= $i ?>&search=<?= $search ?>&categoryOrder=<?= $categoryOrder ?>&publish=<?= $publish ?>"><?= $i ?></a></li>
-              <?php endfor; ?>
-            </ul>
-          </div>
-          <!-- 頁碼 end -->
+            <!-- 頁碼 -->
+            <div aria-label="Page navigation example text-end" class="d-flex mt-3  justify-content-center">
+              <ul class="pagination">
+                <?php for ($i = 1; $i <= $totalPage; $i++) : ?>
+                  <li class="page-item"><a class="page-link <?php if ($page == $i) echo "active"; ?>" href="articles.php?page=<?= $i ?>&search=<?= $search ?>&categoryOrder=<?= $categoryOrder ?>&publish=<?= $publish ?>"><?= $i ?></a></li>
+                <?php endfor; ?>
+              </ul>
+            </div>
+            <!-- 頁碼 end -->
         </div>
         <!-- 內容 end -->
 

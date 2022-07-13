@@ -95,7 +95,7 @@ $teacherCount = $resultAll->num_rows;
                             $teacherImage = $row["image"];
                             echo "../images/$teacherImage";
                         } ?>
-              " style="height: 250px;">
+              " style="height: 300px;">
                             </div>
                             <div class="col-9 m-auto">
                                 <table class="table">

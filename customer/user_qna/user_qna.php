@@ -3,35 +3,28 @@ require("../../db-connect.php");
 $sqlUser_qna="WHERE user_qna.php";
 session_start();
 
-
 if(isset($_GET["perPage"])){
-    $_SESSION["userstate"]["perPage"]=$_GET["perPage"];
-}elseif(isset($_SESSION["userstate"]["perPage"])){
-    $_SESSION["userstate"]["perPage"]=$_SESSION["userstate"]["perPage"];
-}else{
-    $_SESSION["userstate"]["perPage"]=4;
+    $_SESSION["userState"]["perPage"]=$_GET["perPage"];
+}elseif(!isset($_SESSION["userState"]["perPage"])){
+    $_SESSION["userState"]["perPage"]=4;
 }
-$perPage=$_SESSION["userstate"]["perPage"];
+$perPage=$_SESSION["userState"]["perPage"];
 // $perPage=isset($_GET["perPage"])? $_GET["perPage"] : 4;
 
 if(isset($_GET["page"])){
-    $_SESSION["userstate"]["page"]=$_GET["page"];
-}elseif(isset($_SESSION["userstate"]["page"])){
-    $_SESSION["userstate"]["page"]=$_SESSION["userstate"]["page"];
-}else{
-    $_SESSION["userstate"]["page"]=1;
+    $_SESSION["userState"]["page"]=$_GET["page"];
+}elseif(!isset($_SESSION["userState"]["page"])){
+    $_SESSION["userState"]["page"]=1;
 }
-$page=$_SESSION["userstate"]["page"];
+$page=$_SESSION["userState"]["page"];
 // $page=isset($_GET["page"])? $_GET["page"] : 1;
 
 if(isset($_GET["category"])){
-    $_SESSION["userstate"]["category"]=$_GET["category"];
-}elseif(isset($_SESSION["userstate"]["category"])){
-    $_SESSION["userstate"]["category"]=$_SESSION["userstate"]["category"];
-}else{
-    $_SESSION["userstate"]["category"]="";
+    $_SESSION["userState"]["category"]=$_GET["category"];
+}elseif(!isset($_SESSION["userState"]["category"])){
+    $_SESSION["userState"]["category"]="";
 }
-$category=$_SESSION["userstate"]["category"];
+$category=$_SESSION["userState"]["category"];
 // $category=isset($_GET["category"])? $_GET["category"] : "";
 switch($category){
     case 1:
@@ -52,29 +45,23 @@ switch($category){
 }
 
 if (isset($_GET["search"])){
-    $_SESSION["userstate"]["search"]=$_GET["search"];
-    $search=$_SESSION["userstate"]["search"];
+    $_SESSION["userState"]["search"]=$_GET["search"];
+    $search=$_SESSION["userState"]["search"];
     $sqlseach="( users.account LIKE '%$search%' OR user_qna.name LIKE '%$search%') AND"; 
-}elseif(isset($_SESSION["userstate"]["search"])){
-    $_SESSION["userstate"]["search"]=$_SESSION["userstate"]["search"];
-    $search=$_SESSION["userstate"]["search"];
-    $sqlseach="( users.account LIKE '%$search%' OR user_qna.name LIKE '%$search%') AND"; 
-}else{
-    $_SESSION["userstate"]["search"]="";
-    $search="";
+}elseif(!isset($_SESSION["userState"]["search"])){
     $sqlseach="";
-}
-
-if(isset($_GET["order"])){
-    $_SESSION["userstate"]["order"]=$_GET["order"];
-}elseif(isset($_SESSION["userstate"]["order"])){
-    $_SESSION["userstate"]["order"]=$_SESSION["userstate"]["order"];
 }else{
-    $_SESSION["userstate"]["order"]=2;
+    $search=$_SESSION["userState"]["search"];
+    $sqlseach="( users.account LIKE '%$search%' OR user_qna.name LIKE '%$search%') AND";
 }
-$order=$_SESSION["userstate"]["order"];
+ 
+if(isset($_GET["order"])){
+    $_SESSION["userState"]["order"]=$_GET["order"];
+}elseif(!isset($_SESSION["userState"]["order"])){
+    $_SESSION["userState"]["order"]=2;
+}
+$order=$_SESSION["userState"]["order"];
 // $order=isset($_GET["order"])? $_GET["order"] : 2;  
-$order=isset($_GET["order"])? $_GET["order"] : 1;
 switch($order){
     case 1:
         $orderType="user_qna.id ASC";
@@ -192,7 +179,7 @@ $totalPage=ceil($userCount/$perPage);
                                         <p class="text-nowrap">帳號姓名搜尋</p> 
                                     </button>
                                 </div>
-                                <input type="hidden" name="category" value="<?=$category?>">
+                                <input type="hidden" name="page" value="1">
                             </form>
                         </div>
                     </div>
@@ -223,21 +210,22 @@ $totalPage=ceil($userCount/$perPage);
                             <label for="category4">新訊息</label>
                         </div>
                     </div>
+                    <input type="hidden" name="page" value="1">
                 </form>
                 <!-- <hr> -->
                     <table class="table mt-2">
                         <thead>
                             <tr >
                                 <?php //echo $order ?>
-                                <th scope="col" class="text-nowrap"><a href="user_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==1){echo "2";}else{echo "1";}?>">編號</a> </th>
-                                <th scope="col" class="text-nowrap"><a href="user_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==3){echo "4";}else{echo "3";}?>">會員帳號</a></th>
-                                <th scope="col" class="text-nowrap"><a href="order_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==5){echo "6";}else{echo "5";}?>">姓名</a></th>
+                                <th scope="col" class="text-nowrap"><a href="user_qna.php?order=<?php if($order==1){echo "2";}else{echo "1";}?>">編號</a> </th>
+                                <th scope="col" class="text-nowrap"><a href="user_qna.php?order=<?php if($order==3){echo "4";}else{echo "3";}?>">會員帳號</a></th>
+                                <th scope="col" class="text-nowrap"><a href="user_qna.php?order=<?php if($order==5){echo "6";}else{echo "5";}?>">姓名</a></th>
                                 <th scope="col" class="text-nowrap">E-MAIL</th>
                                 <th scope="col" class="text-nowrap">電話</th>
                                 <th scope="col" class="text-nowrap">問題類型</th>
                                 <th scope="col" class="text-nowrap">問題標題</th>
                                 <th scope="col" class="text-nowrap">回覆狀態</th>
-                                <th scope="col" class="text-nowrap"><a href="user_qna.php?page=<?=$page?>&perPage=<?=$perPage?>&category=<?=$category?>&search=<?=$search?>&order=<?php if($order==5){echo "8";}else{echo "7";}?>">詢問時間</a></th>
+                                <th scope="col" class="text-nowrap"><a href="user_qna.php?order=<?php if($order==5){echo "8";}else{echo "7";}?>">詢問時間</a></th>
                                 <th scope="col" class="text-nowrap">最後更新時間</th>
                             </tr>
                         </thead>
@@ -294,7 +282,7 @@ $totalPage=ceil($userCount/$perPage);
                         <ul class="pagination">
                             <?php for($i=1; $i<=$totalPage; $i++): ?>
                             <li class="page-item <?php if($page==$i)echo "active";?>">
-                                <a class="page-link" href="user_qna.php?page=<?=$i?>&perPage=<?=$perPage?>&order=<?=$order?>&category=<?=$category?>&search=<?=$search?>"><?=$i?></a>
+                                <a class="page-link" href="user_qna.php?page=<?=$i?>"><?=$i?></a>
                             </li>
                             <?php endfor; ?>
                         </ul>
@@ -315,5 +303,4 @@ $totalPage=ceil($userCount/$perPage);
     <!-- Bootstrap JavaScript Libraries end -->
 
 </body>
-
 </html>

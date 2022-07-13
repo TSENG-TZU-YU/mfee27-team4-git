@@ -43,6 +43,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
     <!-- 版面元件樣式 css -->
     <link rel="stylesheet" href="/mfee27-team4-git/style.css">
     </link>
+    <!-- <meta http-equiv="refresh" content="10" >  -->
     <style>
         .inputcontent{
             height: 70px;    
@@ -98,7 +99,7 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                             </tr>
                             <tr>
                                 <th>E-MAIL</th>
-                                <td><?=$row["email"]?></td>
+                                <td><a class="text-dark fw-bolder" href = "mailto: <?=$row["email"]?>"><?=$row["email"]?></a></td>
                             </tr>
                             <tr>
                                 <th>電話</th>
@@ -177,14 +178,14 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                 <th class="">進行回覆</th>
                                 <td >
                                     <!-- <textarea type="" pattern=".*[^ ].*" class="form-control inputcontent" placeholder='輸入對話' name="reply" ></textarea> -->
-                                    <input type="text" name="reply" class="form-control inputcontent"  placeholder="<?php if(isset($row["account"])==null){echo "非會員請由其他方式聯絡";}else{echo "輸入內容";}?>" autocomplete="off" <?php if(isset($row["account"])==null){echo "disabled";}?> >
+                                    <input type="text" name="reply" class="form-control inputcontent" autofocus  placeholder="<?php if(isset($row["account"])==null){echo "非會員請由其他方式聯絡";}else{echo "輸入內容";}?>" autocomplete="off" <?php if(isset($row["account"])==null){echo "disabled";}?> >
                                 </td>    
                             </tr>
                         </table>
                         <div class="d-flex justify-content-between">
                             <div class="d-flex">
                                 <div class="py-2 mx-2 ">
-                                    <button onclick="rep()" class="btn btn-green" type="">確定</button>
+                                    <button onclick="rep()" class="btn btn-green" type=""><?php if(isset($row["account"])==null){echo "確定聯絡";}else{echo "確定";}?></button>
                                     <input type="hidden" name="user_qna_id" value="<?=$user_qna_id?>">
                                 </div>
                                 <div class="py-2 mx-2">

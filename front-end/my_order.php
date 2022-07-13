@@ -5,10 +5,14 @@ if(!isset($_SESSION["front_user"])){
   }
 require("../db-connect.php");
 $user_id=$_SESSION["front_user"]["id"];
+$sql="SELECT order_product.*,state.name AS order_state ,pay_state.name AS payment_state,pay_by.name AS payment_method FROM order_product 
+    JOIN state ON order_product.order_state = state.id
+    JOIN pay_state ON order_product.payment_state = pay_state.id 
+    JOIN pay_by ON order_product.payment_method = pay_by.id";
 
-$sql="SELECT order_product.*, users.id, users.name FROM order_product 
-    JOIN users ON order_product.account = users.account 
-    WHERE users.id = $user_id";
+// $sql="SELECT order_product.*, users.id, users.name FROM order_product 
+//     JOIN users ON order_product.account = users.account 
+//     WHERE users.id = $user_id";
 // print_r($sql);
 $result=$conn->query($sql); 
 $rows=$result->fetch_all(MYSQLI_ASSOC); 
@@ -129,7 +133,7 @@ $rows=$result->fetch_all(MYSQLI_ASSOC);
                             <td class="text-nowrap"><?=$row["payment_state"]?></td>
                             <td class="text-nowrap"><?=$row["payment_method"]?></td>
                             <td class="text-nowrap"><?=$row["total_amount"]?></td>
-                            <td class="text-nowrap"><?=$row["payment_time"]?></td>
+                            <td class="text-nowrap"><?=$row["create_time"]?></td>
                             <form action="qna_table.php" method="post">
                                 <td class="text-nowrap">
                                     <button class="btn bg-orange-color me-2" type="submit">

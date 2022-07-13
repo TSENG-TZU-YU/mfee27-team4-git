@@ -105,7 +105,7 @@ $row = $result->fetch_assoc();
         <div class="row mt-3">
             <main class="<?php if(isset($_SESSION["front_user"])){echo"col-md-10";}else{echo"col-md";}?>">
                 <article class="content">
-                <h1>訂單號" <?=$order_id?> "的問題</h1>
+                <h1>單號"<?=$order_id?>"的問題</h1>
                 <hr>                   
                 <form action="qna_doAsker.php" method="post" class="formitem">
                     <div class="formitem">

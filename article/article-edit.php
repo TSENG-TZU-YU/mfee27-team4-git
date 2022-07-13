@@ -137,7 +137,7 @@ $ArticleCount = $resultAll->num_rows;
                       <input type="hidden" name="oldImage" value="<?= $rowArticle["image"]  ?>">
                       <img class="img-fluid rounded object-cover mb-3 iframe-cover mt-3" id="preview" src="<?php if (empty($rowArticle["image"])) {
                                                                                                               // 如果沒有照片就顯示頭像icon
-                                                                                                              echo "../images/img-icon.svg";
+                                                                                                              echo "../images/article-img-icon.svg";
                                                                                                             } else {
                                                                                                               // 如果有照片就顯示上傳的照片
                                                                                                               $articleImage = $rowArticle["image"];
@@ -156,18 +156,6 @@ $ArticleCount = $resultAll->num_rows;
                       <img class="mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
                       修改完成
                     </button>
-                    <?php if ($rowArticle["valid"] == 1) : ?>
-                      <?= '<a class="btn btn-grey" href="article-doPublish.php?id=' . $id ?>
-                      <?= '"><img class="mb-1" src="../icon/article-icon.svg" width="16" height="16"></img>
-                        發佈文章
-                      </a>' ?>
-                    <?php endif; ?>
-                    <?php if ($rowArticle["valid"] == 2) : ?>
-                      <?= '<a class="btn btn-red" href="article-noPublish.php?id=' . $id ?>
-                      <?= '"><img class="mb-1" src="../icon/article-icon.svg" width="16" height="16"></img>
-                        取消發佈
-                      </a>' ?>
-                    <?php endif; ?>
                     <div class="ms-auto p-2">
                       <a class="btn btn-red" href="article-doDelete.php?id=<?= $id ?>">
                         <img class="bi pe-none mb-1" src="../icon/delete-icon.svg" width="16" height="16"></img>
