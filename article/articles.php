@@ -36,6 +36,10 @@ switch ($publish) {
     $publishType = "valid=2";
     break;
 
+  case 3:
+    $publishType = "(valid=1 OR valid=2)";
+    break;
+
   default:
     $publishType = "valid=1";
 }
@@ -212,7 +216,7 @@ $totalPage = ceil($articleCount / $perPage);
               <div class="row">
                 <p class="col-8 m-auto"><?php
                                         if ($startItem == $endItem) {
-                                          echo "最後1筆";
+                                          echo "最後 1 筆";
                                         } else {
                                           echo "第 " . $startItem . " - " . $endItem . " 筆";
                                         }
@@ -244,7 +248,6 @@ $totalPage = ceil($articleCount / $perPage);
             <!-- 排序、篩選按鈕 -->
             <div class="d-flex justify-content-end  align-items-center">
               <form class="d-flex" action="articles.php" method="get">
-                <input type="hidden" value="<?= $page ?>" name="page">
                 <input type="hidden" value="<?= $search ?>" name="search">
                 <input type="hidden" value="<?= $order ?>" name="order">
                 <input type="hidden" value="<?= $categoryOrder ?>" name="categoryOrder">
@@ -255,45 +258,47 @@ $totalPage = ceil($articleCount / $perPage);
                     未發佈
                   </label>
                   <input class="form-check-input" type="radio" id="flexRadioDefault2" value="2" name="publish" <?php if ($publish == 2) echo "checked"; ?> onclick="this.form.submit()">
-                  <label class="form-check-label me-4" for="flexRadioDefault2">
+                  <label class="form-check-label me-2" for="flexRadioDefault2">
                     已發佈
+                  </label>
+                  <input class="form-check-input" type="radio" id="flexRadioDefault3" value="3" name="publish" <?php if ($publish == 3) echo "checked"; ?> onclick="this.form.submit()">
+                  <label class="form-check-label me-4" for="flexRadioDefault3">
+                    所有文章
                   </label>
                 </div>
               </form>
-              <div class="me-2">
-                <form action="articles.php" method="get">
-                  <input type="hidden" value="<?= $page ?>" name="page">
-                  <input type="hidden" value="<?= $search ?>" name="search">
-                  <input type="hidden" value="<?= $order ?>" name="order">
-                  <input type="hidden" value="<?= $categoryOrder ?>" name="categoryOrder">
-                  <input type="hidden" value="<?= $publish ?>" name="publish">
-                  <input type="hidden" value="<?php if ($order == "") {
-                                                echo "1";
-                                              } ?>" name="order">
-                  <button class="btn  btn-khak me-3" type="submit">
-                    建立時間排序
-                  </button>
-                </form>
-              </div>
               <!-- 文章類別篩選 -->
               <form class="d-flex" action="articles.php" method="get">
                 <input type="hidden" value="<?= $search ?>" name="search">
                 <input type="hidden" value="<?= $order ?>" name="order">
                 <input type="hidden" value="<?= $publish ?>" name="publish">
-                <select class="col form-select me-2" aria-label="Default select example" name=" categoryOrder">
+                <select class="col form-select me-3" aria-label="Default select example" name="categoryOrder">
                   <option selected value="文章類別">文章類別</option>
                   <?php foreach ($categoryOrderArray as $rowOrderArray) : ?>
                     <option value="<?= $rowOrderArray ?>"><?= $rowOrderArray ?></option>
                   <?php endforeach; ?>
                 </select>
-                <button class="btn btn-grey" type="submit">
+                <button class="btn btn-grey me-4" type="submit">
                   篩選
+                </button>
+              </form>
+              <form action="articles.php" method="get">
+                <input type="hidden" value="<?= $page ?>" name="page">
+                <input type="hidden" value="<?= $search ?>" name="search">
+                <input type="hidden" value="<?= $order ?>" name="order">
+                <input type="hidden" value="<?= $categoryOrder ?>" name="categoryOrder">
+                <input type="hidden" value="<?= $publish ?>" name="publish">
+                <input type="hidden" value="<?php if ($order == "") {
+                                              echo "1";
+                                            } ?>" name="order">
+                <button class="btn  btn-khak" type="submit">
+                  建立時間排序
                 </button>
               </form>
             </div>
           </div>
 
-          <div class="row row-cols-1 row-cols-md-3 g-3 mt-1">
+          <div class="row row-cols-1 row-cols-md-3 g-4 mt-1">
             <?php foreach ($articleRows as $row) : ?>
               <div class="col">
                 <div class="card position-relative">

@@ -133,6 +133,8 @@ $ArticleCount = $resultAll->num_rows;
                   <hr>
                   <?php if (isset($rowArticle["image"])) : ?>
                     <?= '<img class="img-fluid rounded mx-auto d-block" id="preview" src="../images/' . $rowArticle["image"] . '">' ?>
+                  <?php else : ?>
+                    <?= '<img class="img-fluid rounded object-cover mb-3 iframe-cover mt-3" id="preview" src="../images/article-img-icon.svg"' ?>
                   <?php endif; ?>
                   <div class="p-4">
                     <p class="mx-3" style="text-overflow: ellipsis; line-height:2; text-align: justify; "><?= $rowArticle["content"] ?></p>

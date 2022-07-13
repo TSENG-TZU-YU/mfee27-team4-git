@@ -69,7 +69,7 @@ $teacherCount = $resultAll->num_rows;
 
 
 // 頁碼
-$perPage = 4;
+$perPage = 5;
 $startPage = ($page - 1) * $perPage;
 $sqlTeacher = "SELECT * FROM teacher WHERE $fieldOrderType $sqlSearch valid=1 ORDER BY $orderType LIMIT $startPage, $perPage";
 
@@ -182,20 +182,6 @@ $totalPage = ceil($teacherCount / $perPage);
             </div>
             <!-- 排序、篩選按鈕 -->
             <div class="col d-flex justify-content-end">
-              <div class="me-2">
-                <form action="teachers.php" method="get">
-                  <input type="hidden" value="<?= $page ?>" name="page">
-                  <input type="hidden" value="<?= $search ?>" name="search">
-                  <input type="hidden" value="<?= $order ?>" name="order">
-                  <input type="hidden" value="<?= $fieldOrder ?>" name="fieldOrder">
-                  <input type="hidden" value="<?php if ($order == "") {
-                                                echo "1";
-                                              } ?>" name="order">
-                  <button class="btn  btn-khak me-3" type="submit">
-                    師資編號排序
-                  </button>
-                </form>
-              </div>
               <!-- 教學領域篩選 -->
               <form class="d-flex" action="teachers.php" method="get">
                 <input type="hidden" value="<?= $search ?>" name="search">
@@ -206,8 +192,20 @@ $totalPage = ceil($teacherCount / $perPage);
                     <option value="<?= $rowOrderArray ?>"><?= $rowOrderArray ?></option>
                   <?php endforeach; ?>
                 </select>
-                <button class="btn btn-grey" type="submit">
+                <button class="btn btn-grey me-4" type="submit">
                   篩選
+                </button>
+              </form>
+              <form action="teachers.php" method="get">
+                <input type="hidden" value="<?= $page ?>" name="page">
+                <input type="hidden" value="<?= $search ?>" name="search">
+                <input type="hidden" value="<?= $order ?>" name="order">
+                <input type="hidden" value="<?= $fieldOrder ?>" name="fieldOrder">
+                <input type="hidden" value="<?php if ($order == "") {
+                                              echo "1";
+                                            } ?>" name="order">
+                <button class="btn  btn-khak" type="submit">
+                  師資編號排序
                 </button>
               </form>
             </div>
