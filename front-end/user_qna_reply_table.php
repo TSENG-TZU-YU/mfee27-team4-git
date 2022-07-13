@@ -123,7 +123,7 @@ $row = $result->fetch_assoc();
                                 <td style="word-break:break-all" class="">
                                     <div id="viewContent">
                                         <?php
-                                        $sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id";
+                                        $sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id AND valid=1";
                                         $resultDetail = $conn->query($sqlDetail);
                                         $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                         ?>

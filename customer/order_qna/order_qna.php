@@ -263,7 +263,7 @@ $totalPage=ceil($userCount/$perPage);
                                 <td><?=$row["create_time"]?></td>
                                 <td><?=$row["update_time"]?></td>
                                 <td class="text-nowrap">
-                                    <form action="order_qna_detail.php" method="post">
+                                    <form action="order_qna_detail.php" method="get">
                                         <button class="btn btn-khak me-3" type="submit">
                                             <img class="bi pe-none mb-1" src="../../icon/read-icon.svg" width="16" height="16"></img>
                                             詳細

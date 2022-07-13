@@ -124,7 +124,7 @@ $row = $result->fetch_assoc();
                                 <td style="word-break:break-all" class="">
                                 <div id="viewContent">
                                     <?php
-                                    $sqlDetail="SELECT * FROM order_qna_detail WHERE order_id = $order_id";
+                                    $sqlDetail="SELECT * FROM order_qna_detail WHERE order_id = $order_id AND valid=1";
                                     $resultDetail = $conn->query($sqlDetail);
                                     $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
                                     ?>

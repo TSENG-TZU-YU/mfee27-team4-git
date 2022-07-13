@@ -3,10 +3,7 @@ require("../../db-connect.php");
 session_start();
 if(isset($_GET["order_qna_id"])){
     $order_qna_id=$_GET["order_qna_id"];
-}else{
-    $order_qna_id=$_POST["order_qna_id"];
 }
-
 $sql="SELECT order_qna.*, users.account FROM order_qna
     JOIN users ON order_qna.user_id = users.id 
     WHERE order_qna.id = $order_qna_id";
