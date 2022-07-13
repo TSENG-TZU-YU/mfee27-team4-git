@@ -205,7 +205,6 @@ $totalPage = ceil($articleCount / $perPage);
         <div class="container">
           <div class="row">
             <form action="articles.php" method="get">
-              <input type="hidden" value="<?= $page ?>" name="page">
               <input type="hidden" value="<?= $search ?>" name="search">
               <input type="hidden" value="<?= $order ?>" name="order">
               <input type="hidden" value="<?= $categoryOrder ?>" name="categoryOrder">
