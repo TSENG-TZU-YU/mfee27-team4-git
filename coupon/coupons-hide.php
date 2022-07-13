@@ -153,7 +153,7 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                                             <bt class="btn btn-grey me-3" type="" href="coupon-hide.php?id=<?= $row["id"] ?>">
                                                 <img class="bi pe-none mb-1" src="../icon/read-icon.svg" width="16" height="16"></img>
                                                 詳細
-                                            </a>
+                                                </a>
                                         </form>
                                         <a class="btn btn-khak" type="" href="remove-coupon.php?id=<?= $row["id"] ?>">
                                             <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>

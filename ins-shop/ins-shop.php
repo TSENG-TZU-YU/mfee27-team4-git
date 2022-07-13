@@ -123,75 +123,66 @@ $totalPage = ceil($insCount / $perPage);
 
                 <!-- 內容 -->
                 <div class="container">
-                    <div class="row">
-                        <form action="ins-shop.php" method="get" class="">
+                    <form action="ins-shop.php" method="get" class="">
+                    <div class="row">                      
                         <p class="col-8 m-auto">總共 <?=$insCount?>筆資料</p>
                         <input class="col form-control me-2" type="text" name="search">
                         <button class="col-1 btn btn-green" type="submit">
                             <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                             搜尋
-                        </button>
-                        </form>
+                        </button>                        
                     </div>
-                   
+                    </form>
                 </div>
                 <hr>
-                <div class="container">
-
-                    <!-- 按鈕 -->
-                    <div class="row">
-                        <div class="col-8">
-                            <!-- 文字按鈕 -->
-                            <a class="btn btn-green me-2" href="creat-ins.php">
-                                <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
-                                新增
-                            </a>
-                            <a href=""   style="font-weight:normal" class=" btn btn-green me-2">
-                            <input type="checkbox" id="ckb_selectAll">
-                                全選
-                            </a>
-                            <!-- 無文字按鈕 -->
-                            <form action="ins-shop.php" class="col-2 me-2"  >
-                            <select onchange="this.form.submit()" name="catestring" id="" class="form-control">
-                                <option <?php if($catestring=="") echo "selected";?> value="">全部樂器</option>
-                                <option <?php if($catestring==1) echo "selected";?> value="1" >電鋼琴</option>
-                                <option <?php if($catestring==2) echo "selected";?> value="2" >木吉他</option>
-                                <option <?php if($catestring==3) echo "selected";?> value="3" >電吉他</option>
-                                <option <?php if($catestring==4) echo "selected";?> value="4" >電貝斯</option>
-                                <option <?php if($catestring==5) echo "selected";?> value="5" >電子鼓</option>
-                            </select>
-                            </form>
+                <div class="container">                               
+                    <form action="" name="form1">
+                        <div class="row">
+                            <div class="col-5">                             
+                                <div class="d-flex">
+                                    <a class="btn btn-green me-2 text-nowrap" href="creat-ins.php">
+                                        <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                                        新增
+                                    </a>
+                                    <a href=""   style="font-weight:normal" class=" btn btn-green me-2 text-nowrap">
+                                    <input type="checkbox" id="ckb_selectAll">
+                                        全選
+                                    </a>  
+                                    <select onchange="cateSelect()" name="catestring" id="" class="form-control ">
+                                        <option <?php if($catestring=="") echo "selected";?> value="">全部樂器</option>
+                                        <option <?php if($catestring==1) echo "selected";?> value="1" >電鋼琴</option>
+                                        <option <?php if($catestring==2) echo "selected";?> value="2" >木吉他</option>
+                                        <option <?php if($catestring==3) echo "selected";?> value="3" >電吉他</option>
+                                        <option <?php if($catestring==4) echo "selected";?> value="4" >電貝斯</option>
+                                        <option <?php if($catestring==5) echo "selected";?> value="5" >電子鼓</option>
+                                    </select>
+                                </div>
+                            </div> 
+                            <div class="col-4"></div> 
+                            <div class="col-3 ps-5">
+                                <button class=" btn btn-green me-2 ms-5" onclick="up()">
+                                    批次上架
+                                </button>
+                                <button class=" btn btn-red me-2" onclick="down()">
+                                    批次下架
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <!-- 按鈕 end-->
-
-                    <hr>
-                    <table class="table mt-5">
-                        <thead>
-                            <tr>
-                                <th scope="col">勾選</th>
-                                <th scope="col">商品編號</th>
-                                <th scope="col">樂器類別</th>
-                                <th scope="col">品牌型號</th>
-                                <th scope="col">定價</th>
-                                <th scope="col">庫存</th>
-                                <th scope="col">建立時間</th>
-                                <th scope="col">上架狀態</th>                                        
-                                <th scope="col">功能</th>                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <form action="" name="form1">
+                        <table class="table mt-3">
+                            <thead>
                                 <tr>
-                                    <div class="col-3">
-                                        <button class=" btn btn-green me-2" onclick="up()">
-                                            批次上架
-                                        </button>
-                                        <button class=" btn btn-red me-2" onclick="down()">
-                                            批次下架
-                                        </button>
-                                    </div>
+                                    <th scope="col">勾選</th>
+                                    <th scope="col">商品編號</th>
+                                    <th scope="col">樂器類別</th>
+                                    <th scope="col">品牌型號</th>
+                                    <th scope="col">定價</th>
+                                    <th scope="col">庫存</th>
+                                    <th scope="col">建立時間</th>
+                                    <th scope="col">上架狀態</th>                                        
+                                    <th scope="col">功能</th>                                
                                 </tr>
+                            </thead>
+                            <tbody>
                                 <?php
                                 //把資料轉換成關聯式陣列
                                 while($row = $result->fetch_assoc()): ?>                            
@@ -203,13 +194,13 @@ $totalPage = ceil($insCount / $perPage);
                                     <td><?=$row["price"]?></td>
                                     <td><?=$row["stock"]?></td>                             
                                     <td><?=$row["creat_time"]?></td>
-                                    <td>
+                                    <td class="">
                                     <?php if($row["state"]==1):?>
-                                        <a class="btn btn-green me-3" type="button" href="downstate-ins.php?id=<?=$row["id"]?>">
+                                        <a class="btn btn-green mx-0 px-4" type="button" href="downstate-ins.php?id=<?=$row["id"]?>">
                                             上架
                                         </a>
                                             <?php else: ?>
-                                        <a class="btn btn-red me-3" type="button" href="dostate-ins.php?id=<?=$row["id"]?>">
+                                        <a class="btn btn-red me-0 px-4" type="button" href="dostate-ins.php?id=<?=$row["id"]?>">
                                             下架
                                         </a>
                                         <?php endif ; ?>
@@ -221,10 +212,11 @@ $totalPage = ceil($insCount / $perPage);
                                         </a>                         
                                     </td>
                                 </tr>
-                                <?php endwhile; ?>
-                            </form>
-                        </tbody>
-                    </table>
+                                <?php endwhile; ?>                   
+                            </tbody>
+                        </table>
+                    
+                   
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example">
                         <ul class="pagination">
@@ -262,6 +254,10 @@ $totalPage = ceil($insCount / $perPage);
                     }
                     function down(){
                         document.form1.action="batchdownstate-ins.php";
+                        document.form1.submit();
+                    }
+                    function cateSelect(){
+                        document.form1.action="ins-shop.php";
                         document.form1.submit();
                     }
     </script>

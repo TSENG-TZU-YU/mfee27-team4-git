@@ -101,7 +101,7 @@ $row = $result->fetch_assoc();
                                     </tr>
                                     <tr>
                                         <th>品牌型號</th>
-                                        <td><input type="text" class="form-control text-center" value="<?= $row["name"] ?>" name="name"></td>
+                                        <td><input type="text" class="form-control text-center" value="<?= $row["name"] ?>" name="name" ></td>
                                     </tr>
                                     <tr>
                                         <th>定價</th>

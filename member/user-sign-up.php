@@ -73,13 +73,13 @@ $sqlMember  = "WHERE member.users.php";
                                 <label for="">性別</label>
                                 <div class="d-flex">
                                     <div class="form-check ">
-                                        <input class="form-check-input" type="radio" name="gender" value="1" >
+                                        <input class="form-check-input" type="radio" name="gender" value="1" id="m">
                                         <label class="form-check-label" for="flexRadioDefault2">
                                             男
                                         </label>
                                     </div>
                                     <div class="form-check ms-2">
-                                        <input class="form-check-input" type="radio" name="gender" value="2">
+                                        <input class="form-check-input" type="radio" name="gender" value="2" id="f">
                                         <label class="form-check-label " for="flexRadioDefault1">
                                             女
                                         </label>
@@ -104,7 +104,7 @@ $sqlMember  = "WHERE member.users.php";
                             </div>
 
                             <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" name="coupon" value="1" >
+                                <input class="form-check-input" type="checkbox" name="coupon" value="1">
                                 <label class="form-check-label" for="flexCheckDefault">
                                     訂閱(獲得50元商品優惠券)
                                 </label>
@@ -116,7 +116,8 @@ $sqlMember  = "WHERE member.users.php";
 
                         </form>
 
-
+                        <button id="autoBtn" class="p-4 "style="border:none; background: #fff;" onclick="autoShow();"></button>
+                        <button id="autoBtn" class="p-4" style="border:none; background: #fff;" onclick="autoShow1();"></button>
                     </div>
                 </div>
                 <!-- 註冊會員 end -->
@@ -142,3 +143,28 @@ $sqlMember  = "WHERE member.users.php";
 
 </html>
 
+
+
+<script>
+    function autoShow() {
+
+        document.querySelector("#name").value = "123";
+        document.querySelector("#account").value = "123456";
+        document.querySelector("#password").value = "123456";
+        document.querySelector("#phone").value = "0933333333";
+        document.querySelector("#email").value = "000@test.com";
+        document.querySelector("#address").value = "聖德基督學院";
+
+    }
+
+    function autoShow1() {
+
+        document.querySelector("#name").value = "321";
+        document.querySelector("#account").value = "654321";
+        document.querySelector("#password").value = "654321";
+        document.querySelector("#phone").value = "0944444444";
+        document.querySelector("#email").value = "111@test.com";
+        document.querySelector("#address").value = "桃園中壢";
+
+    }
+</script>

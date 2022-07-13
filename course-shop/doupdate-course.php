@@ -10,8 +10,8 @@ $name=$_POST["name"];
 $location=$_POST["location"];
 $stock=$_POST["stock"];
 $price=$_POST["price"];
-$begin_date=date('Y-m-d H-i-s');
-$over_date=date('Y-m-d H-i-s');
+$begin_date=$_POST["begin_date"];
+$over_date=$_POST["over_date"];
 $intro=$_POST["intro"];
 $creat_time=date('Y-m-d H-i-s');
 

@@ -6,7 +6,7 @@ if(!isset($_SESSION["cart"])){
 }
 require("../db-connect.php");
 
-$user_id = "zxcasd"; //因為沒有登入狀態所以先預設
+$user_id = "qazwsx"; //因為沒有登入狀態所以先預設
 $payMethod = $_POST["payMethod"];
 if(isset($_POST["address"])){
   $address=$_POST["address"];

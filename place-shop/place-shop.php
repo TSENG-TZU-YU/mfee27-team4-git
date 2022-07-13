@@ -112,106 +112,104 @@ $totalPage = ceil($placeCount / $perPage);
 
                 <!-- 內容 -->
                 <div class="container">
+                    <form action="place-shop.php" method="get" class="">
                     <div class="row">
                         <p class="col-8 m-auto">總共 <?=$placeCount?>筆資料</p>
-                        <input class="col form-control me-2" type="text">
-                        <a class="col-1 btn btn-green" href="#">
+                        <input class="col form-control me-2" type="text" name="search">
+                        <button class="col-1 btn btn-green" href="#">
                             <img class="bi pe-none mb-1" src="../icon/search-icon.svg" width="16" height="16"></img>
                             搜尋
-                        </a>
+                        </button>  
                     </div>
-                   
+                    </form>
                 </div>
                 <hr>
                 <div class="container">
-
-                    <!-- 按鈕 -->
-                    <div class="row">
-                        <!-- 文字按鈕 -->
-                        <a class="col-1 btn btn-green me-2" href="create-place.php">
-                            <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
-                            新增
-                        </a>
-                        <a href=""   style="font-weight:normal" class="col-1 btn btn-green me-2">
-                        <input type="checkbox" id="ckb_selectAll">
-                            全選
-                        </a>
-                        <!-- 無文字按鈕 -->
-                        <form action="place-shop.php" class="col-6 me-2 "  >
-                        <select onchange="this.form.submit()" name="catestring" id="" class="">
-                            <option <?php if($catestring=="") echo "selected";?> value="">全部店面</option>
-                            <option <?php if($catestring==1) echo "selected";?> value="1" >台北總店</option>
-                            <option <?php if($catestring==2) echo "selected";?> value="2" >中壢店</option>
-                            <option <?php if($catestring==3) echo "selected";?> value="3" >高雄店</option>
-                        </select>
-                        </form>
-                        
-                    </div>
-                    <!-- 按鈕 end-->
-
-                    <hr>
-                    <table class="table mt-5">
-                        <thead>
-                            <tr>
-                                <th scope="col">勾選</th>
-                                <th scope="col">商品編號</th>
-                                <th scope="col">店面</th>
-                                <th scope="col">場地類型</th>
-                                <th scope="col">定價</th>
-                                <th scope="col">庫存</th>
-                                <th scope="col">開放時間</th>
-                                <th scope="col">結束時間</th>
-                                <th scope="col">場地簡介</th>
-                                <th scope="col">建立時間</th>
-                                <th scope="col">上架狀態</th>
-                                <th scope="col">功能</th>                                
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <form action="" name="form1">
-                                <button class="col-1 btn btn-green me-2" onclick="up()">
+                    <form action="" class="" name="form1">  
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="d-flex">
+                                    <a class="btn btn-green me-2 text-nowrap" href="create-place.php">
+                                        <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
+                                        新增
+                                    </a>
+                                    <a href=""   style="font-weight:normal" class="btn btn-green me-2 text-nowrap">
+                                    <input type="checkbox" id="ckb_selectAll">
+                                        全選
+                                    </a>
+                                    <select onchange="cateSelect()" name="catestring" id="" class="form-control ">
+                                        <option <?php if($catestring=="") echo "selected";?> value="">全部店面</option>
+                                        <option <?php if($catestring==1) echo "selected";?> value="1" >台北總店</option>
+                                        <option <?php if($catestring==2) echo "selected";?> value="2" >中壢店</option>
+                                        <option <?php if($catestring==3) echo "selected";?> value="3" >高雄店</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-4"></div> 
+                            <div class="col-3 ">
+                                <button class=" btn btn-green me-2 ms-5" onclick="up()">
                                     批次上架
                                 </button>
-                                <button class="col-1 btn btn-red me-2" onclick="down()">
+                                <button class=" btn btn-red me-2" onclick="down()">
                                     批次下架
                                 </button>
-                            <?php
-                            //把資料轉換成關聯式陣列
-                            while($row = $result->fetch_assoc()):  ?>
-                          
-                            <tr>
-                                <th><input type="checkbox" name="arryid[]" value="<?=$row["id"]?>"></th>
-                                <td><?=$row["product_id"]?></td>                           
-                                <td><?=$row["cate"]?></td>
-                                <td><?=$row["name"]?></td>
-                                <td><?=$row["price"]?></td>
-                                <td><?=$row["stock"]?></td>
-                                <td><?=date('Y-m-d', strtotime($row["use_time"]));?></td>
-                                <td><?=date('Y-m-d', strtotime($row["over_time"]));?></td>
-                                <td><?=$row["intro"]?></td>
-                                <td><?=$row["creat_time"]?></td>
-                                <td>
-                                <?php if($row["state"]==1):?>
-                                    <a class="btn btn-green me-3" type="button" href="downstate-place.php?id=<?=$row["id"]?>">
-                                        上架
-                                    </a>
-                                        <?php else: ?>
-                                    <a class="btn btn-red me-3" type="button" href="dostate-place.php?id=<?=$row["id"]?>">
-                                        下架
-                                    </a>
-                                    <?php endif ; ?>
-                                </td>
-                                <td>                    
-                                    <a class="btn btn-khak" type="button" id="show" href="place-detail.php?id=<?= $row["id"] ?>">
-                                        <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
-                                        詳細
-                                    </a>
-                                </td>
-                            </tr>
-                            <?php endwhile; ?>
-                            </form>
-                        </tbody>
-                    </table>
+                            </div>
+                        </div>
+                        <table class="table mt-3">
+                            <thead>
+                                <tr>
+                                    <th scope="col">勾選</th>
+                                    <th scope="col">商品編號</th>
+                                    <th scope="col">店面</th>
+                                    <th scope="col">場地類型</th>
+                                    <th scope="col">定價</th>
+                                    <th scope="col">庫存</th>
+                                    <th scope="col">開放時間</th>
+                                    <th scope="col">結束時間</th>
+                                    <th scope="col">場地簡介</th>
+                                    <th scope="col">建立時間</th>
+                                    <th scope="col">上架狀態</th>
+                                    <th scope="col">功能</th>                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                //把資料轉換成關聯式陣列
+                                while($row = $result->fetch_assoc()):  ?>
+                            
+                                <tr>
+                                    <th><input type="checkbox" name="arryid[]" value="<?=$row["id"]?>"></th>
+                                    <td><?=$row["product_id"]?></td>                           
+                                    <td><?=$row["cate"]?></td>
+                                    <td><?=$row["name"]?></td>
+                                    <td><?=$row["price"]?></td>
+                                    <td><?=$row["stock"]?></td>
+                                    <td><?=date('Y-m-d', strtotime($row["use_time"]));?></td>
+                                    <td><?=date('Y-m-d', strtotime($row["over_time"]));?></td>
+                                    <td><?=$row["intro"]?></td>
+                                    <td><?=$row["creat_time"]?></td>
+                                    <td>
+                                    <?php if($row["state"]==1):?>
+                                        <a class="btn btn-green mx-0 px-4" type="button" href="downstate-place.php?id=<?=$row["id"]?>">
+                                            上架
+                                        </a>
+                                            <?php else: ?>
+                                        <a class="btn btn-red me-0 px-4" type="button" href="dostate-place.php?id=<?=$row["id"]?>">
+                                            下架
+                                        </a>
+                                        <?php endif ; ?>
+                                    </td>
+                                    <td>                    
+                                        <a class="btn btn-khak" type="button" id="show" href="place-detail.php?id=<?= $row["id"] ?>">
+                                            <img class="bi pe-none mb-1" src="../icon/update-icon.svg" width="16" height="16"></img>
+                                            詳細
+                                        </a>
+                                    </td>
+                                </tr>
+                                <?php endwhile; ?>                            
+                            </tbody>
+                        </table>
+                    </form>   
                     <!-- 頁碼 -->
                     <div aria-label="Page navigation example">
                         <ul class="pagination">
@@ -224,8 +222,6 @@ $totalPage = ceil($placeCount / $perPage);
                     </div>
                     <!-- 頁碼 end -->
                 </div>
-
-
         </div>
         <!-- 內容 end -->
 
@@ -249,6 +245,10 @@ $totalPage = ceil($placeCount / $perPage);
                     }
                     function down(){
                         document.form1.action="batchdownstate-ins.php";
+                        document.form1.submit();
+                    }
+                    function cateSelect(){
+                        document.form1.action="place-shop.php";
                         document.form1.submit();
                     }
     </script>
