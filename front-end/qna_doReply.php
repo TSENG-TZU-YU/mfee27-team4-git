@@ -9,7 +9,9 @@ if(isset($_POST["reply"])){
     $conn->query($sqlins);
 
     $order_qna_id=$_POST["order_qna_id"];
-    $sql="UPDATE order_qna SET reply_state='新訊息', user_reply_state='未回覆', update_time='$now' WHERE id=$order_qna_id";
+    $sql="UPDATE order_qna SET reply_state='新訊息', user_reply_state='未回覆', update_time='$now' WHERE order_id=$order_id";
+
+    echo $sql;
     $conn->query($sql);
 
     $conn->close();
