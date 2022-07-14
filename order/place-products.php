@@ -4,7 +4,7 @@ session_start();
 
 
 
-$sqlPla = "SELECT * FROM place_produce";
+$sqlPla = "SELECT * FROM place_produce ORDER BY id DESC";
 
 $resultPla = $conn->query($sqlPla);
 $product_countPla = $resultPla->num_rows;

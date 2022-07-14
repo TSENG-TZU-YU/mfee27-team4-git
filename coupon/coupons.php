@@ -2,7 +2,7 @@
 
 require("../db-connect.php");
 
-$sqlCoupon="WHERE coupons.php ";
+$sqlCoupon = "WHERE coupons.php ";
 session_start();
 
 
@@ -119,8 +119,10 @@ $totalPage = ceil($couponCountAll / $perPage);
                             </button>
                         </div>
                     </form>
-                    <hr>
+                </div>
+                <hr>
 
+                <div class="container">
                     <a class="col-1 btn btn-green me-2" href="create-coupon.php">
                         <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                         新增
@@ -138,7 +140,7 @@ $totalPage = ceil($couponCountAll / $perPage);
                     <a href="coupons.php?page=<?= $page ?>&order=4" class="btn btn-khak  <?php if ($order == 4) echo " hover" ?>">By min_price desc</a>
 
 
-                    <?php if ($couponCount> 0) : ?>
+                    <?php if ($couponCount > 0) : ?>
 
                         <table class="table mt-5">
 

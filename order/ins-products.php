@@ -2,7 +2,7 @@
 require("../db-connect.php");
 session_start();
 
-$sqlIns = "SELECT * FROM instrument_product";
+$sqlIns = "SELECT * FROM instrument_product ORDER BY id DESC";
 $resultIns = $conn->query($sqlIns);
 $product_countIns = $resultIns->num_rows;
 $rows = $resultIns->fetch_all(MYSQLI_ASSOC);

@@ -2,7 +2,7 @@
 require("../db-connect.php");
 session_start();
 
-$sqlCou = "SELECT * FROM course_product";
+$sqlCou = "SELECT * FROM course_product ORDER BY id DESC";
 
 $resultCou = $conn->query($sqlCou);
 $product_countCou = $resultCou->num_rows;

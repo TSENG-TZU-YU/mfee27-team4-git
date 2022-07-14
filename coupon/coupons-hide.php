@@ -140,7 +140,10 @@ $rows = $result->fetch_all(MYSQLI_ASSOC);
                     搜尋</button>
                         </div>
                     </form>
-                    <hr>
+                    </div>
+                <hr>
+
+                <div class="container">
                     <a class="col-1 btn btn-green me-2" href="create-coupon.php">
                         <img class="bi pe-none mb-1" src="../icon/create-icon.svg" width="16" height="16"></img>
                         新增
