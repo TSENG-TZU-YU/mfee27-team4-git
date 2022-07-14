@@ -1,5 +1,6 @@
 <?php
-
+$sqlPlace= "WHERE place-shop.php";
+session_start();
 ?>
 
 <!DOCTYPE html>
