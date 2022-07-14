@@ -1,5 +1,6 @@
 <?php
 require("../../db-connect.php");
+$sqlOrder_qna = "WHERE order_qna.php";
 session_start();
 
 if(isset($_GET["order_qna_id"])){

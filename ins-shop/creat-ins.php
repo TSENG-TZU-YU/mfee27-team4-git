@@ -1,5 +1,6 @@
 <?php
-
+$sqlIns= "WHERE ins-shop.php";
+session_start();
 ?>
 
 <!DOCTYPE html>

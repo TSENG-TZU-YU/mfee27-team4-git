@@ -1,5 +1,6 @@
 <?php
-
+$sqlCourse= "WHERE course-shop.php";
+session_start();
 ?>
 
 <!DOCTYPE html>

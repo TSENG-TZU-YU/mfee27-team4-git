@@ -1,5 +1,6 @@
 <?php
 require("../db-connect.php");
+$sqlCourse= "WHERE course-shop.php";
 session_start();
 if (!isset($_GET["id"])) {
     echo "沒有參數";

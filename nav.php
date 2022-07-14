@@ -17,7 +17,7 @@
         <hr>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="http://localhost/mfee27-team4-git/home.php" class="nav-link my-1 " aria-current="page">
+                <a href="http://localhost/mfee27-team4-git/home.php" class="nav-link my-1 <?php if ($sqlHome) echo "nav-active" ?> " aria-current="page">
                     <img class="mb-1 me-2" src="/mfee27-team4-git/icon/home-icon.svg" width="16" height="16" style="color:#fff;"></img>
                     首頁
                 </a>
@@ -48,13 +48,13 @@
                 </div>
             </div>
             <li>
-                <a href="http://localhost/mfee27-team4-git/article/articles.php" class="nav-link my-1">
+                <a href="http://localhost/mfee27-team4-git/article/articles.php" class="nav-link my-1 <?php if ($sqlArticle) echo "nav-active" ?>">
                     <img class="mb-1 me-2" src="/mfee27-team4-git/icon/article-icon.svg" width="16" height="16"></img>
                     文章管理
                 </a>
             </li>
             <li>
-                <a href="http://localhost/mfee27-team4-git/teacher/teachers.php" class="nav-link my-1">
+                <a href="http://localhost/mfee27-team4-git/teacher/teachers.php" class="nav-link my-1 <?php if ($sqlTeacher) echo "nav-active" ?>">
                     <img class="mb-1 me-2" src="/mfee27-team4-git/icon/teacher-icon.svg" width="16" height="16"></img>
                     師資管理
                 </a>
