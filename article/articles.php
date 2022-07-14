@@ -1,6 +1,7 @@
 <?php
 // 連結資料庫
 require("../db-connect.php");
+$sqlArticle="WHERE articles.php ";
 session_start();
 
 //search

@@ -1,7 +1,7 @@
 <?php
 require("../../db-connect.php");
+$sqlUser_qna="WHERE user_qna.php";
 session_start();
-
 $user_qna_id=$_GET["user_qna_id"];
 
 $sql="SELECT user_qna.*,users.account FROM user_qna LEFT JOIN users ON user_qna.user_id = users.id WHERE user_qna.id= $user_qna_id";

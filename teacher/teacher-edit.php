@@ -3,7 +3,8 @@ if (!isset($_GET["id"])) {
   echo "<script>alert('沒有師資資料'); location.href = 'teachers.php'; </script>";
   exit;
 }
-
+$sqlTeacher="WHERE teachers.php";
+session_start();
 $id = $_GET["id"];
 $page = $_GET["page"];
 $search = $_GET["search"];

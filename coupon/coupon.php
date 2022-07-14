@@ -1,9 +1,10 @@
 <?php
 
-
+$sqlCoupon="WHERE coupons.php ";
+session_start();
 require("../db-connect.php");
 
-session_start();
+
 
 if (!isset($_GET["id"])) {
     echo "沒有參數";

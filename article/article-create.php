@@ -1,3 +1,10 @@
+<?php
+$sqlArticle="WHERE articles.php ";
+session_start();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="zh-tw">
 

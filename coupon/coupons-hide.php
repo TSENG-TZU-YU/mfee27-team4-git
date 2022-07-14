@@ -1,4 +1,5 @@
 <?php
+$sqlCoupon="WHERE coupons.php ";
 session_start();
 
 if(isset($_GET["page"])){

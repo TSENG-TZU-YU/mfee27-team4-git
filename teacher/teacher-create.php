@@ -1,7 +1,8 @@
 <?php
 
 require_once("../db-connect.php");
-
+$sqlTeacher="WHERE teachers.php";
+session_start();
 // 抓課程商品資料
 $sqlCourseProduct = "SELECT * FROM course_product WHERE id AND valid=1";
 $resultCourseProduct = $conn->query($sqlCourseProduct);
@@ -50,6 +51,7 @@ $CourseProductRows = $resultCourseProduct->fetch_all(MYSQLI_ASSOC);
     <div class="row d-flex">
 
       <!-- 導覽列 nav -->
+      <?php require("../nav.php"); ?>
       <!-- 導覽列 nav end -->
 
       <!-- 主要區塊 main -->

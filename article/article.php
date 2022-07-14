@@ -1,4 +1,6 @@
 <?php
+$sqlArticle="WHERE articles.php ";
+session_start();
 
 if (isset($_POST["id"])) {
   echo "<script>alert('沒有文章資料'); location.href = 'articles.php'; </script>";

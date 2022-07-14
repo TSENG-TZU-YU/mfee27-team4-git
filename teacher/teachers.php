@@ -1,6 +1,7 @@
 <?php
 // 連結資料庫
 require("../db-connect.php");
+$sqlTeacher="WHERE teachers.php";
 session_start();
 
 //search

@@ -1,5 +1,6 @@
 <?php
 require("../../db-connect.php");
+$sqlUser_qna="WHERE user_qna.php";
 session_start();
 
 $user_qna_id=$_GET["user_qna_id"];

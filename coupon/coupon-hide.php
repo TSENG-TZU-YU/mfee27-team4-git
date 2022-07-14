@@ -3,6 +3,7 @@
 
 require("../db-connect.php");
 
+$sqlCoupon="WHERE coupons.php ";
 session_start();
 
 if (!isset($_GET["id"])) {
