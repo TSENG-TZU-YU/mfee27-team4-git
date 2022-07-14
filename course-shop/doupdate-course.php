@@ -4,6 +4,7 @@ if(!isset($_POST["name"])){
 }
 require("../db-connect.php");
 
+
 $id=$_POST["id"];
 $cate=$_POST["cate"];
 $name=$_POST["name"];
@@ -18,7 +19,10 @@ $creat_time=date('Y-m-d H-i-s');
 $sql="UPDATE course_product SET cate='$cate',name='$name',price='$price',stock='$stock',begin_date='$begin_date', over_date='$over_date',intro='$intro'
 WHERE id=$id AND valid=1";
 
-echo $sql;
+if(empty($cate)){    //後端檢查 
+    echo"沒有填 name";
+    exit;
+}
 
 if ($conn->query($sql) === TRUE) {
     echo "修改完成";
