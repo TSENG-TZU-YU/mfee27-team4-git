@@ -41,7 +41,7 @@ switch ($publish) {
     break;
 
   default:
-    $publishType = "valid=1";
+    $publishType = "(valid=1 OR valid=2)";
 }
 
 //文章類別篩選
@@ -253,7 +253,7 @@ $totalPage = ceil($articleCount / $perPage);
                 <input type="hidden" value="<?= $categoryOrder ?>" name="categoryOrder">
                 <div class="me-2">
                   發佈狀態：
-                  <input class="form-check-input" type="radio" id="flexRadioDefault1" value="1" name="publish" <?php if ($publish == 1 || $publish == "") echo "checked"; ?> onclick="this.form.submit()">
+                  <input class="form-check-input" type="radio" id="flexRadioDefault1" value="1" name="publish" <?php if ($publish == 1) echo "checked"; ?> onclick="this.form.submit()">
                   <label class="form-check-label me-2" for="flexRadioDefault1">
                     未發佈
                   </label>
@@ -261,7 +261,7 @@ $totalPage = ceil($articleCount / $perPage);
                   <label class="form-check-label me-2" for="flexRadioDefault2">
                     已發佈
                   </label>
-                  <input class="form-check-input" type="radio" id="flexRadioDefault3" value="3" name="publish" <?php if ($publish == 3) echo "checked"; ?> onclick="this.form.submit()">
+                  <input class="form-check-input" type="radio" id="flexRadioDefault3" value="3" name="publish" <?php if ($publish == 3 || $publish == "") echo "checked"; ?> onclick="this.form.submit()">
                   <label class="form-check-label me-4" for="flexRadioDefault3">
                     所有文章
                   </label>
@@ -364,7 +364,7 @@ $totalPage = ceil($articleCount / $perPage);
                         <input type="hidden" value="<?= $categoryOrder ?>" name="categoryOrder">
                         <input type="hidden" value="<?= $publish ?>" name="publish">
                         <input type="hidden" value="<?= $row["id"] ?>" name="id">
-                        <button class="btn btn-khak btn-sm mt-1
+                        <button class="btn btn-khak btn-sm
                         <?php if ($row["valid"] == 2) : ?>
                           <?= "d-none" ?>
                           <?php endif; ?>
