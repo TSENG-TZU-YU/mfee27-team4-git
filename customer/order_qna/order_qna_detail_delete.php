@@ -69,34 +69,34 @@ $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 
 <body>
     <div class="container-fluid p-0 m-0 ">
-        <div class="contback m-0 vw-100 vh-100 fixed-top d-flex justify-content-center align-items-center " >
-            <div class="countview bg-light border border-info border-3  rounded  p-4 " >
-                <form action="doDelete.php" method="post">
-                    <div class="countviewtop" >
-                        <?php foreach($rowsDetail as $rowDetail): ?>
-                        <p class="text-start ">
-                            <label>
-                                <input type="checkbox" name="arrayId[]" value="<?=$rowDetail["id"]?>">&nbsp
-                                <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
-                                <span class="fs-6"><?=$rowDetail["create_time"]?></span>
-                            </label>
-                        </p>
-                        <p class="text-start  fs-6">&nbsp&nbsp&nbsp&nbsp<?=$rowDetail["q_content"]?></p>
-                        <?php endforeach;?>    
-                    </div>    
-                    <div class="countviewbottom my-3" >
-                        <button class="btn btn-red mx-2" type="submit">
-                            <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>    
-                            確定刪除
-                        </button>
-                        <a class="btn btn-grey" href="order_qna_detail.php?order_qna_id=<?=$order_qna_id?>">離開</a>
-                    </div>
-                    <input type="hidden" name="order_id" value="<?=$order_id?>">
-                    <input type="hidden" name="order_qna_id" value="<?=$order_qna_id?>">
-                </form>
+        <div class="row d-flex p-0 m-0 ">
+            <div class="contback m-0 vw-100 vh-100 fixed-top d-flex justify-content-center align-items-center " >
+                <div class="countview bg-light border border-info border-3  rounded  p-4 " >
+                    <form action="doDelete.php" method="post">
+                        <div class="countviewtop" >
+                            <?php foreach($rowsDetail as $rowDetail): ?>
+                            <p class="text-start ">
+                                <label>
+                                    <input type="checkbox" name="arrayId[]" value="<?=$rowDetail["id"]?>">&nbsp
+                                    <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
+                                    <span class="fs-6"><?=$rowDetail["create_time"]?></span>
+                                </label>
+                            </p>
+                            <p class="text-start  fs-6">&nbsp&nbsp&nbsp&nbsp<?=$rowDetail["q_content"]?></p>
+                            <?php endforeach;?>    
+                        </div>    
+                        <div class="countviewbottom my-3" >
+                            <button class="btn btn-red mx-2" type="submit">
+                                <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>    
+                                確定刪除
+                            </button>
+                            <a class="btn btn-grey" href="order_qna_detail.php?order_qna_id=<?=$order_qna_id?>">離開</a>
+                        </div>
+                        <input type="hidden" name="order_id" value="<?=$order_id?>">
+                        <input type="hidden" name="order_qna_id" value="<?=$order_qna_id?>">
+                    </form>
+                </div>
             </div>
-        </div>
-        <div class="row d-flex">
 
             <!-- 導覽列 nav -->
             <?php require("../../nav.php");?>
