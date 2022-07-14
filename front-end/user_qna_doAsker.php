@@ -1,6 +1,6 @@
 <?php
-session_start();
 require("../db-connect.php");
+session_start();
 
 if(isset($_POST["reply"])){
     if(isset($_SESSION["front_user"])){

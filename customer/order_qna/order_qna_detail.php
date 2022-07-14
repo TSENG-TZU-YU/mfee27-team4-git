@@ -1,6 +1,7 @@
 <?php
 require("../../db-connect.php");
 session_start();
+
 if(isset($_GET["order_qna_id"])){
     $order_qna_id=$_GET["order_qna_id"];
 }

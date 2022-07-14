@@ -1,8 +1,5 @@
 <?php
 session_start();
-require("../../db-connect.php");
-// var_dump($_SESSION);
-
 
 ?>
 <!doctype html>

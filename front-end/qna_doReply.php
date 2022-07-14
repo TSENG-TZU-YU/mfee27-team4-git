@@ -1,5 +1,7 @@
 <?php
 require("../db-connect.php");
+session_start();
+
 if(isset($_POST["reply"])){
     $order_id=$_POST["order_id"];
     $name=$_POST["name"];

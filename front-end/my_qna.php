@@ -1,9 +1,11 @@
 <?php
+require("../db-connect.php");
 session_start();
+
 if(!isset($_SESSION["front_user"])){
     header("location: front_login.php");
   }
-require("../db-connect.php");
+
 
 $user_id=$_SESSION["front_user"]["id"];
 

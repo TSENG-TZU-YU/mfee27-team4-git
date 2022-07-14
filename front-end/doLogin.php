@@ -1,6 +1,6 @@
 <?php
-session_start();
 require("../db-connect.php");
+session_start();
 
 if(!isset($_POST["account"])){
     echo "請循正常管道進入本頁";
