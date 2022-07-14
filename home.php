@@ -1,6 +1,6 @@
 <?php
 require("db-connect.php");
-
+$sqlHome="WHERE home.php";
 session_start();
 
 

@@ -31,7 +31,7 @@ $order = isset($_GET["order"]) ? $_GET["order"] : 1;
 
 switch ($order) {
     case 1:
-        $orderType = "id ASC";
+        $orderType = "create_time DESC";
         break;
     case 2:
         $orderType = "name ASC";
