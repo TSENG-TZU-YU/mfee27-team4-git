@@ -8,9 +8,9 @@ $sql="SELECT user_qna.*,users.account FROM user_qna LEFT JOIN users ON user_qna.
 $result=$conn->query($sql);
 $row = $result->fetch_assoc();
 
-// $sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id AND valid=1" ;
-// $resultDetail = $conn->query($sqlDetail);
-// $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
+$sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id AND valid=1" ;
+$resultDetail = $conn->query($sqlDetail);
+$rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
 
 // $order_qna_id=$_GET["order_qna_id"];
 
@@ -59,11 +59,48 @@ $row = $result->fetch_assoc();
             font-size: 14px;
             border-radius: 15px;
         }
+        .contback{
+            background-color: rgba(100,100,100,.5);
+        }
+        .countview{
+            width: 800px;
+            height: 450px;  
+        }
+        .countviewtop{
+            height: 350px;
+            overflow: auto;
+        }
     </style>
 </head>
 
 <body>
     <div class="container-fluid">
+        <div class="contback m-0 vw-100 vh-100 fixed-top d-flex justify-content-center align-items-center " >
+            <div class="countview bg-light border border-info border-3  rounded  p-4 " >
+                <form action="user_doDelete.php" method="post">
+                    <div class="countviewtop" >
+                    <?php foreach($rowsDetail as $rowDetail): ?>
+                        <p class="text-start ">
+                            <label>
+                                <input type="checkbox" name="arrayId[]" value="<?=$rowDetail["id"]?>">&nbsp
+                                <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
+                                <span class="fs-6"><?=$rowDetail["create_time"]?></span>
+                            </label>
+                        </p>
+                        <p class="text-start  fs-6">&nbsp&nbsp&nbsp&nbsp<?=$rowDetail["q_content"]?></p>
+                        <?php endforeach;?>   
+                    </div>    
+                    <div class="countviewbottom my-3" >
+                        <button class="btn btn-red mx-2" type="submit">
+                            <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>    
+                            確定刪除
+                        </button>
+                        <a class="btn btn-grey" href="user_qna_detail.php?user_qna_id=<?=$user_qna_id?>">離開</a>
+                    </div>
+                    <input type="hidden" name="user_qna_id" value="<?=$user_qna_id?>">
+                </form>
+            </div>
+        </div>
         <div class="row d-flex">
 
             <!-- 導覽列 nav -->
@@ -164,20 +201,6 @@ $row = $result->fetch_assoc();
                                 <th width=200 class="align-top fs-6">問題內容</th>
                                 <td style="word-break:break-all" class="">
                                     <div id="viewContent">
-                                        <?php
-                                        $sqlDetail="SELECT * FROM user_qna_detail WHERE user_qna_id = $user_qna_id AND valid=1" ;
-                                        $resultDetail = $conn->query($sqlDetail);
-                                        $rowsDetail = $resultDetail->fetch_all(MYSQLI_ASSOC);
-                                        ?>
-                                        <?php foreach($rowsDetail as $rowDetail): ?>
-                                        <p class="text-start ">
-                                            <label>
-                                                <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
-                                                <span class="fs-6"><?=$rowDetail["create_time"]?></span>
-                                            </label>
-                                        </p>
-                                        <p class="text-start  fs-6"><?=$rowDetail["q_content"]?></p>
-                                        <?php endforeach;?>
                                     </div>   
                                 </td>  
                             </tr>
@@ -200,10 +223,10 @@ $row = $result->fetch_assoc();
                                 </div>
                             </div>
                             <div class="py-2">                                
-                                <a  class="btn btn-red" href="user_qna_detail_delete.php?user_qna_id=<?=$user_qna_id?>" type="">
+                                <button onclick="del()" class="btn btn-red" type="">
                                     <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>
                                     刪除訊息
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </form>     

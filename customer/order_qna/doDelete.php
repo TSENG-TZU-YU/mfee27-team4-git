@@ -12,5 +12,7 @@ foreach($arrayId as $id ){
     $conn->query($sql);
 }
 $order_qna_id=$_POST["order_qna_id"];
+
+echo $order_qna_id;
 header("location: order_qna_detail.php?order_qna_id=".$order_qna_id);
 ?>

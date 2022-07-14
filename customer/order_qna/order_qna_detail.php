@@ -132,7 +132,7 @@ $order_id=$row["order_id"];
                         document.form1.submit();
                     }
                     function del(){
-                        document.form1.action="doDelete.php";
+                        document.form1.action="order_qna_detail_delete.php";
                         document.form1.submit();
                     }
                     </script>
@@ -150,12 +150,12 @@ $order_id=$row["order_id"];
                                         <?php foreach($rowsDetail as $rowDetail): ?>
                                         <p class="text-start ">
                                             <label>
-                                                <input type="checkbox" name="arrayId[]" value="<?=$rowDetail["id"]?>">&nbsp
+                                                
                                                 <span class=" fs-5 fw-bolder"><?=$rowDetail["name"]?></span>&nbsp
                                                 <span class="fs-6"><?=$rowDetail["create_time"]?></span>
                                             </label>
                                         </p>
-                                        <p class="text-start  fs-6">&nbsp&nbsp&nbsp&nbsp<?=$rowDetail["q_content"]?></p>
+                                        <p class="text-start  fs-6"><?=$rowDetail["q_content"]?></p>
                                         <?php endforeach;?>
                                     </div>   
                                 </td>  
@@ -181,10 +181,10 @@ $order_id=$row["order_id"];
                                 </div>
                             </div>
                             <div class="py-2">                                
-                                <button onclick="del()" class="btn btn-red" type="">
+                                <a  class="btn btn-red" href="order_qna_detail_delete.php?order_qna_id=<?=$order_qna_id?>&order_id=<?=$order_id?>" type="">
                                     <img class="bi pe-none mb-1" src="/mfee27-team4-git/icon/delete-icon.svg" width="16" height="16"></img>
                                     刪除訊息
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </form>     
