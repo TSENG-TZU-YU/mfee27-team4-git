@@ -99,7 +99,6 @@ $row = $result->fetch_assoc();
                                         <th>樂器類別</th>
                                         <td>     
                                             <select class="form-select mt-1 autoCategory" aria-label="Default select example" name="cate">
-                                            <option selected value="請選擇樂器類別">請選擇樂器類別</option>
                                             <option value="電鋼琴">電鋼琴</option>
                                             <option value="木吉他">木吉他</option>
                                             <option value="電吉他">電吉他</option>
